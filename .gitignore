@@ -45,7 +45,7 @@ node_modules
 .pnp.js
 
 # next.js
-.next/
+.next/*
 out/
 
 # misc

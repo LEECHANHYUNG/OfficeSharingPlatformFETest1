@@ -44,7 +44,7 @@ const Header = styled.header`
 const MainHeader = () => {
   return (
     <Header>
-      <Link href="/main" className="link">
+      <Link href="/" className="link">
         <a>
           <h1>
             <FontAwesomeIcon icon={faBorderTopLeft} className="logo" /> Office

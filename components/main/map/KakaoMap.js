@@ -1,25 +1,26 @@
 import React, { useRef } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
 import ControlBox from './ControlBox';
+import OfficeMarker from './OfficeMarker';
 
-const KakaoMap = () => {
+const KakaoMap = (props) => {
   const mapRef = useRef();
-
   return (
     <Map
       id="map"
       center={{
-        lat: 33.450701,
-        lng: 126.570667,
+        lat: 37.52341236919156,
+        lng: 127.05462238047163,
       }}
       style={{
         float: 'right',
         width: '75%',
         height: '92vh',
       }}
-      level={3}
+      level={8}
       ref={mapRef}
     >
+      <OfficeMarker officeList={props.officeList} map={mapRef} />
       <ControlBox map={mapRef} />
     </Map>
   );

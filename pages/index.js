@@ -7,7 +7,7 @@ const HomePage = (props) => {
   return (
     <Fragment>
       <OfficeList className="office" officeList={props.officeList} />
-      <KakaoMap className="map" offiecList={props.officeList} />
+      <KakaoMap className="map" officeList={props.officeList} />
     </Fragment>
   );
 };

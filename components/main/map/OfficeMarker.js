@@ -1,5 +1,8 @@
+import { useSelector } from 'react-redux';
+
 const OfficeMarker = (props) => {
-  const { officeList, map } = props;
+  const { map } = props;
+  const officeList = useSelector((state) => state.officeList.officeList);
   officeList.map((elem) => {
     const content = document.createElement('div');
     content.classList.add('wrap');

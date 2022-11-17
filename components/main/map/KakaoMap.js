@@ -20,7 +20,7 @@ const KakaoMap = (props) => {
       level={8}
       ref={mapRef}
     >
-      <OfficeMarker officeList={props.officeList} map={mapRef} />
+      <OfficeMarker map={mapRef} />
       <ControlBox map={mapRef} />
     </Map>
   );

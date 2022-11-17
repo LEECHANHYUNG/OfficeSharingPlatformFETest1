@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import OfficeItemList from './OfficeItemList';
+import OfficeSeach from './OfficeSeach';
 
 const Wrapper = styled.div`
   float: left;
@@ -6,12 +8,14 @@ const Wrapper = styled.div`
   height: 92vh;
   background: #222;
   border: 1px solid #111;
+  overflow-y: scroll;
 `;
 
-const OfficeList = () => {
+const OfficeList = (props) => {
   return (
     <Wrapper>
-      <p>Office List</p>
+      <OfficeSeach />
+      <OfficeItemList officeList={props.officeList} />
     </Wrapper>
   );
 };

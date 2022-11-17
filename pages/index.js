@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react';
-import Map from '../components/main/Map';
+import KakaoMap from '../components/main/map/kakaoMap';
+
 import OfficeList from '../components/main/officeList/OfficeList';
 
 const HomePage = () => {
   return (
     <Fragment>
-      <OfficeList />
-      <Map />
+      <OfficeList className="office" />
+      <KakaoMap className="map" />
     </Fragment>
   );
 };

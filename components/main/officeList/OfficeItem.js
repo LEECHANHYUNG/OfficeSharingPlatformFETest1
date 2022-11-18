@@ -1,6 +1,8 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { officeSliceActions } from '../../../store/officeList';
 
 const Wrapper = styled.div`
   position: relative;
@@ -47,16 +49,37 @@ const Wrapper = styled.div`
 `;
 
 const OfficeItem = (props) => {
+  const dispatch = useDispatch();
+
+  const selectedOfficeRef = useRef();
+  const officeList = useSelector((state) => state.officeList.officeList);
+
+  const selectPlace = () => {
+    const selectedPlaceId = selectedOfficeRef.current.id;
+    dispatch(officeSliceActions.selectPlace(selectedPlaceId));
+    const selectedPlace = officeList.filter(
+      (elem) => elem.key === selectedPlaceId
+    );
+    const selectedPlaceAddress = selectedPlace[0].item.address;
+    const geocoder = new kakao.maps.services.Geocoder();
+
+    geocoder.addressSearch(selectedPlaceAddress, (result, status) => {
+      if (status === kakao.maps.services.Status.OK) {
+        const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+        map.current.panTo(coords);
+      }
+    });
+  };
   return (
     <Wrapper>
       <Link href="/">
-        <a>
-          <div>
-            <div className="name">{props.item.name}</div>
-            <div className="address">{props.item.address}</div>
-            <div className="option">{props.item.option}</div>
+        <a onClick={selectPlace}>
+          <div id={props.elem.key} ref={selectedOfficeRef}>
+            <div className="name">{props.elem.item.name}</div>
+            <div className="address">{props.elem.item.address}</div>
+            <div className="option">{props.elem.item.option}</div>
           </div>
-          <div className="distance">{props.item.distance}</div>
+          <div className="distance">{props.elem.item.distance}</div>
           <div className="line"></div>
         </a>
       </Link>

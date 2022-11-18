@@ -1,9 +1,7 @@
 import { faBorderTopLeft } from '@fortawesome/free-solid-svg-icons/faBorderTopLeft';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
-import Logo from '../ui/logo.svg';
 
 const Header = styled.header`
   width: 100%;
@@ -16,9 +14,13 @@ const Header = styled.header`
 
   & h1 {
     color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  & h1 Image {
-    color: #fff;
+  & h1 svg {
+    height: 3rem;
+    padding-right: 20px;
   }
   & ul {
     list-style: none;
@@ -32,6 +34,7 @@ const Header = styled.header`
   & ul li {
     color: #fff;
     cursor: pointer;
+    font-size: 1.2rem;
   }
   & .line {
     padding: 0 20px;
@@ -52,7 +55,7 @@ const MainHeader = () => {
       <Link href="/" className="link">
         <a>
           <h1>
-            <Image src={Logo} alt="logo" width={50} height={44} />
+            <FontAwesomeIcon icon={faBorderTopLeft} className="logo" /> Office
             Office Sharing Platform
           </h1>
         </a>
@@ -60,13 +63,13 @@ const MainHeader = () => {
       <ul>
         <li>
           <Link href="/" className="link">
-            SignIn
+            로그인
           </Link>
         </li>
         <li className="line">|</li>
         <li>
           <Link href="/" className="link">
-            SignUp
+            회원가입
           </Link>
         </li>
       </ul>

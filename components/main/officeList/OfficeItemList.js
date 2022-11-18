@@ -7,7 +7,7 @@ const OfficeItemList = () => {
   return (
     <Fragment>
       {officeList.map((elem) => {
-        return <OfficeItem key={elem.key} item={elem.item} />;
+        return <OfficeItem key={elem.key} elem={elem} />;
       })}
     </Fragment>
   );

@@ -1,12 +1,17 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { officeSliceActions } from '../../../store/officeList';
 
 const OfficeMarker = (props) => {
+  const dispatch = useDispatch();
+
   const { map } = props;
 
   const officeList = useSelector((state) => state.officeList.officeList);
+
   const setMapCenterPosition = (e) => {
     const selectedPlaceId = e.target.id;
+    dispatch(officeSliceActions.selectPlace(selectedPlaceId));
     const selectedPlace = officeList.filter(
       (elem) => elem.key === selectedPlaceId
     );
@@ -49,6 +54,7 @@ const OfficeMarker = (props) => {
       });
     });
   }, [officeList]);
+
   return <></>;
 };
 

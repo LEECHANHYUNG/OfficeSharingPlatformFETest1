@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialOfficeListState = {
   officeList: null,
+  selectedPlaceId: '',
 };
 
 const officeSlice = createSlice({
@@ -10,6 +11,9 @@ const officeSlice = createSlice({
   reducers: {
     getOfficeList(state, action) {
       state.officeList = action.payload;
+    },
+    selectPlace(state, action) {
+      state.selectedPlaceId = action.payload;
     },
   },
 });

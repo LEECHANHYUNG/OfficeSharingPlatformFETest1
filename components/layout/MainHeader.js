@@ -1,7 +1,9 @@
 import { faBorderTopLeft } from '@fortawesome/free-solid-svg-icons/faBorderTopLeft';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
+import Logo from '../ui/logo.svg';
 
 const Header = styled.header`
   width: 100%;
@@ -13,6 +15,9 @@ const Header = styled.header`
   background-color: #252424;
 
   & h1 {
+    color: #fff;
+  }
+  & h1 Image {
     color: #fff;
   }
   & ul {
@@ -47,8 +52,8 @@ const MainHeader = () => {
       <Link href="/" className="link">
         <a>
           <h1>
-            <FontAwesomeIcon icon={faBorderTopLeft} className="logo" /> Office
-            Sharing Platform
+            <Image src={Logo} alt="logo" width={50} height={44} />
+            Office Sharing Platform
           </h1>
         </a>
       </Link>

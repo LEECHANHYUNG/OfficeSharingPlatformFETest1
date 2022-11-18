@@ -3,7 +3,23 @@ import { useSelector } from 'react-redux';
 
 const OfficeMarker = (props) => {
   const { map } = props;
+
   const officeList = useSelector((state) => state.officeList.officeList);
+  const setMapCenterPosition = (e) => {
+    const selectedPlaceId = e.target.id;
+    const selectedPlace = officeList.filter(
+      (elem) => elem.key === selectedPlaceId
+    );
+    const selectedPlaceAddress = selectedPlace[0].item.address;
+    const geocoder = new kakao.maps.services.Geocoder();
+
+    geocoder.addressSearch(selectedPlaceAddress, (result, status) => {
+      if (status === kakao.maps.services.Status.OK) {
+        const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+        map.current.panTo(coords);
+      }
+    });
+  };
   useEffect(() => {
     officeList.map((elem) => {
       const content = document.createElement('div');
@@ -14,9 +30,11 @@ const OfficeMarker = (props) => {
       customOverlay.setAttribute('id', elem.key);
       customOverlay.textContent = elem.item.name;
       let arrow = document.createElement('div');
+      arrow.setAttribute('id', elem.key);
       arrow.classList.add('arrow');
       content.appendChild(customOverlay);
       content.appendChild(arrow);
+      content.addEventListener('click', setMapCenterPosition);
       var geocoder = new kakao.maps.services.Geocoder();
 
       geocoder.addressSearch(elem.item.address, (result, status) => {

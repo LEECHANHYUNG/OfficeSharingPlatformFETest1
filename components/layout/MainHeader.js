@@ -5,7 +5,6 @@ import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { modalActions } from '../../store/modal';
-import SignInModal from '../modal/SignInModal';
 
 const Header = styled.header`
   width: 100%;
@@ -71,10 +70,14 @@ const MainHeader = () => {
           </a>
         </Link>
         <ul>
-          <li onClick={onClickLogin}>로그인</li>
+          <li>
+            <Link href="/auth/signin" className="link">
+              로그인
+            </Link>
+          </li>
           <li className="line">|</li>
           <li>
-            <Link href="/" className="link">
+            <Link href="/auth/signup" className="link">
               회원가입
             </Link>
           </li>

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import KakaoMap from '../components/main/map/kakaoMap';
 
@@ -6,12 +6,16 @@ import OfficeList from '../components/main/officeList/OfficeList';
 import { officeSliceActions } from '../store/officeList';
 
 const HomePage = (props) => {
+  const [map, setMap] = useState();
+  const getMap = (map) => {
+    setMap(map);
+  };
   const dispatch = useDispatch();
   dispatch(officeSliceActions.getOfficeList(props.officeList));
   return (
     <Fragment>
-      <OfficeList className="office" />
-      <KakaoMap className="map" />
+      <OfficeList className="office" map={map} />
+      <KakaoMap className="map" setMapHandler={getMap} />
     </Fragment>
   );
 };

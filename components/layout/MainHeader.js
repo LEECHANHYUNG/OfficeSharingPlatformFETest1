@@ -1,7 +1,11 @@
 import { faBorderTopLeft } from '@fortawesome/free-solid-svg-icons/faBorderTopLeft';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
+import { Fragment } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { modalActions } from '../../store/modal';
+import SignInModal from '../modal/SignInModal';
 
 const Header = styled.header`
   width: 100%;
@@ -50,30 +54,33 @@ const Header = styled.header`
 `;
 
 const MainHeader = () => {
+  const isLoginClicked = useSelector((state) => state.modal.isLoginClicked);
+  const dispatch = useDispatch();
+  const onClickLogin = () => {
+    dispatch(modalActions.loginClick());
+  };
   return (
-    <Header>
-      <Link href="/" className="link">
-        <a>
-          <h1>
-            <FontAwesomeIcon icon={faBorderTopLeft} className="logo" /> Office
-            Office Sharing Platform
-          </h1>
-        </a>
-      </Link>
-      <ul>
-        <li>
-          <Link href="/" className="link">
-            로그인
-          </Link>
-        </li>
-        <li className="line">|</li>
-        <li>
-          <Link href="/" className="link">
-            회원가입
-          </Link>
-        </li>
-      </ul>
-    </Header>
+    <Fragment>
+      <Header>
+        <Link href="/" className="link">
+          <a>
+            <h1>
+              <FontAwesomeIcon icon={faBorderTopLeft} className="logo" /> Office
+              Office Sharing Platform
+            </h1>
+          </a>
+        </Link>
+        <ul>
+          <li onClick={onClickLogin}>로그인</li>
+          <li className="line">|</li>
+          <li>
+            <Link href="/" className="link">
+              회원가입
+            </Link>
+          </li>
+        </ul>
+      </Header>
+    </Fragment>
   );
 };
 

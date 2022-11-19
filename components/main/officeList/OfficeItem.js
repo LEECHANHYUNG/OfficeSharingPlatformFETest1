@@ -50,7 +50,6 @@ const Wrapper = styled.div`
 
 const OfficeItem = (props) => {
   const dispatch = useDispatch();
-
   const selectedOfficeRef = useRef();
   const officeList = useSelector((state) => state.officeList.officeList);
 
@@ -66,7 +65,8 @@ const OfficeItem = (props) => {
     geocoder.addressSearch(selectedPlaceAddress, (result, status) => {
       if (status === kakao.maps.services.Status.OK) {
         const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-        map.current.panTo(coords);
+
+        props.map.current.panTo(coords);
       }
     });
   };

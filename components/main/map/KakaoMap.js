@@ -5,6 +5,7 @@ import OfficeMarker from './OfficeMarker';
 
 const KakaoMap = (props) => {
   const mapRef = useRef();
+  props.setMapHandler(mapRef);
   return (
     <Map
       id="map"

@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import OfficeItemList from './OfficeItemList';
 import OfficeSeach from './OfficeSeach';
@@ -12,14 +11,11 @@ const Wrapper = styled.div`
   overflow-y: scroll;
 `;
 
-const OfficeList = () => {
-  const selectedPlaceId = useSelector(
-    (state) => state.officeList.selectedPlaceId
-  );
+const OfficeList = (props) => {
   return (
     <Wrapper>
       <OfficeSeach />
-      <OfficeItemList />
+      <OfficeItemList map={props.map} />
     </Wrapper>
   );
 };

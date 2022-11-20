@@ -7,6 +7,9 @@ import styled from 'styled-components';
 import { modalActions } from '../../store/modal';
 
 const Header = styled.header`
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 8vh;
   padding: 0 10%;
@@ -14,7 +17,7 @@ const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   background-color: #252424;
-
+  z-index: 1000;
   & h1 {
     color: #fff;
     display: flex;

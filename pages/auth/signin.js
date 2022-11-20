@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../components/ui/Button';
 
@@ -18,6 +18,8 @@ const Wrapper = styled.div`
     font-size: 30px;
     font-weight: 900;
     text-align: center;
+  }
+  & header h1 {
     cursor: pointer;
   }
   & .signInForm form {
@@ -27,28 +29,25 @@ const Wrapper = styled.div`
     align-items: center;
     flex-direction: column;
   }
+
+  & .control {
+    width: 100%;
+  }
+  & .control.invalid input {
+    border-color: red;
+    background: #fbdada;
+  }
+  & .control.invalid input:focus {
+    outline: none;
+    border-color: #4f005f;
+    background: #f6dbfc;
+  }
   & .signInForm form input {
     width: 80%;
     height: 40px;
     margin: 10px auto;
   }
-  & .signInForm .select {
-    display: flex;
-    margin-left: 46px;
-    flex-direction: column;
-    align-self: flex-start;
-  }
-  & .signInForm .select p {
-    margin: 0;
-  }
-  & .signInForm .select input {
-    position: relative;
-    top: 14px;
-    width: 15px;
-  }
-  & .signInForm .select .selectBox {
-    width: 100%;
-  }
+
   & Button {
     width: 80%;
     margin-top: 20px;
@@ -56,9 +55,97 @@ const Wrapper = styled.div`
   & .navLink {
     text-align: center;
   }
+  & .validity-comment {
+    text-align: left;
+    margin-left: 60px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+  }
 `;
+const emailRegExp =
+  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+const passwordRegExp =
+  /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+const emailReducer = (state, action) => {
+  if (action.type === 'USER_INPUT') {
+    return { value: action.val, isValid: emailRegExp.test(action.value) };
+  }
+  if (action.type === 'INPUT_BLUR') {
+    return { value: state.value, isValid: emailRegExp.test(state.value) };
+  }
+  return { value: '', isValid: false };
+};
+const passwordReducer = (state, action) => {
+  if (action.type === 'USER_INPUT') {
+    return {
+      value: action.val,
+      isValid: passwordRegExp.test(action.val.trim()),
+    };
+  }
+  if (action.type === 'INPUT_BLUR') {
+    return {
+      value: state.value,
+      isValid: passwordRegExp.test(state.value.trim()),
+    };
+  }
+  return { value: '', isValid: false };
+};
 
 const signup = () => {
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
+  const [emailBlur, setEmailBlur] = useState(false);
+  const [passwordBlur, setPasswordBlur] = useState(false);
+  const [formIsValid, setFormIsValid] = useState(false);
+
+  const [emailState, dispatchEmail] = useReducer(emailReducer, {
+    value: '',
+    isValid: null,
+  });
+
+  const [passwordState, dispatchPassword] = useReducer(passwordReducer, {
+    value: '',
+    isValid: null,
+  });
+  const { isValid: emailIsValid } = emailState;
+  const { isValid: passwordIsValid } = passwordState;
+
+  useEffect(() => {
+    const validityChecker = setTimeout(() => {
+      setFormIsValid(emailIsValid && passwordIsValid);
+    }, 500);
+    return () => {
+      clearTimeout(validityChecker);
+    };
+  }, [emailIsValid, passwordIsValid]);
+
+  const emailChangeHandler = () => {
+    dispatchEmail({ type: 'USER_INPUT', val: emailInputRef.current.value });
+
+    setFormIsValid(
+      emailRegExp.test(emailInputRef.current.value) && passwordState.isValid
+    );
+  };
+
+  const passwordChangeHandler = (event) => {
+    dispatchPassword({ type: 'USER_INPUT', val: event.target.value });
+    setFormIsValid(
+      emailState.isValid &&
+        passwordRegExp.test(passwordInputRef.current.value.trim())
+    );
+  };
+
+  const validateEmailHandler = () => {
+    dispatchEmail({ type: 'INPUT_BLUR' });
+    setEmailBlur(true);
+  };
+
+  const validatePasswordHandler = () => {
+    dispatchPassword({ type: 'INPUT_BLUR' });
+    setPasswordBlur(true);
+  };
   return (
     <Wrapper>
       <header>
@@ -68,10 +155,51 @@ const signup = () => {
       </header>
       <section className="signInForm">
         <form>
-          <input type="email" name="email" placeholder="아이디(이메일 형식)" />
-          <input type="password" name="password" placeholder="패스워드" />
-
-          <Button type="submit">로그인</Button>
+          <div
+            className={`control${
+              emailState.isValid === false ? ' invalid' : ''
+            }`}
+          >
+            <div className="validity-comment">
+              {!emailState.isValid &&
+                emailBlur &&
+                '이메일 양식으로 입력 해주세요'}
+            </div>
+            <input
+              type="email"
+              name="email"
+              placeholder="아이디(이메일 형식)"
+              ref={emailInputRef}
+              onChange={emailChangeHandler}
+              onBlur={validateEmailHandler}
+              required
+            />
+          </div>
+          <div
+            className={`control${
+              passwordState.isValid === false ? ' invalid' : ''
+            }`}
+          >
+            <div className="validity-comment">
+              {!passwordState.isValid &&
+                passwordBlur &&
+                '영어 대소문자/숫자/특수문자 포함 8~15자리'}
+            </div>
+            <input
+              type="password"
+              name="password"
+              placeholder="패스워드"
+              ref={passwordInputRef}
+              onChange={passwordChangeHandler}
+              onBlur={validatePasswordHandler}
+              minLength="8"
+              maxLength="15"
+              required
+            />
+          </div>
+          <Button type="submit" disabled={!formIsValid}>
+            로그인
+          </Button>
           <p className="navLink">
             계정이 없으신가요?<Link href="/auth/signup">회원가입</Link>
           </p>

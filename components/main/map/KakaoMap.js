@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
 import ControlBox from './ControlBox';
 import OfficeMarker from './OfficeMarker';
-
+import classes from './KaKaopMap.module.css';
 const KakaoMap = (props) => {
   const mapRef = useRef();
   props.setMapHandler(mapRef);
@@ -13,11 +13,7 @@ const KakaoMap = (props) => {
         lat: 37.52341236919156,
         lng: 127.05462238047163,
       }}
-      style={{
-        float: 'right',
-        width: '75%',
-        height: '92vh',
-      }}
+      className={classes.map}
       level={8}
       ref={mapRef}
     >

@@ -19,6 +19,10 @@ const ButtonWrapper = styled.button`
   &:focus {
     outline: none;
   }
+  &:disabled {
+    border: #111;
+    background: #999;
+  }
 `;
 
 const Button = (props) => {
@@ -27,6 +31,7 @@ const Button = (props) => {
       type={props.type || 'button'}
       onClick={props.onClick}
       id={null || props.id}
+      disabled={props.disabled || false}
     >
       {props.children}
     </ButtonWrapper>

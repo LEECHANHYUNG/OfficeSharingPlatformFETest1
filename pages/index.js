@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
 import KakaoMap from '../components/main/map/kakaoMap';
 
 import OfficeList from '../components/main/officeList/OfficeList';
@@ -14,8 +15,8 @@ const HomePage = (props) => {
   dispatch(officeSliceActions.getOfficeList(props.officeList));
   return (
     <Fragment>
-      <OfficeList className="office" map={map} />
-      <KakaoMap className="map" setMapHandler={getMap} />
+      <KakaoMap setMapHandler={getMap} />
+      <OfficeList map={map} />
     </Fragment>
   );
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import City from '../selectbox/city';
+import Date from '../selectbox/Date';
 import PlaceType from '../selectbox/PlaceType';
 import SubCity from '../selectbox/SubCity';
 import Time from '../selectbox/Time';
@@ -19,10 +20,7 @@ const Wrapper = styled.div`
   padding: 5px 10px;
   width: 75%;
   z-index: 10;
-  overflow-x: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+
   & div {
     margin-left: 20px;
     display: flex;
@@ -35,8 +33,6 @@ const Wrapper = styled.div`
   & .selectOption {
     height: 36px;
     width: 140px;
-    border: 1px solid #111;
-    border-radius: 40px;
     cursor: pointer;
   }
   & .selectOption.button {
@@ -45,6 +41,10 @@ const Wrapper = styled.div`
   }
 
   @media screen and (max-width: 1170px) {
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     width: 100%;
   }
 `;
@@ -82,6 +82,9 @@ const FilterBanner = () => {
   return (
     <Wrapper>
       <div className="selectOption ">
+        <Date />
+      </div>
+      <div className="selectOption ">
         <Time time="start" />
       </div>
       <div className="selectOption">
@@ -96,14 +99,14 @@ const FilterBanner = () => {
       <div className="selectOption">
         <PlaceType />
       </div>
-      <div
+      <button
         onClick={sendSelectedFilter}
         ref={buttonRef}
         className="selectOption button"
         disabled
       >
         조건 검색
-      </div>
+      </button>
     </Wrapper>
   );
 };

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { getCsrfToken } from 'next-auth/react';
 import React, { useEffect, useReducer, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../components/ui/Button';
@@ -93,7 +94,7 @@ const passwordReducer = (state, action) => {
   return { value: '', isValid: false };
 };
 
-const signup = () => {
+const SignIn = ({ csrfToken }) => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const [emailBlur, setEmailBlur] = useState(false);
@@ -154,7 +155,8 @@ const signup = () => {
         </Link>
       </header>
       <section className="signInForm">
-        <form>
+        <form method="post" action="/api/auth/signin/email">
+          <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
           <div
             className={`control${
               emailState.isValid === false ? ' invalid' : ''
@@ -165,15 +167,17 @@ const signup = () => {
                 emailBlur &&
                 '이메일 양식으로 입력 해주세요'}
             </div>
-            <input
-              type="email"
-              name="email"
-              placeholder="아이디(이메일 형식)"
-              ref={emailInputRef}
-              onChange={emailChangeHandler}
-              onBlur={validateEmailHandler}
-              required
-            />
+            <label htmlFor="email">
+              <input
+                type="email"
+                name="email"
+                placeholder="아이디(이메일 형식)"
+                ref={emailInputRef}
+                onChange={emailChangeHandler}
+                onBlur={validateEmailHandler}
+                required
+              />
+            </label>
           </div>
           <div
             className={`control${
@@ -185,17 +189,19 @@ const signup = () => {
                 passwordBlur &&
                 '영어 대소문자/숫자/특수문자 포함 8~15자리'}
             </div>
-            <input
-              type="password"
-              name="password"
-              placeholder="패스워드"
-              ref={passwordInputRef}
-              onChange={passwordChangeHandler}
-              onBlur={validatePasswordHandler}
-              minLength="8"
-              maxLength="15"
-              required
-            />
+            <label htmlFor="password">
+              <input
+                type="password"
+                name="password"
+                placeholder="패스워드"
+                ref={passwordInputRef}
+                onChange={passwordChangeHandler}
+                onBlur={validatePasswordHandler}
+                minLength="8"
+                maxLength="15"
+                required
+              />
+            </label>
           </div>
           <Button type="submit" disabled={!formIsValid}>
             로그인
@@ -209,4 +215,11 @@ const signup = () => {
   );
 };
 
-export default signup;
+export async function getServerSideProps(context) {
+  const csrfToken = await getCsrfToken(context);
+  return {
+    props: { csrfToken },
+  };
+}
+
+export default SignIn;

@@ -1,38 +1,29 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons/faLocationCrosshairs';
-import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus';
-import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import styled from 'styled-components';
+import Image from 'next/image';
 
 const ControlDiv = styled.div`
   border: 1px solid #111;
   border-radius: 5px;
+  position: absolute;
+  top: 20vh;
+  left: 30px;
+  width: 36px;
+  height: 108px;
+  overflow: hidden;
+  z-index: 2;
+  background-color: #f5f5f5;
 
-  &.customZoomcontrol {
-    position: absolute;
-    top: 20vh;
-    right: 30px;
-    width: 36px;
-    height: 108px;
-    overflow: hidden;
-    z-index: 2;
-    background-color: #f5f5f5;
-  }
-  &.customZoomcontrol span {
+  & span {
     display: block;
     width: 36px;
     height: 36px;
     text-align: center;
     cursor: pointer;
+    padding-top: 8px;
   }
-  &.customZoomcontrol .icon {
-    width: 50%;
-    height: 50%;
-    padding: 9px 0;
-    border: none;
-  }
-  &.customZoomcontrol span:first-child,
-  &.customZoomcontrol span:nth-child(2) {
+
+  & span:first-child,
+  & span:nth-child(2) {
     border-bottom: 1px solid #111;
   }
 `;
@@ -58,15 +49,21 @@ const ControlBox = (props) => {
   };
 
   return (
-    <ControlDiv className="customZoomcontrol classes.radiusBorder">
+    <ControlDiv>
       <span onClick={zoomIn}>
-        <FontAwesomeIcon icon={faPlus} className="icon" />
+        <div className="icon">
+          <Image src="/svg/plus.svg" width="14" height="14" />
+        </div>
       </span>
       <span onClick={zoomOut}>
-        <FontAwesomeIcon icon={faMinus} className="icon" />
+        <div className="icon">
+          <Image src="/svg/minus.svg" width="14" height="14" className="icon" />
+        </div>
       </span>
       <span onClick={getCurrentLocation}>
-        <FontAwesomeIcon icon={faLocationCrosshairs} className="icon" />
+        <div className="icon">
+          <Image src="/svg/gps.svg" width="14" height="14" className="icon" />
+        </div>
       </span>
     </ControlDiv>
   );

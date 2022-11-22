@@ -2,15 +2,18 @@ import React, { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
+import Image from 'next/image';
 
 const Wrapper = styled.div`
+  position: fixed;
   background: #fff;
   padding: 5px 20px;
   width: 100%;
-
+  border: 2px solid #111;
+  z-index: 100;
   & .searchInput {
     width: 90%;
-    height: 50px;
+    height: 40px;
     border: none;
     font-size: 1.1rem;
     padding-left: 10px;
@@ -33,7 +36,7 @@ const OfficeSearch = () => {
   return (
     <Wrapper>
       <form onSubmit={keywordSubmitHandler}>
-        <FontAwesomeIcon className="icon" icon={faMagnifyingGlass} />
+        <Image src="/svg/glass.svg" width="16" height="16" />
         <input
           type="text"
           name="searchWord"

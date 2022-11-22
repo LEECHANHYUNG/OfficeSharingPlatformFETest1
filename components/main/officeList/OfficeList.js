@@ -9,12 +9,11 @@ const Wrapper = styled.div`
   width: 25%;
   height: 92vh;
   background: #222;
-  border: 1px solid #111;
   overflow-y: scroll;
 
   @media screen and (max-width: 1170px) {
     width: 100%;
-    height: 38vh;
+    height: 32vh;
   }
 `;
 

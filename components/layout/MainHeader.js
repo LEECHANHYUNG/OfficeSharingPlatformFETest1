@@ -1,11 +1,9 @@
-import { faBorderTopLeft } from '@fortawesome/free-solid-svg-icons/faBorderTopLeft';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { modalActions } from '../../store/modal';
-
+import Image from 'next/image';
 const Header = styled.header`
   position: fixed;
   top: 0;
@@ -67,7 +65,7 @@ const MainHeader = () => {
         <Link href="/" className="link">
           <a>
             <h1>
-              <FontAwesomeIcon icon={faBorderTopLeft} className="logo" /> Office
+              <Image src={'/svg/logo.svg'} width="32" height="32" />
               Office Sharing Platform
             </h1>
           </a>

@@ -5,19 +5,25 @@ import KakaoMap from '../components/main/map/kakaoMap';
 
 import OfficeList from '../components/main/officeList/OfficeList';
 import { officeSliceActions } from '../store/officeList';
+const Wrapper = styled.div`
+  display: flex;
+  justify-contents: center;
+  align-items: center;
 
+  @media screen and (max-width: 1170px) {
+    flex-direction: column;
+  }
+`;
 const HomePage = (props) => {
   const [map, setMap] = useState();
-  const getMap = (map) => {
-    setMap(map);
-  };
   const dispatch = useDispatch();
   dispatch(officeSliceActions.getOfficeList(props.officeList));
+
   return (
-    <Fragment>
-      <KakaoMap setMapHandler={getMap} />
+    <Wrapper>
+      <KakaoMap setMapHandler={setMap} />
       <OfficeList map={map} />
-    </Fragment>
+    </Wrapper>
   );
 };
 

@@ -1,19 +1,47 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+} from 'next/document';
+import { ServerStyleSheet } from 'styled-components';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
+    const sheet = new ServerStyleSheet();
+    const originalRenderPage = ctx.renderPage;
+    try {
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: (App) => (props) =>
+            sheet.collectStyles(<App {...props} />),
+        });
+      const initialProps = await Document.getInitialProps(ctx);
+      const styleElement = [
+        <>
+          {initialProps.styles}
+          {sheet.getStyleElement()}
+        </>,
+      ];
+      return {
+        ...initialProps,
+        styles: styleElement,
+      };
+    } finally {
+      sheet.seal();
+    }
   }
+
   render() {
     return (
       <Html>
-        <Head />
+        <html lang="ko" />
+        <Head></Head>
         <body>
           <Main />
           <NextScript />
-          <div id="backdrop-root"></div>
-          <div id="overlay-root"></div>
+          <div id="root"></div>
         </body>
       </Html>
     );

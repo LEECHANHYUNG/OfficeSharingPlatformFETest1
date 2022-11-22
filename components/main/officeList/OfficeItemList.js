@@ -8,7 +8,6 @@ const OfficeCount = styled.div`
   justify-content: center;
   align-items: center;
   background: #fff;
-  border-bottom: 2px solid #222;
   height: 70px;
   & .count {
     display: inline-block;

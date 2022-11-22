@@ -42,6 +42,7 @@ const OfficeSearch = () => {
           name="searchWord"
           placeholder="공유 오피스 지점명 or 지역명으로 검색"
           className="searchInput"
+          autoComplete="false"
           ref={keywordInputRef}
         />
       </form>

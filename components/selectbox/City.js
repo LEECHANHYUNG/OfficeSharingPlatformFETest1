@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { selectedSliceActions } from '../../store/select';
@@ -17,25 +17,27 @@ const Select = styled.select`
 const City = () => {
   const dispatch = useDispatch();
   const [cityList, setCityList] = useState([]);
-  const getCityList = async () => {
-    try {
-      await fetch(
-        'https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=*00000000'
-      )
-        .then((res) => {
-          if (!res.ok) {
-            return;
-          }
-          return res.json();
-        })
-        .then((data) => {
-          setCityList(data.regcodes);
-        });
-    } catch (err) {
-      return err;
-    }
-  };
-  getCityList();
+  useEffect(() => {
+    const getCityList = async () => {
+      try {
+        await fetch(
+          'https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=*00000000'
+        )
+          .then((res) => {
+            if (!res.ok) {
+              return;
+            }
+            return res.json();
+          })
+          .then((data) => {
+            setCityList(data.regcodes);
+          });
+      } catch (err) {
+        return err;
+      }
+    };
+    getCityList();
+  }, []);
   const selectCity = (e) => {
     if (e.target.value.length > 1) {
       dispatch(

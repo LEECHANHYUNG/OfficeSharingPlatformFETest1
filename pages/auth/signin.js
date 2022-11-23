@@ -1,5 +1,6 @@
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
-import { getCsrfToken } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import React, { useEffect, useReducer, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../components/ui/Button';
@@ -12,6 +13,8 @@ const Wrapper = styled.div`
   width: 90%;
   max-width: 40rem;
   text-align: center;
+  position: relative;
+  top: 200px;
 
   & header .headerLink {
     color: #111;
@@ -100,6 +103,7 @@ const SignIn = ({ csrfToken }) => {
   const [emailBlur, setEmailBlur] = useState(false);
   const [passwordBlur, setPasswordBlur] = useState(false);
   const [formIsValid, setFormIsValid] = useState(false);
+  const router = useRouter();
 
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
     value: '',
@@ -147,6 +151,27 @@ const SignIn = ({ csrfToken }) => {
     dispatchPassword({ type: 'INPUT_BLUR' });
     setPasswordBlur(true);
   };
+  const loginHanlder = async (e) => {
+    e.preventDefault();
+
+    const enteredEmail = emailInputRef.current.value;
+    const enteredPassword = passwordInputRef.current.value;
+
+    const result = await signIn('credentials', {
+      redirect: false,
+      email: enteredEmail,
+      password: enteredPassword,
+      returnSecureToken: true,
+    });
+
+    if (!result.error) {
+      alert(result);
+      return;
+    } else {
+      alert(result.error);
+    }
+    signIn();
+  };
   return (
     <Wrapper>
       <header>
@@ -155,7 +180,7 @@ const SignIn = ({ csrfToken }) => {
         </Link>
       </header>
       <section className="signInForm">
-        <form method="post" action="/api/auth/signin/email">
+        <form>
           <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
           <div
             className={`control${
@@ -203,7 +228,7 @@ const SignIn = ({ csrfToken }) => {
               />
             </label>
           </div>
-          <Button type="submit" disabled={!formIsValid}>
+          <Button type="submit" onClick={loginHanlder} disabled={!formIsValid}>
             로그인
           </Button>
           <p className="navLink">
@@ -214,12 +239,5 @@ const SignIn = ({ csrfToken }) => {
     </Wrapper>
   );
 };
-
-export async function getServerSideProps(context) {
-  const csrfToken = await getCsrfToken(context);
-  return {
-    props: { csrfToken },
-  };
-}
 
 export default SignIn;

@@ -1,8 +1,10 @@
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React, { useEffect, useReducer, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import Email from '../../components/auth/Email';
+import Password from '../../components/auth/Password';
 import Button from '../../components/ui/Button';
 
 const Wrapper = styled.div`
@@ -67,95 +69,24 @@ const Wrapper = styled.div`
     left: 0px;
   }
 `;
-const emailRegExp =
-  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-
-const passwordRegExp =
-  /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-const emailReducer = (state, action) => {
-  if (action.type === 'USER_INPUT') {
-    return { value: action.val, isValid: emailRegExp.test(action.value) };
-  }
-  if (action.type === 'INPUT_BLUR') {
-    return { value: state.value, isValid: emailRegExp.test(state.value) };
-  }
-  return { value: '', isValid: false };
-};
-const passwordReducer = (state, action) => {
-  if (action.type === 'USER_INPUT') {
-    return {
-      value: action.val,
-      isValid: passwordRegExp.test(action.val.trim()),
-    };
-  }
-  if (action.type === 'INPUT_BLUR') {
-    return {
-      value: state.value,
-      isValid: passwordRegExp.test(state.value.trim()),
-    };
-  }
-  return { value: '', isValid: false };
-};
-
 const SignIn = ({ csrfToken }) => {
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-  const [emailBlur, setEmailBlur] = useState(false);
-  const [passwordBlur, setPasswordBlur] = useState(false);
+  const enteredEmail = useSelector((state) => state.auth.enteredEmail);
+  const enteredPassword = useSelector((state) => state.auth.enteredPassword);
+  const emailIsValid = useSelector((state) => state.auth.emailIsValid);
+  const passwordIsValid = useSelector((state) => state.auth.passwordIsValid);
   const [formIsValid, setFormIsValid] = useState(false);
-  const router = useRouter();
-
-  const [emailState, dispatchEmail] = useReducer(emailReducer, {
-    value: '',
-    isValid: null,
-  });
-
-  const [passwordState, dispatchPassword] = useReducer(passwordReducer, {
-    value: '',
-    isValid: null,
-  });
-  const { isValid: emailIsValid } = emailState;
-  const { isValid: passwordIsValid } = passwordState;
 
   useEffect(() => {
     const validityChecker = setTimeout(() => {
       setFormIsValid(emailIsValid && passwordIsValid);
-    }, 500);
+    }, 300);
     return () => {
       clearTimeout(validityChecker);
     };
   }, [emailIsValid, passwordIsValid]);
 
-  const emailChangeHandler = () => {
-    dispatchEmail({ type: 'USER_INPUT', val: emailInputRef.current.value });
-
-    setFormIsValid(
-      emailRegExp.test(emailInputRef.current.value) && passwordState.isValid
-    );
-  };
-
-  const passwordChangeHandler = (event) => {
-    dispatchPassword({ type: 'USER_INPUT', val: event.target.value });
-    setFormIsValid(
-      emailState.isValid &&
-        passwordRegExp.test(passwordInputRef.current.value.trim())
-    );
-  };
-
-  const validateEmailHandler = () => {
-    dispatchEmail({ type: 'INPUT_BLUR' });
-    setEmailBlur(true);
-  };
-
-  const validatePasswordHandler = () => {
-    dispatchPassword({ type: 'INPUT_BLUR' });
-    setPasswordBlur(true);
-  };
   const loginHanlder = async (e) => {
     e.preventDefault();
-
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
 
     const result = await signIn('credentials', {
       redirect: false,
@@ -182,52 +113,8 @@ const SignIn = ({ csrfToken }) => {
       <section className="signInForm">
         <form>
           <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-          <div
-            className={`control${
-              emailState.isValid === false ? ' invalid' : ''
-            }`}
-          >
-            <div className="validity-comment">
-              {!emailState.isValid &&
-                emailBlur &&
-                '이메일 양식으로 입력 해주세요'}
-            </div>
-            <label htmlFor="email">
-              <input
-                type="email"
-                name="email"
-                placeholder="아이디(이메일 형식)"
-                ref={emailInputRef}
-                onChange={emailChangeHandler}
-                onBlur={validateEmailHandler}
-                required
-              />
-            </label>
-          </div>
-          <div
-            className={`control${
-              passwordState.isValid === false ? ' invalid' : ''
-            }`}
-          >
-            <div className="validity-comment">
-              {!passwordState.isValid &&
-                passwordBlur &&
-                '영어 대소문자/숫자/특수문자 포함 8~15자리'}
-            </div>
-            <label htmlFor="password">
-              <input
-                type="password"
-                name="password"
-                placeholder="패스워드"
-                ref={passwordInputRef}
-                onChange={passwordChangeHandler}
-                onBlur={validatePasswordHandler}
-                minLength="8"
-                maxLength="15"
-                required
-              />
-            </label>
-          </div>
+          <Email />
+          <Password />
           <Button type="submit" onClick={loginHanlder} disabled={!formIsValid}>
             로그인
           </Button>

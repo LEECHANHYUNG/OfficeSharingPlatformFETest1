@@ -9,9 +9,6 @@ import Time from '../selectbox/Time';
 
 const Wrapper = styled.div`
   position: absolute;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
   top: 8vh;
   background: #fff;
   border: 2px solid #111;
@@ -20,6 +17,18 @@ const Wrapper = styled.div`
   padding: 5px 10px;
   width: 75%;
   z-index: 10;
+  -ms-overflow-style: none;
+  & ::-webkit-scrollbar {
+    display: none;
+  }
+
+  & main {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-width: 860px;
+    overflow-x: scroll;
+  }
 
   & div {
     margin-left: 20px;
@@ -81,32 +90,34 @@ const FilterBanner = () => {
   ]);
   return (
     <Wrapper>
-      <div className="selectOption ">
-        <Date />
-      </div>
-      <div className="selectOption ">
-        <Time time="start" />
-      </div>
-      <div className="selectOption">
-        <Time />
-      </div>
-      <div className="selectOption">
-        <City />
-      </div>
-      <div className="selectOption ">
-        <SubCity />
-      </div>
-      <div className="selectOption">
-        <PlaceType />
-      </div>
-      <button
-        onClick={sendSelectedFilter}
-        ref={buttonRef}
-        className="selectOption button"
-        disabled
-      >
-        조건 검색
-      </button>
+      <main>
+        <button
+          onClick={sendSelectedFilter}
+          ref={buttonRef}
+          className="selectOption button"
+          disabled
+        >
+          조건 검색
+        </button>
+        <div className="selectOption ">
+          <Date />
+        </div>
+        <div className="selectOption ">
+          <Time time="start" />
+        </div>
+        <div className="selectOption">
+          <Time />
+        </div>
+        <div className="selectOption">
+          <City />
+        </div>
+        <div className="selectOption ">
+          <SubCity />
+        </div>
+        <div className="selectOption">
+          <PlaceType />
+        </div>
+      </main>
     </Wrapper>
   );
 };

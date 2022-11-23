@@ -1,9 +1,12 @@
 import Link from 'next/link';
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
+import { signOut, signIn } from 'next-auth/react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { modalActions } from '../../store/modal';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 const Header = styled.header`
   position: fixed;
   top: 0;
@@ -22,10 +25,6 @@ const Header = styled.header`
     justify-content: center;
     align-items: center;
   }
-  & h1 svg {
-    height: 3rem;
-    padding-right: 20px;
-  }
   & ul {
     list-style: none;
     margin: 0;
@@ -38,7 +37,7 @@ const Header = styled.header`
   & ul li {
     color: #fff;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
   & .line {
     padding: 0 20px;
@@ -54,10 +53,20 @@ const Header = styled.header`
 `;
 
 const MainHeader = () => {
-  const isLoginClicked = useSelector((state) => state.modal.isLoginClicked);
-  const dispatch = useDispatch();
-  const onClickLogin = () => {
-    dispatch(modalActions.loginClick());
+  const [isAunthenticated, setIsAuthenticated] = useState(false);
+  const { session, status } = useSession();
+  const router = useRouter();
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.replace('/');
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, [status]);
+
+  const signOutHandler = () => {
+    signOut();
   };
   return (
     <Fragment>
@@ -66,22 +75,34 @@ const MainHeader = () => {
           <a>
             <h1>
               <Image src={'/svg/logo.svg'} width="32" height="32" />
-              Office Sharing Platform
+              Place Sharing Platform
             </h1>
           </a>
         </Link>
         <ul>
-          <li>
-            <Link href="/auth/signin" className="link">
-              로그인
-            </Link>
-          </li>
+          {!isAunthenticated && (
+            <li>
+              <Link href="/auth/signin" className="link">
+                로그인
+              </Link>
+            </li>
+          )}
+          {isAunthenticated && <li onClick={signOutHandler}>로그아웃</li>}
           <li className="line">|</li>
-          <li>
-            <Link href="/auth/signup" className="link">
-              회원가입
-            </Link>
-          </li>
+          {!isAunthenticated && (
+            <li>
+              <Link href="/auth/signup" className="link">
+                회원가입
+              </Link>
+            </li>
+          )}
+          {isAunthenticated && (
+            <li>
+              <Link href="/mypage" className="link">
+                마이페이지
+              </Link>
+            </li>
+          )}
         </ul>
       </Header>
     </Fragment>

@@ -1,54 +1,91 @@
 import Link from 'next/link';
 import { Fragment, useEffect, useState } from 'react';
-import { signOut, signIn } from 'next-auth/react';
-import { useDispatch, useSelector } from 'react-redux';
+import { signOut } from 'next-auth/react';
 import styled from 'styled-components';
-import { modalActions } from '../../store/modal';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-const Header = styled.header`
+const Nav = styled.nav`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
   height: 8vh;
-  padding: 0 10%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  width: 100%;
   background-color: #252424;
-  z-index: 1000;
-  & h1 {
+  & .logo {
+    display: inline-block;
     color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 10px 100px;
+    font-weight: bold;
+    line-height: 8vh;
+    height: 8vh;
+  }
+  & .logo h1 {
+    display: inline-block;
+    font-size: 30px;
   }
   & ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    float: right;
+    margin-right: 50px;
+    z-index: auto;
   }
-
   & ul li {
     color: #fff;
+    display: inline-block;
+    line-height: 80px;
+    margin: 0 5px;
+  }
+  & .checkbtn {
+    font-size: 30px;
+    color: #fff;
+    float: right;
+    line-height: 80px;
+    margin-right: 40px;
     cursor: pointer;
-    font-size: 1rem;
+    display: none;
   }
-  & .line {
-    padding: 0 20px;
+  & #check {
+    display: none;
   }
-  & Link .link {
-    text-decoration: none;
-    color: #fff;
+  @media screen and (max-width: 1170px) {
+    & .logo {
+      font-size: 30px;
+      padding-left: 50px;
+    }
+    & ul li a {
+      font-size: 16px;
+    }
   }
-  & Link {
-    color: #fff;
-    text-decoration: none;
+  @media screen and (max-width: 858px) {
+    & .checkbtn {
+      display: block;
+    }
+    & .logo {
+      line-height: 0;
+      padding: 2vh;
+    }
+    & .logo h1 {
+      font-size: 20px;
+    }
+    & ul {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: #2c3e50;
+      left: -100%;
+      top: 8vh;
+      text-align: center;
+      transition: all 0.5s;
+    }
+    & ul li {
+      display: block;
+      margin: 50px 0;
+      line-height: 30px;
+    }
+
+    #check:checked + label ~ ul {
+      left: 0;
+    }
   }
 `;
 
@@ -70,13 +107,17 @@ const MainHeader = () => {
   };
   return (
     <Fragment>
-      <Header>
+      <Nav>
+        <input type="checkbox" id="check" />
+        <label htmlFor="check" className="checkbtn">
+          <Image src="/svg/bars3.svg" width="25" height="25" />
+        </label>
         <Link href="/" className="link">
           <a>
-            <h1>
-              <Image src={'/svg/logo.svg'} width="32" height="32" />
-              Place Sharing Platform
-            </h1>
+            <div className="logo">
+              <Image src="/svg/logo.svg" width="40" height="40" />
+              <h1>Place Sharing Platform</h1>
+            </div>
           </a>
         </Link>
         <ul>
@@ -104,7 +145,7 @@ const MainHeader = () => {
             </li>
           )}
         </ul>
-      </Header>
+      </Nav>
     </Fragment>
   );
 };

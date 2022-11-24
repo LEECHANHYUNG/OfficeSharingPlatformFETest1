@@ -21,7 +21,7 @@ const emailRegExp =
 const passwordRegExp =
   /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 const nameRegExp = /^[가-힣]{2,4}$/;
-const phoneRegExp = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
+const phoneRegExp = /^[0-9]{2,3}[0-9]{3,4}[0-9]{4}/;
 
 const authSlice = createSlice({
   name: 'auth',

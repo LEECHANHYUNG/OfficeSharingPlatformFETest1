@@ -1,58 +1,39 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { authSliceActions } from '../../store/auth';
+import Input from '../ui/Input';
 const Wrapper = styled.div`
   &.control {
     width: 100%;
   }
-  &.control.invalid input {
-    border-color: red;
-    background: #fbdada;
-  }
-  &.control.invalid input:focus {
-    outline: none;
-    border-color: #4f005f;
-    background: #f6dbfc;
-  }
-  & input {
-    width: 80%;
-    height: 40px;
-    margin: 10px auto;
-  }
 `;
-
 const Password = () => {
   const [passwordBlur, setPasswordBlur] = useState(false);
   const dispatch = useDispatch();
-  const passwordInputRef = useRef();
   const passwordIsValid = useSelector((state) => state.auth.passwordIsValid);
-  const passwordChangeHandler = () => {
-    const enteredPassword = passwordInputRef.current.value;
-    dispatch(authSliceActions.getPasswordValid(enteredPassword));
+  const passwordChangeHandler = (e) => {
+    dispatch(authSliceActions.getPasswordValid(e.target.value));
   };
-  const validatePasswordHandler = () => {
-    const enteredPassword = passwordInputRef.current.value;
-    dispatch(authSliceActions.getPasswordValid(enteredPassword));
+  const validatePasswordHandler = (e) => {
+    dispatch(authSliceActions.getPasswordValid(e.target.value));
     setPasswordBlur(true);
   };
   return (
-    <Wrapper
-      className={`control${passwordIsValid === false ? ' invalid' : ''}`}
-    >
+    <Wrapper className="control">
       <div className="validity-comment">
         {!passwordIsValid &&
           passwordBlur &&
           '영어 대소문자/숫자/특수문자 포함 8~15자리'}
       </div>
       <label htmlFor="password">
-        <input
+        <Input
           type="password"
           name="password"
-          placeholder="패스워드"
-          ref={passwordInputRef}
+          placeholder="패스워드*"
           onChange={passwordChangeHandler}
           onBlur={validatePasswordHandler}
+          className={`${passwordIsValid === false ? ' invalid' : ''}`}
           minLength="8"
           maxLength="15"
           required

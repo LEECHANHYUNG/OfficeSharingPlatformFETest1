@@ -1,11 +1,12 @@
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import React, { useEffect, useReducer, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Email from '../../components/auth/Email';
 import Password from '../../components/auth/Password';
 import Button from '../../components/ui/Button';
+import { authSliceActions } from '../../store/auth';
 
 const Wrapper = styled.div`
   margin: 5rem auto;
@@ -75,11 +76,14 @@ const SignIn = ({ csrfToken }) => {
   const emailIsValid = useSelector((state) => state.auth.emailIsValid);
   const passwordIsValid = useSelector((state) => state.auth.passwordIsValid);
   const [formIsValid, setFormIsValid] = useState(false);
-
+  const disatch = useDispatch();
+  useEffect(() => {
+    disatch(authSliceActions.resetValidation());
+  }, []);
   useEffect(() => {
     const validityChecker = setTimeout(() => {
       setFormIsValid(emailIsValid && passwordIsValid);
-    }, 300);
+    }, 100);
     return () => {
       clearTimeout(validityChecker);
     };
@@ -96,7 +100,6 @@ const SignIn = ({ csrfToken }) => {
     });
 
     if (!result.error) {
-      alert(result);
       return;
     } else {
       alert(result.error);

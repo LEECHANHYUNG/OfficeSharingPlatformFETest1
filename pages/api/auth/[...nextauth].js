@@ -27,7 +27,7 @@ export default NextAuth({
             return null;
           }
           const data = await res.json();
-          const user = { idToken: data.idToken };
+          const user = { idToken: data.idToken, email: email };
           console.log(user);
           return user;
         } catch (error) {
@@ -43,13 +43,14 @@ export default NextAuth({
   callbacks: {
     async session({ session, token }) {
       session.user.idToken = token.idToken;
-      console.log(token);
+      session.user.email = token.email;
       return session;
     },
     async jwt({ token, user }) {
       if (user) {
         console.log(user);
         token.idToken = user.idToken;
+        token.email = user.email;
         return token;
       }
       return token;

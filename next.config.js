@@ -9,7 +9,7 @@ module.exports = {
   },
 };
 module.exports = async (phase) => {
-  if (phase === PHASE_DEVELOPMENT_SERVER) {
+  if (phase === PHASE_PRODUCTION_BUILD) {
     return {
       env: {
         kakaokey: 'dc629edb6c7c6ce0791c0f11c9b5d459',
@@ -19,7 +19,7 @@ module.exports = async (phase) => {
       },
     };
   }
-  if (phase === PHASE_PRODUCTION_BUILD) {
+  if (phase === PHASE_DEVELOPMENT_SERVER) {
     return {
       env: {
         kakaokey: 'dc629edb6c7c6ce0791c0f11c9b5d459',

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { selectedSliceActions } from '../../store/select';
@@ -30,9 +30,14 @@ const Select = styled.select`
   }
 `;
 const Time = (props) => {
+  const [currentTime, setCurrentTime] = useState(null);
   const dispatch = useDispatch();
   const endTimeRef = useRef();
   const startTime = useSelector((state) => state.selected.startTime);
+  useEffect(() => {
+    setCurrentTime(new Date().getHours());
+  }, [new Date().getHours()]);
+  console.log(currentTime);
   const startTimeHandler = (e) => {
     dispatch(selectedSliceActions.getStartTime(e.target.value));
     if (e.target.value !== '24') {
@@ -59,9 +64,9 @@ const Time = (props) => {
     return (
       <Select onChange={startTimeHandler}>
         <option value="24">시작 시간</option>
-        {[...new Array(24)].map((elem, idx) => (
-          <option value={idx} key={idx}>
-            {idx}:00
+        {[...new Array(23 - currentTime)].map((elem, idx) => (
+          <option value={idx + 1 + currentTime} key={idx}>
+            {idx + 1 + currentTime}:00
           </option>
         ))}
       </Select>

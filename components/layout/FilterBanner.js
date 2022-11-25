@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -7,6 +8,70 @@ import PlaceType from '../selectbox/PlaceType';
 import SubCity from '../selectbox/SubCity';
 import Time from '../selectbox/Time';
 
+const FilterBanner = () => {
+  const buttonRef = useRef();
+  const selectedStartTime = useSelector((state) => state.selected.startTime);
+  const selectedEndTime = useSelector((state) => state.selected.endTime);
+  const selectedCity = useSelector((state) => state.selected.selectedCity);
+  const selectSubCity = useSelector((state) => state.selected.selectSubCity);
+  const selectedType = useSelector((state) => state.selected.selectedType);
+
+  const sendSelectedFilter = () => {};
+  useEffect(() => {
+    if (
+      selectedStartTime === '24' &&
+      selectedEndTime === '0' &&
+      selectedCity === '0' &&
+      selectSubCity === '0' &&
+      selectedType === '0'
+    ) {
+      buttonRef.current.style.backgroundColor = '#fff';
+      buttonRef.current.disabled = true;
+    } else {
+      buttonRef.current.style.backgroundColor = '#6a9eff';
+      buttonRef.current.disabled = false;
+    }
+  }, [
+    selectedStartTime,
+    selectedEndTime,
+    selectedCity,
+    selectSubCity,
+    selectedType,
+  ]);
+  return (
+    <Wrapper>
+      <main>
+        <button
+          onClick={sendSelectedFilter}
+          ref={buttonRef}
+          className="selectOption button"
+          disabled
+        >
+          조건 검색
+        </button>
+        {/*<div className="selectOption ">
+          <Date />
+          <Image src="/svg/down.svg" width="18" height="18" />
+        </div>*/}
+        <div className="selectOption ">
+          <Time time="start" />
+        </div>
+        <div className="selectOption">
+          <Time />
+        </div>
+        <div className="selectOption">
+          <City />
+        </div>
+        <div className="selectOption ">
+          <SubCity />
+        </div>
+        <div className="selectOption">
+          <PlaceType />
+        </div>
+      </main>
+    </Wrapper>
+  );
+};
 const Wrapper = styled.div`
   position: absolute;
   top: 8vh;
@@ -57,69 +122,5 @@ const Wrapper = styled.div`
     width: 100%;
   }
 `;
-
-const FilterBanner = () => {
-  const buttonRef = useRef();
-  const selectedStartTime = useSelector((state) => state.selected.startTime);
-  const selectedEndTime = useSelector((state) => state.selected.endTime);
-  const selectedCity = useSelector((state) => state.selected.selectedCity);
-  const selectSubCity = useSelector((state) => state.selected.selectSubCity);
-  const selectedType = useSelector((state) => state.selected.selectedType);
-
-  const sendSelectedFilter = () => {};
-  useEffect(() => {
-    if (
-      selectedStartTime === '24' &&
-      selectedEndTime === '0' &&
-      selectedCity === '0' &&
-      selectSubCity === '0' &&
-      selectedType === '0'
-    ) {
-      buttonRef.current.style.backgroundColor = '#fff';
-      buttonRef.current.disabled = true;
-    } else {
-      buttonRef.current.style.backgroundColor = '#6a9eff';
-      buttonRef.current.disabled = false;
-    }
-  }, [
-    selectedStartTime,
-    selectedEndTime,
-    selectedCity,
-    selectSubCity,
-    selectedType,
-  ]);
-  return (
-    <Wrapper>
-      <main>
-        <button
-          onClick={sendSelectedFilter}
-          ref={buttonRef}
-          className="selectOption button"
-          disabled
-        >
-          조건 검색
-        </button>
-        <div className="selectOption ">
-          <Date />
-        </div>
-        <div className="selectOption ">
-          <Time time="start" />
-        </div>
-        <div className="selectOption">
-          <Time />
-        </div>
-        <div className="selectOption">
-          <City />
-        </div>
-        <div className="selectOption ">
-          <SubCity />
-        </div>
-        <div className="selectOption">
-          <PlaceType />
-        </div>
-      </main>
-    </Wrapper>
-  );
-};
 
 export default FilterBanner;

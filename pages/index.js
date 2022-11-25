@@ -16,6 +16,7 @@ const Wrapper = styled.div`
 `;
 const HomePage = (props) => {
   const [map, setMap] = useState();
+
   const dispatch = useDispatch();
   dispatch(officeSliceActions.getOfficeList(props.officeList));
 

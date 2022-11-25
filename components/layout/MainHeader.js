@@ -92,6 +92,7 @@ const Nav = styled.nav`
 const MainHeader = () => {
   const [isAunthenticated, setIsAuthenticated] = useState(false);
   const { session, status } = useSession();
+
   const router = useRouter();
   useEffect(() => {
     if (status === 'authenticated') {
@@ -106,47 +107,45 @@ const MainHeader = () => {
     signOut();
   };
   return (
-    <Fragment>
-      <Nav>
-        <input type="checkbox" id="check" />
-        <label htmlFor="check" className="checkbtn">
-          <Image src="/svg/bars3.svg" width="25" height="25" />
-        </label>
-        <Link href="/" className="link">
-          <a>
-            <div className="logo">
-              <Image src="/svg/logo.svg" width="40" height="40" />
-              <h1>Place Sharing Platform</h1>
-            </div>
-          </a>
-        </Link>
-        <ul>
-          {!isAunthenticated && (
-            <li>
-              <Link href="/auth/signin" className="link">
-                로그인
-              </Link>
-            </li>
-          )}
-          {isAunthenticated && <li onClick={signOutHandler}>로그아웃</li>}
-          <li className="line">|</li>
-          {!isAunthenticated && (
-            <li>
-              <Link href="/auth/signup" className="link">
-                회원가입
-              </Link>
-            </li>
-          )}
-          {isAunthenticated && (
-            <li>
-              <Link href="/mypage" className="link">
-                마이페이지
-              </Link>
-            </li>
-          )}
-        </ul>
-      </Nav>
-    </Fragment>
+    <Nav>
+      <input type="checkbox" id="check" />
+      <label htmlFor="check" className="checkbtn">
+        <Image src="/svg/bars3.svg" width="25" height="25" />
+      </label>
+      <Link href="/" className="link">
+        <a>
+          <div className="logo">
+            <Image src="/svg/logo.svg" width="40" height="40" />
+            <h1>Place Sharing Platform</h1>
+          </div>
+        </a>
+      </Link>
+      <ul>
+        {!isAunthenticated && (
+          <li>
+            <Link href="/auth/signin" className="link">
+              로그인
+            </Link>
+          </li>
+        )}
+        {isAunthenticated && <li onClick={signOutHandler}>로그아웃</li>}
+        <li className="line">|</li>
+        {!isAunthenticated && (
+          <li>
+            <Link href="/auth/signup" className="link">
+              회원가입
+            </Link>
+          </li>
+        )}
+        {isAunthenticated && (
+          <li>
+            <Link href="/mypage" className="link">
+              마이페이지
+            </Link>
+          </li>
+        )}
+      </ul>
+    </Nav>
   );
 };
 

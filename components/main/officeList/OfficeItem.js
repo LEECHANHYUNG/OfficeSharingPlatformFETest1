@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -71,17 +70,15 @@ const OfficeItem = (props) => {
   };
   return (
     <Wrapper>
-      <Link href="/">
-        <a onClick={selectPlace}>
-          <div id={props.elem.key} ref={selectedOfficeRef}>
-            <div className="name">{props.elem.item.name}</div>
-            <div className="address">{props.elem.item.address}</div>
-            <div className="option">{props.elem.item.option}</div>
-          </div>
-          <div className="distance">{props.elem.item.distance}</div>
-          <div className="line"></div>
-        </a>
-      </Link>
+      <div onClick={selectPlace}>
+        <div id={props.elem.key} ref={selectedOfficeRef}>
+          <div className="name">{props.elem.item.name}</div>
+          <div className="address">{props.elem.item.address}</div>
+          <div className="option">{props.elem.item.option}</div>
+        </div>
+        <div className="distance">{props.elem.item.distance}</div>
+        <div className="line"></div>
+      </div>
     </Wrapper>
   );
 };

@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';

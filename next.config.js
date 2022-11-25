@@ -9,7 +9,7 @@ module.exports = {
   },
 };
 module.exports = async (phase) => {
-  if (phase === PHASE_PRODUCTION_BUILD) {
+  if (phase === PHASE_DEVELOPMENT_SERVER) {
     return {
       env: {
         kakaokey: 'dc629edb6c7c6ce0791c0f11c9b5d459',
@@ -34,7 +34,10 @@ module.exports = async (phase) => {
   return {
     env: {
       kakaokey: 'dc629edb6c7c6ce0791c0f11c9b5d459',
-      FIREBASE_API_KEY: 'AIzaSyDo8HpxKm27rkojUDl57ZSffSw0LR-t4p8',
+      signIn: '/auth/signin',
+      signUp: '/auth/signup',
+      myPage: '/mypage',
+      refresh: '/auth/refresh',
       SECRET: 'mysecretofnextjsnextauth',
     },
   };

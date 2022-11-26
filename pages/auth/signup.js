@@ -120,87 +120,83 @@ const SignUp = () => {
 
 export default SignUp;
 const Wrapper = styled.div`
-    margin: 0 auto;
-    border-radius: 6px;
-    background-color: white;
-    padding: 1rem;
-    width: 90%;
-    max-width: 40rem;
+  margin: 0 auto;
+  border-radius: 6px;
+  background-color: white;
+  padding: 1rem;
+  width: 90%;
+  max-width: 40rem;
+  text-align: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(50%);
+  & header .headerLink {
+    color: #111;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: 900;
     text-align: center;
+  }
+  & header h1 {
+    cursor: pointer;
+  }
+  & .signInForm form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  & .control {
+    width: 100%;
+  }
+  & .control.invalid input {
+    border-color: red;
+    background: #fbdada;
+  }
+  & .control.invalid input:focus {
+    outline: none;
+    border-color: #4f005f;
+    background: #f6dbfc;
+  }
+  & .signInForm form input {
+    width: 80%;
+    height: 40px;
+    margin: 10px auto;
+  }
+  & Button {
+    width: 80%;
+    margin-top: 20px;
+  }
+  & .navLink {
+    text-align: center;
+  }
+  & .validity-comment {
+    text-align: left;
+    margin-left: 60px;
     position: relative;
-    top: 100px;
-  
-    & header .headerLink {
-      color: #111;
-      text-decoration: none;
-      font-size: 30px;
-      font-weight: 900;
-      text-align: center;
-    }
-    & header h1 {
-      cursor: pointer;
-    }
-    & .signInForm form {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
-  
-    & .control {
-      width: 100%;
-    }
-    & .control.invalid input {
-      border-color: red;
-      background: #fbdada;
-    }
-    & .control.invalid input:focus {
-      outline: none;
-      border-color: #4f005f;
-      background: #f6dbfc;
-    }
-    & .signInForm form input {
-      width: 80%;
-      height: 40px;
-      margin: 10px auto;
-    }
-  
-    & Button {
-      width: 80%;
-      margin-top: 20px;
-    }
-    & .navLink {
-      text-align: center;
-    }
-    & .validity-comment {
-      text-align: left;
-      margin-left: 60px;
-      position: relative;
-      top: 0px;
-      left: 0px;
-    }
-  
-    & .select {
-      display: flex;
-      width: 80%;
-      align-items: start;
-      justify-content: flex-start;
-      flex-direction: column;
-    }
-    & .select p {
-      margin: 0;
-    }
-  
-    & .select .selectBox {
-      display: flex;
-      align-self: start;
-      width: 15px;
-      width: 100%;
-    }
-    & .select .selectBox input {
-      width: 15px;
-      height: 15px;
-      margin: 0 5px;
-    }};
+    top: 0px;
+    left: 0px;
+  }
+  & .select {
+    display: flex;
+    width: 80%;
+    align-items: start;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+  & .select p {
+    margin: 0;
+  }
+  & .select .selectBox {
+    display: flex;
+    align-self: start;
+    width: 15px;
+    width: 100%;
+  }
+  & .select .selectBox input {
+    width: 15px;
+    height: 15px;
+    margin: 0 5px;
+  }
 `;

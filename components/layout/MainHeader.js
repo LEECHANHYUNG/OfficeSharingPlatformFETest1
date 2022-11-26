@@ -15,16 +15,17 @@ const Nav = styled.nav`
   & .logo {
     display: inline-block;
     color: #fff;
-    padding: 10px 100px;
+    margin-left: 100px;
     font-weight: bold;
     line-height: 8vh;
     height: 8vh;
   }
   & .logo h1 {
     display: inline-block;
-    font-size: 30px;
+    font-size: 3rem;
   }
   & ul {
+    line-height: 8vh;
     float: right;
     margin-right: 50px;
     z-index: auto;
@@ -34,6 +35,7 @@ const Nav = styled.nav`
     display: inline-block;
     line-height: 80px;
     margin: 0 5px;
+    cursor: pointer;
   }
   & .checkbtn {
     font-size: 30px;

@@ -11,7 +11,7 @@ export default NextAuth({
         const email = credentials.email;
         const password = credentials.password;
         try {
-          const res = await fetch(process.env.signIn, {
+          const res = await fetch('http://localhost:8080/auth/signin', {
             method: 'POST',
             body: JSON.stringify({
               email,
@@ -24,11 +24,10 @@ export default NextAuth({
           }
           const data = await res.json();
           const user = {
-            accessToken: 'accessToken',
-            refreshToken: 'refreshToken',
+            accessToken: data.accessToken,
+            refreshToken: data.refreshToken,
             email: email,
           };
-          console.log(user);
           return user;
         } catch (error) {
           return error;

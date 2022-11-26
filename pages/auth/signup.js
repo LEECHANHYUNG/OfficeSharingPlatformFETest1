@@ -40,8 +40,9 @@ const SignUp = () => {
       clearTimeout(validityChecker);
     };
   }, [emailIsValid, passwordIsValid, nameIsValid, phoneIsValid]);
-  const signupHandler = () => {
-    fetch('http://localhost:8080/auth/signup', {
+  const signupHandler = (e) => {
+    e.preventDefault();
+    fetch('/api/auth/signup', {
       method: 'POST',
       body: JSON.stringify({
         email: enteredEmail,
@@ -60,10 +61,8 @@ const SignUp = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then((res) => {
-      if (res.ok) {
-        router.replace('/');
-      }
+    }).then((data) => {
+      router.replace('/');
     });
   };
   return (
@@ -74,7 +73,7 @@ const SignUp = () => {
         </Link>
       </header>
       <section className="signInForm">
-        <form onSubmit={signupHandler} action="POST">
+        <form onSubmit={signupHandler}>
           <Email />
           <Password />
           <Name />

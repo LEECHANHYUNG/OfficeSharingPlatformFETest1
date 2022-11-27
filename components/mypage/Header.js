@@ -2,13 +2,13 @@ import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
 
-const Header = (props) => {
+const Header = () => {
   return (
     <Wrapper>
       <h1>My Page</h1>
       <div className="userInfo">
         <div className="left">
-          <div className="userName">이메일 : {props.email}</div>
+          <div className="userName">이메일 : {`test@test.com`}</div>
           <div>가입일 : {'2022.10.11'}</div>
         </div>
         <div className="right">
@@ -39,6 +39,7 @@ const Wrapper = styled.section`
   justify-content: flex-start;
   align-items: start;
   flex-direction: column;
+  border-bottom: 2px solid #111;
   & h1 {
     padding-left: 100px;
     padding-top: 30px;

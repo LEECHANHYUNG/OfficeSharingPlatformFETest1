@@ -6,6 +6,7 @@ import Image from 'next/image';
 
 const Wrapper = styled.div`
   position: fixed;
+  top: 100px;
   background: #fff;
   padding: 5px 20px;
   width: 100%;

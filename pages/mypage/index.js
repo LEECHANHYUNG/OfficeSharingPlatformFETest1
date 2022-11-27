@@ -1,12 +1,17 @@
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
 import React from 'react';
+import styled from 'styled-components';
+import Header from '../../components/mypage/header';
 
-const MyPage = () => {
-  const session = useSession();
-  const router = useRouter();
-  console.log(session);
-  return <h1>MyPage</h1>;
+const Wrapper = styled.div``;
+
+const Mypage = () => {
+  const { data } = useSession();
+  return (
+    <Wrapper>
+      <Header email={data.user.email} />
+    </Wrapper>
+  );
 };
 
-export default MyPage;
+export default Mypage;

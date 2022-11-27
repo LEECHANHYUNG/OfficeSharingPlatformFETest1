@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import City from '../selectbox/city';
-import Date from '../selectbox/Date';
 import PlaceType from '../selectbox/PlaceType';
 import SubCity from '../selectbox/SubCity';
 import Time from '../selectbox/Time';
@@ -73,7 +72,7 @@ const FilterBanner = () => {
 };
 const Wrapper = styled.div`
   position: absolute;
-  top: 8vh;
+  top: 100px;
   background: #fff;
   border: 2px solid #111;
   border-right: none;

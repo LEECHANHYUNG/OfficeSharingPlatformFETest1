@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Banner from './Banner';
-import UsedItem from './UsedItem';
+import CommentItem from './CommentItem';
 
 const Wrapper = styled.section`
   width: 70%;
@@ -19,10 +19,10 @@ const Wrapper = styled.section`
 const Use = () => {
   return (
     <Wrapper>
-      <h1>이용 내역</h1>
+      <h1>댓글</h1>
       <Banner />
       <div className="itemList">
-        <UsedItem />
+        <CommentItem />
       </div>
     </Wrapper>
   );

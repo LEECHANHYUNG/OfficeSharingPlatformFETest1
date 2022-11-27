@@ -9,6 +9,9 @@ const OfficeCount = styled.div`
   align-items: center;
   background: #fff;
   height: 70px;
+  & .countText {
+    padding-top: 50px;
+  }
   & .count {
     display: inline-block;
     color: #6a9eff;
@@ -21,7 +24,9 @@ const OfficeItemList = (props) => {
   return (
     <Fragment>
       <OfficeCount>
-        <p className="count">{officeList.length}</p>개의 place가 있습니다.
+        <div className="countText">
+          <p className="count">{officeList.length}</p>개의 place가 있습니다.
+        </div>
       </OfficeCount>
       {officeList.map((elem) => {
         return <OfficeItem key={elem.key} elem={elem} map={props.map} />;

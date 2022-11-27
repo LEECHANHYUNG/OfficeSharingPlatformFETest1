@@ -1,31 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
 import Banner from './Banner';
-import UsedItem from './UsedItem';
+import QnaItem from './QnaItem';
 
 const Wrapper = styled.section`
   width: 70%;
-  min-width: 1100px;
-
   & h1 {
     font-size: 2rem;
     margin-top: 20px;
   }
+  min-width: 1100px;
   & .itemlist {
     width: 100%;
   }
 `;
 
-const Use = () => {
+const Qna = () => {
   return (
     <Wrapper>
-      <h1>이용 내역</h1>
+      <h1>1:1 문의</h1>
       <Banner />
       <div className="itemList">
-        <UsedItem />
+        <QnaItem />
       </div>
     </Wrapper>
   );
 };
 
-export default Use;
+export default Qna;

@@ -1,5 +1,6 @@
-import { signIn } from 'next-auth/react';
+import { getSession, signIn } from 'next-auth/react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useEffect, useReducer, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -71,12 +72,27 @@ const Wrapper = styled.div`
   }
 `;
 const SignIn = ({ csrfToken }) => {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
   const enteredEmail = useSelector((state) => state.auth.enteredEmail);
   const enteredPassword = useSelector((state) => state.auth.enteredPassword);
   const emailIsValid = useSelector((state) => state.auth.emailIsValid);
   const passwordIsValid = useSelector((state) => state.auth.passwordIsValid);
   const [formIsValid, setFormIsValid] = useState(false);
   const disatch = useDispatch();
+  useEffect(() => {
+    getSession().then((session) => {
+      if (session) {
+        router.replace('/');
+      } else {
+        setIsLoading(false);
+      }
+    });
+  }, [router]);
+  if (isLoading) {
+    return null;
+  }
+
   useEffect(() => {
     disatch(authSliceActions.resetValidation());
   }, []);
@@ -100,6 +116,7 @@ const SignIn = ({ csrfToken }) => {
     });
 
     if (!result.error) {
+      router.replace('/');
       return;
     } else {
       alert(result.error);

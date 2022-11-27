@@ -1,16 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import Banner from './Banner';
-import UsedItem from './UsedItem';
+import PointItem from './PointItem';
 
 const Wrapper = styled.section`
   width: 70%;
-  min-width: 1100px;
-
   & h1 {
     font-size: 2rem;
     margin-top: 20px;
   }
+  min-width: 1100px;
   & .itemlist {
     width: 100%;
   }
@@ -19,10 +18,10 @@ const Wrapper = styled.section`
 const Use = () => {
   return (
     <Wrapper>
-      <h1>이용 내역</h1>
+      <h1>마일리지</h1>
       <Banner />
       <div className="itemList">
-        <UsedItem />
+        <PointItem />
       </div>
     </Wrapper>
   );

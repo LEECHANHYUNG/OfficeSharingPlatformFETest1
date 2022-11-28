@@ -80,18 +80,18 @@ const SignIn = ({ csrfToken }) => {
   const passwordIsValid = useSelector((state) => state.auth.passwordIsValid);
   const [formIsValid, setFormIsValid] = useState(false);
   const disatch = useDispatch();
-  useEffect(() => {
-    getSession().then((session) => {
-      if (session) {
-        router.replace('/');
-      } else {
-        setIsLoading(false);
-      }
-    });
-  }, [router]);
-  if (isLoading) {
-    return null;
-  }
+  //useEffect(() => {
+  //  getSession().then((session) => {
+  //    if (session) {
+  //      router.replace('/');
+  //    } else {
+  //      setIsLoading(false);
+  //    }
+  //  });
+  //}, [router]);
+  //if (isLoading) {
+  //  return null;
+  //}
 
   useEffect(() => {
     disatch(authSliceActions.resetValidation());

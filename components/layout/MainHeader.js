@@ -9,23 +9,26 @@ const Nav = styled.nav`
   position: fixed;
   top: 0;
   left: 0;
-  height: 8vh;
+  height: 100px;
   width: 100%;
   background-color: #252424;
+  z-index: 1000;
+
   & .logo {
-    display: inline-block;
-    color: #fff;
-    margin-left: 100px;
-    font-weight: bold;
-    line-height: 8vh;
-    height: 8vh;
+    float: left;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 50px;
   }
   & .logo h1 {
-    display: inline-block;
-    font-size: 3rem;
+    color: #fff;
+    margin-left: 30px;
   }
   & ul {
-    line-height: 8vh;
+    line-height: 100px;
     float: right;
     margin-right: 50px;
     z-index: auto;
@@ -39,21 +42,17 @@ const Nav = styled.nav`
   }
   & .checkbtn {
     font-size: 30px;
-    color: #fff;
     float: right;
     line-height: 80px;
     margin-right: 40px;
     cursor: pointer;
     display: none;
+    line-height: 100px;
   }
   & #check {
     display: none;
   }
   @media screen and (max-width: 1170px) {
-    & .logo {
-      font-size: 30px;
-      padding-left: 50px;
-    }
     & ul li a {
       font-size: 16px;
     }
@@ -62,20 +61,14 @@ const Nav = styled.nav`
     & .checkbtn {
       display: block;
     }
-    & .logo {
-      line-height: 0;
-      padding: 2vh;
-    }
-    & .logo h1 {
-      font-size: 20px;
-    }
+
     & ul {
       position: fixed;
       width: 100vw;
       height: 100vh;
       background: #2c3e50;
       left: -100%;
-      top: 8vh;
+      top: 100px;
       text-align: center;
       transition: all 0.5s;
     }
@@ -112,7 +105,7 @@ const MainHeader = () => {
     <Nav>
       <input type="checkbox" id="check" />
       <label htmlFor="check" className="checkbtn">
-        <Image src="/svg/bars3.svg" width="25" height="25" />
+        <Image src="/svg/bars3.svg" width="35" height="35" />
       </label>
       <Link href="/" className="link">
         <a>
@@ -131,7 +124,7 @@ const MainHeader = () => {
           </li>
         )}
         {isAunthenticated && <li onClick={signOutHandler}>로그아웃</li>}
-        <li className="line">|</li>
+
         {!isAunthenticated && (
           <li>
             <Link href="/auth/signup" className="link">

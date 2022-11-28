@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import OfficeItemList from './OfficeItemList';
-import OfficeSeach from './OfficeSeach';
+import OfficeSearch from './OfficeSearch';
 
 const Wrapper = styled.div`
   position: relative;
@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 const OfficeList = (props) => {
   return (
     <Wrapper>
-      <OfficeSeach className="search" />
+      <OfficeSearch className="search" />
       <OfficeItemList map={props.map} />
     </Wrapper>
   );

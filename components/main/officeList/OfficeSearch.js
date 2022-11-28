@@ -1,11 +1,10 @@
 import React, { useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import Image from 'next/image';
 
 const Wrapper = styled.div`
   position: fixed;
+  top: 100px;
   background: #fff;
   padding: 5px 20px;
   width: 100%;

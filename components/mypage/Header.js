@@ -31,8 +31,10 @@ const Header = () => {
 };
 
 const Wrapper = styled.section`
-  margin-top: 100px;
-  height: 300px;
+  position: relative;
+  top: 80px;
+  margin-top: 20px;
+  height: 200px;
   width: 100%;
   background: #fff;
   display: flex;
@@ -46,16 +48,16 @@ const Wrapper = styled.section`
     width: 100%;
     height: 30px;
     font-size: 3rem;
+    line-height: 3rem;
   }
   & .userInfo {
     width: 100%;
     padding-top: 50px;
-    height: 270px;
+    height: 160px;
     font-size: 20px;
     font-weight: 700;
   }
   & .userInfo .left {
-    padding-top: 50px;
     padding-left: 150px;
     float: left;
     width: 50%;

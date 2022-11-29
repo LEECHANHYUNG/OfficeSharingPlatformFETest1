@@ -4,7 +4,6 @@ import { signOut } from 'next-auth/react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
 const Nav = styled.nav`
   position: fixed;
   top: 0;
@@ -67,7 +66,7 @@ const Nav = styled.nav`
       width: 100vw;
       height: 100vh;
       background: #2c3e50;
-      left: -100%;
+      left: -110%;
       top: 100px;
       text-align: center;
       transition: all 0.5s;
@@ -86,12 +85,10 @@ const Nav = styled.nav`
 
 const MainHeader = () => {
   const [isAunthenticated, setIsAuthenticated] = useState(false);
-  const { session, status } = useSession();
+  const { status } = useSession();
 
-  const router = useRouter();
   useEffect(() => {
     if (status === 'authenticated') {
-      router.replace('/');
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);

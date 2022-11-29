@@ -1,5 +1,4 @@
 async function hanlder(req, res) {
-  console.log(req.method);
   const enteredEmail = req.body.email;
   const enteredPassword = req.body.password;
   const enteredName = req.body.name;

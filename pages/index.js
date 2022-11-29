@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import KakaoMap from '../components/main/map/kakaoMap';
 
 import OfficeList from '../components/main/officeList/OfficeList';
+import PlaceDetailMain from '../components/place/PlaceDetailMain';
 import { officeSliceActions } from '../store/officeList';
 const Wrapper = styled.div`
   display: flex;
   justify-contents: center;
   align-items: center;
-
   @media screen and (max-width: 1170px) {
     flex-direction: column;
   }
 `;
 const HomePage = (props) => {
   const [map, setMap] = useState();
-
   const dispatch = useDispatch();
   dispatch(officeSliceActions.getOfficeList(props.officeList));
+  const selectedPlaceId = useSelector(
+    (state) => state.officeList.selectedPlaceId
+  );
 
   return (
     <Wrapper>
       <KakaoMap setMapHandler={setMap} />
-      <OfficeList map={map} />
+      {selectedPlaceId ? <PlaceDetailMain /> : <OfficeList map={map} />}
     </Wrapper>
   );
 };

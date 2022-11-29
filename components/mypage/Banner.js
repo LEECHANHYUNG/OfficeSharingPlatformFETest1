@@ -3,6 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.section`
+  position: relative;
+  top: 80px;
   float: left;
   width: 300px;
   height: 1100px;

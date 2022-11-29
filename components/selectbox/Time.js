@@ -37,7 +37,6 @@ const Time = (props) => {
   useEffect(() => {
     setCurrentTime(new Date().getHours());
   }, [new Date().getHours()]);
-  console.log(currentTime);
   const startTimeHandler = (e) => {
     dispatch(selectedSliceActions.getStartTime(e.target.value));
     if (e.target.value !== '24') {

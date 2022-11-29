@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { officeSliceActions } from '../../store/officeList';
 import OfficeSearch from '../main/officeList/OfficeSearch';
 import PlaceAdditional from './PlaceAdditional';
+import PlaceAvailableItem from './PlaceAvailableItem';
 import PlaceImage from './PlaceImage';
 import PlaceInfo from './PlaceInfo';
 import PlaceOpeningHours from './PlaceOpeningHours';
@@ -16,7 +17,7 @@ const Wrapper = styled.section`
   width: 25%;
   overflow-y: scroll;
 
-  .prev-btn {
+  & .prev-btn {
     z-index: 10;
     position: relative;
     width: 36px;
@@ -25,11 +26,30 @@ const Wrapper = styled.section`
     left: 5px;
     cursor: pointer;
   }
+  & .detail-btn {
+    position: fixed;
+    bottom: 0px;
+    width: 25%;
+    height: 40px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 40px;
+    background: #111;
+    color: #fff;
+  }
+ 
+  & .line {
+    height: 6px;
+    background #999;
+  }
   @media screen and (max-width: 1170px) {
     width: 100%;
     height: 250px;
     &::-webkit-scrollbar {
       display: none;
+    }
+    & .detail-btn {
+      width: 100%;
     }
   }
 `;
@@ -45,9 +65,12 @@ const PlaceDetailMain = () => {
       </div>
       <OfficeSearch />
       <PlaceImage />
+      <div className="line"></div>
       <PlaceInfo />
       <PlaceAdditional />
       <PlaceOpeningHours />
+      <PlaceAvailableItem />
+      <div className="detail-btn">자세히 보기</div>
     </Wrapper>
   );
 };

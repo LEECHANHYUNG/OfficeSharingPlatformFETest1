@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { signOut } from 'next-auth/react';
 import styled from 'styled-components';
 import Image from 'next/image';
@@ -52,7 +52,7 @@ const Nav = styled.nav`
     display: none;
   }
   @media screen and (max-width: 1170px) {
-    & ul li a {
+    & ul li a {f
       font-size: 16px;
     }
   }
@@ -100,10 +100,6 @@ const MainHeader = () => {
   };
   return (
     <Nav>
-      <input type="checkbox" id="check" />
-      <label htmlFor="check" className="checkbtn">
-        <Image src="/svg/bars3.svg" width="35" height="35" />
-      </label>
       <Link href="/" className="link">
         <a>
           <div className="logo">
@@ -112,6 +108,10 @@ const MainHeader = () => {
           </div>
         </a>
       </Link>
+      <input type="checkbox" id="check" />
+      <label htmlFor="check" className="checkbtn">
+        <Image src="/svg/bars3.svg" width="35" height="35" />
+      </label>
       <ul>
         {!isAunthenticated && (
           <li>

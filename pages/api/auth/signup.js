@@ -1,4 +1,4 @@
-async function hanlder(req, res) {
+async function handler(req, res) {
   const enteredEmail = req.body.email;
   const enteredPassword = req.body.password;
   const enteredName = req.body.name;
@@ -29,4 +29,4 @@ async function hanlder(req, res) {
   }
 }
 
-export default hanlder;
+export default handler;

@@ -6,10 +6,13 @@ import Header from '../../components/mypage/header';
 
 const Wrapper = styled.div``;
 
-const Mypage = () => {
+const Mypage = (props) => {
   return (
     <Wrapper>
-      <Header />
+      <Header
+        userName={props.userName}
+        myPageReservationList={props.myPageReservationList}
+      />
       <Banner />
     </Wrapper>
   );
@@ -17,6 +20,7 @@ const Mypage = () => {
 
 export async function getServerSideProps(context) {
   const session = await getSession({ req: context.req });
+
   if (!session) {
     return {
       redirect: {
@@ -25,10 +29,16 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  return {
-    props: {
-      session,
+  const response = await fetch('http://localhost:8080/mypage', {
+    method: 'GET',
+    headers: {
+      Authorization: session.user.accessToken,
     },
+  });
+  const data = response.json();
+
+  return {
+    props: data,
   };
 }
 

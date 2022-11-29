@@ -2,13 +2,13 @@ import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
 
-const Header = () => {
+const Header = (props) => {
   return (
     <Wrapper>
       <h1>My Page</h1>
       <div className="userInfo">
         <div className="left">
-          <div className="userName">이메일 : {`test@test.com`}</div>
+          <div className="userName">이름 : {props.userName}</div>
           <div>가입일 : {'2022.10.11'}</div>
         </div>
         <div className="right">

@@ -11,7 +11,7 @@ const Wrapper = styled.section`
   }
   & main {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-around;
     align-items: center;
     margin-top: 10px;
     padding : 30px 30px;

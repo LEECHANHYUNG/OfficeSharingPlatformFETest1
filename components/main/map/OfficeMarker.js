@@ -4,10 +4,9 @@ import { officeSliceActions } from '../../../store/officeList';
 
 const OfficeMarker = (props) => {
   const dispatch = useDispatch();
-
-  const { map } = props;
-
   const officeList = useSelector((state) => state.officeList.officeList);
+  const markers = useSelector((state) => state.officeList.marker);
+  const { map } = props;
 
   const setMapCenterPosition = (e) => {
     const selectedPlaceId = e.target.id;
@@ -26,6 +25,8 @@ const OfficeMarker = (props) => {
     });
   };
   useEffect(() => {
+    markers.map((elem) => elem.setMap(null));
+
     officeList.map((elem) => {
       const content = document.createElement('div');
       content.classList.add('wrap');
@@ -40,16 +41,18 @@ const OfficeMarker = (props) => {
       content.appendChild(customOverlay);
       content.appendChild(arrow);
       content.addEventListener('click', setMapCenterPosition);
-      var geocoder = new kakao.maps.services.Geocoder();
-
+      const geocoder = new kakao.maps.services.Geocoder();
       geocoder.addressSearch(elem.item.address, (result, status) => {
         if (status === kakao.maps.services.Status.OK) {
           const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-          return new kakao.maps.CustomOverlay({
+          const overlay = new kakao.maps.CustomOverlay({
             content,
             map: map.current,
             position: coords,
+            level: 9,
           });
+          dispatch(officeSliceActions.getOverlay(overlay));
+          return overlay;
         }
       });
     });

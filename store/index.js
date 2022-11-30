@@ -11,6 +11,10 @@ const store = configureStore({
     selected,
     auth,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export default store;

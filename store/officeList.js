@@ -4,6 +4,7 @@ const initialOfficeListState = {
   officeList: null,
   selectedPlaceId: '',
   selectedOffice: null,
+  marker: [],
 };
 
 const officeSlice = createSlice({
@@ -19,6 +20,9 @@ const officeSlice = createSlice({
         (elem) => elem.key === action.payload
       );
       state.selectedOffice = state.officeList[selectedPlaceIndex];
+    },
+    getOverlay(state, action) {
+      state.marker.push(action.payload);
     },
   },
 });

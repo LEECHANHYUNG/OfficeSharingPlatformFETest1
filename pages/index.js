@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import KakaoMap from '../components/main/map/kakaoMap';
@@ -17,7 +17,9 @@ const Wrapper = styled.div`
 const HomePage = (props) => {
   const [map, setMap] = useState();
   const dispatch = useDispatch();
-  dispatch(officeSliceActions.getOfficeList(props.officeList));
+  useEffect(() => {
+    dispatch(officeSliceActions.getOfficeList(props.officeList));
+  }, [props.officeList]);
   const selectedPlaceId = useSelector(
     (state) => state.officeList.selectedPlaceId
   );
@@ -25,7 +27,11 @@ const HomePage = (props) => {
   return (
     <Wrapper>
       <KakaoMap setMapHandler={setMap} />
-      {selectedPlaceId ? <PlaceDetailMain /> : <OfficeList map={map} />}
+      {selectedPlaceId ? (
+        <PlaceDetailMain />
+      ) : (
+        <OfficeList officeList={props.officeList} map={map} />
+      )}
     </Wrapper>
   );
 };
@@ -41,7 +47,9 @@ export async function getStaticProps() {
     for (const key in data) {
       officeList.push({ key: data[key].placeId, item: data[key] });
     }
-  } catch (err) {}
+  } catch (err) {
+    console.error(err);
+  }
   return {
     props: {
       officeList,

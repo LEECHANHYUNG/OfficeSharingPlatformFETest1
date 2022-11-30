@@ -54,8 +54,6 @@ const OfficeMarker = (props) => {
       });
     });
   }, [officeList]);
-
-  return <></>;
 };
 
 export default OfficeMarker;

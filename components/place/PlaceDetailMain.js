@@ -16,7 +16,7 @@ const Wrapper = styled.section`
   height: 80vh;
   width: 25%;
   overflow-y: scroll;
-
+  
   & .prev-btn {
     z-index: 10;
     position: relative;

@@ -23,9 +23,9 @@ const OfficeItemList = (props) => {
   return (
     <Fragment>
       <OfficeCount>
-        <p className="count">{officeList.length}</p>개의 place가 있습니다.
+        <p className="count">{officeList?.length}</p>개의 place가 있습니다.
       </OfficeCount>
-      {officeList.map((elem) => {
+      {officeList?.map((elem) => {
         return <OfficeItem key={elem.key} elem={elem} map={props.map} />;
       })}
     </Fragment>

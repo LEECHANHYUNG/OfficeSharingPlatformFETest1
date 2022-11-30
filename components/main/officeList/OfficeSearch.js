@@ -1,15 +1,20 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import { useDispatch } from 'react-redux';
+import { officeSliceActions } from '../../../store/officeList';
 
 const Wrapper = styled.div`
   position: fixed;
   top: 100px;
   background: #fff;
   padding: 5px 20px;
-  width: 100%;
+  width: 25%;
   border: 2px solid #111;
   z-index: 100;
+  & .search-glass {
+    cursor: pointer;
+  }
   & .searchInput {
     width: 90%;
     height: 40px;
@@ -24,25 +29,56 @@ const Wrapper = styled.div`
   & .searchInput .icon {
     padding-right: 20px;
   }
+  @media screen and (max-width: 1170px) {
+    width: 100%;
+  }
 `;
 
 const OfficeSearch = () => {
-  const keywordSubmitHandler = (e) => {
+  const dispatch = useDispatch();
+  const keywordSubmitHandler = async (e) => {
+    let officeList = [];
+    dispatch(officeSliceActions.selectPlace(null));
     e.preventDefault();
-    console.log(keywordInputRef.current.value);
+    const enteredSearchWord = searchWordInput.current.value;
+    try {
+      const res = await fetch('/api/main/search', {
+        method: 'POST',
+        body: JSON.stringify({ searchWord: enteredSearchWord }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!res.ok) {
+        throw new Error(res.statusText);
+      }
+      const data = await res.json();
+      for (const key in data) {
+        officeList.push({ key: data[key].placeId, item: data[key] });
+      }
+      dispatch(officeSliceActions.getOfficeList(officeList));
+    } catch (err) {
+      console.error(err);
+    }
   };
-  const keywordInputRef = useRef();
+  const searchWordInput = useRef();
   return (
     <Wrapper>
       <form onSubmit={keywordSubmitHandler}>
-        <Image src="/svg/glass.svg" width="16" height="16" />
+        <Image
+          src="/svg/glass.svg"
+          width="16"
+          height="16"
+          onClick={keywordSubmitHandler}
+          className="search-glass"
+        />
         <input
           type="text"
           name="searchWord"
           placeholder="공유 오피스 지점명 or 지역명으로 검색"
           className="searchInput"
           autoComplete="false"
-          ref={keywordInputRef}
+          ref={searchWordInput}
         />
       </form>
     </Wrapper>

@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   float: left;
   width: 25%;
   height: 92vh;
-  background: #222;
+  background: #fff;
   overflow-y: scroll;
 
   @media screen and (max-width: 1170px) {

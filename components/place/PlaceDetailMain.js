@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { officeSliceActions } from '../../store/officeList';
 import OfficeSearch from '../main/officeList/OfficeSearch';
@@ -58,6 +58,7 @@ const PlaceDetailMain = () => {
   const prevBtnHandler = () => {
     dispatch(officeSliceActions.selectPlace(null));
   };
+  const selectedPlace = useSelector((state) => state.officeList.selectedOffice);
   return (
     <Wrapper>
       <div className="prev-btn" onClick={prevBtnHandler}>
@@ -66,10 +67,19 @@ const PlaceDetailMain = () => {
       <OfficeSearch />
       <PlaceImage />
       <div className="line"></div>
-      <PlaceInfo />
-      <PlaceAdditional />
-      <PlaceOpeningHours />
-      <PlaceAvailableItem />
+      <PlaceInfo
+        placeName={selectedPlace.item.placeName}
+        description={selectedPlace.item.placeDescription}
+        address={selectedPlace.item.address}
+        rating={selectedPlace.item.ratingPoint}
+      />
+      <PlaceAdditional additionalItem={selectedPlace.item.placeInfo} />
+      <PlaceOpeningHours
+        closedDays={selectedPlace.item.closeDays}
+        openTime={selectedPlace.item.openTime}
+        closeTime={selectedPlace.item.closeTime}
+      />
+      <PlaceAvailableItem items={selectedPlace.item.roomInfo} />
       <div className="detail-btn">자세히 보기</div>
     </Wrapper>
   );

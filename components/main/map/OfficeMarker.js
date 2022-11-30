@@ -33,7 +33,7 @@ const OfficeMarker = (props) => {
       let customOverlay = document.createElement('div');
       customOverlay.classList.add('customOverlay');
       customOverlay.setAttribute('id', elem.key);
-      customOverlay.textContent = elem.item.name;
+      customOverlay.textContent = elem.item.placeName;
       let arrow = document.createElement('div');
       arrow.setAttribute('id', elem.key);
       arrow.classList.add('arrow');

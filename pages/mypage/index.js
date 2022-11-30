@@ -35,12 +35,13 @@ export async function getServerSideProps(context) {
       Authorization: session.user.accessToken,
     },
   });
-  if (response.ok) {
+  if (response.status === 200) {
     //accessToken 일치
     userData = response.json();
   }
   if (response.status === 500) {
     // accessToken 불일치
+    console.log('accessToken 불일치');
     signOut();
   }
   if (response.status === 401) {
@@ -55,35 +56,21 @@ export async function getServerSideProps(context) {
       .then((res) => {
         if (res.status === 500 || res.status === 403) {
           //refreshToken 만료 or 불일치
+          console.log('refreshToken 만료 or 불일치');
           signOut();
         }
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         if (data) {
-          console.log(data);
-          console.log(session.user.accessToken);
           // accessToken발급
+          console.log('신규 accessToken발급');
+          console.log('발급전 : ' + session.user.accessToken);
           session.user.refreshToken = data.refreshToken;
           session.user.accessToken = data.accessToken;
-          console.log(session.user.accessToken);
-          fetch('http://localhost:8080/mypage', {
-            // accessToken 전달
-            method: 'GET',
-            headers: {
-              Authorization: session.user.accessToken,
-            },
-          })
-            .then((res) => {
-              if (response.ok) {
-                return res.json();
-              } else {
-                signOut();
-              }
-            })
-            .then((data) => (userData = data));
+          console.log('발급후 : ' + session.user.accessToken);
         }
+        userData = data;
       });
   }
   return {

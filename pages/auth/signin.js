@@ -73,25 +73,12 @@ const Wrapper = styled.div`
 `;
 const SignIn = ({ csrfToken }) => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
   const enteredEmail = useSelector((state) => state.auth.enteredEmail);
   const enteredPassword = useSelector((state) => state.auth.enteredPassword);
   const emailIsValid = useSelector((state) => state.auth.emailIsValid);
   const passwordIsValid = useSelector((state) => state.auth.passwordIsValid);
   const [formIsValid, setFormIsValid] = useState(false);
   const disatch = useDispatch();
-  //useEffect(() => {
-  //  getSession().then((session) => {
-  //    if (session) {
-  //      router.replace('/');
-  //    } else {
-  //      setIsLoading(false);
-  //    }
-  //  });
-  //}, [router]);
-  //if (isLoading) {
-  //  return null;
-  //}
 
   useEffect(() => {
     disatch(authSliceActions.resetValidation());

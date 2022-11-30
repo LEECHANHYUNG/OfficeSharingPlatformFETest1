@@ -33,23 +33,15 @@ const HomePage = (props) => {
 export async function getStaticProps() {
   let officeList = [];
   try {
-    await fetch(
-      'https://react-http-673e2-default-rtdb.firebaseio.com/office.json'
-    )
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error('Something went wrong');
-        }
-        return res.json();
-      })
-      .then((data) => {
-        for (const key in data) {
-          officeList.push({ key: key, item: data[key] });
-        }
-      });
-  } catch (err) {
-    return err;
-  }
+    const response = await fetch(process.env.main);
+    if (!response.ok) {
+      throw new Error('Someting went wrong');
+    }
+    const data = await response.json();
+    for (const key in data) {
+      officeList.push({ key: data[key].placeId, item: data[key] });
+    }
+  } catch (err) {}
   return {
     props: {
       officeList,

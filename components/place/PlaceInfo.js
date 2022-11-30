@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
 const Wrapper = styled.section`
@@ -22,18 +23,34 @@ const Wrapper = styled.section`
     height: 6px;
     background #999;
   }
+  & .review-avg{
+    position: relative;
+    margin : 0;
+    width : 80px;
+    left : 20px;
+    top : 15px;
+    display: flex;
+  }
+  & .review-avg div{
+    margin-left : 10px;
+    font-weight: 900;
+    font-size : 0.9rem;
+  }
 `;
-const PlaceInfo = () => {
+const PlaceInfo = ({ placeName, description, address, rating }) => {
   return (
     <Wrapper>
-      <div className="place-name">롯데월드점</div>
-      <div className="place-description">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero quaerat
-        laboriosam pariatur, saepe tenetur
-      </div>
-      <div className="place-address">
-        서울 송파구 올림픽로 240 (잠실동) 롯데월드 웰빙센터 8층
-      </div>
+      {Number(rating) ? (
+        <div className="review-avg">
+          <Image src="/svg/star.svg" width="16" height="16" />
+          <div>{`${rating}/5.0`}</div>
+        </div>
+      ) : (
+        ''
+      )}
+      <div className="place-name">{placeName}</div>
+      <div className="place-description">{description}</div>
+      <div className="place-address">{address} </div>
       <div className="line"></div>
     </Wrapper>
   );

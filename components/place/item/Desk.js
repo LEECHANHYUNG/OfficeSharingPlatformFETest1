@@ -25,14 +25,16 @@ const Wrapper = styled.div`
     color: #6a9eff;
   }
 `;
-const Desk = () => {
+const Desk = ({ price }) => {
   return (
     <Wrapper>
       <div className="description">
         <h1>1인 데스크</h1>
         <p>1인이 이용하기에 적합한 상품입니다.</p>
       </div>
-      <div className="price">1시간 10,000 ~ </div>
+      <div className="price">
+        1시간 {Number(price).toLocaleString('ko-KR')} ~{' '}
+      </div>
     </Wrapper>
   );
 };

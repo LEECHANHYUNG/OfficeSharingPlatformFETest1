@@ -4,6 +4,7 @@ import ControlBox from './ControlBox';
 import OfficeMarker from './OfficeMarker';
 import FilterBanner from '../../layout/FilterBanner';
 import styled from 'styled-components';
+import FilterResetBtn from './FilterResetBtn';
 const KaKaoMap = styled(Map)`
   position: relative;
   top: 8vh;
@@ -36,6 +37,7 @@ const KakaoMap = (props) => {
         <OfficeMarker map={mapRef} />
         <ControlBox map={mapRef} />
       </KaKaoMap>
+      <FilterResetBtn />
     </Fragment>
   );
 };

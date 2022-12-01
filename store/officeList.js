@@ -4,6 +4,8 @@ const initialOfficeListState = {
   officeList: null,
   selectedPlaceId: '',
   selectedOffice: null,
+  filteredPlaceList: null,
+  isFiltered: false,
   marker: [],
 };
 
@@ -11,8 +13,9 @@ const officeSlice = createSlice({
   name: 'officeList',
   initialState: initialOfficeListState,
   reducers: {
-    getOfficeList(state, action) {
+    getAllOfficeList(state, action) {
       state.officeList = action.payload;
+      state.filteredPlaceList = action.payload;
     },
     selectPlace(state, action) {
       state.selectedPlaceId = action.payload;
@@ -23,6 +26,14 @@ const officeSlice = createSlice({
     },
     getOverlay(state, action) {
       state.marker.push(action.payload);
+    },
+    getFilteredPlaceList(state, action) {
+      state.filteredPlaceList = action.payload;
+      state.isFiltered = true;
+    },
+    resetFilteredPlaceList(state) {
+      state.filteredPlaceList = state.officeList;
+      state.isFiltered = false;
     },
   },
 });

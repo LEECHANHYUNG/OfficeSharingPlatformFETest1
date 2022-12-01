@@ -18,7 +18,7 @@ const HomePage = (props) => {
   const [map, setMap] = useState();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(officeSliceActions.getOfficeList(props.officeList));
+    dispatch(officeSliceActions.getAllOfficeList(props.officeList));
   }, [props.officeList]);
   const selectedPlaceId = useSelector(
     (state) => state.officeList.selectedPlaceId

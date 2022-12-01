@@ -4,7 +4,7 @@ import { officeSliceActions } from '../../../store/officeList';
 
 const OfficeMarker = (props) => {
   const dispatch = useDispatch();
-  const officeList = useSelector((state) => state.officeList.officeList);
+  const officeList = useSelector((state) => state.officeList.filteredPlaceList);
   const markers = useSelector((state) => state.officeList.marker);
   const { map } = props;
 

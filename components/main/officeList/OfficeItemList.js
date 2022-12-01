@@ -18,7 +18,7 @@ const OfficeCount = styled.div`
   }
 `;
 const OfficeItemList = (props) => {
-  const officeList = useSelector((state) => state.officeList.officeList);
+  const officeList = useSelector((state) => state.officeList.filteredPlaceList);
 
   return (
     <Fragment>

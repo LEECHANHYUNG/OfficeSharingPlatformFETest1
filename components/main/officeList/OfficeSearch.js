@@ -36,6 +36,7 @@ const Wrapper = styled.div`
 
 const OfficeSearch = () => {
   const dispatch = useDispatch();
+  const searchWordInput = useRef();
   const keywordSubmitHandler = async (e) => {
     let officeList = [];
     dispatch(officeSliceActions.selectPlace(null));
@@ -56,12 +57,12 @@ const OfficeSearch = () => {
       for (const key in data) {
         officeList.push({ key: data[key].placeId, item: data[key] });
       }
-      dispatch(officeSliceActions.getOfficeList(officeList));
+      dispatch(officeSliceActions.getFilteredPlaceList(officeList));
+      searchWordInput.current.value = '';
     } catch (err) {
       console.error(err);
     }
   };
-  const searchWordInput = useRef();
   return (
     <Wrapper>
       <form onSubmit={keywordSubmitHandler}>

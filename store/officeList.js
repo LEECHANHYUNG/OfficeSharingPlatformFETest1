@@ -29,7 +29,9 @@ const officeSlice = createSlice({
     },
     getFilteredPlaceList(state, action) {
       state.filteredPlaceList = action.payload;
-      state.isFiltered = true;
+      state.filteredPlaceList.length === state.officeList.length
+        ? (state.isFiltered = false)
+        : (state.isFiltered = true);
     },
     resetFilteredPlaceList(state) {
       state.filteredPlaceList = state.officeList;

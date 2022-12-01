@@ -24,9 +24,12 @@ const OfficeMarker = (props) => {
       }
     });
   };
+  const setBound = (bounds) => {
+    map.current.setBounds(bounds, 170, 50, 170, 50);
+  };
   useEffect(() => {
     markers.map((elem) => elem.setMap(null));
-
+    const bounds = new kakao.maps.LatLngBounds();
     officeList.map((elem) => {
       const content = document.createElement('div');
       content.classList.add('wrap');
@@ -51,7 +54,10 @@ const OfficeMarker = (props) => {
             position: coords,
             level: 9,
           });
+          bounds.extend(coords);
+
           dispatch(officeSliceActions.getOverlay(overlay));
+          setBound(bounds);
           return overlay;
         }
       });

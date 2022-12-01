@@ -4,6 +4,8 @@ import { signOut } from 'next-auth/react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
+import { useDispatch } from 'react-redux';
+import { officeSliceActions } from '../../store/officeList';
 const Nav = styled.nav`
   position: fixed;
   top: 0;
@@ -85,6 +87,7 @@ const Nav = styled.nav`
 
 const MainHeader = () => {
   const [isAunthenticated, setIsAuthenticated] = useState(false);
+  const dispatch = useDispatch();
   const { status } = useSession();
 
   useEffect(() => {
@@ -101,7 +104,9 @@ const MainHeader = () => {
   return (
     <Nav>
       <Link href="/" className="link">
-        <a>
+        <a
+          onClick={() => dispatch(officeSliceActions.resetFilteredPlaceList())}
+        >
           <div className="logo">
             <Image src="/svg/logo.svg" width="40" height="40" />
             <h1>Place Sharing Platform</h1>

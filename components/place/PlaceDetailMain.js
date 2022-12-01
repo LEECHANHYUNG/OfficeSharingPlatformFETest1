@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -12,7 +13,6 @@ import PlaceOpeningHours from './PlaceOpeningHours';
 
 const Wrapper = styled.section`
   position: relative;
-  top: 90px;
   height: 80vh;
   width: 25%;
   overflow-y: scroll;
@@ -22,7 +22,7 @@ const Wrapper = styled.section`
     position: relative;
     width: 36px;
     height: 36px;
-    top: 5px;
+    top: 25px;
     left: 5px;
     cursor: pointer;
   }
@@ -44,7 +44,7 @@ const Wrapper = styled.section`
   }
   @media screen and (max-width: 1170px) {
     width: 100%;
-    height: 250px;
+    height: 300px;
     &::-webkit-scrollbar {
       display: none;
     }
@@ -80,7 +80,9 @@ const PlaceDetailMain = () => {
         closeTime={selectedPlace.item.closeTime}
       />
       <PlaceAvailableItem items={selectedPlace.item.roomInfo} />
-      <div className="detail-btn">자세히 보기</div>
+      <Link href={`/place/${selectedPlace.item.placeId}`}>
+        <div className="detail-btn">자세히 보기</div>
+      </Link>
     </Wrapper>
   );
 };

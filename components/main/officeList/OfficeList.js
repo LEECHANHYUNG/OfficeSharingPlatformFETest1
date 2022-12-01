@@ -4,7 +4,6 @@ import OfficeSearch from './OfficeSearch';
 
 const Wrapper = styled.div`
   position: relative;
-  top: 8vh;
   float: left;
   width: 25%;
   height: 92vh;

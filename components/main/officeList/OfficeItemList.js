@@ -8,13 +8,17 @@ const OfficeCount = styled.div`
   justify-content: center;
   align-items: center;
   background: #fff;
+  padding-top: 80px;
   height: 130px;
-  padding-top: 60px;
 
   & .count {
     display: inline-block;
     color: #6a9eff;
     font-weight: 700;
+  }
+  @media screen and (max-width: 1170px) {
+    padding-top: 0px;
+    height: 70px;
   }
 `;
 const OfficeItemList = (props) => {

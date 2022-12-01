@@ -26,6 +26,9 @@ const ControlDiv = styled.div`
   & span:nth-child(2) {
     border-bottom: 1px solid #111;
   }
+  @media screen and (max-width: 1170px) {
+    top: 25vh;
+  }
 `;
 
 const ControlBox = (props) => {

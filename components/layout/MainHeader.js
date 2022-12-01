@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react';
 import { useDispatch } from 'react-redux';
 import { officeSliceActions } from '../../store/officeList';
 const Nav = styled.nav`
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   height: 100px;

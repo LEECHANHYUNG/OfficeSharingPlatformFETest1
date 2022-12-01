@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import KakaoMap from '../components/main/map/kakaoMap';
-
 import OfficeList from '../components/main/officeList/OfficeList';
 import PlaceDetailMain from '../components/place/PlaceDetailMain';
 import { officeSliceActions } from '../store/officeList';
+
 const Wrapper = styled.div`
   display: flex;
   justify-contents: center;
   align-items: center;
+  height: 86vh;
   @media screen and (max-width: 1170px) {
     flex-direction: column;
   }

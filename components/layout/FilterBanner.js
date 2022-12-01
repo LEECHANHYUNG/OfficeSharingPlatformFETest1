@@ -5,6 +5,7 @@ import City from '../selectbox/city';
 import PlaceType from '../selectbox/PlaceType';
 import SubCity from '../selectbox/SubCity';
 import Time from '../selectbox/Time';
+import DatePicker from 'react-datepicker';
 
 const FilterBanner = () => {
   const buttonRef = useRef();
@@ -51,6 +52,9 @@ const FilterBanner = () => {
           <Date />
           <Image src="/svg/down.svg" width="18" height="18" />
         </div>*/}
+        <div className="selectOption ">
+          <DatePicker />
+        </div>
         <div className="selectOption ">
           <Time time="start" />
         </div>

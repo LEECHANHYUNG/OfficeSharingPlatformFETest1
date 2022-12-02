@@ -17,8 +17,6 @@ const Wrapper = styled.div`
   width: 90%;
   max-width: 40rem;
   text-align: center;
-  position: relative;
-  top: 200px;
 
   & header .headerLink {
     color: #111;

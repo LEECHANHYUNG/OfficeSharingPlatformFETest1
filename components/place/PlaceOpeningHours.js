@@ -3,10 +3,12 @@ import styled from 'styled-components';
 
 const Wrapper = styled.section`
   width: 100%;
-  margin-top: 20px;
+  margin-top: ${(props) => (props.main ? '30px' : '20px')};
+  padding-bottom: ${(props) => (props.main ? '30px' : '0')};
+  border-bottom : ${(props) => (props.main ? '3px solid #999' : 'none')};
   & h1 {
-    font-size: 1rem;
-    padding: 0 30px;
+    font-size: ${(props) => (props.main ? '1.5rem' : '1rem')};
+    padding: 0 ${(props) => (props.main ? '0' : '1rem')};
   }
 
   & .time {
@@ -33,9 +35,7 @@ const Wrapper = styled.section`
   }
  
   & .info{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+    
     font-size: 0.9rem;
     font-weight:  900;
     margin-top: 10px;
@@ -44,7 +44,7 @@ const Wrapper = styled.section`
   & .closed-days{
   }
 `;
-const PlaceOpeningHours = ({ openTime, closeTime, closedDays }) => {
+const PlaceOpeningHours = ({ openTime, closeTime, closedDays, main }) => {
   const days = {
     Mon: '월',
     Tue: '화',
@@ -56,10 +56,10 @@ const PlaceOpeningHours = ({ openTime, closeTime, closedDays }) => {
   };
   const getClosedDay = () => {
     const closedDayKor = closedDays.map((day) => days[day]);
-    return closedDayKor.length ? `매주 ${closedDayKor.join(',')}` : '없음';
+    return closedDayKor.length ? `매주 ${closedDayKor.join(',')} 휴무` : '없음';
   };
   return (
-    <Wrapper>
+    <Wrapper main={main}>
       <h1>영업 시간</h1>
       <div className="time">
         <div className="open">
@@ -71,13 +71,12 @@ const PlaceOpeningHours = ({ openTime, closeTime, closedDays }) => {
           <p>마감 시간</p>
           <div>{closeTime}</div>
         </div>
+        <div className="info">
+          <div className="closed-days">※ {getClosedDay()}</div>
+          <div className="description">※ 사무실 연중무휴</div>
+        </div>
       </div>
-      <h1>휴무일</h1>
-      <div className="info">
-        <div className="closed-days">{getClosedDay()}</div>
-        <div className="description">※ 사무실 연중무휴</div>
-      </div>
-      <div className="line"></div>
+      {main ? '' : <div className="line"></div>}
     </Wrapper>
   );
 };

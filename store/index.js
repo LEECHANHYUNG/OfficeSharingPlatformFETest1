@@ -3,6 +3,7 @@ import modal from './modal';
 import officeList from './officeList';
 import selected from './select';
 import auth from './auth';
+import reservation from './reservation';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     modal,
     selected,
     auth,
+    reservation,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

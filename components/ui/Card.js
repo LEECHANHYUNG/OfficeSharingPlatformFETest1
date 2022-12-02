@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   background-color: white;
   padding: 1rem;
   width: 90%;
-  max-width: 40rem;
+  max-width: 80rem;
 `;
 
 const Card = (props) => {

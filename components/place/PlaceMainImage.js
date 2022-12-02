@@ -5,18 +5,17 @@ import styled from 'styled-components';
 const Wrapper = styled.section`
   position: relative;
   top: 30px;
-  width: 1048px;
-  min-width: 500px;
-  height: 524px;
+  width: 50vw;
+  height: 25vw;
   text-align: center;
   margin: 0 auto;
-
+  padding-bottom: 60px;
   & .left {
     float: left;
     position: relative;
     width: 50%;
     height: 100%;
-    object-fit: 'contain';
+    object-fit: contain;
     border: 6px solid transparent;
   }
   & .left-img {
@@ -46,9 +45,10 @@ const Wrapper = styled.section`
   & .right-item:nth-child(4) .right-img {
     border-bottom-right-radius: 20px;
   }
+
   @media screen and (max-width: 1170px) {
-    width: 80%;
-    height: calc(50vw * 0.8);
+    width: 90vw;
+    height: 45vw;
   }
 `;
 
@@ -58,7 +58,6 @@ const PlaceMainImage = () => {
       <div className="left">
         <Image
           src="/image/place1.jpg"
-          width="300"
           layout="fill"
           objectFit="cover"
           objectPosition="center"
@@ -69,7 +68,6 @@ const PlaceMainImage = () => {
         <div className="right-item">
           <Image
             src="/image/place2.jpg"
-            width="250"
             layout="fill"
             objectFit="cover"
             objectPosition="center"
@@ -79,7 +77,6 @@ const PlaceMainImage = () => {
         <div className="right-item">
           <Image
             src="/image/place3.jpg"
-            width="250"
             layout="fill"
             objectFit="cover"
             objectPosition="center"
@@ -89,7 +86,6 @@ const PlaceMainImage = () => {
         <div className="right-item">
           <Image
             src="/image/place4.jpg"
-            width="250"
             layout="fill"
             objectFit="cover"
             objectPosition="center"
@@ -99,7 +95,6 @@ const PlaceMainImage = () => {
         <div className="right-item">
           <Image
             src="/image/place5.jpg"
-            width="250"
             layout="fill"
             objectFit="cover"
             objectPosition="center"

@@ -126,9 +126,6 @@ const Wrapper = styled.div`
   width: 90%;
   max-width: 40rem;
   text-align: center;
-  position: relative;
-  top: 50%;
-  transform: translateY(50%);
   & header .headerLink {
     color: #111;
     text-decoration: none;

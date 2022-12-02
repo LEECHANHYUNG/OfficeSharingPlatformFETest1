@@ -52,7 +52,7 @@ const OfficeMarker = (props) => {
             content,
             map: map.current,
             position: coords,
-            level: 9,
+            level: 12,
           });
           bounds.extend(coords);
 

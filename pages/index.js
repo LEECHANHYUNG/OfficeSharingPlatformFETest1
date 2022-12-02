@@ -10,7 +10,8 @@ const Wrapper = styled.div`
   display: flex;
   justify-contents: center;
   align-items: center;
-  height: 86vh;
+  height: 100vh;
+  overflow-y: hidden;
   @media screen and (max-width: 1170px) {
     flex-direction: column;
   }

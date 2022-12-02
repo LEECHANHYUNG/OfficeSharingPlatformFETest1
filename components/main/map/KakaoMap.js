@@ -6,14 +6,16 @@ import FilterBanner from '../../layout/FilterBanner';
 import styled from 'styled-components';
 import FilterResetBtn from './FilterResetBtn';
 const KaKaoMap = styled(Map)`
-  position: relative;
+  position: absolute;
   top: 0px;
-  float: right;
-  width: 75%;
-  height: 92vh;
+  left: 0px;
+  width: 75vw;
+  height: 100vh;
+
   @media (max-width: 1170px) {
     width: 100%;
-    height: 51vh;
+    padding-top: 216px;
+    height: 50vh;
   }
 `;
 const KakaoMap = (props) => {
@@ -30,7 +32,7 @@ const KakaoMap = (props) => {
           lat: 37.52341236919156,
           lng: 127.05462238047163,
         }}
-        level={8}
+        level={13}
         ref={mapRef}
       >
         <OfficeMarker map={mapRef} />

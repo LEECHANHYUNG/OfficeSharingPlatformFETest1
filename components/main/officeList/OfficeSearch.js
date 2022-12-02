@@ -6,12 +6,12 @@ import { officeSliceActions } from '../../../store/officeList';
 
 const Wrapper = styled.div`
   position: fixed;
-  top: 100px;
   background: #fff;
   padding: 5px 20px;
-  width: 25%;
+  width: 100%;
   border: 2px solid #111;
   z-index: 100;
+
   & .search-glass {
     cursor: pointer;
   }
@@ -30,6 +30,7 @@ const Wrapper = styled.div`
     padding-right: 20px;
   }
   @media screen and (max-width: 1170px) {
+    top: 50vh;
     width: 100%;
   }
 `;

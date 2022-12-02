@@ -3,16 +3,20 @@ import OfficeItemList from './OfficeItemList';
 import OfficeSearch from './OfficeSearch';
 
 const Wrapper = styled.div`
-  position: relative;
-  float: left;
-  width: 25%;
-  height: 92vh;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 25vw;
+  height: 100vh;
   background: #fff;
   overflow-y: scroll;
+  padding-top: 100px;
 
   @media screen and (max-width: 1170px) {
+    padding-top: 54px;
+    top: 50vh;
     width: 100%;
-    height: 32vh;
+    height: 50vh;
   }
 `;
 

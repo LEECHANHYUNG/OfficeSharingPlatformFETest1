@@ -3,12 +3,13 @@ import styled from 'styled-components';
 
 const ButtonWrapper = styled.button`
   font: inherit;
-  border: 1px solid rgb(106, 158, 255);
-  background: rgb(106, 158, 255);
+  border: 1px solid #6a9eff;
+  background: #6a9eff;
   color: white;
   padding: 0.25rem 1rem;
   cursor: pointer;
-  width: 100%;
+  width: ${(props) => (props.main ? '300px' : '100%')};
+  border-radius: 6px;
 
   &:hover,
   &:active {
@@ -32,6 +33,7 @@ const Button = (props) => {
       onClick={props.onClick}
       id={null || props.id}
       disabled={props.disabled || false}
+      main={props.main}
     >
       {props.children}
     </ButtonWrapper>

@@ -12,17 +12,22 @@ import PlaceInfo from './PlaceInfo';
 import PlaceOpeningHours from './PlaceOpeningHours';
 
 const Wrapper = styled.section`
-  position: relative;
-  height: 80vh;
-  width: 25%;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding-top : 100px;
+  padding-bottom : 80px;
+  height: 100vh;
+  width: 25vw;
   overflow-y: scroll;
   
+ 
   & .prev-btn {
     z-index: 10;
-    position: relative;
+    position: absolute;
     width: 36px;
     height: 36px;
-    top: 25px;
+    top: 154px;
     left: 5px;
     cursor: pointer;
   }
@@ -42,12 +47,19 @@ const Wrapper = styled.section`
     height: 6px;
     background #999;
   }
+
   @media screen and (max-width: 1170px) {
+    top: 50vh;
     width: 100%;
-    height: 300px;
+    height: 50vh;
+    padding-top : 0;
     &::-webkit-scrollbar {
       display: none;
     }
+    & .prev-btn {
+      top : 56px;
+    }
+
     & .detail-btn {
       width: 100%;
     }
@@ -65,7 +77,7 @@ const PlaceDetailMain = () => {
         <Image src="/svg/arrow-left.svg" width="36" height="36" />
       </div>
       <OfficeSearch />
-      <PlaceImage />
+      <PlaceImage images={selectedPlace.item.placeImages} />
       <div className="line"></div>
       <PlaceInfo
         placeName={selectedPlace.item.placeName}

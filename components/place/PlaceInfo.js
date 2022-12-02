@@ -3,8 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 const Wrapper = styled.section`
   
-  width: ${(props) => (props.main ? '60%' : '100%')};
-  margin-left : ${(props) => (props.main ? '50px' : '')};
+  margin : auto;
   & .place-name {
     font-size: 1.7rem;
     font-weight: 900;
@@ -45,6 +44,7 @@ const Wrapper = styled.section`
   }
   & .review-count{
     font-size : 0.9rem;
+    text-decoration: underline;
   }
 `;
 const PlaceInfo = ({
@@ -55,8 +55,6 @@ const PlaceInfo = ({
   review,
   main,
 }) => {
-  console.log(main);
-  console.log(rating);
   return (
     <Wrapper main={main}>
       <div className="review">
@@ -68,7 +66,13 @@ const PlaceInfo = ({
         ) : (
           ''
         )}
-        {!main ? '' : <div className="review-count">리뷰 {review}개</div>}
+        {!main ? (
+          ''
+        ) : (
+          <a href="#review" className="review-count">
+            리뷰 {review}개
+          </a>
+        )}
       </div>
       <div className="place-name">{placeName}</div>
       <div className="place-description">{description}</div>

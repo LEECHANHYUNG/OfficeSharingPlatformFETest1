@@ -117,7 +117,7 @@ const Wrapper = styled.div`
   }
 
   @media screen and (max-width: 1170px) {
-    top: 154px;
+    top: 100px;
     overflow-x: scroll;
     &::-webkit-scrollbar {
       display: none;

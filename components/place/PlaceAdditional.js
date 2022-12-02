@@ -4,10 +4,12 @@ import styled from 'styled-components';
 
 const Wrapper = styled.section`
   width: 100%;
-  margin-top: 20px;
+  margin-top: 30px;
+  padding-bottom : ${(props) => (props.main ? '30px' : 'none')};
+  border-bottom : ${(props) => (props.main ? '3px solid #999' : 'none')};
   & h1 {
-    font-size: 1rem;
-    padding : 0 30px;
+    font-size: ${(props) => (props.main ? '1.5rem' : '1rem')};
+    padding : 0 ${(props) => (props.main ? '0' : '30px')};
   }
   & main {
     display: flex;
@@ -38,9 +40,9 @@ const Wrapper = styled.section`
   }
 `;
 
-const PlaceAdditional = ({ additionalItem }) => {
+const PlaceAdditional = ({ additionalItem, main }) => {
   return (
-    <Wrapper>
+    <Wrapper main={main}>
       <h1>부가 정보</h1>
       <main>
         {additionalItem.includes('Parking') && (
@@ -68,7 +70,7 @@ const PlaceAdditional = ({ additionalItem }) => {
           </div>
         )}
       </main>
-      <div className="line"></div>
+      {main ? '' : <div className="line"></div>}
     </Wrapper>
   );
 };

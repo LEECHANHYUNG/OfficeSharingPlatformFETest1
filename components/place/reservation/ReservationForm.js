@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { reservationActions } from '../../../store/reservation';
@@ -6,15 +8,27 @@ import Button from '../../ui/Button';
 import Card from '../../ui/Card';
 import DatePick from '../../ui/DatePick';
 import AvailableTime from './AvailableTime';
+import SelectEndTime from './SelectEndTime';
+import SelectStartTime from './SelectStartTime';
 const Wrapper = styled(Card)`
   border: 2px solid #111;
   border-radius: 5px;
+  min-width: 400px;
+  h1 {
+    font-size: 1.5rem;
+  }
+
   .productForm {
     padding: 20px 20px;
   }
+  .item {
+    margin: 30px 0;
+    font-weight: 900;
+    color: #6a9eff;
+  }
   .formInput {
     border: none;
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-left: 20px;
     color: #111;
     font-weight: 500;
@@ -23,70 +37,48 @@ const Wrapper = styled(Card)`
   }
 `;
 const ReservationForm = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
-  const itemName = useSelector((state) => state.reservation.itemName);
-  const itemPrice = useSelector((state) => state.reservation.itemPrice);
-  const availableTimeList = (data) => {
-    let timeArr = new Array(24);
-    timeArr.fill(0, 0, 24);
-    data.forEach((elem) => {
-      if (elem !== 0) {
-        timeArr[elem] += 1;
-      }
-    });
-    return timeArr;
-  };
-  const checkAvailableTime = async () => {
-    dispatch(reservationActions.deleteList());
-    dispatch(reservationActions.showTimeLine());
-    try {
-      setIsLoading(true);
-      const response = await fetch(
-        'https://react-http-673e2-default-rtdb.firebaseio.com/timeList.json'
-      );
-      if (!response.ok) {
-        throw new Error('Something went Wrong');
-      }
-      const data = await response.json();
-      dispatch(
-        reservationActions.checkTimeList(availableTimeList(data.timeList))
-      );
-      dispatch(reservationActions.getTimeList(data.timeList));
-    } catch (err) {
-      return err;
-    }
-  };
+  const itemName = useSelector((state) => state.reservation.reservationItem);
+  const selectedTypeEng = useSelector(
+    (state) => state.reservation.selectedTypeEng
+  );
+  const isLoading = useSelector((state) => state.reservation.isLoading);
+  const startTime = useSelector((state) => state.reservation.selectedStartTime);
+  const selectDate = useSelector((state) => state.reservation.date);
+  const dateArr = selectDate.toLocaleString().slice(0, -1).split('. ');
+  const dateString =
+    dateArr[0] + '-' + dateArr[1].padStart(2, '0') + '-' + dateArr[2];
+  const placeId = router.query.id;
 
   return (
     <Wrapper>
-      <form className="productForm">
-        <h1>예약 신청</h1>
-        <div>
-          <label htmlFor="selectProduct">선택 상품명</label>
-          <input
-            type="text"
-            value={itemName || ''}
-            disabled
-            className="formInput"
-          />
-        </div>
-        <div>
-          <label htmlFor="selectDate">이용 날짜 선택</label>
-          <DatePick />
-        </div>
-        <div>
-          <label htmlFor="totalPrice">결제 금액</label>
-          <input
-            type="text"
-            className="formInput"
-            disabled
-            value={itemPrice || ''}
-          />
-        </div>
-        <Button onClick={checkAvailableTime}>시간 확인</Button>
-      </form>
-
-      <AvailableTime />
+      <div className="productForm">
+        {itemName ? <h1>예약 신청</h1> : <h1>예약하실 상품을 선택해주세요</h1>}
+        {itemName ? (
+          <div className="item">
+            <label htmlFor="selectProduct">선택 상품명</label>
+            <input
+              type="text"
+              value={itemName || ''}
+              disabled
+              className="formInput"
+            />
+          </div>
+        ) : (
+          ''
+        )}
+        {itemName ? (
+          <div className="item">
+            <label htmlFor="selectDate">이용 날짜 선택</label>
+            {isLoading ? <div>Loading...</div> : <DatePick />}
+          </div>
+        ) : (
+          ''
+        )}
+        {itemName && !isLoading ? <SelectStartTime /> : ''}
+        {itemName && startTime ? <Button>시간 확인</Button> : ''}
+      </div>
     </Wrapper>
   );
 };

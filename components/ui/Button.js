@@ -30,7 +30,7 @@ const Button = (props) => {
   return (
     <ButtonWrapper
       type={props.type || 'button'}
-      onClick={props.onClick}
+      onClick={props.onClick || null}
       id={null || props.id}
       disabled={props.disabled || false}
       main={props.main}

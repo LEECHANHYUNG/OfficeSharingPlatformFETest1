@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PlaceAdditional from '../../components/place/PlaceAdditional';
 import PlaceDescription from '../../components/place/PlaceDescription';
@@ -9,6 +10,7 @@ import PlaceOpeningHours from '../../components/place/PlaceOpeningHours';
 import ItemListForm from '../../components/place/reservation/ItemListForm';
 import ReservationForm from '../../components/place/reservation/ReservationForm';
 import Review from '../../components/place/review/Review';
+import { reservationActions } from '../../store/reservation';
 const Wrapper = styled.section`
   width: 70vw;
   margin: auto;
@@ -33,45 +35,60 @@ const Wrapper = styled.section`
     .line {
       width: 90vw;
     }
-  }
-  @media screen and (max-width: 756px) {
     .info-left {
       width: 100%;
     }
-    & .info-right {
+    .info-right {
       width: 100%;
     }
   }
 `;
 
-const PlaceMainPage = ({ office }) => {
+const PlaceMainPage = ({ place }) => {
+  const dispatch = useDispatch();
+  dispatch(reservationActions.getSelectedType(null));
+  dispatch(reservationActions.getReservationItem(null));
+  dispatch(
+    reservationActions.getOpeningHours([
+      +place.placeOpenTime.slice(0, 2),
+      +place.placeCloseTime.slice(0, 2),
+    ])
+  );
   return (
     <Wrapper>
       <PlaceInfo
-        placeName={office[0].placeName}
-        address={office[0].address}
-        rating={office[0].ratingPoint}
-        review="4"
+        placeName={place.placeName}
+        address={place.address}
+        rating={place.ratePoint}
+        review={place.reviewQuantity}
         main="true"
       />
-      <PlaceMainImage />
+      <PlaceMainImage images={place.placeImage} />
       <div className="line"></div>
       <section>
         <div className="info-left">
           <PlaceItemCount
-            placeName={office[0].placeName}
-            itemCount={[5, 4, 2]}
+            placeName={place.placeName}
+            itemCount={[
+              place.deskQuantity,
+              place.meetingRoomQuantity,
+              place.officeQuantity,
+            ]}
           />
-          <PlaceDescription description={office[0].placeDescription} />
+          <PlaceDescription description={place.placeDescription} />
           <PlaceOpeningHours
-            closedDays={office[0].closeDays}
-            openTime={office[0].openTime}
-            closeTime={office[0].closeTime}
+            closedDays={place.placeCloseDays}
+            openTime={place.placeOpenTime}
+            closeTime={place.placeCloseTime}
             main={true}
           />
-          <PlaceAdditional additionalItem={office[0].placeInfo} main={true} />
-          <ItemListForm items={office[0].roomInfo} />
-          <Review rating={office[0].ratingPoint} count="4" />
+          <PlaceAdditional additionalItem={place.placeMainInfo} main={true} />
+          <ItemListForm items={place.roomTypeResponse} />
+          <Review
+            rating={place.ratePoint}
+            count={place.reviewQuantity}
+            ratingList={place.ratingList}
+          />
         </div>
         <div className="info-right">
           <ReservationForm />
@@ -81,36 +98,34 @@ const PlaceMainPage = ({ office }) => {
   );
 };
 
-export async function getStaticProps() {
-  const office = [];
+export async function getStaticProps(context) {
+  const placeId = context.params.id;
+  const place = [];
+
   try {
-    const res = await fetch('http://localhost:8080/main/search', {
-      method: 'POST',
-      body: JSON.stringify({ searchWord: '골프존' }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (!res.ok) {
-      throw new Error(res.statusText);
+    const response = await fetch(`http://localhost:8080/places/${placeId}`);
+
+    if (!response.ok) {
+      throw new Error('잠시후 다시 시도해주세요.');
     }
-    const data = await res.json();
-    console.log(data);
-    office.push(data);
-  } catch (err) {
-    console.error(err);
-  }
-  console.log(office);
+    const data = await response.json();
+    place.push(data);
+  } catch (err) {}
+
   return {
     props: {
-      office: office[0],
+      place: place[0],
     },
   };
 }
 
 export async function getStaticPaths() {
   return {
-    paths: [{ params: { id: '1' } }],
+    paths: [
+      { params: { id: '1' } },
+      { params: { id: '2' } },
+      { params: { id: '3' } },
+    ],
     fallback: 'blocking',
   };
 }

@@ -17,20 +17,47 @@ const Wrapper = styled.section`
   }
 `;
 
-const ItemListForm = ({ items = [DESK, MEETINGROOM, OFFICE] }) => {
+const ItemListForm = ({ items }) => {
   const selectedType = useSelector((state) => state.reservation.selectedType);
-  const arr = [1, 2, 3];
   return (
     <Wrapper>
       <h1>상품 선택</h1>
       <ItemHeader items={items} />
       <main>
-        {selectedType === '1인 데스크' &&
-          arr.map((elem) => <Item key={elem} images={'/image/place1.jpg'} />)}
+        {selectedType === '1인 데스크' && items.desk.exist && (
+          <Item
+            images={'/image/place2.jpg'}
+            type="1인 DESK"
+            typeEng={`desk`}
+            price={items.desk.price.toLocaleString('ko-KR')}
+            availablePerson={'1'}
+          />
+        )}
         {selectedType === '회의실' &&
-          arr.map((elem) => <Item key={elem} images={'/image/place2.jpg'} />)}
+          items.meetingRoom.length !== 0 &&
+          items.meetingRoom.map((elem) => (
+            <Item
+              key={elem.typeCode}
+              images={'/image/place3.jpg'}
+              type={`${elem.typeCode}인 회의실`}
+              typeEng={`meetingRoom${elem.typeCode}`}
+              price={elem.price.toLocaleString('ko-KR')}
+              availablePerson={elem.typeCode}
+            />
+          ))}
         {selectedType === '사무실' &&
-          arr.map((elem) => <Item key={elem} images={'/image/place3.jpg'} />)}
+          items.office.length !== 0 &&
+          items.office.map((elem) => (
+            <Item
+              key={elem.typeCode}
+              images={'/image/place1.jpg'}
+              type={`${elem.typeCode}평 사무실`}
+              typeEng={`office${elem.typeCode}`}
+              price={elem.price.toLocaleString('ko-KR')}
+              availablePerson={elem.typeCode}
+              timeUnit={'일'}
+            />
+          ))}
       </main>
     </Wrapper>
   );

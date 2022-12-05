@@ -18,10 +18,7 @@ const PlaceDescription = ({ description }) => {
   return (
     <Wrapper>
       <h1>Place 설명</h1>
-      <div className="description">
-        {description +
-          'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia commodi nesciunt quisquam fugiat natus! Distinctio dicta voluptas alias vel soluta dolorum itaque dolor beatae, suscipit debitis cupiditate perferendis eum nostrum vero cum repellendus perspiciatis doloremque tempora numquam voluptate recusandae. Corrupti?'}
-      </div>
+      <div className="description">{description}</div>
     </Wrapper>
   );
 };

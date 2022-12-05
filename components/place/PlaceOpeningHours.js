@@ -56,7 +56,9 @@ const PlaceOpeningHours = ({ openTime, closeTime, closedDays, main }) => {
   };
   const getClosedDay = () => {
     const closedDayKor = closedDays.map((day) => days[day]);
-    return closedDayKor.length ? `매주 ${closedDayKor.join(',')} 휴무` : '없음';
+    return closedDayKor.length
+      ? `매주 ${closedDayKor.join(',')} 휴무`
+      : '휴무일 없음';
   };
   return (
     <Wrapper main={main}>

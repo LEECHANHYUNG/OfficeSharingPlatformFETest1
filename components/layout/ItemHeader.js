@@ -35,7 +35,7 @@ const ItemHeader = ({ items }) => {
   };
   return (
     <Wrapper>
-      {items.DESK && (
+      {items.desk.exist ? (
         <Button
           type="button"
           className="btn"
@@ -44,8 +44,10 @@ const ItemHeader = ({ items }) => {
         >
           1인 데스크
         </Button>
+      ) : (
+        ''
       )}
-      {items.MEETINGROOM && (
+      {items.meetingRoom.length ? (
         <Button
           type="button"
           className="btn"
@@ -54,8 +56,10 @@ const ItemHeader = ({ items }) => {
         >
           회의실
         </Button>
+      ) : (
+        ''
       )}
-      {items.OFFICE && (
+      {items.office.length ? (
         <Button
           type="button"
           className="btn"
@@ -64,6 +68,8 @@ const ItemHeader = ({ items }) => {
         >
           사무실
         </Button>
+      ) : (
+        ''
       )}
     </Wrapper>
   );

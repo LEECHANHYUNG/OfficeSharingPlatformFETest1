@@ -2,14 +2,19 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialReservationState = {
   selectedType: null,
+  selectedTypeEng: null,
+  reservationItem: null,
+  unableDateList: [],
+  openingHours: [],
+  selectedStartTime: 0,
+  selectedEndTime: 0,
+  availableTimeList: new Array(24).fill(0, 0, 24),
   timelist: [],
   selectTimeList: [],
-  showTimeLine: false,
   isSelected: false,
-  itemName: null,
+  isLoading: false,
   itemPrice: null,
-  showTimeLine: false,
-  date: new Date().toLocaleDateString(),
+  date: new Date(),
 };
 
 const reservationSlice = createSlice({
@@ -19,15 +24,31 @@ const reservationSlice = createSlice({
     getSelectedType(state, action) {
       state.selectedType = action.payload;
     },
+    getSelectedTypeEng(state, action) {
+      state.selectedTypeEng = action.payload;
+    },
+    getReservationItem(state, action) {
+      state.reservationItem = action.payload;
+    },
+    getUnableDayList(state, action) {
+      state.unableDateList = action.payload;
+    },
+    getOpeningHours(state, action) {
+      state.openingHours = action.payload;
+    },
+    getSelectedStartTime(state, action) {
+      state.selectedStartTime = action.payload;
+    },
+    getAvailableTimeList(state, action) {
+      state.availableTimeList = action.payload;
+    },
+    getSelectedEndTime(state, action) {
+      state.selectedStartTime = action.payload;
+    },
     checkTimeList(state, action) {
       state.timelist = action.payload;
     },
-    deleteList(state) {
-      state.selectTimeList = [];
-    },
-    showTimeLine(state) {
-      state.showTimeLine = true;
-    },
+
     checkTimeList(state, action) {
       state.timelist = action.payload;
     },
@@ -48,6 +69,9 @@ const reservationSlice = createSlice({
     },
     hideTimeLine(state) {
       state.showTimeLine = false;
+    },
+    getLoadingState(state) {
+      state.isLoading = !state.isLoading;
     },
   },
 });

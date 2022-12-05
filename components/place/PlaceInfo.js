@@ -58,14 +58,11 @@ const PlaceInfo = ({
   return (
     <Wrapper main={main}>
       <div className="review">
-        {Number(rating) ? (
-          <div className="review-avg">
-            <Image src="/svg/star.svg" width="16" height="16" />
-            <div>{`${rating}/5.0`}</div>
-          </div>
-        ) : (
-          ''
-        )}
+        <div className="review-avg">
+          <Image src="/svg/star.svg" width="16" height="16" />
+          <div>{`${rating}/5.0`}</div>
+        </div>
+
         {!main ? (
           ''
         ) : (

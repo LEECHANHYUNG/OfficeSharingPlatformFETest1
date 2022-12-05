@@ -10,12 +10,12 @@ const ReviewCard = styled(Card)`
   margin: 30px;
 `;
 
-const ReviewItem = () => {
+const ReviewItem = ({ score, writer, date, roomType, content }) => {
   return (
     <ReviewCard>
-      <ReviewRating score="3.4" />
-      <Reviewer writer={'홍길동'} createDate={'2022-12-02'} type="DESK" />
-      <ReviewContent />
+      <ReviewRating score={score} />
+      <Reviewer writer={writer} createDate={date} type={roomType} />
+      <ReviewContent content={content} />
     </ReviewCard>
   );
 };

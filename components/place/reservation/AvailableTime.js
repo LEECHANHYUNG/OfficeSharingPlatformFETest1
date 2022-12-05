@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useDispatch, useSelector } from 'react-redux';
 import TimeButton from '../../ui/TimeButton';
@@ -150,6 +150,7 @@ const AvailableTime = () => {
         'rgb(106, 158, 255)';
     });
   }, [availableFullTimeList]);
+  console.log(avaialbleTimeList);
   return (
     <Wrapper>
       <h1>이용 가능 시간</h1>

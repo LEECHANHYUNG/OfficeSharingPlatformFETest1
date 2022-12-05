@@ -119,6 +119,8 @@ const SignUp = () => {
 
 export default SignUp;
 const Wrapper = styled.div`
+  position: relative;
+  top: 20vh;
   margin: 0 auto;
   border-radius: 6px;
   background-color: white;

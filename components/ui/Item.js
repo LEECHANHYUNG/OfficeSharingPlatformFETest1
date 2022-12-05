@@ -1,6 +1,9 @@
 import Image from 'next/image';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { reservationActions } from '../../store/reservation';
 import Button from './Button';
 import Card from './Card';
 
@@ -58,7 +61,52 @@ const ItemCard = styled(Card)`
   }
 `;
 
-const Item = ({ images }) => {
+const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
+  const disabledDateList = [];
+  const router = useRouter();
+  const placeId = router.query.id;
+  const dispatch = useDispatch();
+
+  const date = useSelector((state) => state.reservation.date);
+  const dateArr = date.toLocaleString().slice(0, -1).split('. ');
+  const dateString =
+    dateArr[0] + '-' + dateArr[1].padStart(2, '0') + '-' + '01';
+  const selectTypeHandler = async (e) => {
+    const selectedItem = e.target.childNodes[0].value;
+    dispatch(reservationActions.getReservationItem(selectedItem));
+    dispatch(reservationActions.getSelectedTypeEng(typeEng));
+    dispatch(reservationActions.getSelectedStartTime(0));
+
+    try {
+      dispatch(reservationActions.getLoadingState());
+      const response = await fetch(`/api/main/available-date`, {
+        method: 'POST',
+        body: JSON.stringify({
+          placeId,
+          type: typeEng,
+          date: dateString,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      dispatch(reservationActions.getLoadingState());
+      if (!response.ok) {
+        throw new Error(response.err);
+      }
+      const monthDayList = await response.json();
+      monthDayList.dayList.map((elem) => {
+        if (!elem.state) {
+          disabledDateList.push(
+            new Date(elem.date.year, elem.date.month - 1, elem.date.day)
+          );
+        }
+      });
+      dispatch(reservationActions.getUnableDayList(disabledDateList));
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <ItemCard>
       <div className="img">
@@ -69,13 +117,18 @@ const Item = ({ images }) => {
           objectPosition="center"
         />
       </div>
-      <div className="item-name">1인 DESK</div>
-      <div className="item-description">최대 1인 이용 가능</div>
+      <div className="item-name">{type}</div>
+      <div className="item-description">최대 {availablePerson}인 이용 가능</div>
       <div className="item-price">
-        <div>1시간 단위 예약</div>
-        <div>10,000원/시간</div>
+        <div>1{timeUnit || '시간'} 단위 예약</div>
+        <div>
+          {price}원/{timeUnit || '시간'}
+        </div>
       </div>
-      <Button type="button">객실 선택</Button>
+      <Button type="button" onClick={selectTypeHandler}>
+        <input type="hidden" value={type} />
+        예약
+      </Button>
     </ItemCard>
   );
 };

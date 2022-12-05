@@ -52,12 +52,12 @@ const Wrapper = styled.section`
   }
 `;
 
-const PlaceMainImage = () => {
+const PlaceMainImage = ({ images }) => {
   return (
     <Wrapper>
       <div className="left">
         <Image
-          src="/image/place1.jpg"
+          src={images[1]}
           layout="fill"
           objectFit="cover"
           objectPosition="center"
@@ -67,7 +67,7 @@ const PlaceMainImage = () => {
       <div className="right">
         <div className="right-item">
           <Image
-            src="/image/place2.jpg"
+            src={images[2]}
             layout="fill"
             objectFit="cover"
             objectPosition="center"
@@ -76,7 +76,7 @@ const PlaceMainImage = () => {
         </div>
         <div className="right-item">
           <Image
-            src="/image/place3.jpg"
+            src={images[3]}
             layout="fill"
             objectFit="cover"
             objectPosition="center"
@@ -85,7 +85,7 @@ const PlaceMainImage = () => {
         </div>
         <div className="right-item">
           <Image
-            src="/image/place4.jpg"
+            src={images[4]}
             layout="fill"
             objectFit="cover"
             objectPosition="center"
@@ -94,7 +94,7 @@ const PlaceMainImage = () => {
         </div>
         <div className="right-item">
           <Image
-            src="/image/place5.jpg"
+            src={images[5]}
             layout="fill"
             objectFit="cover"
             objectPosition="center"

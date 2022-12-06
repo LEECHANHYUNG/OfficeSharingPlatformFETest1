@@ -29,8 +29,16 @@ export async function getServerSideProps(context) {
       },
     };
   }
+  try {
+    const response = await fetch('http://localhost:8080/mypage', {
+      headers: {
+        Authorization: session.user.accessToken,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  }
   const response = await fetch('http://localhost:8080/mypage', {
-    method: 'GET',
     headers: {
       Authorization: session.user.accessToken,
     },

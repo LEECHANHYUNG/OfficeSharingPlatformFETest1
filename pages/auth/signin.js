@@ -1,4 +1,4 @@
-import { getSession, signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useReducer, useRef, useState } from 'react';
@@ -10,7 +10,7 @@ import Button from '../../components/ui/Button';
 import { authSliceActions } from '../../store/auth';
 
 const Wrapper = styled.div`
-  margin: 5rem auto;
+  margin: 20vh auto;
   border-radius: 6px;
   background-color: white;
   padding: 1rem;

@@ -76,8 +76,10 @@ const Nav = styled.nav`
     & ul li {
       display: block;
       margin: 50px 0;
-      line-height: 30px;
+      line-height : 19px;
     }
+   
+ 
 
     #check:checked + label ~ ul {
       left: 0;
@@ -101,6 +103,10 @@ const MainHeader = () => {
   const signOutHandler = () => {
     signOut();
   };
+  const removeMenuBar = () => {
+    const checkbox = document.getElementById('check');
+    checkbox.checked = false;
+  };
   return (
     <Nav>
       <Link href="/" className="link">
@@ -119,23 +125,27 @@ const MainHeader = () => {
       </label>
       <ul>
         {!isAunthenticated && (
-          <li>
+          <li onClick={removeMenuBar}>
             <Link href="/auth/signin" className="link">
               로그인
             </Link>
           </li>
         )}
-        {isAunthenticated && <li onClick={signOutHandler}>로그아웃</li>}
+        {isAunthenticated && (
+          <li onClick={signOutHandler} className="link">
+            로그아웃
+          </li>
+        )}
 
         {!isAunthenticated && (
-          <li>
+          <li onClick={removeMenuBar}>
             <Link href="/auth/signup" className="link">
               회원가입
             </Link>
           </li>
         )}
         {isAunthenticated && (
-          <li>
+          <li onClick={removeMenuBar}>
             <Link href="/mypage" className="link">
               마이페이지
             </Link>

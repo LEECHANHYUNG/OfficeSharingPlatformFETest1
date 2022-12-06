@@ -6,9 +6,8 @@ const initialReservationState = {
   reservationItem: null,
   unableDateList: [],
   openingHours: [],
-  selectedStartTime: 0,
-  selectedEndTime: 0,
-  availableTimeList: new Array(24).fill(0, 0, 24),
+  selectedStartTime: 24,
+  selectedEndTime: 24,
   timelist: [],
   selectTimeList: [],
   isSelected: false,
@@ -37,41 +36,21 @@ const reservationSlice = createSlice({
       state.openingHours = action.payload;
     },
     getSelectedStartTime(state, action) {
-      state.selectedStartTime = action.payload;
-    },
-    getAvailableTimeList(state, action) {
-      state.availableTimeList = action.payload;
+      state.selectedStartTime = action.payload % 24;
     },
     getSelectedEndTime(state, action) {
-      state.selectedStartTime = action.payload;
-    },
-    checkTimeList(state, action) {
-      state.timelist = action.payload;
-    },
-
-    checkTimeList(state, action) {
-      state.timelist = action.payload;
+      state.selectedEndTime = action.payload % 24;
     },
     getTimeList(state, action) {
       state.timelist = action.payload;
     },
-    select(state, action) {
-      if (state.selectTimeList.length === 2) {
-        state.selectTimeList = [];
-        state.selectTimeList.push(Number(action.payload));
-      } else {
-        state.selectTimeList.push(Number(action.payload));
-      }
-      state.selectTimeList.sort((a, b) => a - b);
-    },
+
     selectDate(state, action) {
       state.date = action.payload;
     },
-    hideTimeLine(state) {
-      state.showTimeLine = false;
-    },
-    getLoadingState(state) {
-      state.isLoading = !state.isLoading;
+
+    getLoadingState(state, action) {
+      state.isLoading = action.payload;
     },
   },
 });

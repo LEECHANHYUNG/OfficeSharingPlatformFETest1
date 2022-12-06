@@ -1,14 +1,10 @@
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import React from 'react';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { reservationActions } from '../../../store/reservation';
 import Button from '../../ui/Button';
 import Card from '../../ui/Card';
 import DatePick from '../../ui/DatePick';
-import AvailableTime from './AvailableTime';
-import SelectEndTime from './SelectEndTime';
 import SelectStartTime from './SelectStartTime';
 const Wrapper = styled(Card)`
   border: 2px solid #111;
@@ -26,6 +22,7 @@ const Wrapper = styled(Card)`
     font-weight: 900;
     color: #6a9eff;
   }
+
   .formInput {
     border: none;
     font-size: 1.5rem;
@@ -35,21 +32,36 @@ const Wrapper = styled(Card)`
     background: #fff;
     width: 80%;
   }
+  .payment-btn {
+    border-radius: 6px;
+    height: 40px;
+    width: 70%;
+    margin: 50px auto;
+    text-align: center;
+    line-height: 40px;
+    background: #6a9eff;
+    font-weight: 900;
+  }
+  .time {
+    line-height: 40px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    display: block;
+    margin-left: 20px;
+    color: #111;
+  }
 `;
+
 const ReservationForm = () => {
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const itemName = useSelector((state) => state.reservation.reservationItem);
-  const selectedTypeEng = useSelector(
-    (state) => state.reservation.selectedTypeEng
-  );
   const isLoading = useSelector((state) => state.reservation.isLoading);
+  const itemName = useSelector((state) => state.reservation.reservationItem);
   const startTime = useSelector((state) => state.reservation.selectedStartTime);
-  const selectDate = useSelector((state) => state.reservation.date);
-  const dateArr = selectDate.toLocaleString().slice(0, -1).split('. ');
-  const dateString =
-    dateArr[0] + '-' + dateArr[1].padStart(2, '0') + '-' + dateArr[2];
-  const placeId = router.query.id;
+  const selectedStartTime = useSelector(
+    (state) => state.reservation.selectedStartTime
+  );
+  const selectedEndTime = useSelector(
+    (state) => state.reservation.selectedEndTime
+  );
 
   return (
     <Wrapper>
@@ -77,7 +89,31 @@ const ReservationForm = () => {
           ''
         )}
         {itemName && !isLoading ? <SelectStartTime /> : ''}
-        {itemName && startTime ? <Button>시간 확인</Button> : ''}
+        <div className="item">
+          선택 시간
+          {!isLoading ? (
+            <div className="time">{`시작 시간     : ${
+              selectedStartTime ? selectedStartTime + ':00' : ''
+            }`}</div>
+          ) : (
+            ''
+          )}
+          {!isLoading ? (
+            <div className="time">{`종료 시간     :${
+              selectedEndTime ? selectedEndTime + ':50' : ''
+            }`}</div>
+          ) : (
+            ''
+          )}
+        </div>
+
+        {itemName && startTime ? (
+          <div className="payment-btn">
+            <Link href="/">결제</Link>
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     </Wrapper>
   );

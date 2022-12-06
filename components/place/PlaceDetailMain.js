@@ -71,6 +71,7 @@ const PlaceDetailMain = () => {
     dispatch(officeSliceActions.selectPlace(null));
   };
   const selectedPlace = useSelector((state) => state.officeList.selectedOffice);
+
   return (
     <Wrapper>
       <div className="prev-btn" onClick={prevBtnHandler}>

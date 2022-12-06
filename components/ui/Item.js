@@ -70,7 +70,12 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
   const date = useSelector((state) => state.reservation.date);
   const dateArr = date.toLocaleString().slice(0, -1).split('. ');
   const dateString =
-    dateArr[0] + '-' + dateArr[1].padStart(2, '0') + '-' + '01';
+    dateArr[0] +
+    '-' +
+    dateArr[1].padStart(2, '0') +
+    '-' +
+    dateArr[2].padStart(2, '0');
+  console.log(dateString);
   const selectTypeHandler = async (e) => {
     const selectedItem = e.target.childNodes[0].value;
     dispatch(reservationActions.getReservationItem(selectedItem));
@@ -78,7 +83,7 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
     dispatch(reservationActions.getSelectedStartTime(0));
 
     try {
-      dispatch(reservationActions.getLoadingState());
+      dispatch(reservationActions.getLoadingState(true));
       const response = await fetch(`/api/main/available-date`, {
         method: 'POST',
         body: JSON.stringify({
@@ -90,7 +95,7 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
           'Content-Type': 'application/json',
         },
       });
-      dispatch(reservationActions.getLoadingState());
+      dispatch(reservationActions.getLoadingState(false));
       if (!response.ok) {
         throw new Error(response.err);
       }

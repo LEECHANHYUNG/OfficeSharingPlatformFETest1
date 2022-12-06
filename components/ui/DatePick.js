@@ -15,6 +15,9 @@ const StyledDate = styled(DatePicker)`
 `;
 
 const DatePick = () => {
+  const dispatch = useDispatch();
+  const dateInputRef = useRef();
+  const [selectDate, setSelectDate] = useState(new Date());
   const unableDateList = useSelector(
     (state) => state.reservation.unableDateList
   );
@@ -22,24 +25,34 @@ const DatePick = () => {
   const month = new Date().getMonth();
   const date = new Date().getDate();
 
-  const selectDateHandler = (date) => {
+  const changeDateHandler = (date) => {
+    setSelectDate(date);
     dispatch(reservationActions.selectDate(date));
+    const activeTimeBox = document.getElementsByClassName('selected');
+    const unavailableTimeBox = document.getElementsByClassName('unavailable');
+    if (unavailableTimeBox.length > 0) {
+      Array.from(unavailableTimeBox).map((elem) => {
+        elem.classList.add('active');
+      });
+      Array.from(unavailableTimeBox).map((elem) => {
+        console.log(elem);
+        elem.classList.remove('unavailable');
+      });
+    }
+    if (activeTimeBox.length > 0) {
+      Array.from(activeTimeBox).map((elem) =>
+        elem.classList.remove('selected')
+      );
+    }
   };
-  const dispatch = useDispatch();
-  const dateInputRef = useRef();
-  const [selectDate, setSelectDate] = useState(new Date());
   return (
     <StyledDate
       selected={selectDate}
       minDate={new Date()}
-      maxDate={new Date(year + 1, month, date - 1)}
+      maxDate={new Date(year, month + 1, date - 1)}
       dateFormat="yyyy-MM-dd"
       ref={dateInputRef}
-      onChange={(date) => {
-        setSelectDate((prevState) => (prevState = date));
-        dispatch(reservationActions.selectDate(date.toLocaleDateString()));
-      }}
-      onSelect={selectDateHandler}
+      onChange={changeDateHandler}
       excludeDates={unableDateList}
     />
   );

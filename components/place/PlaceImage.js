@@ -10,7 +10,7 @@ import { Navigation } from 'swiper';
 const StyledSwiper = styled(Swiper)`
   width: 100%;
   .swiper-slide {
-    height: 400px;
+    height: 360px;
   }
 `;
 
@@ -44,7 +44,7 @@ const Wrapper = styled.div`
 const PlaceImage = ({ images }) => {
   return (
     <Wrapper>
-      <StyledSwiper navigation={true} modules={[Navigation]}>
+      <StyledSwiper navigation={true} modules={[Navigation]} draggable={false}>
         {images.map((image) => (
           <SwiperSlide slidesperview={1} className="swiper-slide">
             <Image
@@ -54,7 +54,6 @@ const PlaceImage = ({ images }) => {
               objectFit="scale-down"
               objectPosition="center"
               className="img"
-              blurDataURL="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
               priority
             />
           </SwiperSlide>

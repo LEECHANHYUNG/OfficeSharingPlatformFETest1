@@ -2,7 +2,6 @@ import Link from 'next/link';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import Button from '../../ui/Button';
 import Card from '../../ui/Card';
 import DatePick from '../../ui/DatePick';
 import SelectStartTime from './SelectStartTime';
@@ -93,14 +92,14 @@ const ReservationForm = () => {
           선택 시간
           {!isLoading ? (
             <div className="time">{`시작 시간     : ${
-              selectedStartTime ? selectedStartTime + ':00' : ''
+              +selectedStartTime ? selectedStartTime + ':00' : ''
             }`}</div>
           ) : (
             ''
           )}
           {!isLoading ? (
             <div className="time">{`종료 시간     :${
-              selectedEndTime ? selectedEndTime + ':50' : ''
+              selectedEndTime % 24 ? selectedEndTime + ':50' : ''
             }`}</div>
           ) : (
             ''

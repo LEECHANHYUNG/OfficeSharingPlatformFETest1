@@ -46,9 +46,8 @@ const PlaceImage = ({ images }) => {
     <Wrapper>
       <StyledSwiper navigation={true} modules={[Navigation]} draggable={false}>
         {images.map((image) => (
-          <SwiperSlide slidesperview={1} className="swiper-slide">
+          <SwiperSlide slidesperview={1} className="swiper-slide" key={image}>
             <Image
-              key={image}
               src={image}
               layout="fill"
               objectFit="scale-down"

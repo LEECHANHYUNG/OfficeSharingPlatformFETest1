@@ -37,7 +37,7 @@ const SelectStartTime = () => {
   }
   const selectTimeHandler = async (e) => {
     const selectedTimeList = document.getElementsByClassName('selected');
-    if (selectedTimeList.length > 2) {
+    if (selectedTimeList.length >= 2) {
       Array.from(selectedTimeList).map((elem) =>
         elem.classList.remove('selected')
       );

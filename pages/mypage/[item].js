@@ -8,7 +8,7 @@ import Comment from '../../components/mypage/comment/Comment';
 import Point from '../../components/mypage/point/Point';
 import Qna from '../../components/mypage/qna/Qna';
 import { getSession } from 'next-auth/react';
-
+import axios from 'axios';
 const Wrapper = styled.div`
   & Banner {
     width: 300px;
@@ -21,12 +21,22 @@ const Wrapper = styled.div`
   }
 `;
 
-const Mypage = () => {
+const Mypage = ({ userName, joinDate, mileagePoint, totalReviewNumber }) => {
   const router = useRouter();
   return (
     <Wrapper>
-      <Header />
+      <Header
+        userName={userName}
+        joinDate={joinDate.split(' ')[0]}
+        mileagePoint={mileagePoint}
+        totalReviewNumber={totalReviewNumber}
+      />
       <Banner />
+      {router.query.item === '' && (
+        <div className="item">
+          <Use />
+        </div>
+      )}
       {router.query.item === 'use' && (
         <div className="item">
           <Use />
@@ -50,9 +60,10 @@ const Mypage = () => {
     </Wrapper>
   );
 };
+
 export async function getServerSideProps(context) {
   const session = await getSession({ req: context.req });
-
+  let userData = {};
   if (!session) {
     return {
       redirect: {
@@ -61,10 +72,20 @@ export async function getServerSideProps(context) {
       },
     };
   }
+
+  try {
+    const response = await axios({
+      url: 'http://localhost:8080/mypage',
+      headers: { Authorization: session.user.accessToken },
+    });
+    if (response.status === 200) {
+      userData = response.data;
+    }
+  } catch (error) {
+    userData = { message: '로그인 정보 만료' };
+  }
   return {
-    props: {
-      session,
-    },
+    props: userData,
   };
 }
 

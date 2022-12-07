@@ -4,13 +4,13 @@ import styled from 'styled-components';
 const Wrapper = styled.section`
   width: 100%;
   min-width: 1100px;
-  height: 90px;
   line-height: 50px;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px 0;
   border-bottom: 2px solid #111;
+  overflow-y: hidden;
   & .content {
     width: 50%;
   }

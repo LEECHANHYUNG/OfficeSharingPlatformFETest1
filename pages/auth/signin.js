@@ -101,7 +101,7 @@ const SignIn = ({ csrfToken }) => {
     });
 
     if (!result.error) {
-      router.replace('/');
+      router.replace('/mypage');
       return;
     } else {
       alert(result.error);

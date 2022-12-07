@@ -37,7 +37,7 @@ const SelectStartTime = () => {
   }
   const selectTimeHandler = async (e) => {
     const selectedTimeList = document.getElementsByClassName('selected');
-    if (selectedTimeList.length > 2) {
+    if (selectedTimeList.length >= 2) {
       Array.from(selectedTimeList).map((elem) =>
         elem.classList.remove('selected')
       );
@@ -91,12 +91,11 @@ const SelectStartTime = () => {
         throw new Error(response.message);
       }
       const data = await response.json();
-
       Array.from(activeTime).map((elem) => {
         if (!data.timeList.includes(+elem.attributes.id.value)) {
           elem.classList.remove('active');
-          elem.classList.add('unavailable');
-          elem.onclick = () => {};
+          elem.classList.add('non-active');
+          elem.removeEventListener('onclick');
         }
       });
     } catch (err) {}

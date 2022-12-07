@@ -75,12 +75,12 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
     dateArr[1].padStart(2, '0') +
     '-' +
     dateArr[2].padStart(2, '0');
-  console.log(dateString);
   const selectTypeHandler = async (e) => {
     const selectedItem = e.target.childNodes[0].value;
     dispatch(reservationActions.getReservationItem(selectedItem));
     dispatch(reservationActions.getSelectedTypeEng(typeEng));
-    dispatch(reservationActions.getSelectedStartTime(0));
+    dispatch(reservationActions.getSelectedStartTime(24));
+    dispatch(reservationActions.getSelectedEndTime(24));
 
     try {
       dispatch(reservationActions.getLoadingState(true));

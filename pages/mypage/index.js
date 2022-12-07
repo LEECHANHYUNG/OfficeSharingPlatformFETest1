@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { getSession, signOut } from 'next-auth/react';
 import React from 'react';
 import styled from 'styled-components';

@@ -2,27 +2,27 @@ import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
 
-const Header = (props) => {
+const Header = ({ userName, joinDate, mileagePoint, totalReviewNumber }) => {
   return (
     <Wrapper>
       <h1>My Page</h1>
       <div className="userInfo">
         <div className="left">
-          <div className="userName">이름 : {props.userName}</div>
-          <div>가입일 : {'2022.10.11'}</div>
+          <div className="userName">이름 : {userName}</div>
+          <div>가입일 : {joinDate}</div>
         </div>
         <div className="right">
           <div>
             <div>
               마일리지 <Image src="/svg/won.svg" width="18" height="18" />
             </div>
-            <div className="userData">{'3,000'}</div>
+            <div className="userData">{mileagePoint}</div>
           </div>
           <div>
             <div>
               후기 작성 <Image src="/svg/pencil.svg" width="18" height="18" />
             </div>
-            <div className="userData">{'5'}</div>
+            <div className="userData">{totalReviewNumber}</div>
           </div>
         </div>
       </div>

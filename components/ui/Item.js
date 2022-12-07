@@ -120,6 +120,7 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
           layout="fill"
           objectFit="cover"
           objectPosition="center"
+          priority
         />
       </div>
       <div className="item-name">{type}</div>

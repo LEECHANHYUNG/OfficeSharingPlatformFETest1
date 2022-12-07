@@ -62,6 +62,7 @@ const PlaceMainImage = ({ images }) => {
           objectFit="cover"
           objectPosition="center"
           className="left-img"
+          priority
         />
       </div>
       <div className="right">
@@ -72,6 +73,7 @@ const PlaceMainImage = ({ images }) => {
             objectFit="cover"
             objectPosition="center"
             className="right-img"
+            priority
           />
         </div>
         <div className="right-item">
@@ -81,6 +83,7 @@ const PlaceMainImage = ({ images }) => {
             objectFit="cover"
             objectPosition="center"
             className="right-img"
+            priority
           />
         </div>
         <div className="right-item">
@@ -90,6 +93,7 @@ const PlaceMainImage = ({ images }) => {
             objectFit="cover"
             objectPosition="center"
             className="right-img"
+            priority
           />
         </div>
         <div className="right-item">
@@ -99,6 +103,7 @@ const PlaceMainImage = ({ images }) => {
             objectFit="cover"
             objectPosition="center"
             className="right-img"
+            priority
           />
         </div>
       </div>

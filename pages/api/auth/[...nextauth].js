@@ -1,6 +1,6 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-
+import axios from 'axios';
 export default NextAuth({
   session: {
     strategy: 'jwt',
@@ -11,27 +11,51 @@ export default NextAuth({
         const email = credentials.email;
         const password = credentials.password;
         try {
-          const res = await fetch('http://localhost:8080/auth/signin', {
-            method: 'POST',
-            body: JSON.stringify({
+          const response = await axios({
+            url: 'http://localhost:8080/auth/signin',
+            method: 'post',
+            data: {
               email,
               password,
-            }),
+            },
             headers: { 'Content-Type': 'application/json' },
           });
-          if (!res.ok) {
-            return null;
+          if (response.status === 202) {
+            const user = {
+              accessToken: response.data.accessToken,
+              refreshToken: response.data.refreshToken,
+              email: email,
+            };
+            return user;
+          } else if (response.status === 401) {
+            throw new Error();
           }
-          const data = await res.json();
-          const user = {
-            accessToken: data.accessToken,
-            refreshToken: data.refreshToken,
-            email: email,
-          };
-          return user;
         } catch (error) {
-          return error;
+          return Promise.reject(new Error('아이디/비밀번호를 확인해주세요'));
         }
+
+        //try {
+        //  const res = await fetch('http://localhost:8080/auth/signin', {
+        //    method: 'POST',
+        //    body: JSON.stringify({
+        //      email,
+        //      password,
+        //    }),
+        //    headers: { 'Content-Type': 'application/json' },
+        //  });
+        //  if (!res.ok) {
+        //    return null;
+        //  }
+        //  const data = await res.json();
+        //  const user = {
+        //    accessToken: data.accessToken,
+        //    refreshToken: data.refreshToken,
+        //    email: email,
+        //  };
+        //  return user;
+        //} catch (error) {
+        //  return error;
+        //}
       },
     }),
   ],

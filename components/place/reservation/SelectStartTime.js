@@ -91,12 +91,11 @@ const SelectStartTime = () => {
         throw new Error(response.message);
       }
       const data = await response.json();
-
       Array.from(activeTime).map((elem) => {
         if (!data.timeList.includes(+elem.attributes.id.value)) {
           elem.classList.remove('active');
-          elem.classList.add('unavailable');
-          elem.onclick = () => {};
+          elem.classList.add('non-active');
+          elem.removeEventListener('onclick');
         }
       });
     } catch (err) {}

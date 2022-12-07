@@ -20,6 +20,7 @@ const Mypage = (props) => {
 
 export async function getServerSideProps(context) {
   const session = await getSession({ req: context.req });
+  console.log(session);
   let userData = {};
   if (!session) {
     return {

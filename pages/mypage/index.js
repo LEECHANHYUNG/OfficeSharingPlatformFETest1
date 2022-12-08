@@ -52,9 +52,18 @@ export async function getServerSideProps(context) {
           headers: { Authorization: session.user.refreshToken },
         });
         if (response.status === 202) {
-          console.log(session.user.accessToken);
           session.user.accessToken = response.data.accessToken;
           session.user.refreshToken = response.data.refreshToken;
+          axios({
+            url: 'http://localhost:8080/mypage',
+            headers: { Authorization: session.user.accessToken },
+          }).then((response) => {
+            if (response.status === 200) {
+              return response.data;
+            } else {
+              new Promise.reject(new Error('로그인 인증 만료'));
+            }
+          });
         } else {
           new Promise.reject(new Error('로그인 인증 만료'));
         }
@@ -65,7 +74,7 @@ export async function getServerSideProps(context) {
     const response = await instance.get('http://localhost:8080/mypage', {
       headers: { Authorization: session.user.accessToken },
     });
-    console.log(response);
+    console.log(response.status);
     if (response.status === 200) {
       userData = response.data;
     } else {

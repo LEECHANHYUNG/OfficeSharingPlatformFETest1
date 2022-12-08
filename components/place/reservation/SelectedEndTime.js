@@ -48,13 +48,6 @@ const SelectStartTime = () => {
       e.target.classList.add('selected');
       dispatch(reservationActions.getSelectedStartTime(e.target.id));
     } else if (selectedTimeList.length === 1) {
-      console.log(selectedTimeList);
-      console.log(e.target.id);
-      console.log(selectedStartTime);
-      if (e.target.id === selectedStartTime) {
-        console.log(1);
-        selectedTimeList[0].classList.remove('selected');
-      }
       if (e.target.id < selectedStartTime) {
         dispatch(reservationActions.getSelectedEndTime(selectedStartTime));
         dispatch(reservationActions.getSelectedStartTime(e.target.id));

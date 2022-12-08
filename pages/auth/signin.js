@@ -1,7 +1,7 @@
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect, useReducer, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Email from '../../components/auth/Email';
@@ -69,7 +69,7 @@ const Wrapper = styled.div`
     left: 0px;
   }
 `;
-const SignIn = ({ csrfToken }) => {
+const SignIn = () => {
   const router = useRouter();
   const enteredEmail = useSelector((state) => state.auth.enteredEmail);
   const enteredPassword = useSelector((state) => state.auth.enteredPassword);
@@ -101,7 +101,7 @@ const SignIn = ({ csrfToken }) => {
     });
 
     if (!result.error) {
-      router.replace('/');
+      router.replace('/mypage');
       return;
     } else {
       alert(result.error);
@@ -117,7 +117,7 @@ const SignIn = ({ csrfToken }) => {
       </header>
       <section className="signInForm">
         <form>
-          <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+          <input name="csrfToken" type="hidden" />
           <Email />
           <Password />
           <Button type="submit" onClick={loginHanlder} disabled={!formIsValid}>

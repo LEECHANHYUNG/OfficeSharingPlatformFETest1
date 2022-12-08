@@ -15,22 +15,26 @@ const Wrapper = styled.section`
   width: 70vw;
   margin: auto;
   padding-top: 100px;
-  height: 300vh;
+  height: 100%;
+
   .line {
     height: 3px;
     background: #999;
     width: 60vw;
     margin: auto;
   }
+
   .info-left {
     width: 60%;
     float: left;
   }
+
   .info-right {
     position: relative;
     width: 35%;
     float: right;
   }
+
   @media screen and (max-width: 1170px) {
     width: 90vw;
     .line {

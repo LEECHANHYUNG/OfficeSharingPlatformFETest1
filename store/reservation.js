@@ -8,7 +8,7 @@ const initialReservationState = {
   openingHours: [],
   selectedStartTime: 24,
   selectedEndTime: 24,
-  timelist: [],
+  timeList: [],
   selectTimeList: [],
   isSelected: false,
   isLoading: false,
@@ -36,13 +36,13 @@ const reservationSlice = createSlice({
       state.openingHours = action.payload;
     },
     getSelectedStartTime(state, action) {
-      state.selectedStartTime = action.payload % 24;
+      state.selectedStartTime = action.payload;
     },
     getSelectedEndTime(state, action) {
-      state.selectedEndTime = action.payload % 24;
+      state.selectedEndTime = action.payload;
     },
     getTimeList(state, action) {
-      state.timelist = action.payload;
+      state.timeList = action.payload;
     },
 
     selectDate(state, action) {

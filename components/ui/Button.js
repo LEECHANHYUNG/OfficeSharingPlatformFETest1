@@ -34,6 +34,7 @@ const Button = (props) => {
       id={null || props.id}
       disabled={props.disabled || false}
       main={props.main}
+      value={props.value || ''}
     >
       {props.children}
     </ButtonWrapper>

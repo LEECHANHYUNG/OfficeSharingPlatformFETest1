@@ -1,5 +1,4 @@
 const handler = async (req, res) => {
-  const abortController = new AbortController();
   if (req.method !== 'POST') {
     res.status(400).json({ message: '올바르지 않은 요청입니다.' });
   }

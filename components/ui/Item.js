@@ -1,7 +1,8 @@
+import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { reservationActions } from '../../store/reservation';
 import Button from './Button';
@@ -67,8 +68,7 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
   const placeId = router.query.id;
   const dispatch = useDispatch();
 
-  const date = useSelector((state) => state.reservation.date);
-  const dateArr = date.toLocaleString().slice(0, -1).split('. ');
+  const dateArr = new Date().toLocaleString().slice(0, -1).split('. ');
   const dateString =
     dateArr[0] +
     '-' +
@@ -80,37 +80,36 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
     dispatch(reservationActions.getReservationItem(selectedItem));
     dispatch(reservationActions.getSelectedTypeEng(typeEng));
     dispatch(reservationActions.getSelectedStartTime(24));
-    dispatch(reservationActions.getSelectedEndTime(24));
 
-    try {
-      dispatch(reservationActions.getLoadingState(true));
-      const response = await fetch(`/api/main/available-date`, {
-        method: 'POST',
-        body: JSON.stringify({
-          placeId,
-          type: typeEng,
-          date: dateString,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      dispatch(reservationActions.getLoadingState(false));
-      if (!response.ok) {
-        throw new Error(response.err);
-      }
-      const monthDayList = await response.json();
-      monthDayList.dayList.map((elem) => {
-        if (!elem.state) {
-          disabledDateList.push(
-            new Date(elem.date.year, elem.date.month - 1, elem.date.day)
-          );
+    dispatch(reservationActions.getLoadingState(true));
+    axios({
+      url: '/api/main/available-date',
+      method: 'post',
+      data: {
+        placeId,
+        type: typeEng,
+        date: dateString,
+      },
+    })
+      .then((response) => {
+        dispatch(reservationActions.getLoadingState(false));
+        if (response.status === 200) {
+          const monthDayList = response.data;
+          monthDayList.dayList.map((elem) => {
+            if (!elem.state) {
+              disabledDateList.push(
+                new Date(elem.date.year, elem.date.month - 1, elem.date.day)
+              );
+            }
+          });
+          dispatch(reservationActions.getUnableDayList(disabledDateList));
+        } else {
+          throw new Error();
         }
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      dispatch(reservationActions.getUnableDayList(disabledDateList));
-    } catch (err) {
-      console.log(err);
-    }
   };
   return (
     <ItemCard>

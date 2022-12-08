@@ -33,29 +33,6 @@ export default NextAuth({
         } catch (error) {
           return Promise.reject(new Error('아이디/비밀번호를 확인해주세요'));
         }
-
-        //try {
-        //  const res = await fetch('http://localhost:8080/auth/signin', {
-        //    method: 'POST',
-        //    body: JSON.stringify({
-        //      email,
-        //      password,
-        //    }),
-        //    headers: { 'Content-Type': 'application/json' },
-        //  });
-        //  if (!res.ok) {
-        //    return null;
-        //  }
-        //  const data = await res.json();
-        //  const user = {
-        //    accessToken: data.accessToken,
-        //    refreshToken: data.refreshToken,
-        //    email: email,
-        //  };
-        //  return user;
-        //} catch (error) {
-        //  return error;
-        //}
       },
     }),
   ],

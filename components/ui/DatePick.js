@@ -28,28 +28,12 @@ const DatePick = () => {
   const changeDateHandler = (date) => {
     setSelectDate(date);
     dispatch(reservationActions.selectDate(date));
-    const activeTimeBox = document.getElementsByClassName('selected');
-    const unavailableTimeBox = document.getElementsByClassName('unavailable');
-    if (unavailableTimeBox.length > 0) {
-      Array.from(unavailableTimeBox).map((elem) => {
-        elem.classList.add('active');
-      });
-      Array.from(unavailableTimeBox).map((elem) => {
-        console.log(elem);
-        elem.classList.remove('unavailable');
-      });
-    }
-    if (activeTimeBox.length > 0) {
-      Array.from(activeTimeBox).map((elem) =>
-        elem.classList.remove('selected')
-      );
-    }
   };
   return (
     <StyledDate
       selected={selectDate}
       minDate={new Date()}
-      maxDate={new Date(year, month + 1, date - 1)}
+      maxDate={new Date(year + 3, month, date)}
       dateFormat="yyyy-MM-dd"
       ref={dateInputRef}
       onChange={changeDateHandler}

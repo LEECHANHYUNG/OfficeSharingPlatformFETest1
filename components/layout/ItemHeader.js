@@ -30,7 +30,10 @@ const ItemHeader = ({ items }) => {
       beforeClickedBtn.style.backgroundColor = '#6a9eff';
     }
     setBeforeClickedBtn(e.target);
-    dispatch(reservationActions.getSelectedType(e.target.innerText));
+    dispatch(reservationActions.getSelectedType(e.target.value));
+    dispatch(reservationActions.getReservationItem(''));
+    dispatch(reservationActions.getSelectedStartTime(24));
+    dispatch(reservationActions.getSelectedEndTime(24));
     e.target.style.backgroundColor = 'rgb(91, 135, 218)';
   };
   return (
@@ -41,6 +44,7 @@ const ItemHeader = ({ items }) => {
           className="btn"
           main={true}
           onClick={selectTypeHandler}
+          value="desk"
         >
           1인 데스크
         </Button>
@@ -53,6 +57,7 @@ const ItemHeader = ({ items }) => {
           className="btn"
           main={true}
           onClick={selectTypeHandler}
+          value="meetingRoom"
         >
           회의실
         </Button>
@@ -65,6 +70,7 @@ const ItemHeader = ({ items }) => {
           className="btn"
           main={true}
           onClick={selectTypeHandler}
+          value="office"
         >
           사무실
         </Button>

@@ -1,7 +1,9 @@
+import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { reservationActions } from '../../store/reservation';
 import Button from './Button';
@@ -62,56 +64,61 @@ const ItemCard = styled(Card)`
 `;
 
 const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
-  const disabledDateList = [];
+  const [disabledDateList, setDisabledDateList] = useState([]);
+  const [ableDateList, setAbleDateList] = useState([]);
+
   const router = useRouter();
   const placeId = router.query.id;
   const dispatch = useDispatch();
 
-  const date = useSelector((state) => state.reservation.date);
-  const dateArr = date.toLocaleString().slice(0, -1).split('. ');
+  const dateArr = new Date().toLocaleString().slice(0, -1).split('. ');
   const dateString =
     dateArr[0] +
     '-' +
     dateArr[1].padStart(2, '0') +
     '-' +
     dateArr[2].padStart(2, '0');
-  console.log(dateString);
-  const selectTypeHandler = async (e) => {
+  const selectTypeHandler = (e) => {
     const selectedItem = e.target.childNodes[0].value;
     dispatch(reservationActions.getReservationItem(selectedItem));
     dispatch(reservationActions.getSelectedTypeEng(typeEng));
-    dispatch(reservationActions.getSelectedStartTime(0));
+    dispatch(reservationActions.getSelectedStartTime(24));
 
-    try {
-      dispatch(reservationActions.getLoadingState(true));
-      const response = await fetch(`/api/main/available-date`, {
-        method: 'POST',
-        body: JSON.stringify({
-          placeId,
-          type: typeEng,
-          date: dateString,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      dispatch(reservationActions.getLoadingState(false));
-      if (!response.ok) {
-        throw new Error(response.err);
-      }
-      const monthDayList = await response.json();
-      monthDayList.dayList.map((elem) => {
-        if (!elem.state) {
-          disabledDateList.push(
-            new Date(elem.date.year, elem.date.month - 1, elem.date.day)
-          );
+    dispatch(reservationActions.getLoadingState(true));
+    setAbleDateList([]);
+    setDisabledDateList([]);
+    axios({
+      url: '/api/main/available-date',
+      method: 'post',
+      data: {
+        placeId,
+        type: typeEng,
+        date: dateString,
+      },
+    })
+      .then((response) => {
+        dispatch(reservationActions.getLoadingState(false));
+        if (response.status === 200) {
+          response.data.map((elem) => {
+            if (!elem.state) {
+              setDisabledDateList((prevList) => [
+                new Date(elem.date.year, elem.date.month - 1, elem.date.day),
+                ...prevList,
+              ]);
+            } else {
+              setAbleDateList((prevList) => [elem, ...prevList]);
+            }
+          });
+        } else if (response.status === 400) {
+          throw new Error(response.data.message);
         }
+      })
+      .catch((error) => {
+        alert(error.response?.data.split(' ').slice(1).join(' '));
       });
-      dispatch(reservationActions.getUnableDayList(disabledDateList));
-    } catch (err) {
-      console.log(err);
-    }
   };
+  dispatch(reservationActions.getAbleDayList(ableDateList));
+  dispatch(reservationActions.getUnableDayList(disabledDateList));
   return (
     <ItemCard>
       <div className="img">

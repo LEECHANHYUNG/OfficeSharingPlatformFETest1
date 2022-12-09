@@ -16,20 +16,25 @@ const Wrapper = styled.section`
   margin: auto;
   padding-top: 100px;
   height: 100%;
+
   .line {
     height: 3px;
     background: #999;
     width: 60vw;
     margin: auto;
   }
+
   .info-left {
     width: 60%;
     float: left;
   }
+
   .info-right {
+    position: relative;
     width: 35%;
     float: right;
   }
+
   @media screen and (max-width: 1170px) {
     width: 90vw;
     .line {
@@ -40,6 +45,11 @@ const Wrapper = styled.section`
     }
     .info-right {
       width: 100%;
+    }
+    .info-bottom {
+      position: relative;
+      bottom: 0px;
+      height: 0px;
     }
   }
 `;
@@ -84,14 +94,16 @@ const PlaceMainPage = ({ place }) => {
           />
           <PlaceAdditional additionalItem={place.placeMainInfo} main={true} />
           <ItemListForm items={place.roomTypeResponse} />
+        </div>
+        <div className="info-right">
+          <ReservationForm />
+        </div>
+        <div className="info-bottom">
           <Review
             rating={place.ratePoint}
             count={place.reviewQuantity}
             ratingList={place.ratingList}
           />
-        </div>
-        <div className="info-right">
-          <ReservationForm />
         </div>
       </section>
     </Wrapper>

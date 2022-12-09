@@ -5,6 +5,7 @@ body {
   margin: 0;
   background-color: #fff;
   font-family: 'Roboto', sans-serif;
+  min-width: 450px;
 }
 ::-webkit-scrollbar {
   width: 5px;

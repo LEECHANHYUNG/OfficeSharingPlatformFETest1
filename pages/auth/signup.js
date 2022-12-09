@@ -9,6 +9,7 @@ import Password from '../../components/auth/Password';
 import Phone from '../../components/auth/Phone';
 import Button from '../../components/ui/Button';
 import { authSliceActions } from '../../store/auth';
+import axios from 'axios';
 
 const SignUp = () => {
   const router = useRouter();
@@ -41,9 +42,12 @@ const SignUp = () => {
   }, [emailIsValid, passwordIsValid, nameIsValid, phoneIsValid]);
   const signupHandler = (e) => {
     e.preventDefault();
-    fetch('/api/auth/signup', {
-      method: 'POST',
-      body: JSON.stringify({
+
+    axios({
+      method: 'post',
+      url: '/api/auth/signup',
+      headers: { 'Content-Type': 'application/json' },
+      data: {
         email: enteredEmail,
         password: enteredPassword,
         name: enteredName,
@@ -56,13 +60,20 @@ const SignUp = () => {
             office: officeRef.current.checked,
           },
         ],
-      }),
-      headers: {
-        'Content-Type': 'application/json',
       },
-    }).then((data) => {
-      router.replace('/');
-    });
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          alert(response.data.message);
+          router.replace('/auth/signin');
+        } else if (response.status === 400) {
+          throw new Error(response.data.message);
+        }
+      })
+      .catch((err) => {
+        const errorMessage = err.response.data.message;
+        alert(errorMessage.split(' ').slice(1).join(' '));
+      });
   };
   return (
     <Wrapper>

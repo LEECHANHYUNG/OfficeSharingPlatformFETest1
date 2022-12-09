@@ -1,18 +1,19 @@
-const handler = async (req, res) => {
-  try {
-    const response = await fetch(
-      `http://localhost:8080/places/${req.body.placeId}/type/${req.body.type}/date/${req.body.date}/startTime/${req.body.startTime}`
-    );
+import axios from 'axios';
 
-    if (response.status === 400) {
-      console.log(response);
-      throw new Error(response.statusText.message);
-    }
-    const timeList = await response.json();
-    res.status(200).json({ timeList });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: err });
-  }
+const handler = (req, res) => {
+  axios({
+    url: `http://localhost:8080/places/${req.body.placeId}/type/${req.body.selectedTypeEng}/date/${req.body.date}/startTime/${req.body.startTime}`,
+    data: req.data,
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        res.status(200).send(response.data);
+      } else {
+        throw new Error(response.data.message);
+      }
+    })
+    .catch((error) => {
+      res.status(400).json({ message: error.response.data.message });
+    });
 };
 export default handler;

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getCookie, setCookie } from '../cookie';
 const instance = axios.create();
 instance.interceptors.response.use(
   async (response) => response,

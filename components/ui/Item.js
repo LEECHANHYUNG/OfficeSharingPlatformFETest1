@@ -64,8 +64,9 @@ const ItemCard = styled(Card)`
 `;
 
 const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
-  const disabledDateList = [];
-  const ableDateList = [];
+  const [disabledDateList, setDisabledDateList] = useState([]);
+  const [ableDateList, setAbleDateList] = useState([]);
+
   const router = useRouter();
   const placeId = router.query.id;
   const dispatch = useDispatch();
@@ -77,14 +78,15 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
     dateArr[1].padStart(2, '0') +
     '-' +
     dateArr[2].padStart(2, '0');
-  const selectTypeHandler = async (e) => {
+  const selectTypeHandler = (e) => {
     const selectedItem = e.target.childNodes[0].value;
     dispatch(reservationActions.getReservationItem(selectedItem));
     dispatch(reservationActions.getSelectedTypeEng(typeEng));
     dispatch(reservationActions.getSelectedStartTime(24));
 
     dispatch(reservationActions.getLoadingState(true));
-
+    setAbleDateList([]);
+    setDisabledDateList([]);
     axios({
       url: '/api/main/available-date',
       method: 'post',
@@ -99,15 +101,14 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
         if (response.status === 200) {
           response.data.map((elem) => {
             if (!elem.state) {
-              disabledDateList.push(
-                new Date(elem.date.year, elem.date.month - 1, elem.date.day)
-              );
+              setDisabledDateList((prevList) => [
+                new Date(elem.date.year, elem.date.month - 1, elem.date.day),
+                ...prevList,
+              ]);
             } else {
-              ableDateList.push(elem);
+              setAbleDateList((prevList) => [elem, ...prevList]);
             }
           });
-          dispatch(reservationActions.getAbleDayList(ableDateList));
-          dispatch(reservationActions.getUnableDayList(disabledDateList));
         } else if (response.status === 400) {
           throw new Error(response.data.message);
         }
@@ -116,6 +117,8 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
         alert(error.response?.data.split(' ').slice(1).join(' '));
       });
   };
+  dispatch(reservationActions.getAbleDayList(ableDateList));
+  dispatch(reservationActions.getUnableDayList(disabledDateList));
   return (
     <ItemCard>
       <div className="img">

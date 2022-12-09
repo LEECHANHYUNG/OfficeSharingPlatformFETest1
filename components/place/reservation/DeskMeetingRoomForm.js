@@ -16,7 +16,7 @@ const DeskMeetingRoomForm = () => {
   const selectedEndTime = useSelector(
     (state) => state.reservation.selectedEndTime
   );
-  const startTime = useSelector((state) => state.reservation.selectedStartTime);
+
   return (
     <section>
       {reservationItem && !isLoading ? (
@@ -50,7 +50,7 @@ const DeskMeetingRoomForm = () => {
       ) : (
         ''
       )}
-      {reservationItem && startTime !== 24 ? (
+      {reservationItem && selectedStartTime !== 24 ? (
         <div className="payment-btn">
           <Link href="/">예약</Link>
         </div>

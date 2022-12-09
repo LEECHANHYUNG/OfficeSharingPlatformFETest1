@@ -71,7 +71,6 @@ const ReservationForm = () => {
     setIsBrowser(true);
   });
   if (isBrowser) {
-    console.log(window.innerWidth);
     window.addEventListener('scroll', () => {
       if (window.scrollY >= 350 && window.innerWidth > 1170) {
         setIsFixed(false);

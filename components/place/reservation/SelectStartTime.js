@@ -22,14 +22,12 @@ const SelectStartTime = () => {
     '-' +
     dateArr[2].padStart(2, '0');
   const timeArr = new Array(24).fill(0, 0, 24);
-
   ableDateList.map((elem) => {
     if (
       elem.date.year === +dateArr[0] &&
       elem.date.month === +dateArr[1] &&
       elem.date.day === +dateArr[2]
     ) {
-      console.log(elem);
       for (const time in elem.date.timeStates.timeStates) {
         if (elem.date.timeStates.timeStates[time]) {
           timeArr.splice(time, 1, 1);

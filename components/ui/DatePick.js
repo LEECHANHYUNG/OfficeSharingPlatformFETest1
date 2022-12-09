@@ -24,7 +24,6 @@ const DatePick = () => {
   const year = new Date().getFullYear();
   const month = new Date().getMonth();
   const date = new Date().getDate();
-
   const changeDateHandler = (date) => {
     setSelectDate(date);
     dispatch(reservationActions.selectDate(date));
@@ -33,7 +32,7 @@ const DatePick = () => {
     <StyledDate
       selected={selectDate}
       minDate={new Date()}
-      maxDate={new Date(year + 3, month, date)}
+      maxDate={new Date(year + 1, month, date - 1)}
       dateFormat="yyyy-MM-dd"
       ref={dateInputRef}
       onChange={changeDateHandler}

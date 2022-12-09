@@ -28,7 +28,7 @@ async function handler(req, res) {
         }
       })
       .catch((err) => {
-        res.status(400).json({ message: err.response.data.message });
+        res.status(400).send(err.resposne.data.message);
       });
   }
 }

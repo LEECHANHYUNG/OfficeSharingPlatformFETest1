@@ -5,6 +5,7 @@ const initialReservationState = {
   selectedTypeEng: null,
   reservationItem: null,
   unableDateList: [],
+  ableDateList: [],
   openingHours: [],
   selectedStartTime: 24,
   selectedEndTime: 24,
@@ -31,6 +32,9 @@ const reservationSlice = createSlice({
     },
     getUnableDayList(state, action) {
       state.unableDateList = action.payload;
+    },
+    getAbleDayList(state, action) {
+      state.ableDateList = action.payload;
     },
     getOpeningHours(state, action) {
       state.openingHours = action.payload;

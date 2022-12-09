@@ -72,7 +72,6 @@ const SignUp = () => {
       })
       .catch((err) => {
         const errorMessage = err.response.data.message;
-        errorMessage.split(' ');
         alert(errorMessage.split(' ').slice(1).join(' '));
       });
   };

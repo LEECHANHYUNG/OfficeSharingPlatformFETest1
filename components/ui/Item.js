@@ -2,6 +2,7 @@ import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { reservationActions } from '../../store/reservation';
@@ -64,6 +65,7 @@ const ItemCard = styled(Card)`
 
 const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
   const disabledDateList = [];
+  const ableDateList = [];
   const router = useRouter();
   const placeId = router.query.id;
   const dispatch = useDispatch();
@@ -82,6 +84,7 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
     dispatch(reservationActions.getSelectedStartTime(24));
 
     dispatch(reservationActions.getLoadingState(true));
+
     axios({
       url: '/api/main/available-date',
       method: 'post',
@@ -94,21 +97,23 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
       .then((response) => {
         dispatch(reservationActions.getLoadingState(false));
         if (response.status === 200) {
-          const monthDayList = response.data;
-          monthDayList.dayList.map((elem) => {
+          response.data.map((elem) => {
             if (!elem.state) {
               disabledDateList.push(
                 new Date(elem.date.year, elem.date.month - 1, elem.date.day)
               );
+            } else {
+              ableDateList.push(elem);
             }
           });
+          dispatch(reservationActions.getAbleDayList(ableDateList));
           dispatch(reservationActions.getUnableDayList(disabledDateList));
-        } else {
-          throw new Error();
+        } else if (response.status === 400) {
+          throw new Error(response.data.message);
         }
       })
       .catch((error) => {
-        console.log(error);
+        alert(error.response?.data.split(' ').slice(1).join(' '));
       });
   };
   return (

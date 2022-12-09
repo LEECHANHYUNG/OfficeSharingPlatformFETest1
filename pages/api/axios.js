@@ -1,34 +1,23 @@
 import axios from 'axios';
-import { getSession } from 'next-auth/react';
-
-const instance = axios.create({
-  baseURL: process.env.baseURL,
-});
+const instance = axios.create();
 instance.interceptors.response.use(
-  function (response) {
-    return response;
-  },
-  async function (error) {
-    const session = await getSession();
-    console.log(error);
-    console.log(error.response);
-    console.log(session.user.refreshToken);
+  async (response) => response,
+  async (error) => {
+    //const refreshToken = getCookie(refreshToken);
     if (error.response.status === 401) {
-      try {
-        const response = await axios({
-          url: 'http://localhost:8080/auth/refresh',
-          method: 'post',
-          headers: { Authorization: session.user.refreshToken },
-        });
-        if (response.status === 202) {
-          return response.data;
-        } else {
-          throw new Error('로그인 인증 만료');
-        }
-      } catch (error) {
-        new Promise.reject({ message: error });
+      const response = await axios({
+        method: 'post',
+        url: 'http://localhost:8080/auth/refresh',
+      });
+      if (response.status === 202) {
+        setCookie('access', response.data.accessToken);
+        setCookie('refresh', response.data.refreshToken);
+        return;
+      } else {
+        return Promise.reject({ message: '로그인 인증 만료' });
       }
     }
+    return Promise.reject(error);
   }
 );
 export default instance;

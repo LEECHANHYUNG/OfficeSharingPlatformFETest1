@@ -18,6 +18,7 @@ const Review = ({ rating, count, ratingList }) => {
       <ReviewBanner rating={rating} count={count} />
       {ratingList.map((elem, idx) => (
         <ReviewItem
+          key={idx}
           score={elem.ratingScore}
           writer={elem.ratingWriter}
           date={elem.writeDateTime}

@@ -2,7 +2,6 @@ import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
 const Wrapper = styled.section`
-  
   margin : auto;
   & .place-name {
     font-size: 1.7rem;

@@ -8,12 +8,12 @@ const Wrapper = styled.section`
   width: 100%;
   padding: 30px 0;
   padding-bottom: 30px;
+  overflow: scroll;
   h1 {
     font-size: 1.5rem;
   }
   main {
     max-height: 60vh;
-    overflow-y: scroll;
   }
 `;
 
@@ -24,7 +24,7 @@ const ItemListForm = ({ items }) => {
       <h1>상품 선택</h1>
       <ItemHeader items={items} />
       <main>
-        {selectedType === '1인 데스크' && items.desk.exist && (
+        {selectedType === 'desk' && items.desk.exist && (
           <Item
             images={'/image/place2.jpg'}
             type="1인 DESK"
@@ -33,7 +33,7 @@ const ItemListForm = ({ items }) => {
             availablePerson={'1'}
           />
         )}
-        {selectedType === '회의실' &&
+        {selectedType === 'meetingRoom' &&
           items.meetingRoom.length !== 0 &&
           items.meetingRoom.map((elem) => (
             <Item
@@ -45,7 +45,7 @@ const ItemListForm = ({ items }) => {
               availablePerson={elem.typeCode}
             />
           ))}
-        {selectedType === '사무실' &&
+        {selectedType === 'office' &&
           items.office.length !== 0 &&
           items.office.map((elem) => (
             <Item

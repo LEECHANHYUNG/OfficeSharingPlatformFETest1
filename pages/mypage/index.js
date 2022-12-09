@@ -1,9 +1,9 @@
+import axios from 'axios';
 import { getSession, signOut } from 'next-auth/react';
 import React from 'react';
 import styled from 'styled-components';
 import Banner from '../../components/mypage/Banner';
 import Header from '../../components/mypage/header';
-import instance from '../api/axios';
 const Wrapper = styled.div``;
 
 const Mypage = ({
@@ -13,7 +13,7 @@ const Mypage = ({
   totalReviewNumber,
   message = 'success',
 }) => {
-  if (message != 'success') {
+  if (message !== 'success') {
     signOut({ callbackUrl: 'http://localhost:3000/auth/signin' });
   } else {
     return (
@@ -41,21 +41,47 @@ export async function getServerSideProps(context) {
       },
     };
   }
+  const instance = axios.create();
+  instance.interceptors.response.use(
+    async (response) => response,
+    async (error) => {
+      if (error.response.status === 401) {
+        const response = await axios({
+          method: 'post',
+          url: 'http://localhost:8080/auth/refresh',
+          headers: { Authorization: session.user.refreshToken },
+        });
+        if (response.status === 202) {
+          session.user.accessToken = response.data.accessToken;
+          session.user.refreshToken = response.data.refreshToken;
+          axios({
+            url: 'http://localhost:8080/mypage',
+            headers: { Authorization: session.user.accessToken },
+          }).then((response) => {
+            if (response.status === 200) {
+              return response.data;
+            } else {
+              new Promise.reject(new Error('로그인 인증 만료'));
+            }
+          });
+        } else {
+          new Promise.reject(new Error('로그인 인증 만료'));
+        }
+      }
+    }
+  );
   try {
     const response = await instance.get('http://localhost:8080/mypage', {
       headers: { Authorization: session.user.accessToken },
     });
-    userData = response.data;
-    if (response.status === 202) {
-      session.user.accessToken = response.data.accessToken;
-      session.user.refreshToken = response.data.refreshToken;
-      console.log(session.user.accessToken);
+    console.log(response.status);
+    if (response.status === 200) {
+      userData = response.data;
     } else {
-      throw new Error('로그인 인증 만료');
+      throw new Error(response);
     }
   } catch (error) {
-    console.log(error);
-    userData = { message: '로그인 인증 만료' };
+    userData = { message: '로그인 정보 만료' };
   }
 
   return {

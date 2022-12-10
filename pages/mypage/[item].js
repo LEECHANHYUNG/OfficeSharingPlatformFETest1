@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
 import Banner from '../../components/mypage/Banner';
-import Header from '../../components/mypage/header';
+import Header from '../../components/mypage/Header';
 import Usage from '../../components/mypage/use/Usage';
 import Comment from '../../components/mypage/comment/Comment';
 import Point from '../../components/mypage/point/Point';
@@ -10,14 +10,16 @@ import Qna from '../../components/mypage/qna/Qna';
 import { getSession } from 'next-auth/react';
 import axios from 'axios';
 const Wrapper = styled.div`
-  & Banner {
-    width: 300px;
-    display: inline-block;
-  }
   & .item {
-    width: 70%;
-    min-width: 1100px;
-    margin-left: 350px;
+    width: 70vw;
+    display: inline-block;
+    float: left;
+    padding-left: 20px;
+    padding-top: 60px;
+  }
+  @media screen and (max-width: 1170px) {
+    width: 96vw;
+    margin: 0;
   }
 `;
 
@@ -25,12 +27,15 @@ const Mypage = (props) => {
   const router = useRouter();
   return (
     <Wrapper>
-      <Header />
+      <Header userData={props.userData} />
       <Banner />
       {router.query.item === '' && <div className="item"></div>}
       {router.query.item === 'usage' && (
         <div className="item">
-          <Usage item={props} />
+          <Usage
+            item={props.reservationData}
+            paginationData={props.paginationData.maxPage}
+          />
         </div>
       )}
       {router.query.item === 'comment' && (
@@ -54,6 +59,7 @@ const Mypage = (props) => {
 
 export async function getServerSideProps(context) {
   const params = context.params;
+  console.log(params);
   const session = await getSession({ req: context.req });
   let userData = {};
   if (!session) {
@@ -66,19 +72,20 @@ export async function getServerSideProps(context) {
   }
   const accessToken = session.user.accessToken;
   const refreshToken = session.user.refreshToken;
-  console.log(params.item);
   try {
     const response = await axios({
       url: 'http://localhost:3000/api/auth/token',
       method: 'post',
       data: {
-        url: `http://localhost:8080/mypage/${params.item}`,
+        url: `http://localhost:8080/mypage/${params.item}?page=1`,
         accessToken,
         refreshToken,
       },
     });
     if (response.status === 200) {
-      userData = response.data;
+      return {
+        props: response.data,
+      };
     } else {
       throw new Error(response.data);
     }

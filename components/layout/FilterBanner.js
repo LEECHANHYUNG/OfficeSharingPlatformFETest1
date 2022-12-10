@@ -77,6 +77,7 @@ const FilterBanner = () => {
 const Wrapper = styled.div`
   position: absolute;
   top: 100px;
+  left: 0;
   background: #fff;
   border: 2px solid #111;
   border-right: none;
@@ -89,7 +90,7 @@ const Wrapper = styled.div`
     display: none;
   }
 
-  & main {
+  main {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -97,21 +98,21 @@ const Wrapper = styled.div`
     overflow-x: scroll;
   }
 
-  & div {
+  div {
     margin-left: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  & .icon {
+  .icon {
     margin-left: 20px;
   }
-  & .selectOption {
+  .selectOption {
     height: 36px;
     width: 140px;
     cursor: pointer;
   }
-  & .selectOption.button {
+  .selectOption.button {
     margin-left: 20px;
     width: 100px;
   }

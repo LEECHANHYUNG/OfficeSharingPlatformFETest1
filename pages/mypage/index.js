@@ -3,32 +3,16 @@ import { getSession, signOut } from 'next-auth/react';
 import React from 'react';
 import styled from 'styled-components';
 import Banner from '../../components/mypage/Banner';
-import Header from '../../components/mypage/header';
-import instance from '../api/auth/token';
+import Header from '../../components/mypage/Header';
 const Wrapper = styled.div``;
 
-const Mypage = ({
-  userName,
-  joinDate,
-  mileagePoint,
-  totalReviewNumber,
-  message = 'success',
-}) => {
-  if (message !== 'success') {
-    signOut({ callbackUrl: 'http://localhost:3000/auth/signin' });
-  } else {
-    return (
-      <Wrapper>
-        <Header
-          userName={userName}
-          joinDate={joinDate.split(' ')[0]}
-          mileagePoint={mileagePoint}
-          totalReviewNumber={totalReviewNumber}
-        />
-        <Banner />
-      </Wrapper>
-    );
-  }
+const Mypage = (props) => {
+  return (
+    <Wrapper>
+      <Header userData={props.userData} />
+      <Banner />
+    </Wrapper>
+  );
 };
 
 export async function getServerSideProps(context) {

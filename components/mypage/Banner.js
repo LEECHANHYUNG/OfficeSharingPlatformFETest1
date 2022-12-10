@@ -7,9 +7,8 @@ const Wrapper = styled.section`
   top: 80px;
   float: left;
   width: 300px;
-  height: 1100px;
-  border: 2px solid #111;
-  border-top: none;
+  height: 600px;
+  border-right: 2px solid #111;
   background: #fff;
   padding-left: 20px;
   padding-top: 20px;
@@ -22,6 +21,15 @@ const Wrapper = styled.section`
     display: block;
     margin-bottom: 30px;
   }
+  @media screen and (max-width: 1170px) {
+    width: 100vw;
+    border-right: none;
+    border-bottom: 2px solid #111;
+    text-align: center;
+    height: 100%;
+    display: none;
+    height: 0;
+  }
 `;
 
 const Banner = () => {
@@ -31,6 +39,7 @@ const Banner = () => {
         <div className="title">이용 관리</div>
         <Link href="/mypage/usage">이용 내역</Link>
         <Link href="/mypage/comment">댓글 관리</Link>
+        <Link href="/mypage/review">후기 관리</Link>
         <Link href="/mypage/point">마일리지 관리</Link>
       </div>
       <div>

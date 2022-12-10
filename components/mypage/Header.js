@@ -2,14 +2,16 @@ import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
 
-const Header = ({ userName, joinDate, mileagePoint, totalReviewNumber }) => {
+const Header = (props) => {
+  const { userName, mileagePoint, totalReviewNumber, joinDate } =
+    props.userData;
   return (
     <Wrapper>
       <h1>My Page</h1>
       <div className="userInfo">
         <div className="left">
           <div className="userName">이름 : {userName}</div>
-          <div>가입일 : {joinDate}</div>
+          <div>가입일 :{joinDate}</div>
         </div>
         <div className="right">
           <div>
@@ -20,7 +22,7 @@ const Header = ({ userName, joinDate, mileagePoint, totalReviewNumber }) => {
           </div>
           <div>
             <div>
-              후기 작성 <Image src="/svg/pencil.svg" width="18" height="18" />
+              작성 리뷰 <Image src="/svg/pencil.svg" width="18" height="18" />
             </div>
             <div className="userData">{totalReviewNumber}</div>
           </div>
@@ -42,29 +44,31 @@ const Wrapper = styled.section`
   align-items: start;
   flex-direction: column;
   border-bottom: 2px solid #111;
-  & h1 {
-    padding-left: 100px;
-    padding-top: 30px;
+  h1 {
+    display: block;
+    text-align: left;
     width: 100%;
     height: 30px;
     font-size: 3rem;
     line-height: 3rem;
+    padding-top: 20px;
+    padding-left: 150px;
   }
-  & .userInfo {
+  .userInfo {
     width: 100%;
     padding-top: 50px;
     height: 160px;
     font-size: 20px;
     font-weight: 700;
   }
-  & .userInfo .left {
+  .userInfo .left {
     padding-left: 150px;
     float: left;
     width: 50%;
     min-width: 150px;
     line-height: 50px;
   }
-  & .userInfo .right {
+  .userInfo .right {
     float: right;
     display: flex;
     justify-content: space-around;
@@ -73,19 +77,20 @@ const Wrapper = styled.section`
     min-width: 150px;
     line-height: 50px;
   }
-  & .userInfo .userData {
+  .userInfo .userData {
     font-size: 2rem;
   }
-  @media screen and (max-width: 858px) {
+  @media screen and (max-width: 1170px) {
     height: 350px;
-    & h1 {
+    h1 {
       text-align: center;
+      padding-left: 0;
     }
-    & .userInfo .left {
+    .userInfo .left {
       width: 100%;
       padding-left: 50px;
     }
-    & .userInfo .right {
+    .userInfo .right {
       width: 100%;
       padding: 0 50px;
       display: flex;

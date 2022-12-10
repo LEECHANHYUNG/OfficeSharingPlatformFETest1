@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Banner from '../../components/mypage/Banner';
 import Header from '../../components/mypage/header';
+import instance from '../api/auth/token';
 const Wrapper = styled.div``;
 
 const Mypage = ({
@@ -32,7 +33,6 @@ const Mypage = ({
 
 export async function getServerSideProps(context) {
   const session = await getSession({ req: context.req });
-  let userData = {};
   if (!session) {
     return {
       redirect: {
@@ -41,48 +41,31 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  const instance = axios.create();
-  instance.interceptors.response.use(
-    async (response) => response,
-    async (error) => {
-      if (error.response.status === 401) {
-        const response = await axios({
-          method: 'post',
-          url: 'http://localhost:8080/auth/refresh',
-          headers: { Authorization: session.user.refreshToken },
-        });
-        if (response.status === 202) {
-          session.user.accessToken = response.data.accessToken;
-          session.user.refreshToken = response.data.refreshToken;
-          axios({
-            url: 'http://localhost:8080/mypage',
-            headers: { Authorization: session.user.accessToken },
-          }).then((response) => {
-            if (response.status === 200) {
-              return response.data;
-            } else {
-              new Promise.reject(new Error('로그인 인증 만료'));
-            }
-          });
-        } else {
-          new Promise.reject(new Error('로그인 인증 만료'));
-        }
-      }
-    }
-  );
+  let userData = {};
   try {
-    const response = await instance.get('http://localhost:8080/mypage', {
-      headers: { Authorization: session.user.accessToken },
+    const response = await axios({
+      method: 'post',
+      url: 'http://localhost:3000/api/auth/token',
+      data: {
+        url: 'http://localhost:8080/mypage',
+        accessToken: session.user.accessToken,
+        refreshToken: session.user.refreshToken,
+      },
     });
-    console.log(response.status);
     if (response.status === 200) {
       userData = response.data;
+    } else if (response.status === 202) {
+      session.user.accessToken = response.data.accessToken;
+      return {
+        redirect: {
+          destination: '/mypage',
+          permanent: false,
+        },
+      };
     } else {
-      throw new Error(response);
+      throw new Error('authentication expired');
     }
-  } catch (error) {
-    userData = { message: '로그인 정보 만료' };
-  }
+  } catch (error) {}
 
   return {
     props: userData,

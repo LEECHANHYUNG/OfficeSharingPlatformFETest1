@@ -15,7 +15,9 @@ const Wrapper = styled.section`
   & .type {
     width: 36%;
   }
-
+  & .placeName {
+    line-height: 16px;
+  }
   & .placeName,
   & .reservationDate,
   & .paymentDate {
@@ -30,21 +32,34 @@ const Wrapper = styled.section`
     line-height: 1.2rem;
   }
 `;
-const UsedItem = () => {
+const UsedItem = (props) => {
+  console.log(props.item);
+  console.log(1);
   return (
     <Wrapper>
-      <div className="type">MeetingRoom</div>
-      <div className="placeName">롯데월드점</div>
+      <div className="type">{props.item.productType}</div>
+      <div className="placeName">{props.item.placeName}</div>
       <div className="reservationDate">
-        <div className="date">2022.11.30</div>
-        <div className="time">11:00 ~ 13:00</div>
+        <div className="date">
+          {props.item.reservationEndDateTime.split(' ')[0]}
+        </div>
+        <div className="time">
+          {props.item.reservationStartDateTime.split(' ')[1]} ~{' '}
+          {props.item.reservationEndDateTime.split(' ')[1]}
+        </div>
       </div>
       <div className="paymentDate">
-        <div className="date">2022.11.28</div>
-        <div className="time">11:00:01</div>
+        <div className="date">
+          {props.item.reservationCompletedDateTime.split(' ')[0]}
+        </div>
+        <div className="time">
+          {props.item.reservationCompletedDateTime.split(' ')[1]}
+        </div>
       </div>
-      <div className="state">이용전</div>
-      <div className="review">작성 가능</div>
+      <div className="state">{props.item.usageState}</div>
+      <div className="review">
+        {props.item.isAvailableReview ? '작성 가능' : '작성 완료'}
+      </div>
     </Wrapper>
   );
 };

@@ -35,6 +35,7 @@ const SelectStartTime = () => {
       }
     }
   });
+
   const selectTimeHandler = (e) => {
     const selectedTimeList = document.getElementsByClassName('start-time');
     if (selectedTimeList[0]) {

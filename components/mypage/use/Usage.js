@@ -16,16 +16,18 @@ const Wrapper = styled.section`
   }
 `;
 
-const Use = () => {
+const Usage = (props) => {
   return (
     <Wrapper>
       <h1>이용 내역</h1>
       <Banner />
       <div className="itemList">
-        <UsedItem />
+        {Object.keys(props.item).map((elem) => (
+          <UsedItem item={props.item[elem]} key={elem} />
+        ))}
       </div>
     </Wrapper>
   );
 };
 
-export default Use;
+export default Usage;

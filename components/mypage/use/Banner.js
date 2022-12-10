@@ -32,8 +32,8 @@ const Banner = () => {
     <Wrapper>
       <div id="type">상품 종류</div>
       <div id="placeName">지점명</div>
-      <div id="reservationDate">예약 일자</div>
-      <div id="paymentDate">결제 일자</div>
+      <div id="reservationDate">예약 시간</div>
+      <div id="paymentDate">결제 시간</div>
       <div id="state">상태</div>
       <div id="review">후기</div>
     </Wrapper>

@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Banner from '../../components/mypage/Banner';
 import Header from '../../components/mypage/header';
-import Use from '../../components/mypage/use/Use';
+import Usage from '../../components/mypage/use/Usage';
 import Comment from '../../components/mypage/comment/Comment';
 import Point from '../../components/mypage/point/Point';
 import Qna from '../../components/mypage/qna/Qna';
@@ -21,25 +21,16 @@ const Wrapper = styled.div`
   }
 `;
 
-const Mypage = ({ userName, joinDate, mileagePoint, totalReviewNumber }) => {
+const Mypage = (props) => {
   const router = useRouter();
   return (
     <Wrapper>
-      <Header
-        userName={userName}
-        joinDate={joinDate.split(' ')[0]}
-        mileagePoint={mileagePoint}
-        totalReviewNumber={totalReviewNumber}
-      />
+      <Header />
       <Banner />
-      {router.query.item === '' && (
+      {router.query.item === '' && <div className="item"></div>}
+      {router.query.item === 'usage' && (
         <div className="item">
-          <Use />
-        </div>
-      )}
-      {router.query.item === 'use' && (
-        <div className="item">
-          <Use />
+          <Usage item={props} />
         </div>
       )}
       {router.query.item === 'comment' && (
@@ -62,6 +53,7 @@ const Mypage = ({ userName, joinDate, mileagePoint, totalReviewNumber }) => {
 };
 
 export async function getServerSideProps(context) {
+  const params = context.params;
   const session = await getSession({ req: context.req });
   let userData = {};
   if (!session) {
@@ -72,14 +64,23 @@ export async function getServerSideProps(context) {
       },
     };
   }
-
+  const accessToken = session.user.accessToken;
+  const refreshToken = session.user.refreshToken;
+  console.log(params.item);
   try {
     const response = await axios({
-      url: 'http://localhost:8080/mypage',
-      headers: { Authorization: session.user.accessToken },
+      url: 'http://localhost:3000/api/auth/token',
+      method: 'post',
+      data: {
+        url: `http://localhost:8080/mypage/${params.item}`,
+        accessToken,
+        refreshToken,
+      },
     });
     if (response.status === 200) {
       userData = response.data;
+    } else {
+      throw new Error(response.data);
     }
   } catch (error) {
     userData = { message: '로그인 정보 만료' };

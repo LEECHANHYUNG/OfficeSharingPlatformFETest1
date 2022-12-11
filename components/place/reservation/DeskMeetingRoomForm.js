@@ -1,6 +1,8 @@
-import Link from 'next/link';
+import { getSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import Button from '../../ui/Button';
 import DatePick from '../../ui/DatePick';
 import SelectEndTime from './SelectEndTime';
 import SelectStartTime from './SelectStartTime';
@@ -46,13 +48,6 @@ const DeskMeetingRoomForm = () => {
           ) : (
             ''
           )}
-        </div>
-      ) : (
-        ''
-      )}
-      {reservationItem && selectedStartTime !== 24 ? (
-        <div className="payment-btn">
-          <Link href="/">예약</Link>
         </div>
       ) : (
         ''

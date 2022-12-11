@@ -17,6 +17,12 @@ const SignUp = () => {
   const passwordIsValid = useSelector((state) => state.auth.passwordIsValid);
   const nameIsValid = useSelector((state) => state.auth.nameIsValid);
   const phoneIsValid = useSelector((state) => state.auth.phoneIsValid);
+  const authNumberIsValid = useSelector(
+    (state) => state.auth.authNumberIsValid
+  );
+  const authNumberAuthenticated = useSelector(
+    (state) => state.auth.authNumberAuthenticated
+  );
   const enteredEmail = useSelector((state) => state.auth.enteredEmail);
   const enteredPassword = useSelector((state) => state.auth.enteredPassword);
   const enteredName = useSelector((state) => state.auth.enteredName);
@@ -33,13 +39,25 @@ const SignUp = () => {
   useEffect(() => {
     const validityChecker = setTimeout(() => {
       setFormIsValid(
-        emailIsValid && passwordIsValid && nameIsValid && phoneIsValid
+        emailIsValid &&
+          passwordIsValid &&
+          nameIsValid &&
+          phoneIsValid &&
+          authNumberIsValid &&
+          authNumberAuthenticated
       );
     }, 100);
     return () => {
       clearTimeout(validityChecker);
     };
-  }, [emailIsValid, passwordIsValid, nameIsValid, phoneIsValid]);
+  }, [
+    emailIsValid,
+    passwordIsValid,
+    nameIsValid,
+    phoneIsValid,
+    authNumberIsValid,
+    authNumberAuthenticated,
+  ]);
   const signupHandler = (e) => {
     e.preventDefault();
 
@@ -71,8 +89,8 @@ const SignUp = () => {
         }
       })
       .catch((err) => {
-        const errorMessage = err.response.data.message;
-        alert(errorMessage.split(' ').slice(1).join(' '));
+        console.error(err.response.data);
+        alert(err.response.data.split(' ').slice(1).join(' '));
       });
   };
   return (
@@ -84,7 +102,7 @@ const SignUp = () => {
       </header>
       <section className="signInForm">
         <form onSubmit={signupHandler}>
-          <Email />
+          <Email signUp />
           <Password />
           <Name />
           <Phone />

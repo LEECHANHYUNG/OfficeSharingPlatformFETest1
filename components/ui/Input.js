@@ -1,4 +1,5 @@
 import React from 'react';
+import { forwardRef } from 'react';
 import styled from 'styled-components';
 const StyledInput = styled.input`
   width: 80%;
@@ -15,20 +16,19 @@ const StyledInput = styled.input`
     background: #f6dbfc;
   }
 `;
-const Input = (props) => {
-  return (
-    <StyledInput
-      type={props.type || ''}
-      name={props.name || ''}
-      placeholder={props.placeholder || ''}
-      className={props.className}
-      onChange={props.onChange || ''}
-      onBlur={props.onBlur || ''}
-      required={props.required || null}
-      minLength={props.minLength || null}
-      maxLength={props.maxLength || null}
-    />
-  );
-};
+const Input = forwardRef((props, ref) => (
+  <StyledInput
+    type={props.type || ''}
+    name={props.name || ''}
+    placeholder={props.placeholder || ''}
+    className={props.className}
+    onChange={props.onChange || ''}
+    onBlur={props.onBlur || ''}
+    required={props.required || null}
+    minLength={props.minLength || null}
+    maxLength={props.maxLength || null}
+    ref={ref || null}
+  />
+));
 
 export default Input;

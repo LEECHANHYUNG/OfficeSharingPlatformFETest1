@@ -37,7 +37,7 @@ const Banner = () => {
     <Wrapper>
       <div>
         <div className="title">이용 관리</div>
-        <Link href="/mypage/usage">이용 내역</Link>
+        <Link href="/mypage/usage">예약 내역</Link>
         <Link href="/mypage/comment">댓글 관리</Link>
         <Link href="/mypage/review">후기 관리</Link>
         <Link href="/mypage/point">마일리지 관리</Link>

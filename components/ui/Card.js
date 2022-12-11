@@ -8,6 +8,14 @@ const Wrapper = styled.div`
   padding: 1rem;
   width: 90%;
   max-width: 80rem;
+  &.current-reservation-data {
+    border: 4px solid #6a9eff;
+    width: 70%;
+
+    @media screen and (max-width: 1170px) {
+      width: 80%;
+    }
+  }
 `;
 
 const Card = (props) => {

@@ -23,7 +23,7 @@ const Wrapper = styled.section`
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 100px;
+    padding-top: 30px;
   }
   .btn {
     border: 1px solid #111;

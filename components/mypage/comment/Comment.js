@@ -4,8 +4,7 @@ import Banner from './Banner';
 import CommentItem from './CommentItem';
 
 const Wrapper = styled.section`
-  width: 70%;
-  min-width: 1100px;
+  width: 100%;
 
   & h1 {
     font-size: 2rem;
@@ -14,15 +13,21 @@ const Wrapper = styled.section`
   & .itemlist {
     width: 100%;
   }
+  @media screen and (max-width: 1170px) {
+    width: 94vw;
+  }
 `;
 
-const Use = () => {
+const Use = ({ item, paginationData }) => {
+  console.log(item);
   return (
     <Wrapper>
-      <h1>댓글</h1>
+      <h1>댓글 관리</h1>
       <Banner />
       <div className="itemList">
-        <CommentItem />
+        {Object.keys(item).map((elem) => (
+          <CommentItem item={item[elem]} key={item[elem].commentId} />
+        ))}
       </div>
     </Wrapper>
   );

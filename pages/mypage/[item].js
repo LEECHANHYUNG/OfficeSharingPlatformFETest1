@@ -38,9 +38,20 @@ const Mypage = (props) => {
           />
         </div>
       )}
+      {router.query.item === 'review' && (
+        <div className="item">
+          <Usage
+            item={props.reservationData}
+            paginationData={props.paginationData.maxPage}
+          />
+        </div>
+      )}
       {router.query.item === 'comment' && (
         <div className="item">
-          <Comment />
+          <Comment
+            item={props.commentData}
+            paginationData={props.paginationData.maxPage}
+          />
         </div>
       )}
       {router.query.item === 'point' && (

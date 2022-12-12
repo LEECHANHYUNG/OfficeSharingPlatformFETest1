@@ -71,7 +71,6 @@ const Usage = (props) => {
       if (response.status === 200) {
         setItems(response.data.reservationData);
         setTotalPage(response.data.paginationData.maxPage);
-        console.log(response.data.paginationData.maxPage);
       }
     } catch (error) {
       console.error(error);

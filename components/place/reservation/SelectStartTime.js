@@ -71,7 +71,7 @@ const SelectStartTime = () => {
 
   return (
     <div className="item">
-      <div>시작 시간 선택</div>
+      <div>시간 선택</div>
       <div>
         <StyledSwiper>
           {timeArr.map((elem, idx) =>

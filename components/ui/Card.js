@@ -11,10 +11,9 @@ const Wrapper = styled.div`
   &.current-reservation-data {
     border: 4px solid #6a9eff;
     width: 70%;
-
-    @media screen and (max-width: 1170px) {
-      width: 80%;
-    }
+  }
+  @media screen and (max-width: 1170px) {
+    width: 80%;
   }
 `;
 

@@ -15,6 +15,8 @@ const initialReservationState = {
   isLoading: false,
   itemPrice: null,
   date: new Date(),
+  endDate: new Date(),
+  reservationInfo: {},
 };
 
 const reservationSlice = createSlice({
@@ -52,9 +54,15 @@ const reservationSlice = createSlice({
     selectDate(state, action) {
       state.date = action.payload;
     },
+    selectEndDate(state, action) {
+      state.endDate = action.payload;
+    },
 
     getLoadingState(state, action) {
       state.isLoading = action.payload;
+    },
+    getReservationInfo(state, action) {
+      state.reservationInfo = action.payload;
     },
   },
 });

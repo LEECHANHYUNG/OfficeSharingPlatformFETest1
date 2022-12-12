@@ -42,6 +42,7 @@ export async function getServerSideProps(context) {
     });
     if (response.status === 200) {
       userData = response.data;
+      console.log(userData);
     } else if (response.status === 202) {
       session.user.accessToken = response.data.accessToken;
       return {

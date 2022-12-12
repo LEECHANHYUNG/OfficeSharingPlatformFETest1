@@ -13,7 +13,7 @@ import PaymentType from '../../components/book/PaymentType';
 const Wrapper = styled.section`
   position: absolute;
   top: 150px;
-  width: 100vw;
+  width: 98vw;
   main {
     width: 1250px;
     margin: auto;
@@ -92,6 +92,7 @@ const book = () => {
         </div>
         <div className="right">
           <Payment
+            placeImgUrl={reservationInfo.placeImgUrl}
             averageRate={reservationInfo.averageRate}
             totalReview={reservationInfo.totalReview}
           />

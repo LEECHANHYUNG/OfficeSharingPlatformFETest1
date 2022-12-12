@@ -38,7 +38,7 @@ const Payment = (props) => {
       <div className="container">
         <div className="image-container">
           <Image
-            src="/image/place1.jpg"
+            src={props.placeIImgUrl || '/image/place1.jpg'}
             width="160"
             height="120"
             objectPosition="center"

@@ -45,7 +45,7 @@ const Mileage = (props) => {
           <h4>사용 가능 마일리지</h4>
           <p>
             <Image src="/svg/won.svg" width="10" height="10" />
-            {(props.totalMileage || 100000).toLocaleString()}
+            {props.totalMileage?.toLocaleString() || 0}
           </p>
         </div>
         <div className="price">

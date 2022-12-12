@@ -106,7 +106,7 @@ const PaymentType = (props) => {
             <p>
               이용 금액의 20%인{' '}
               <Image src="/svg/won.svg" width="10" height="10" />
-              {(+props.totalPrice * 0.2 || 100000 * 0.05).toLocaleString()}을
+              {(+props.totalPrice * 0.2 || 100000 * 0.2).toLocaleString()}을
               보증금으로 결제 필요.
             </p>
           </span>

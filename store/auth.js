@@ -5,14 +5,18 @@ const authInitialState = {
   enteredPassword: '',
   enteredName: '',
   enteredPhone: '',
+  enteredAuthNumber: '',
   emailBlur: false,
   passwordBlur: false,
   nameBlur: false,
   phoneBlur: false,
+  authNumberBlur: false,
   emailIsValid: null,
   passwordIsValid: null,
   nameIsValid: null,
   phoneIsValid: null,
+  authNumberIsValid: null,
+  authNumberAuthenticated: false,
 };
 
 const emailRegExp =
@@ -22,7 +26,7 @@ const passwordRegExp =
   /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 const nameRegExp = /^[가-힣]{2,4}$/;
 const phoneRegExp = /^[0-9]{2,3}[0-9]{3,4}[0-9]{4}/;
-
+const authNumberRegExp = /^[A-Za-z0-9]{4}$/;
 const authSlice = createSlice({
   name: 'auth',
   initialState: authInitialState,
@@ -32,10 +36,13 @@ const authSlice = createSlice({
       state.enteredPassword = '';
       state.enteredName = '';
       state.enteredPhone = '';
+      state.enteredAuthNumber = '';
       state.emailIsValid = null;
       state.passwordIsValid = null;
       state.nameIsValid = null;
       state.phoneIsValid = null;
+      state.authNumberIsValid = null;
+      state.authNumberAuthenticated = false;
     },
     getEmailValid(state, action) {
       state.enteredEmail = action.payload;
@@ -52,6 +59,13 @@ const authSlice = createSlice({
     getPhoneValid(state, action) {
       state.enteredPhone = action.payload;
       state.phoneIsValid = phoneRegExp.test(action.payload);
+    },
+    getAuthNumberValid(state, action) {
+      state.enteredAuthNumber = action.payload;
+      state.authNumberIsValid = authNumberRegExp.test(action.payload);
+    },
+    getAuthNumberAuthenticated(state, action) {
+      state.authNumberAuthenticated = action.payload;
     },
   },
 });

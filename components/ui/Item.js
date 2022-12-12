@@ -83,7 +83,8 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
     dispatch(reservationActions.getReservationItem(selectedItem));
     dispatch(reservationActions.getSelectedTypeEng(typeEng));
     dispatch(reservationActions.getSelectedStartTime(24));
-
+    dispatch(reservationActions.getSelectedEndTime(24));
+    dispatch(reservationActions.selectDate(new Date()));
     dispatch(reservationActions.getLoadingState(true));
     setAbleDateList([]);
     setDisabledDateList([]);

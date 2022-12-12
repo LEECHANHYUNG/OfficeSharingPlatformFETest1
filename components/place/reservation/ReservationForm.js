@@ -1,8 +1,13 @@
+import axios from 'axios';
+import { getSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { reservationActions } from '../../../store/reservation';
+import Button from '../../ui/Button';
 import Card from '../../ui/Card';
 import DeskMeetingRoomForm from './DeskMeetingRoomForm';
 import OfficeForm from './OfficeForm';
@@ -60,13 +65,43 @@ const Wrapper = styled(Card)`
 `;
 
 const ReservationForm = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const placeId = router.query.id;
   const [isBrowser, setIsBrowser] = useState(false);
   const [isFixed, setIsFixed] = useState(true);
   const itemName = useSelector((state) => state.reservation.selectedType);
   const reservationItem = useSelector(
     (state) => state.reservation.reservationItem
   );
-
+  const selectedStartTime = useSelector(
+    (state) => state.reservation.selectedStartTime
+  );
+  const selectedEndTime = useSelector(
+    (state) => state.reservation.selectedEndTime
+  );
+  const selectedTypeEng = useSelector(
+    (state) => state.reservation.selectedTypeEng
+  );
+  const selectedDate = useSelector((state) => state.reservation.date);
+  const selectedEndDate = useSelector((state) => state.reservation.endDate);
+  const dateArr = selectedDate.toLocaleDateString().slice(0, -1).split('. ');
+  const endDateArr = selectedEndDate
+    .toLocaleDateString()
+    .slice(0, -1)
+    .split('. ');
+  const dateString =
+    dateArr[0] +
+    '-' +
+    dateArr[1].padStart(2, '0') +
+    '-' +
+    dateArr[2].padStart(2, '0');
+  const endDateString =
+    endDateArr[0] +
+    '-' +
+    endDateArr[1].padStart(2, '0') +
+    '-' +
+    endDateArr[2].padStart(2, '0');
   useEffect(() => {
     setIsBrowser(true);
   });
@@ -79,6 +114,38 @@ const ReservationForm = () => {
       }
     });
   }
+  const sendReservationInfoHandler = async () => {
+    const session = await getSession();
+    if (!session) {
+      alert('로그인이 필요한 서비스입니다. 로그인 페이지로 이동합니다.');
+      router.push('/auth/signin');
+    }
+    try {
+      const response = await axios({
+        url: '/api/reservation/book',
+        method: 'post',
+        data: {
+          id: placeId,
+          selectedType: selectedTypeEng,
+          startDate: dateString,
+          endDate: endDateString,
+          startTime: selectedStartTime,
+          endTime: +selectedEndTime + 1,
+        },
+      });
+      if (response.status === 200) {
+        console.log(response.data);
+        dispatch(reservationActions.getReservationInfo(response.data));
+        alert('예약 페이지로 이동합니다.');
+        router.push('/place/book');
+      } else {
+        throw new Error(response.data.message);
+      }
+    } catch (error) {
+      console.error(error.response.data);
+      alert(error.response.data.message.split(' ').slice(1).join(' '));
+    }
+  };
   return (
     <Wrapper isFixed={isFixed}>
       <div className="productForm">
@@ -106,6 +173,15 @@ const ReservationForm = () => {
           ''
         )}
         {itemName === 'office' ? <OfficeForm /> : ''}
+        {reservationItem &&
+        selectedStartTime !== 24 &&
+        selectedEndTime !== 24 ? (
+          <div className="payment-btn">
+            <Button onClick={sendReservationInfoHandler}>예약</Button>
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     </Wrapper>
   );

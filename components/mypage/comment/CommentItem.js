@@ -1,11 +1,10 @@
-import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.section`
   width: 100%;
   line-height: 50px;
-  height: 60px;
+  height: ${(props) => (props.reviewComment ? '36px' : ' 60px')};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,12 +19,14 @@ const Wrapper = styled.section`
 
   & .placeName,
   & .writingTime {
+    line-height: 1.2rem;
     width: 12%;
   }
   .detail {
     text-align: right;
     width: 10%;
     padding-right: 15px;
+    cursor: pointer;
   }
   & .date,
   & .time {
@@ -71,7 +72,7 @@ const Wrapper = styled.section`
     & .placeName,
     & .writingTime {
       font-size: 1rem;
-      width: 13%;
+      width: 15%;
     }
     .content-hide {
       width: 60%;
@@ -88,10 +89,9 @@ const Wrapper = styled.section`
     }
     .placeName {
       position: relative;
-      right: 0px;
-      top: 40px;
+      right: -66px;
+      top: 75px;
       font-weight: 900;
-      width: 0%;
     }
     .writingTime {
       width: 18%;
@@ -101,27 +101,27 @@ const Wrapper = styled.section`
     }
   }
 `;
-const CommentItem = ({ item }) => {
+const CommentItem = ({ item, reviewComment }) => {
   const showDetailHandler = (e) => {
     e.target.parentNode.classList.toggle('show');
     e.target.parentNode.childNodes[2]?.childNodes[1]?.classList.toggle(
       'rotate'
     );
-    console.log(e.target.parentNode.childNodes[2]?.textContent);
     if (e.target.parentNode.childNodes[2]?.textContent === '보기▼') {
       e.target.parentNode.childNodes[2].textContent = '접기▲';
     } else {
       e.target.parentNode.childNodes[2].textContent = '보기▼';
     }
   };
+  console.log(reviewComment);
   return (
-    <Wrapper>
+    <Wrapper reviewComment={reviewComment || false}>
       <div className="content">{item.context.slice(0, 50) + `...`}</div>
       <div className="content-hide">{item.context}</div>
       <div className="detail" onClick={showDetailHandler}>
         보기▼
       </div>
-      <div className="placeName">{item.placeName}</div>
+      <div className="placeName">{item.placeName || item.writer}</div>
       <div className="writingTime">
         <div className="date">{item.writtenDate}</div>
         <div className="time">{item.writtenTime}</div>

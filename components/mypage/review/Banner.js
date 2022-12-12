@@ -11,12 +11,17 @@ const Wrapper = styled.section`
   border-top: 2px solid #111;
   border-bottom: 2px solid #111;
   #content {
-    width: 86%;
+    width: 70%;
   }
 
   #placeName,
   #writingTime {
-    width: 12%;
+    width: 10%;
+    min-width: 80px;
+  }
+  #ratingScore {
+    width: 10%;
+    min-width: 80px;
   }
   @media screen and (max-width: 1170px) {
     width: 94vw;
@@ -37,17 +42,15 @@ const Wrapper = styled.section`
     #writingTime {
       width: 18%;
     }
-    #placeName {
-      display: none;
-    }
   }
 `;
 
-const Banner = (props) => {
+const Banner = () => {
   return (
     <Wrapper>
+      <div id="ratingScore">평점</div>
       <div id="content">내용</div>
-      <div id="placeName">{props.reviewComment ? '작성자' : '지점명'}</div>
+      <div id="placeName">지점명</div>
       <div id="writingTime">작성일</div>
     </Wrapper>
   );

@@ -6,29 +6,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Email from '../../components/auth/Email';
 import Password from '../../components/auth/Password';
+import AuthHeader from '../../components/ui/AuthHeader';
 import Button from '../../components/ui/Button';
 import { authSliceActions } from '../../store/auth';
 
 const Wrapper = styled.div`
   margin: 20vh auto;
-  border-radius: 6px;
-  background-color: white;
   padding: 1rem;
   width: 90%;
   max-width: 40rem;
   text-align: center;
 
-  & header .headerLink {
-    color: #111;
-    text-decoration: none;
-    font-size: 30px;
-    font-weight: 900;
-    text-align: center;
-  }
-  & header h1 {
-    cursor: pointer;
-  }
-  & .signInForm form {
+  .signInForm form {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -36,32 +25,33 @@ const Wrapper = styled.div`
     flex-direction: column;
   }
 
-  & .control {
+  .control {
     width: 100%;
   }
-  & .control.invalid input {
+  .control.invalid input {
     border-color: red;
     background: #fbdada;
   }
-  & .control.invalid input:focus {
+  .control.invalid input:focus {
     outline: none;
     border-color: #4f005f;
     background: #f6dbfc;
   }
-  & .signInForm form input {
+  .signInForm form input {
     width: 80%;
     height: 40px;
     margin: 10px auto;
   }
 
-  & Button {
+  Button {
     width: 80%;
     margin-top: 20px;
   }
-  & .navLink {
-    text-align: center;
+  .navLink {
+    margin-top: 20px;
+    text-decoration: underline;
   }
-  & .validity-comment {
+  .validity-comment {
     text-align: left;
     margin-left: 60px;
     position: relative;
@@ -76,14 +66,14 @@ const SignIn = () => {
   const emailIsValid = useSelector((state) => state.auth.emailIsValid);
   const passwordIsValid = useSelector((state) => state.auth.passwordIsValid);
   const [formIsValid, setFormIsValid] = useState(false);
-  const disatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    disatch(authSliceActions.resetValidation());
+    dispatch(authSliceActions.resetValidation());
   }, []);
   useEffect(() => {
     const validityChecker = setTimeout(() => {
-      setFormIsValid(emailIsValid && passwordIsValid);
+      setFormIsValid(emailIsValid & passwordIsValid);
     }, 100);
     return () => {
       clearTimeout(validityChecker);
@@ -111,9 +101,7 @@ const SignIn = () => {
   return (
     <Wrapper>
       <header>
-        <Link href="/" className="headerLink">
-          <h1>Office Sharing Platform</h1>
-        </Link>
+        <AuthHeader />
       </header>
       <section className="signInForm">
         <form>
@@ -125,6 +113,9 @@ const SignIn = () => {
           </Button>
           <p className="navLink">
             계정이 없으신가요?<Link href="/auth/signup">회원가입</Link>
+          </p>
+          <p className="navLink">
+            <Link href="/auth/findUserInfo">아이디/비밀번호 찾기</Link>
           </p>
         </form>
       </section>

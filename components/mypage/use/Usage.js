@@ -3,6 +3,7 @@ import { getSession, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import React from 'react';
 import { useState } from 'react';
+import ReactPaginate from 'react-paginate';
 import styled from 'styled-components';
 import Banner from './Banner';
 import UsedItem from './UsedItem';
@@ -17,30 +18,31 @@ const Wrapper = styled.section`
   .itemlist {
     width: 90%;
   }
-  .pagination {
-    height: 50px;
+
+  .paginationBtns {
+    width: 80%;
+    padding-top: 150px;
     margin: auto;
+    height: 40px;
+    list-style: none;
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding-top: 30px;
   }
-  .btn {
-    border: 1px solid #111;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    line-height: 30px;
+  .paginationBtns a {
+    padding: 10px;
+    margin: 8px;
     border-radius: 5px;
-    margin: 0 5px;
+    border: 1px solid #111;
+    color: #111;
     cursor: pointer;
   }
-  .selected {
+  .paginationBtns a:hover {
+    color: #fff;
+    background: #2b2eff;
+  }
+  .paginationActive a {
+    color: #111;
     background: #6a9eff;
-  }
-  .right,
-  .left {
-    cursor: pointer;
   }
   @media screen and (max-width: 1170px) {
     width: 96vw;
@@ -49,45 +51,29 @@ const Wrapper = styled.section`
 
 const Usage = (props) => {
   const [totalPage, setTotalPage] = useState(props.paginationData);
-  const [pageCount, setPageCount] = useState(0);
   const [items, setItems] = useState(props.item);
   const session = useSession();
-  const changePageHandler = async (e) => {
-    const selected = document.getElementsByClassName('selected');
-    if (selected[0]?.classList) {
-      selected[0].classList.remove('selected');
-    }
-    e.target.classList.add('selected');
+  const changePageHandler = async ({ selected }) => {
     try {
       const response = await axios({
-        url: `/api/mypage/usage`,
+        url: `/api/mypage/mypage`,
         method: 'post',
         data: {
+          url: 'mypage/usage?page=',
           accessToken: session.data.user.accessToken,
-          page: e.target.id,
+          page: selected,
         },
       });
 
       if (response.status === 200) {
         setItems(response.data.reservationData);
         setTotalPage(response.data.paginationData.maxPage);
-        console.log(response.data.paginationData.maxPage);
       }
     } catch (error) {
       console.error(error);
     }
   };
-  const pageCountHandler = (e) => {
-    const selected = document.getElementsByClassName('selected');
-    if (selected[0]?.classList) {
-      selected[0].classList.remove('selected');
-    }
-    if (e.target.classList.value === 'left' && pageCount !== 0) {
-      setPageCount((prevState) => prevState - 10);
-    } else if (e.target.classList.value === 'right' && pageCount < totalPage) {
-      setPageCount((prevState) => prevState + 10);
-    }
-  };
+
   return (
     <Wrapper>
       <h1>예약 내역</h1>
@@ -97,7 +83,18 @@ const Usage = (props) => {
           <UsedItem item={items[elem]} key={items[elem].reservationId} />
         ))}
       </div>
-      <div className="pagination">
+      <ReactPaginate
+        previousLabel={'<'}
+        nextLabel={'>'}
+        pageCount={totalPage}
+        onPageChange={changePageHandler}
+        containerClassName={'paginationBtns'}
+        previousLinkClassName={'previousBtn'}
+        nextLinkClassName={'nextBtn'}
+        disabledClassName={'paginationDisabled'}
+        activeClassName={'paginationActive'}
+      />
+      {/*<div className="pagination">
         <Image
           src="/svg/chevron-left.svg"
           width="30"
@@ -128,7 +125,7 @@ const Usage = (props) => {
           className="right"
           onClick={pageCountHandler}
         />
-      </div>
+      </div>*/}
     </Wrapper>
   );
 };

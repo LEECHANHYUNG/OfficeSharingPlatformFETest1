@@ -9,7 +9,10 @@ import Point from '../../components/mypage/point/Point';
 import Qna from '../../components/mypage/qna/Qna';
 import { getSession } from 'next-auth/react';
 import axios from 'axios';
+import Review from '../../components/mypage/review/Review';
 const Wrapper = styled.div`
+  overflow-x: hidden;
+  overflow-y: hidden;
   & .item {
     width: 70vw;
     display: inline-block;
@@ -18,7 +21,7 @@ const Wrapper = styled.div`
     padding-top: 60px;
   }
   @media screen and (max-width: 1170px) {
-    width: 96vw;
+    width: 100vw;
     margin: 0;
   }
 `;
@@ -38,9 +41,21 @@ const Mypage = (props) => {
           />
         </div>
       )}
+      {router.query.item === 'review' && (
+        <div className="item">
+          <Review
+            item={props.reviewData}
+            paginationData={props.paginationData.maxPage}
+          />
+        </div>
+      )}
+
       {router.query.item === 'comment' && (
         <div className="item">
-          <Comment />
+          <Comment
+            item={props.commentData}
+            paginationData={props.paginationData.maxPage}
+          />
         </div>
       )}
       {router.query.item === 'point' && (
@@ -50,7 +65,10 @@ const Mypage = (props) => {
       )}
       {router.query.item === 'qna' && (
         <div className="item">
-          <Qna />
+          <Qna
+            item={props.qnaData}
+            paginationData={props.paginationData.maxPage}
+          />
         </div>
       )}
     </Wrapper>

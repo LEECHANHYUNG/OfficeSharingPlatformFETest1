@@ -1,23 +1,24 @@
+import axios from 'axios';
 import { useSession } from 'next-auth/react';
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import styled from 'styled-components';
 import Banner from './Banner';
-import QnaItem from './QnaItem';
+import ReviewItem from './ReviewItem';
 
 const Wrapper = styled.section`
-  width: 70vw;
-  h1 {
+  width: 100%;
+  & h1 {
     font-size: 2rem;
     margin-top: 20px;
   }
-  .itemlist {
+  & .itemlist {
     width: 100%;
   }
+
   .paginationBtns {
     width: 80%;
-    padding-top: 50px;
+    padding-top: 150px;
     margin: auto;
     height: 40px;
     list-style: none;
@@ -40,14 +41,12 @@ const Wrapper = styled.section`
     color: #111;
     background: #6a9eff;
   }
-
   @media screen and (max-width: 1170px) {
-    width: 90vw;
-    margin: 0 auto;
+    width: 94vw;
   }
 `;
 
-const Qna = ({ item, paginationData }) => {
+const Review = ({ item, paginationData }) => {
   const [totalPage, setTotalPage] = useState(paginationData);
   const [items, setItems] = useState(item);
   const session = useSession();
@@ -57,27 +56,29 @@ const Qna = ({ item, paginationData }) => {
         url: `/api/mypage/mypage`,
         method: 'post',
         data: {
-          url: 'mypage/qna?page=',
+          url: 'mypage/review?page=',
           accessToken: session.data.user.accessToken,
           page: selected,
         },
       });
 
       if (response.status === 200) {
-        setItems(response.data.commentData);
+        console.log(response.data);
+        setItems(response.data.reviewData);
         setTotalPage(response.data.paginationData.maxPage);
       }
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <Wrapper>
-      <h1>1:1 문의</h1>
+      <h1>후기 관리</h1>
       <Banner />
       <div className="itemList">
-        {Object.keys(item).map((elem) => (
-          <QnaItem item={item[elem]} key={item[elem].questionData.inquiryId} />
+        {Object.keys(items).map((elem) => (
+          <ReviewItem item={items[elem]} key={items[elem].ratingId} />
         ))}
       </div>
       <ReactPaginate
@@ -95,4 +96,4 @@ const Qna = ({ item, paginationData }) => {
   );
 };
 
-export default Qna;
+export default Review;

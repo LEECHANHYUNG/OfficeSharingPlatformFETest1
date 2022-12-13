@@ -7,9 +7,8 @@ const Wrapper = styled.section`
   top: 80px;
   float: left;
   width: 300px;
-  height: 600px;
+  height: 80vh;
   border-right: 2px solid #111;
-  background: #fff;
   padding-left: 20px;
   padding-top: 20px;
   & .title {

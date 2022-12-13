@@ -21,12 +21,14 @@ const Wrapper = styled.section`
   @media screen and (max-width: 1170px) {
     width: 94vw;
     #content {
-      width: 84%;
+      width: 50%;
     }
 
-    #placeName,
     #writingTime {
-      width: 13%;
+      width: 15%;
+    }
+    #placeName {
+      width: 35%;
     }
   }
 

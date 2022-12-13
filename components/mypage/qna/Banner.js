@@ -23,9 +23,14 @@ const Wrapper = styled.section`
     width: 52%;
   }
   @media screen and (max-width: 1170px) {
-    width: 99vw;
+    width: 93vw;
     margin: 0 auto;
     #placeName
+  }
+  @media screen and (max-width: 620px) {
+  #writingTime{
+    display : none;
+  }
   }
 `;
 

@@ -17,13 +17,13 @@ const Wrapper = styled.section`
   &.show {
     height: 500px;
   }
-  & .state,
-  & .writingTime,
-  & .state {
+  .state,
+  .writingTime,
+  .state {
     line-height: 1.2rem;
     width: 12%;
   }
-  & .content {
+  .content {
     line-height: 1.2rem;
     width: 52%;
   }
@@ -40,13 +40,22 @@ const Wrapper = styled.section`
   .answer {
     position: absolute;
     width: 100%;
-    top: 120px;
+    top: 150px;
     border-top: 3px solid #111;
     transition: all 0.5s ease-out;
   }
   @media screen and (max-width: 1170px) {
     min-height: 120px;
-    width: 99vw;
+    width: 93vw;
+  }
+  @media screen and (max-width: 620px) {
+    .writingTime {
+      position: absolute;
+      width: 50%;
+      display: flex;
+      justify-content: space-around;
+      top: 120px;
+    }
   }
 `;
 const StyledCard = styled(Card)`

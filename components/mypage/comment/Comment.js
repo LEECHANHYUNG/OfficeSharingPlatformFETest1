@@ -19,7 +19,8 @@ const Wrapper = styled.section`
 
   .paginationBtns {
     width: 80%;
-    padding-top: 150px;
+    padding-top: 60px;
+    padding-bottom: 60px;
     margin: auto;
     height: 40px;
     list-style: none;
@@ -83,7 +84,7 @@ const Comment = ({ item, paginationData, reviewComment, ratingId }) => {
         {Object.keys(items).map((elem) => (
           <CommentItem
             item={items[elem]}
-            key={items[elem].commentId}
+            key={elem}
             reviewComment={reviewComment}
           />
         ))}
@@ -91,6 +92,7 @@ const Comment = ({ item, paginationData, reviewComment, ratingId }) => {
       <ReactPaginate
         previousLabel={'<'}
         nextLabel={'>'}
+        pageRangeDisplayed={1}
         pageCount={totalPage}
         onPageChange={changePageHandler}
         containerClassName={'paginationBtns'}

@@ -10,6 +10,7 @@ import Phone from '../../components/auth/Phone';
 import Button from '../../components/ui/Button';
 import { authSliceActions } from '../../store/auth';
 import axios from 'axios';
+import AuthHeader from '../../components/ui/AuthHeader';
 
 const SignUp = () => {
   const router = useRouter();
@@ -96,9 +97,7 @@ const SignUp = () => {
   return (
     <Wrapper>
       <header>
-        <Link href="/" className="headerLink">
-          <h1>Office Sharing Platform</h1>
-        </Link>
+        <AuthHeader />
       </header>
       <section className="signInForm">
         <form onSubmit={signupHandler}>
@@ -157,71 +156,62 @@ const Wrapper = styled.div`
   width: 90%;
   max-width: 40rem;
   text-align: center;
-  & header .headerLink {
-    color: #111;
-    text-decoration: none;
-    font-size: 30px;
-    font-weight: 900;
-    text-align: center;
-  }
-  & header h1 {
-    cursor: pointer;
-  }
-  & .signInForm form {
+
+  .signInForm form {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
   }
-  & .control {
+  .control {
     width: 100%;
   }
-  & .control.invalid input {
+  .control.invalid input {
     border-color: red;
     background: #fbdada;
   }
-  & .control.invalid input:focus {
+  .control.invalid input:focus {
     outline: none;
     border-color: #4f005f;
     background: #f6dbfc;
   }
-  & .signInForm form input {
+  .signInForm form input {
     width: 80%;
     height: 40px;
     margin: 10px auto;
   }
-  & Button {
+  Button {
     width: 80%;
     margin-top: 20px;
   }
-  & .navLink {
+  .navLink {
     text-align: center;
   }
-  & .validity-comment {
+  .validity-comment {
     text-align: left;
     margin-left: 60px;
     position: relative;
     top: 0px;
     left: 0px;
   }
-  & .select {
+  .select {
     display: flex;
     width: 80%;
     align-items: start;
     justify-content: flex-start;
     flex-direction: column;
   }
-  & .select p {
+  .select p {
     margin: 0;
   }
-  & .select .selectBox {
+  .select .selectBox {
     display: flex;
     align-self: start;
     width: 15px;
     width: 100%;
   }
-  & .select .selectBox input {
+  .select .selectBox input {
     width: 15px;
     height: 15px;
     margin: 0 5px;

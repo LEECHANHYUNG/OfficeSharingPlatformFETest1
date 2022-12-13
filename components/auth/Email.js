@@ -7,9 +7,7 @@ import { authSliceActions } from '../../store/auth';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
 const Wrapper = styled.div`
-  &.control {
-    width: 100%;
-  }
+  width: 100%;
 `;
 const Email = (props) => {
   const dispatch = useDispatch();
@@ -92,54 +90,53 @@ const Email = (props) => {
     }
   };
   return (
-    <Wrapper className="control">
+    <Wrapper>
       <div className="validity-comment">
         {!emailIsValid && emailBlur && '이메일 양식으로 입력 해주세요'}
       </div>
-      <label htmlFor="email">
+      <label htmlFor="email"></label>
+      <Input
+        type="email"
+        name="email"
+        placeholder="아이디(이메일 형식)*"
+        onChange={emailChangeHandler}
+        onBlur={validateEmailHandler}
+        className={`${emailIsValid === false ? ' invalid' : ''}`}
+        ref={emailInputRef}
+        required
+      />
+      {emailIsValid && props.signUp && !isSended ? (
+        <Button onClick={sendEmailHandler}>인증 메일 전송</Button>
+      ) : (
+        ''
+      )}
+      <div className="validity-comment">
+        {!authNumberIsValid &&
+          authNumberBlur &&
+          isSended &&
+          '인증 번호를 확인해주세요'}
+      </div>
+      {isSended && !isMatched ? (
         <Input
-          type="email"
-          name="email"
-          placeholder="아이디(이메일 형식)*"
-          onChange={emailChangeHandler}
-          onBlur={validateEmailHandler}
-          className={`${emailIsValid === false ? ' invalid' : ''}`}
-          ref={emailInputRef}
-          required
+          type="text"
+          name="emailAuthentication"
+          placeholder="인증 번호 4자리 입력"
+          onChange={authNumberChangeHandler}
+          onBlur={validateAuthNumerHandler}
+          className={`${authNumberIsValid === false ? ' invalid' : ''}`}
+          ref={authNumberInputRef}
+          maxLength={4}
         />
-        {emailIsValid && props.signUp && !isSended ? (
-          <Button onClick={sendEmailHandler}>인증 메일 전송</Button>
-        ) : (
-          ''
-        )}
-        <div className="validity-comment">
-          {!authNumberIsValid &&
-            authNumberBlur &&
-            isSended &&
-            '인증 번호를 확인해주세요'}
-        </div>
-        {isSended && !isMatched ? (
-          <Input
-            type="text"
-            name="emailAuthentication"
-            placeholder="인증 번호 4자리 입력"
-            onChange={authNumberChangeHandler}
-            onBlur={validateAuthNumerHandler}
-            className={`${authNumberIsValid === false ? ' invalid' : ''}`}
-            ref={authNumberInputRef}
-            maxLength={4}
-          />
-        ) : (
-          ''
-        )}
-        {emailIsValid && props.signUp && isSended && !isMatched ? (
-          <Button disabled={!authNumberIsValid} onClick={authNumberHandler}>
-            인증 번호 확인
-          </Button>
-        ) : (
-          ''
-        )}
-      </label>
+      ) : (
+        ''
+      )}
+      {emailIsValid && props.signUp && isSended && !isMatched ? (
+        <Button disabled={!authNumberIsValid} onClick={authNumberHandler}>
+          인증 번호 확인
+        </Button>
+      ) : (
+        ''
+      )}
     </Wrapper>
   );
 };

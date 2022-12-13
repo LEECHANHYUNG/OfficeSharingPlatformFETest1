@@ -3,16 +3,19 @@ import { createSlice } from '@reduxjs/toolkit';
 const authInitialState = {
   enteredEmail: '',
   enteredPassword: '',
+  enteredSecondPassword: '',
   enteredName: '',
   enteredPhone: '',
   enteredAuthNumber: '',
   emailBlur: false,
   passwordBlur: false,
+  passwordSecondBlur: false,
   nameBlur: false,
   phoneBlur: false,
   authNumberBlur: false,
   emailIsValid: null,
   passwordIsValid: null,
+  passwordSecondIsValid: null,
   nameIsValid: null,
   phoneIsValid: null,
   authNumberIsValid: null,
@@ -51,6 +54,10 @@ const authSlice = createSlice({
     getPasswordValid(state, action) {
       state.enteredPassword = action.payload;
       state.passwordIsValid = passwordRegExp.test(action.payload);
+    },
+    getPasswordSecondValid(state, action) {
+      state.enteredSecondPassword = action.payload;
+      state.passwordSecondIsValid = passwordRegExp.test(action.payload);
     },
     getNameValid(state, action) {
       state.enteredName = action.payload;

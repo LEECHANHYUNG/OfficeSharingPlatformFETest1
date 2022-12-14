@@ -10,7 +10,6 @@ const Wrapper = styled.section`
   justify-content: center;
   align-items: center;
   border-top: 2px solid #111;
-  overflow-y: hidden;
 
   .type {
     width: 18%;
@@ -62,9 +61,9 @@ const Wrapper = styled.section`
     overflow: hidden;
     display: inline-block;
     height: 150px;
-    width: 91vw;
+    width: 100%;
     line-height: 1rem;
-    padding: 10px 20px;
+    padding: 10px 10px;
 
     transition: 0.5s;
     .type {
@@ -116,7 +115,7 @@ const Wrapper = styled.section`
     .detail {
       display: inline-block;
       position: relative;
-      left: 85%;
+      left: 81%;
       top: -135px;
       text-decoration: underline;
       cursor: pointer;

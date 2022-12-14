@@ -17,8 +17,8 @@ const Wrapper = styled.section`
     justify-content: space-between;
   }
   ul li {
-    height: 60px;
-    line-height: 50px;
+    height: 30px;
+    line-height: 30px;
     width: 25%;
     text-align: center;
     border: 1px solid #111;
@@ -52,7 +52,6 @@ const Wrapper = styled.section`
   }
   header > div {
     width: 15%;
-    text-align: center;
   }
   .name {
     width: 25%;
@@ -61,10 +60,10 @@ const Wrapper = styled.section`
     width: 40%;
   }
   .tel {
-    width: 25%;
+    width: 20%;
   }
   .distance {
-    width: 5%;
+    width: 10%;
     color: #6a9eff;
     font-weight: 700;
   }
@@ -99,7 +98,7 @@ const PlaceAround = ({ placeSubInfo }) => {
           </li>
           <li onClick={selectedItemHandler}>
             <input type="hidden" value={'subwaystationData'} />
-            지하철 역
+            지하철
           </li>
         </ul>
       </nav>

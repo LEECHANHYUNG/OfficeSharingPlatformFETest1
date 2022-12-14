@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { getSession, useSession } from 'next-auth/react';
-import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 import React from 'react';
 import { useState } from 'react';
 import ReactPaginate from 'react-paginate';
@@ -10,7 +9,6 @@ import UsedItem from './UsedItem';
 
 const Wrapper = styled.section`
   display: inline-block;
-
   h1 {
     font-size: 2rem;
     margin-top: 20px;
@@ -94,38 +92,6 @@ const Usage = (props) => {
         disabledClassName={'paginationDisabled'}
         activeClassName={'paginationActive'}
       />
-      {/*<div className="pagination">
-        <Image
-          src="/svg/chevron-left.svg"
-          width="30"
-          height="30"
-          className="left"
-          onClick={pageCountHandler}
-        />
-        {new Array(totalPage - pageCount)
-          .fill(0, 0, totalPage - pageCount)
-          .map((elem, idx) => {
-            if (idx < 10) {
-              return (
-                <div
-                  key={idx}
-                  className="btn"
-                  id={idx + 1 + pageCount}
-                  onClick={changePageHandler}
-                >
-                  {idx + 1 + pageCount}
-                </div>
-              );
-            }
-          })}
-        <Image
-          src="/svg/chevron-right.svg"
-          width="30"
-          height="30"
-          className="right"
-          onClick={pageCountHandler}
-        />
-      </div>*/}
     </Wrapper>
   );
 };

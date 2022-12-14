@@ -15,8 +15,10 @@ const Wrapper = styled(Card)`
   border: 2px solid #111;
   border-radius: 5px;
   width: 450px;
-  position: ${(props) => (props.isFixed ? 'fixed' : 'absolute')};
-  top: ${(props) => (props.isFixed ? '' : '500px')};
+  position: ${(props) =>
+    props.isFixed ? (props.isBottom ? 'absolute' : 'fixed') : 'absolute'};
+  top: ${(props) =>
+    props.isFixed ? (props.isBottom ? '1200px' : '90px') : '0px'};
   h1 {
     font-size: 1.5rem;
   }
@@ -68,7 +70,9 @@ const ReservationForm = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [isBrowser, setIsBrowser] = useState(false);
-  const [isFixed, setIsFixed] = useState(true);
+  const [isFixed, setIsFixed] = useState(false);
+  const [isBottom, setIsBottom] = useState(false);
+
   const placeId = router.query.id;
 
   const itemName = useSelector((state) => state.reservation.selectedType);
@@ -89,10 +93,15 @@ const ReservationForm = () => {
   });
   if (isBrowser) {
     window.addEventListener('scroll', () => {
-      if (window.scrollY >= 350 && window.innerWidth > 1170) {
-        setIsFixed(false);
-      } else {
+      console.log(window.scrollY);
+      if (window.scrollY >= 600 && window.scrollY <= 1650) {
         setIsFixed(true);
+        setIsBottom(false);
+      } else if (window.scrollY > 1650) {
+        setIsBottom(true);
+      } else {
+        setIsFixed(false);
+        setIsBottom(false);
       }
     });
   }
@@ -150,7 +159,7 @@ const ReservationForm = () => {
     }
   };
   return (
-    <Wrapper isFixed={isFixed}>
+    <Wrapper isFixed={isFixed} isBottom={isBottom}>
       <div className="productForm">
         {reservationItem ? (
           <h1>예약 신청</h1>

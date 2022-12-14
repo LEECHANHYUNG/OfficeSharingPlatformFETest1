@@ -11,9 +11,7 @@ import { getSession } from 'next-auth/react';
 import axios from 'axios';
 import Review from '../../components/mypage/review/Review';
 const Wrapper = styled.div`
-  overflow-x: hidden;
-  overflow-y: hidden;
-  & .item {
+  .item {
     width: 70vw;
     display: inline-block;
     float: left;
@@ -23,6 +21,12 @@ const Wrapper = styled.div`
   @media screen and (max-width: 1170px) {
     width: 100vw;
     margin: 0;
+  }
+  @media screen and (max-width: 858px) {
+    .item {
+      width: 96vw;
+      padding-left: 10px;
+    }
   }
 `;
 

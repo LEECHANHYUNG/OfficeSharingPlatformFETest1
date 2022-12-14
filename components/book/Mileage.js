@@ -3,6 +3,9 @@ import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import Card from '../ui/Card';
+import Button from '../ui/Button';
+import { useDispatch } from 'react-redux';
+import { paymentSliceActions } from '../../store/payment';
 
 const Wrapper = styled(Card)`
   border: 3px solid #6a9eff;
@@ -23,12 +26,13 @@ const Wrapper = styled(Card)`
     height: 30px;
     width: 120px;
     margin-left: 5px;
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 `;
 
-const Mileage = (props) => {
+const Mileage = ({ totalMileage, totalPrice }) => {
   const [enteredMileage, setEnteredMileage] = useState('');
+  const dispatch = useDispatch();
   const inputMileageHandler = (e) => {
     if (isNaN(e.target.value)) {
       alert('숫자만 입력 가능합니다.');
@@ -37,15 +41,25 @@ const Mileage = (props) => {
       setEnteredMileage(String(e.target.value));
     }
   };
+  const useMileageHandler = () => {
+    dispatch(paymentSliceActions.getUseMileage(enteredMileage));
+  };
   return (
     <Wrapper>
       <h1>마일리지</h1>
       <div className="container">
         <div className="price">
-          <h4>사용 가능 마일리지</h4>
+          <h4>보유 마일리지</h4>
           <p>
             <Image src="/svg/won.svg" width="10" height="10" />
-            {props.totalMileage?.toLocaleString() || 0}
+            {totalMileage?.toLocaleString() || 0}
+          </p>
+        </div>
+        <div className="price">
+          <h4>최대 사용 가능 마일리지</h4>
+          <p>
+            <Image src="/svg/won.svg" width="10" height="10" />
+            {totalPrice * 0.2?.toLocaleString() || 0}
           </p>
         </div>
         <div className="price">
@@ -61,6 +75,7 @@ const Mileage = (props) => {
           </p>
         </div>
       </div>
+      <Button onClick={useMileageHandler}>마일리지 적용</Button>
     </Wrapper>
   );
 };

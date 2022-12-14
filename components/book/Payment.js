@@ -38,7 +38,7 @@ const Payment = (props) => {
       <div className="container">
         <div className="image-container">
           <Image
-            src={props.placeIImgUrl || '/image/place1.jpg'}
+            src={'/images/place1.jpg'}
             width="160"
             height="120"
             objectPosition="center"
@@ -49,9 +49,9 @@ const Payment = (props) => {
         <div className="review-info">
           <div>
             <Image src="/svg/star.svg" width="18" height="18" />
-            {props.averageRate || '2.5'}/5.0
+            {props.averageRate}/5.0
           </div>
-          <div className="count">후기({props.totalReview || '2'})개</div>
+          <div className="count">후기({props.totalReview})개</div>
         </div>
       </div>
     </Wrapper>

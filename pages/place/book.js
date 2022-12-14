@@ -7,6 +7,7 @@ import BookCheck from '../../components/book/BookCheck';
 import BookInfo from '../../components/book/BookInfo';
 import Mileage from '../../components/book/Mileage';
 import Payment from '../../components/book/Payment';
+import PaymentForm from '../../components/book/PaymentForm';
 import PaymentMain from '../../components/book/PaymentMain';
 import PaymentType from '../../components/book/PaymentType';
 
@@ -14,6 +15,7 @@ const Wrapper = styled.section`
   position: absolute;
   top: 150px;
   width: 98vw;
+  padding-bottom: 300px;
   main {
     width: 1250px;
     margin: auto;
@@ -56,6 +58,7 @@ const book = () => {
   const reservationInfo = useSelector(
     (state) => state.reservation.reservationInfo
   );
+  const showPaymentForm = useSelector((state) => state.payment.showForm);
 
   const prevPageHandler = () => {
     router.back();
@@ -90,15 +93,35 @@ const book = () => {
           <PaymentType totalPrice={reservationInfo.totalPrice} />
           <div className="line"></div>
         </div>
-        <div className="right">
-          <Payment
-            placeImgUrl={reservationInfo.placeImgUrl}
-            averageRate={reservationInfo.averageRate}
-            totalReview={reservationInfo.totalReview}
-          />
-          <Mileage totalMileage={reservationInfo.totalMileage} />
-          <PaymentMain totalPrice={reservationInfo.totalPrice} />
-        </div>
+        <aside className="right">
+          {!showPaymentForm ? (
+            <Payment
+              placeImgUrl={reservationInfo.placeImgUrl}
+              averageRate={reservationInfo.averageRate}
+              totalReview={reservationInfo.totalReview}
+            />
+          ) : (
+            ''
+          )}
+          {!showPaymentForm ? (
+            <Mileage
+              totalMileage={reservationInfo.totalMileage}
+              totalPrice={reservationInfo.totalPrice}
+            />
+          ) : (
+            ''
+          )}
+          {!showPaymentForm ? (
+            <PaymentMain totalPrice={reservationInfo.totalPrice} />
+          ) : (
+            ''
+          )}
+          {showPaymentForm ? (
+            <PaymentForm reservationId={reservationInfo.reservationId} />
+          ) : (
+            ''
+          )}
+        </aside>
       </main>
     </Wrapper>
   );

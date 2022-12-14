@@ -26,23 +26,19 @@ const BookInfo = (props) => {
     <StyledCard>
       <h1>예약 정보</h1>
       <div className="item">지점명</div>
-      <div className="data">{props.placeName || ' 우아한테크코스'}</div>
+      <div className="data">{props.placeName}</div>
       <div className="item">상품명</div>
-      <div className="data">{props.productType || '20평 사무실'}</div>
+      <div className="data">{props.productType}</div>
       <div className="item">날짜</div>
       <div className="data date-info">
         <div>
-          <div className="date">
-            {props.reservationStartDate || '2023-02-15'}
-          </div>
-          <div className="time">
-            {`${props.reservationStartTime}` || '12:00'}
-          </div>
+          <div className="date">{props.reservationStartDate}</div>
+          <div className="time">{`${props.reservationStartTime}` || ''}</div>
         </div>
         <div className="break">~</div>
         <div>
-          <div className="date">{props.reservationEndDate || '2023-02-15'}</div>
-          <div className="time">{`${props.reservationEndTime}` || '13:00'}</div>
+          <div className="date">{props.reservationEndDate}</div>
+          <div className="time">{`${props.reservationEndTime}` || ''}</div>
         </div>
       </div>
     </StyledCard>

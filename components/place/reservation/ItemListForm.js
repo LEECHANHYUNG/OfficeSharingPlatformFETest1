@@ -7,13 +7,13 @@ import Item from '../../ui/Item';
 const Wrapper = styled.section`
   width: 100%;
   padding: 30px 0;
-  padding-bottom: 30px;
   overflow: scroll;
+  margin-bottom: 150px;
   h1 {
     font-size: 1.5rem;
   }
   main {
-    max-height: 700px;
+    max-height: 600px;
   }
 `;
 

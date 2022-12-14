@@ -4,6 +4,7 @@ import officeList from './officeList';
 import selected from './select';
 import auth from './auth';
 import reservation from './reservation';
+import payment from './payment';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     selected,
     auth,
     reservation,
+    payment,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

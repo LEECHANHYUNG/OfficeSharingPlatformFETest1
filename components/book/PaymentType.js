@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { paymentSliceActions } from '../../store/payment';
 import Card from '../ui/Card';
 
 const Wrapper = styled(Card)`
@@ -37,11 +39,6 @@ const Wrapper = styled(Card)`
     border: 3px solid #d9dddc;
     cursor: pointer;
   }
-  price {
-    position: relative;
-    top: -40px;
-    left: 30%;
-  }
   .radio-btn > div {
     width: 25px;
     height: 25px;
@@ -62,52 +59,70 @@ const Wrapper = styled(Card)`
   .custom-radio input:checked + .radio-btn > div {
     opacity: 1;
   }
+  .price {
+    position: relative;
+    top: -40px;
+    right: -42%;
+  }
 `;
 
 const PaymentType = (props) => {
+  const dispatch = useDispatch();
+  const getSelectedPaymentTypeHandler = (e) => {
+    dispatch(paymentSliceActions.getSelectedPaymentType(e.target.value));
+  };
   return (
     <Wrapper>
       <h1>결제 방식 선택</h1>
       <div className="type-radio">
         <label className="custom-radio">
-          <input type="radio" name="type" value="before" />
+          <input
+            type="radio"
+            name="type"
+            value="FULL_PAYMENT"
+            onClick={getSelectedPaymentTypeHandler}
+          />
           <span className="radio-btn">
             <div>
               <Image src="/svg/checked.svg" width="25" height="25" />
             </div>
             <h3>선결제</h3>
-            <price>
+            <i className="price">
               <Image src="/svg/won.svg" width="10" height="10" />
-              {(+props.totalPrice || 100000).toLocaleString()}
-            </price>
+              {(+props.totalPrice).toLocaleString()}
+            </i>
 
             <p>이용 금액을 예약 단계에서 결제.</p>
             <p>
               결제 금액의 5%인
               <Image src="/svg/won.svg" width="10" height="10" />
-              {(+props.totalPrice * 0.05 || 100000 * 0.05).toLocaleString()}이
-              마일리지로 적립.
+              {(+props.totalPrice * 0.05).toLocaleString()}이 마일리지로 적립.
             </p>
           </span>
         </label>
         <label className="custom-radio">
-          <input type="radio" name="type" value="after" />
+          <input
+            type="radio"
+            name="type"
+            value="DEPOSIT"
+            onClick={getSelectedPaymentTypeHandler}
+          />
           <span className="radio-btn">
             <div>
               <Image src="/svg/checked.svg" width="25" height="25" />
             </div>
             <h3>후결제</h3>
-            <price>
+            <i className="price">
               <Image src="/svg/won.svg" width="10" height="10" />
-              {(+props.totalPrice || 100000 * 0.2).toLocaleString()}
-            </price>
+              {(+props.totalPrice * 0.2).toLocaleString()}
+            </i>
 
             <p>이용 금액을 이용 완료 후 결제.</p>
             <p>
-              이용 금액의 20%인{' '}
+              이용 금액의 20%인
               <Image src="/svg/won.svg" width="10" height="10" />
-              {(+props.totalPrice * 0.2 || 100000 * 0.2).toLocaleString()}을
-              보증금으로 결제 필요.
+              {(+props.totalPrice * 0.2).toLocaleString()}이 보증금으로 결제
+              필요.
             </p>
           </span>
         </label>

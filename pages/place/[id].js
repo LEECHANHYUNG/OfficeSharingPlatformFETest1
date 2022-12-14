@@ -1,7 +1,9 @@
+import axios from 'axios';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PlaceAdditional from '../../components/place/PlaceAdditional';
+import PlaceAround from '../../components/place/PlaceAround';
 import PlaceDescription from '../../components/place/PlaceDescription';
 import PlaceInfo from '../../components/place/PlaceInfo';
 import PlaceItemCount from '../../components/place/PlaceItemCount';
@@ -16,6 +18,7 @@ const Wrapper = styled.section`
   margin: auto;
   padding-top: 100px;
   height: 100%;
+  position: relative;
 
   .line {
     height: 3px;
@@ -60,49 +63,55 @@ const PlaceMainPage = ({ place }) => {
   dispatch(reservationActions.getReservationItem(null));
   dispatch(
     reservationActions.getOpeningHours([
-      +place.placeOpenTime.slice(0, 2),
-      +place.placeCloseTime.slice(0, 2),
+      +place.placeMainInfo.placeOpenTime.slice(0, 2),
+      +place.placeMainInfo.placeCloseTime.slice(0, 2),
     ])
   );
   return (
     <Wrapper>
       <PlaceInfo
-        placeName={place.placeName}
-        address={place.address}
-        rating={place.ratePoint}
-        review={place.reviewQuantity}
+        placeName={place.placeMainInfo.placeName}
+        address={place.placeMainInfo.address}
+        rating={place.placeMainInfo.ratePoint}
+        review={place.placeMainInfo.reviewQuantity}
         main="true"
       />
-      <PlaceMainImage images={place.placeImage} />
+      <PlaceMainImage images={place.placeMainInfo.placeImage} />
       <div className="line"></div>
       <section>
         <div className="info-left">
           <PlaceItemCount
-            placeName={place.placeName}
+            placeName={place.placeMainInfo.placeName}
             itemCount={[
-              place.deskQuantity,
-              place.meetingRoomQuantity,
-              place.officeQuantity,
+              place.placeMainInfo.deskQuantity,
+              place.placeMainInfo.meetingRoomQuantity,
+              place.placeMainInfo.officeQuantity,
             ]}
           />
-          <PlaceDescription description={place.placeDescription} />
+          <PlaceDescription
+            description={place.placeMainInfo.placeDescription}
+          />
           <PlaceOpeningHours
-            closedDays={place.placeCloseDays}
-            openTime={place.placeOpenTime}
-            closeTime={place.placeCloseTime}
+            closedDays={place.placeMainInfo.placeCloseDays}
+            openTime={place.placeMainInfo.placeOpenTime}
+            closeTime={place.placeMainInfo.placeCloseTime}
             main={true}
           />
-          <PlaceAdditional additionalItem={place.placeMainInfo} main={true} />
-          <ItemListForm items={place.roomTypeResponse} />
+          <PlaceAdditional
+            additionalItem={place.placeMainInfo.placeMainInfo}
+            main={true}
+          />
+          <PlaceAround placeSubInfo={place.placeSubInfo} />
+          <ItemListForm items={place.placeMainInfo.roomTypeResponse} />
         </div>
         <div className="info-right">
           <ReservationForm />
         </div>
         <div className="info-bottom">
           <Review
-            rating={place.ratePoint}
-            count={place.reviewQuantity}
-            ratingList={place.ratingList}
+            rating={place.placeMainInfo.ratePoint}
+            count={place.placeMainInfo.reviewQuantity}
+            ratingList={place.placeMainInfo.ratingList}
           />
         </div>
       </section>
@@ -112,23 +121,29 @@ const PlaceMainPage = ({ place }) => {
 
 export async function getStaticProps(context) {
   const placeId = context.params.id;
-  const place = [];
 
   try {
-    const response = await fetch(`http://localhost:8080/places/${placeId}`);
-
-    if (!response.ok) {
-      throw new Error('잠시후 다시 시도해주세요.');
+    const response = await axios({
+      url: `http://localhost:8080/places/${placeId}`,
+    });
+    if (response.status === 200) {
+      return {
+        props: {
+          place: response.data,
+        },
+      };
+    } else {
+      throw new Error(response.data);
     }
-    const data = await response.json();
-    place.push(data);
-  } catch (err) {}
-
-  return {
-    props: {
-      place: place[0],
-    },
-  };
+  } catch (error) {
+    return {
+      props: {
+        place: {
+          error: error.response.data,
+        },
+      },
+    };
+  }
 }
 
 export async function getStaticPaths() {

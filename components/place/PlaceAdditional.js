@@ -5,36 +5,32 @@ import styled from 'styled-components';
 const Wrapper = styled.section`
   width: 100%;
   margin-top: 30px;
-  padding-bottom : ${(props) => (props.main ? '30px' : 'none')};
-  border-bottom : ${(props) => (props.main ? '3px solid #999' : 'none')};
-  & h1 {
+  padding-bottom: ${(props) => (props.main ? '30px' : 'none')};
+  border-bottom: ${(props) => (props.main ? '3px solid #999' : 'none')};
+  h1 {
     font-size: ${(props) => (props.main ? '1.5rem' : '1rem')};
-    padding : 0 ${(props) => (props.main ? '0' : '30px')};
+    padding: 0 ${(props) => (props.main ? '0' : '30px')};
   }
-  & main {
+  main {
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin-top: 10px;
-    padding : 30px 30px;
-    min-width : 300px;
+    padding: 30px 30px;
+    min-width: 300px;
   }
-  & .line {
-    height: 6px;
-    background #999;
-  }
-  & .item{
-    display : flex;
+  .item {
+    display: flex;
     justify-content: center;
-    align-items : center;
-    flex-direction : column;
-    width : 80px;
+    align-items: center;
+    flex-direction: column;
+    width: 80px;
   }
-  @media screen and (max-width : 1420px){
-    & .item{
+  @media screen and (max-width: 1420px) {
+    .item {
       padding-right: 30px;
     }
-    & .item p{
+    .item p {
       display: none;
     }
   }

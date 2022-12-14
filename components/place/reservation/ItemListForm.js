@@ -13,7 +13,7 @@ const Wrapper = styled.section`
     font-size: 1.5rem;
   }
   main {
-    max-height: 30vh;
+    max-height: 700px;
   }
 `;
 
@@ -26,7 +26,7 @@ const ItemListForm = ({ items }) => {
       <main>
         {selectedType === 'desk' && items.desk.exist && (
           <Item
-            images={'/image/place2.jpg'}
+            images={items.desk.images[0]}
             type="1인 DESK"
             typeEng={`desk`}
             price={items.desk.price.toLocaleString('ko-KR')}

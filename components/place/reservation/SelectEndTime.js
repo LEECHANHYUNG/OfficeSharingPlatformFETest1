@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { reservationActions } from '../../../store/reservation';
@@ -10,9 +9,7 @@ const SelectEndTime = () => {
   const selectedStartTime = useSelector(
     (state) => state.reservation.selectedStartTime
   );
-  const selectedEndTime = useSelector(
-    (state) => state.reservation.selectedEndTime
-  );
+
   const timeArr = new Array(24).fill(0, 0, 24);
   timeList.map((elem) => timeArr.splice(elem, 1, 1));
 
@@ -57,7 +54,7 @@ const StyledSwiper = styled.div`
   z-index: 0;
   background: #fff;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   width: 100%;

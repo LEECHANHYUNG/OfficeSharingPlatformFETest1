@@ -16,7 +16,7 @@ const Wrapper = styled(Card)`
   border-radius: 5px;
   width: 450px;
   position: ${(props) => (props.isFixed ? 'fixed' : 'absolute')};
-  top: ${(props) => (props.isFixed ? '' : '150px')};
+  top: ${(props) => (props.isFixed ? '' : '500px')};
   h1 {
     font-size: 1.5rem;
   }
@@ -41,9 +41,9 @@ const Wrapper = styled(Card)`
   }
   .payment-btn {
     border-radius: 6px;
-    height: 40px;
+    height: 50px;
     width: 70%;
-    margin: 50px auto;
+    margin: 0px auto;
     text-align: center;
     line-height: 40px;
     background: #6a9eff;
@@ -67,9 +67,10 @@ const Wrapper = styled(Card)`
 const ReservationForm = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const placeId = router.query.id;
   const [isBrowser, setIsBrowser] = useState(false);
   const [isFixed, setIsFixed] = useState(true);
+  const placeId = router.query.id;
+
   const itemName = useSelector((state) => state.reservation.selectedType);
   const reservationItem = useSelector(
     (state) => state.reservation.reservationItem
@@ -83,6 +84,19 @@ const ReservationForm = () => {
   const selectedTypeEng = useSelector(
     (state) => state.reservation.selectedTypeEng
   );
+  useEffect(() => {
+    setIsBrowser(true);
+  });
+  if (isBrowser) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY >= 350 && window.innerWidth > 1170) {
+        setIsFixed(false);
+      } else {
+        setIsFixed(true);
+      }
+    });
+  }
+
   const selectedDate = useSelector((state) => state.reservation.date);
   const selectedEndDate = useSelector((state) => state.reservation.endDate);
   const dateArr = selectedDate.toLocaleDateString().slice(0, -1).split('. ');
@@ -102,18 +116,7 @@ const ReservationForm = () => {
     endDateArr[1].padStart(2, '0') +
     '-' +
     endDateArr[2].padStart(2, '0');
-  useEffect(() => {
-    setIsBrowser(true);
-  });
-  if (isBrowser) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY >= 350 && window.innerWidth > 1170) {
-        setIsFixed(false);
-      } else {
-        setIsFixed(true);
-      }
-    });
-  }
+
   const sendReservationInfoHandler = async () => {
     const session = await getSession();
     if (!session) {

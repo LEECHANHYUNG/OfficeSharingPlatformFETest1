@@ -3,45 +3,46 @@ import React from 'react';
 import styled from 'styled-components';
 const Wrapper = styled.section`
   margin : auto;
-  & .place-name {
+  .place-name {
     font-size: 1.7rem;
     font-weight: 900;
     margin-top: 20px;
     margin-left: 20px;
   }
-  & .place-description {
+  .place-description {
     display : ${(props) => (props.main ? 'none' : 'block')};
     margin-top: 30px;
     padding: 0 30px;
     color: #888;
   }
-  & .place-address {
+  .place-address {
     font-size: 1rem;
     padding: ${(props) => (props.main ? '10px' : '30px')} 30px;
   }
-  & .line {
+  .line {
     height: 6px;
     background #999;
   }
-  & .review-avg{
+  .review-avg{
     position: relative;
     width : 80px;
     left : 20px;
     display: flex;
     margin-right : 10px;
   }
-  & .review-avg div{
+  .review-avg div{
     font-weight: 900;
     font-size : 0.9rem;
   }
-  & .review{
+  .review{
     padding-top : 20px;
     display : flex;
     justify-content: flex-start;
     align-items : center
     
   }
-  & .review-count{
+  .review-count{
+    margin-left: 20px;
     font-size : 0.9rem;
     text-decoration: underline;
   }

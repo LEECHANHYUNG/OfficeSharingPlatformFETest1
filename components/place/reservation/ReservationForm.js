@@ -18,7 +18,7 @@ const Wrapper = styled(Card)`
   position: ${(props) =>
     props.isFixed ? (props.isBottom ? 'absolute' : 'fixed') : 'absolute'};
   top: ${(props) =>
-    props.isFixed ? (props.isBottom ? '1200px' : '90px') : '0px'};
+    props.isFixed ? (props.isBottom ? '1200px' : '120px') : '0px'};
   h1 {
     font-size: 1.5rem;
   }
@@ -93,11 +93,10 @@ const ReservationForm = () => {
   });
   if (isBrowser) {
     window.addEventListener('scroll', () => {
-      console.log(window.scrollY);
-      if (window.scrollY >= 600 && window.scrollY <= 1650) {
+      if (window.scrollY >= 600 && window.scrollY <= 1750) {
         setIsFixed(true);
         setIsBottom(false);
-      } else if (window.scrollY > 1650) {
+      } else if (window.scrollY > 1750) {
         setIsBottom(true);
       } else {
         setIsFixed(false);
@@ -146,7 +145,6 @@ const ReservationForm = () => {
         },
       });
       if (response.status === 200) {
-        console.log(response.data);
         dispatch(reservationActions.getReservationInfo(response.data));
         alert('예약 페이지로 이동합니다.');
         router.push('/place/book');

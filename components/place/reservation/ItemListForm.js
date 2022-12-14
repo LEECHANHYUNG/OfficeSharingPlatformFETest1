@@ -13,7 +13,7 @@ const Wrapper = styled.section`
     font-size: 1.5rem;
   }
   main {
-    max-height: 600px;
+    max-height: 500px;
   }
 `;
 

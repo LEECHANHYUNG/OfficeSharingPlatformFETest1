@@ -142,6 +142,7 @@ export async function getStaticProps(context) {
           error: error.response.data,
         },
       },
+      revalidate: 30,
     };
   }
 }

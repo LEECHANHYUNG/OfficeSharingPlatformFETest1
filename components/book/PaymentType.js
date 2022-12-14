@@ -6,6 +6,7 @@ import { paymentSliceActions } from '../../store/payment';
 import Card from '../ui/Card';
 
 const Wrapper = styled(Card)`
+  position: relative;
   .type-radio {
     width: 100%;
     margin: 0 auto;
@@ -64,6 +65,12 @@ const Wrapper = styled(Card)`
     top: -40px;
     right: -42%;
   }
+  .notice {
+    position: absolute;
+    width: 100%;
+    top: 220px;
+    left: -20px;
+  }
 `;
 
 const PaymentType = (props) => {
@@ -118,6 +125,7 @@ const PaymentType = (props) => {
             </i>
 
             <p>이용 금액을 이용 완료 후 결제.</p>
+            <b className="notice">※ 카카오페이는 후결제가 불가능합니다.</b>
             <p>
               이용 금액의 20%인
               <Image src="/svg/won.svg" width="10" height="10" />

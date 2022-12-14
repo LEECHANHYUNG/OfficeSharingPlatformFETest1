@@ -3,12 +3,14 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import Comment from './comment/Comment';
 import ReviewBanner from './ReviewBanner';
 import ReviewItem from './ReviewItem';
 
 const Wrapper = styled.section`
-  width: 60vw;
+  width: 70vw;
   border-top: 3px solid #999;
   overflow-x: hidden;
   @media screen and (max-width: 758px) {
@@ -27,6 +29,9 @@ const Review = ({ rating, count }) => {
   const [noReviewMessage, setNoReviewMessage] = useState('');
   const params = useRouter();
   const placeId = params.query.id;
+  const selectedCommentId = useSelector(
+    (state) => state.place.selectedCommentId
+  );
   useEffect(() => {
     const fetchReviewData = async () => {
       try {
@@ -40,6 +45,7 @@ const Review = ({ rating, count }) => {
         });
         if (response.status === 200) {
           setRatingList(response.data.reviewData);
+          console.log(response.data.reviewData);
           setMaxPage(response.data.paginationData.maxPage);
         } else {
           throw new Error(response.data);
@@ -54,15 +60,18 @@ const Review = ({ rating, count }) => {
   return (
     <Wrapper id="review">
       <ReviewBanner rating={rating} count={count} />
+      {selectedCommentId ? <Comment /> : ''}
       {noReviewMessage.length === 0 ? (
         Object.keys(ratingList).map((elem) => (
           <ReviewItem
             key={ratingList[elem].ratingId}
+            ratingId={ratingList[elem].ratingId}
             score={ratingList[elem].ratingScore}
             writer={ratingList[elem].ratingWriter}
-            date={ratingList[elem].writeDateTime}
+            date={ratingList[elem].writeDate}
             roomType={ratingList[elem].usedRoomType}
             content={ratingList[elem].ratingContent}
+            commentQuantity={ratingList[elem].commentQuantity}
           />
         ))
       ) : (

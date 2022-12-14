@@ -44,7 +44,7 @@ const PaymentMain = ({ totalPrice }) => {
             {totalPrice?.toLocaleString()}
           </p>
         </div>
-        {paymentType === 'PRE_PAYMENT' ? (
+        {paymentType === 'FULL_PAYMENT' ? (
           <div className="price">
             <h5>선결제</h5>
             <p>
@@ -84,7 +84,7 @@ const PaymentMain = ({ totalPrice }) => {
             {Number(mileageUse).toLocaleString()}
           </p>
         </div>
-        {paymentType === 'PRE_PAYMENT' ? (
+        {paymentType === 'FULL_PAYMENT' ? (
           <div className="price">
             <h5>적립 예정 마일리지</h5>
             <p>
@@ -98,10 +98,12 @@ const PaymentMain = ({ totalPrice }) => {
       </div>
       {paymentType === 'DEPOSIT' ? (
         <Button onClick={showPaymentTypeHandler}>
+          <Image src="/svg/won.svg" width="10" height="10" />
           {(totalPrice * 0.2 - +mileageUse).toLocaleString()}결제
         </Button>
       ) : (
         <Button onClick={showPaymentTypeHandler}>
+          <Image src="/svg/won.svg" width="10" height="10" />
           {(totalPrice - +mileageUse).toLocaleString()}결제
         </Button>
       )}

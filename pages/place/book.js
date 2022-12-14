@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import BookCheck from '../../components/book/BookCheck';
 import BookInfo from '../../components/book/BookInfo';
@@ -10,6 +10,7 @@ import Payment from '../../components/book/Payment';
 import PaymentForm from '../../components/book/PaymentForm';
 import PaymentMain from '../../components/book/PaymentMain';
 import PaymentType from '../../components/book/PaymentType';
+import { paymentSliceActions } from '../../store/payment';
 
 const Wrapper = styled.section`
   position: absolute;
@@ -34,9 +35,7 @@ const Wrapper = styled.section`
     padding: 3px;
     cursor: pointer;
   }
-  .prev-btn:hover {
-    background: #d9dddc;
-  }
+
   .left {
     width: 64%;
     float: left;
@@ -47,6 +46,11 @@ const Wrapper = styled.section`
     float: right;
     height: 80vh;
   }
+  .right .prev-btn {
+    display: flex;
+    font-size: 1.3rem;
+    font-weight: 900;
+  }
   .line {
     border-bottom: 3px solid #71716f;
     margin: 0 40px;
@@ -55,15 +59,18 @@ const Wrapper = styled.section`
 
 const book = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const reservationInfo = useSelector(
     (state) => state.reservation.reservationInfo
   );
   const showPaymentForm = useSelector((state) => state.payment.showForm);
-
+  const paymentType = useSelector((state) => state.payment.paymentType);
   const prevPageHandler = () => {
     router.back();
   };
-  console.log(reservationInfo);
+  const changePaymentHandler = () => {
+    dispatch(paymentSliceActions.getPaymentForm(false));
+  };
   return (
     <Wrapper>
       <main>
@@ -90,38 +97,56 @@ const book = () => {
             reservationEndDate={reservationInfo.reservationEndDate}
           />
           <div className="line"></div>
-          <PaymentType totalPrice={reservationInfo.totalPrice} />
-          <div className="line"></div>
+          {!showPaymentForm ? (
+            <PaymentType totalPrice={reservationInfo.totalPrice} />
+          ) : (
+            ''
+          )}
+          {!showPaymentForm ? <div className="line"></div> : ''}
         </div>
-        <aside className="right">
-          {!showPaymentForm ? (
-            <Payment
-              placeImgUrl={reservationInfo.placeImgUrl}
-              averageRate={reservationInfo.averageRate}
-              totalReview={reservationInfo.totalReview}
-            />
-          ) : (
-            ''
-          )}
-          {!showPaymentForm ? (
-            <Mileage
-              totalMileage={reservationInfo.totalMileage}
-              totalPrice={reservationInfo.totalPrice}
-            />
-          ) : (
-            ''
-          )}
-          {!showPaymentForm ? (
-            <PaymentMain totalPrice={reservationInfo.totalPrice} />
-          ) : (
-            ''
-          )}
-          {showPaymentForm ? (
-            <PaymentForm reservationId={reservationInfo.reservationId} />
-          ) : (
-            ''
-          )}
-        </aside>
+        {paymentType ? (
+          <aside className="right">
+            {showPaymentForm ? (
+              <div className="prev-btn">
+                <Image
+                  src="/svg/chevron-left.svg"
+                  width="28"
+                  height="26"
+                  onClick={changePaymentHandler}
+                />
+                <div className="prev-comment">결제 방법 변경</div>
+              </div>
+            ) : (
+              ''
+            )}
+            {!showPaymentForm ? (
+              <Payment
+                placeImgUrl={reservationInfo.placeImgUrl}
+                averageRate={reservationInfo.averageRate}
+                totalReview={reservationInfo.totalReview}
+              />
+            ) : (
+              ''
+            )}
+            {!showPaymentForm ? (
+              <Mileage totalMileage={reservationInfo.totalMileage} />
+            ) : (
+              ''
+            )}
+            {!showPaymentForm ? (
+              <PaymentMain totalPrice={reservationInfo.totalPrice} />
+            ) : (
+              ''
+            )}
+            {showPaymentForm ? (
+              <PaymentForm reservationId={reservationInfo.reservationId} />
+            ) : (
+              ''
+            )}
+          </aside>
+        ) : (
+          ''
+        )}
       </main>
     </Wrapper>
   );

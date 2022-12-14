@@ -15,6 +15,9 @@ const Wrapper = styled.section`
   & :nth-child(3) {
     margin: 0 10px;
   }
+  @media screen and (max-width: 758px) {
+    font-size: 1rem;
+  }
 `;
 
 const ReviewBanner = ({ rating, count }) => {

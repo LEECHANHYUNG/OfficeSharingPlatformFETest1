@@ -8,19 +8,19 @@ const Wrapper = styled.section`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-top: 50px;
   border-top: 2px solid #111;
   border-bottom: 2px solid #111;
-  
 
-  & #state,
-  & #writingTime,
-  & #state {
-    width: 12%;
-    line-height: 1rem;
+  #title,
+  #state {
+   width: 12%;
+   line-height: 1rem;
+ }  
+  #writingTime{
+    width: 20%;
   }
-  & #content {
-    width: 52%;
+   #content {
+    width: 46%;
   }
   @media screen and (max-width: 1170px) {
     width: 93vw;
@@ -37,9 +37,9 @@ const Wrapper = styled.section`
 const Banner = () => {
   return (
     <Wrapper>
-      <div id="state">문의 유형</div>
+      <div id="title">제목</div>
       <div id="content">내용</div>
-      <div id="writingTime">작성 일시</div>
+      <div id="writingTime">작성일</div>
       <div id="state">처리 상태</div>
     </Wrapper>
   );

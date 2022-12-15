@@ -67,6 +67,19 @@ const Wrapper = styled.section`
     color: #6a9eff;
     font-weight: 700;
   }
+  .error {
+    text-align: center;
+    line-height: 58px;
+  }
+  @media screen and (max-width: 758px) {
+    li {
+      font-size: 0.9rem;
+    }
+    .data,
+    header {
+      font-size: 0.8rem;
+    }
+  }
 `;
 const PlaceAround = ({ placeSubInfo }) => {
   const [selectedItem, setSelectedItem] = useState(
@@ -109,8 +122,8 @@ const PlaceAround = ({ placeSubInfo }) => {
           <div className="tel">전화번호</div>
           <div className="distance">거리</div>
         </header>
-        {Object.keys(selectedItem).map((elem) =>
-          selectedItem.length !== 0 ? (
+        {selectedItem ? (
+          Object.keys(selectedItem).map((elem) => (
             <div className="data" key={elem}>
               <div className="name">{selectedItem[elem].storeName || '-'}</div>
               <div className="address">
@@ -121,9 +134,11 @@ const PlaceAround = ({ placeSubInfo }) => {
                 {selectedItem[elem].distance || '-'}m
               </div>
             </div>
-          ) : (
-            ''
-          )
+          ))
+        ) : (
+          <div className="error">
+            {placeSubInfo.NoSuchData.PlaceCoordinateError}
+          </div>
         )}
       </main>
     </Wrapper>

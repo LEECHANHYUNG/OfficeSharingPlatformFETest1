@@ -12,11 +12,13 @@ const Text = styled.div`
     justify-content: space-between;
   }
   .context {
+    width: 90%;
     margin-top: 20px;
     min-height: 20px;
   }
   .context.hide {
     height: 20px;
+    overflow-y: hidden;
   }
   .detail {
     font-size: 0.7rem;
@@ -24,6 +26,11 @@ const Text = styled.div`
     right: 0px;
     bottom: 5px;
     text-decoration: underline;
+  }
+  @media screen and (max-width: 758px) {
+    .context {
+      width: 80%;
+    }
   }
 `;
 const CommentContent = ({ context, writer, writtenDate, writtenTime }) => {

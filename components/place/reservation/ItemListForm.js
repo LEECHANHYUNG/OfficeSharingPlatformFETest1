@@ -15,6 +15,12 @@ const Wrapper = styled.section`
   main {
     max-height: 500px;
   }
+  @media screen and (max-width: 758px) {
+    button {
+      font-size: 12px;
+      padding: 2px 5px;
+    }
+  }
 `;
 
 const ItemListForm = ({ items }) => {

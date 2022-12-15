@@ -59,6 +59,7 @@ const ReviewContent = ({ content, commentQuantity, ratingId }) => {
       });
       if (response.status === 200) {
         dispatch(placeSliceActions.getCommentData(response.data));
+        console.log(response.data);
       } else {
         throw new Error(response.data.message);
       }

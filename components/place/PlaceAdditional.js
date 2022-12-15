@@ -34,6 +34,11 @@ const Wrapper = styled.section`
       display: none;
     }
   }
+  @media screen and (max-width: 768px) {
+    main {
+      padding: 0;
+    }
+  }
 `;
 
 const PlaceAdditional = ({ additionalItem, main }) => {

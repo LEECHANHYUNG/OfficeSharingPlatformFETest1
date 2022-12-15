@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.section`
-  margin: 0 20px;
+  padding: 0 20px;
   margin-top: 30px;
   display: flex;
   justify-content: flex-start;
@@ -12,6 +12,7 @@ const Wrapper = styled.section`
   font-size: 1.5rem;
   padding-bottom: 10px;
   border-bottom: 1px solid #999;
+  width: 100%;
   & :nth-child(3) {
     margin: 0 10px;
   }

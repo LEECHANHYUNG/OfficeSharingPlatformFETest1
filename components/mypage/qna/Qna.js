@@ -1,9 +1,12 @@
+import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import React from 'react';
 import { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import styled from 'styled-components';
+import Button from '../../ui/Button';
 import Banner from './Banner';
+import NewQna from './NewQna';
 import QnaItem from './QnaItem';
 
 const Wrapper = styled.section`
@@ -40,6 +43,9 @@ const Wrapper = styled.section`
     color: #111;
     background: #6a9eff;
   }
+  button {
+    margin: 10px 0px;
+  }
 
   @media screen and (max-width: 1170px) {
     width: 90vw;
@@ -48,9 +54,15 @@ const Wrapper = styled.section`
 `;
 
 const Qna = ({ item, paginationData }) => {
+  console.log(item);
+  console.log(paginationData);
   const [totalPage, setTotalPage] = useState(paginationData);
   const [items, setItems] = useState(item);
+  const [newQna, setNewQna] = useState(false);
   const session = useSession();
+  const addNewQnaHandler = () => {
+    setNewQna(true);
+  };
   const changePageHandler = async ({ selected }) => {
     try {
       const response = await axios({
@@ -59,12 +71,13 @@ const Qna = ({ item, paginationData }) => {
         data: {
           url: 'mypage/qna?page=',
           accessToken: session.data.user.accessToken,
-          page: selected,
+          page: selected + 1,
         },
       });
 
       if (response.status === 200) {
-        setItems(response.data.commentData);
+        console.log(response.data.commentData);
+        setItems(response.data.qnaData);
         setTotalPage(response.data.paginationData.maxPage);
       }
     } catch (error) {
@@ -73,24 +86,36 @@ const Qna = ({ item, paginationData }) => {
   };
   return (
     <Wrapper>
-      <h1>1:1 문의</h1>
-      <Banner />
-      <div className="itemList">
-        {Object.keys(item).map((elem) => (
-          <QnaItem item={item[elem]} key={item[elem].questionData.inquiryId} />
-        ))}
-      </div>
-      <ReactPaginate
-        previousLabel={'<'}
-        nextLabel={'>'}
-        pageCount={totalPage}
-        onPageChange={changePageHandler}
-        containerClassName={'paginationBtns'}
-        previousLinkClassName={'previousBtn'}
-        nextLinkClassName={'nextBtn'}
-        disabledClassName={'paginationDisabled'}
-        activeClassName={'paginationActive'}
-      />
+      {!newQna ? (
+        <div>
+          <h1>1:1 문의</h1>
+          <Button onClick={addNewQnaHandler}>문의하기</Button>
+          <Banner />
+          <div className="itemList">
+            {Object.keys(items).map((elem) => (
+              <QnaItem
+                item={items[elem]}
+                key={items[elem].questionData.inquiryId}
+              />
+            ))}
+          </div>
+          <ReactPaginate
+            previousLabel={'<'}
+            nextLabel={'>'}
+            pageCount={totalPage}
+            onPageChange={changePageHandler}
+            containerClassName={'paginationBtns'}
+            previousLinkClassName={'previousBtn'}
+            nextLinkClassName={'nextBtn'}
+            disabledClassName={'paginationDisabled'}
+            activeClassName={'paginationActive'}
+          />
+        </div>
+      ) : (
+        <div>
+          <NewQna />
+        </div>
+      )}
     </Wrapper>
   );
 };

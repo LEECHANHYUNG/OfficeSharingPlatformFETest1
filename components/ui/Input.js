@@ -22,8 +22,8 @@ const Input = forwardRef((props, ref) => (
     name={props.name || ''}
     placeholder={props.placeholder || ''}
     className={props.className}
-    onChange={props.onChange || ''}
-    onBlur={props.onBlur || ''}
+    onChange={props.onChange || null}
+    onBlur={props.onBlur || null}
     required={props.required || null}
     minLength={props.minLength || null}
     maxLength={props.maxLength || null}

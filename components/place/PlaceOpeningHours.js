@@ -6,42 +6,56 @@ const Wrapper = styled.section`
   margin-top: ${(props) => (props.main ? '30px' : '20px')};
   padding-bottom: ${(props) => (props.main ? '30px' : '0')};
   border-bottom : ${(props) => (props.main ? '3px solid #999' : 'none')};
-  & h1 {
+  h1 {
     font-size: ${(props) => (props.main ? '1.5rem' : '1rem')};
     padding: 0 ${(props) => (props.main ? '0' : '1rem')};
   }
 
-  & .time {
+  .time {
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin-top: 20px;
     padding: 0 30px;
   }
-  & .time p {
+  .time p {
     font-size: 1rem;
     color: #6a9eff;
     font-weight: 900;
   }
-  & .open div,
-  & .close div {
+  .open div,
+  .close div {
     font-size: 1.5rem;
     font-weight: 900;
   }
-  & .line {
+  .line {
     height: 6px;
     background #999;
     margin-top : 20px;
   }
  
-  & .info{
+  .info{
     
     font-size: 0.9rem;
     font-weight:  900;
     margin-top: 10px;
     color: #6a9eff;
   }
-  & .closed-days{
+  .closed-days{
+  }
+  
+  @media screen and (max-width: 768px){
+    .time{
+      padding: 0px;
+    }
+    .time p{
+      font-size : 13px;
+      width: 100%;
+    }
+    .info {
+      margin-left: 20px;
+      font-size: 11px;
+    }
   }
 `;
 const PlaceOpeningHours = ({ openTime, closeTime, closedDays, main }) => {

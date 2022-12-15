@@ -21,28 +21,13 @@ const Content = styled.textarea`
   border: 1px solid #111;
   max-height: 330px;
 `;
-const TextArea = ({ placeholder }) => {
-  const commentId = useSelector((state) => state.place.selectedCommentId);
+const TextArea = ({ placeholder, addCommentHandler }) => {
   const changeHeightHandler = (e) => {
     e.target.style.height = `63px`;
     let scHeight = e.target.scrollHeight;
     e.target.style.height = `${scHeight}px`;
   };
-  const session = useSession();
-  const addCommentHandler = async (e) => {
-    const response = await axios({
-      url: '/api/main/add-comment',
-      method: 'post',
-      data: {
-        commentId,
-        context: e.target.previousSibling.value,
-        accessToken: session.data.user.accessToken,
-      },
-    });
-    if (response.status === 200) {
-      alert(response.data);
-    }
-  };
+
   return (
     <Fragment>
       <Content

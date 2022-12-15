@@ -1,6 +1,8 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Card from '../../ui/Card';
+import Comment from './comment/Comment';
 import ReviewContent from './ReviewContent';
 import Reviewer from './Reviewer';
 import ReviewRating from './ReviewRating';
@@ -8,11 +10,11 @@ import ReviewRating from './ReviewRating';
 const ReviewCard = styled(Card)`
   border: 2px solid #6a9eff;
   margin: 30px;
-  width: 40vw;
+  width: 90%;
   @media screen and (max-width: 758px) {
     margin: 0px;
     margin-top: 10px;
-    width: 88vw;
+    width: 100%;
   }
 `;
 
@@ -25,6 +27,9 @@ const ReviewItem = ({
   commentQuantity,
   ratingId,
 }) => {
+  const selectedCommentId = useSelector(
+    (state) => state.place.selectedCommentId
+  );
   return (
     <ReviewCard>
       <ReviewRating score={score} />
@@ -34,6 +39,7 @@ const ReviewItem = ({
         commentQuantity={commentQuantity}
         ratingId={ratingId}
       />
+      {+selectedCommentId === ratingId ? <Comment /> : ''}
     </ReviewCard>
   );
 };

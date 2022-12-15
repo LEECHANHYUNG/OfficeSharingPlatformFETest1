@@ -5,56 +5,61 @@ import Card from '../../ui/Card';
 const Wrapper = styled.section`
   position: relative;
   width: 100%;
-  min-height: 100px;
-  line-height: 50px;
-  display: flex;
-  justify-content: space-around;
-  align-items: top;
+  height: 50px;
   padding-top: 20px;
   border-bottom: 2px solid #111;
   overflow-y: hidden;
-
   &.show {
-    height: 500px;
+    height: auto;
   }
-  .state,
-  .writingTime,
+  .container {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: top;
+    line-height: 25px;
+  }
+  &.show .container {
+    min-height: 50px;
+    height: auto;
+    transition : all 0.5s;
+  }
+
+  .writingTime {
+    width: 20%;
+  }
+  .title,
   .state {
-    line-height: 1.2rem;
     width: 12%;
   }
-  .content {
-    line-height: 1.2rem;
-    width: 52%;
+  .state.true {
+    color: #6a9eff;
+    font-weight: 900;
   }
-  .show {
-    position: absolute;
-    width: 100%;
-    bottom: 0px;
-    line-height: 1.2rem;
-    text-align: center;
-    border: 3px solid #6a93ff;
-    margin-bottom: 5px;
+  .content {
+    width: 46%;
     cursor: pointer;
   }
   .answer {
-    position: absolute;
     width: 100%;
-    top: 150px;
+    padding -top: 10px;
     border-top: 3px solid #111;
     transition: all 0.5s ease-out;
   }
   @media screen and (max-width: 1170px) {
-    min-height: 120px;
+    height: 50px;
     width: 93vw;
+    & .show {
+      min-height: 50px;
+    }
   }
   @media screen and (max-width: 620px) {
     .writingTime {
-      position: absolute;
+      position: relative;
       width: 50%;
       display: flex;
       justify-content: space-around;
-      top: 120px;
     }
   }
 `;
@@ -66,36 +71,27 @@ const StyledCard = styled(Card)`
 `;
 const QnaItem = ({ item }) => {
   const showDetailHandler = (e) => {
-    e.target.parentNode.classList.toggle('show');
-    if (e.target.innerHTML === '답변 확인▼') {
-      e.target.innerHTML = '닫기▲';
-    } else {
-      e.target.innerHTML = '답변 확인▼';
-    }
+    e.target.parentNode.parentNode.classList.toggle('show');
   };
 
   return (
     <Wrapper>
-      <div className="state">{item.questionData.inquiryTitle}</div>
-      <div className="content">{item.questionData.inquiryContext}</div>
-      <div className="writingTime">
-        <div className="date">{item.questionData.writtenDate}</div>
-        <div className="time">{item.questionData.writtenTime}</div>
-      </div>
-      <div className="state">
-        {item.questionData.processingStatus ? '답변 완료' : '진행중'}
+      <div className="container">
+        <div className="title">{item.questionData.inquiryTitle}</div>
+        <div className="content" onClick={showDetailHandler}>
+          {item.questionData.inquiryContext}
+        </div>
+        <div className="writingTime">
+          <div className="date">{item.questionData.writtenDate}</div>
+        </div>
+        <div className={`state ${item.questionData.processingStatus}`}>
+          {item.questionData.processingStatus ? '답변 완료' : '진행중'}
+        </div>
       </div>
       {item.questionData.processingStatus ? (
         <div className="answer">
           <h2>답변 내용</h2>
           <StyledCard>{item.answerData.answerContext}</StyledCard>
-        </div>
-      ) : (
-        ''
-      )}
-      {item.questionData.processingStatus ? (
-        <div className="show" onClick={showDetailHandler}>
-          답변 확인▼
         </div>
       ) : (
         ''

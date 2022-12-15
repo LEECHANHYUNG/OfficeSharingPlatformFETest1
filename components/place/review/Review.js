@@ -3,22 +3,46 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import ReactPaginate from 'react-paginate';
 import styled from 'styled-components';
-import Comment from './comment/Comment';
+import { Pagination } from 'swiper';
 import ReviewBanner from './ReviewBanner';
 import ReviewItem from './ReviewItem';
 
 const Wrapper = styled.section`
-  width: 70vw;
+  width: 100%;
   border-top: 3px solid #999;
   overflow-x: hidden;
-  @media screen and (max-width: 758px) {
-    width: 88vw;
-  }
+
   .no-review-message {
     text-align: center;
     line-height: 50px;
+  }
+  .paginationBtns {
+    width: 80%;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    margin: auto;
+    height: 40px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+  }
+  .paginationBtns a {
+    padding: 10px;
+    margin: 8px;
+    border-radius: 5px;
+    border: 1px solid #111;
+    color: #111;
+    cursor: pointer;
+  }
+  .paginationBtns a:hover {
+    color: #fff;
+    background: #2b2eff;
+  }
+  .paginationActive a {
+    color: #111;
+    background: #6a9eff;
   }
 `;
 
@@ -29,9 +53,9 @@ const Review = ({ rating, count }) => {
   const [noReviewMessage, setNoReviewMessage] = useState('');
   const params = useRouter();
   const placeId = params.query.id;
-  const selectedCommentId = useSelector(
-    (state) => state.place.selectedCommentId
-  );
+  const changePageHandler = ({ selected }) => {
+    setCurrentPage(selected);
+  };
   useEffect(() => {
     const fetchReviewData = async () => {
       try {
@@ -55,12 +79,11 @@ const Review = ({ rating, count }) => {
       }
     };
     fetchReviewData();
-  }, []);
-  console.log(noReviewMessage);
+  }, [currentPage]);
+  console.log(ratingList);
   return (
     <Wrapper id="review">
       <ReviewBanner rating={rating} count={count} />
-      {selectedCommentId ? <Comment /> : ''}
       {noReviewMessage.length === 0 ? (
         Object.keys(ratingList).map((elem) => (
           <ReviewItem
@@ -77,6 +100,18 @@ const Review = ({ rating, count }) => {
       ) : (
         <h1 className="no-review-message">{noReviewMessage}</h1>
       )}
+      <ReactPaginate
+        previousLabel={'<'}
+        nextLabel={'>'}
+        pageRangeDisplayed={1}
+        pageCount={maxPage}
+        onPageChange={changePageHandler}
+        containerClassName={'paginationBtns'}
+        previousLinkClassName={'previousBtn'}
+        nextLinkClassName={'nextBtn'}
+        disabledClassName={'paginationDisabled'}
+        activeClassName={'paginationActive'}
+      />
     </Wrapper>
   );
 };

@@ -32,6 +32,7 @@ const Wrapper = styled.div`
 
 const Mypage = (props) => {
   const router = useRouter();
+  console.log(props);
   return (
     <Wrapper>
       <Header userData={props.userData} />
@@ -62,9 +63,9 @@ const Mypage = (props) => {
           />
         </div>
       )}
-      {router.query.item === 'point' && (
+      {router.query.item === 'mileage' && (
         <div className="item">
-          <Point />
+          <Point item={props.mileageData} />
         </div>
       )}
       {router.query.item === 'qna' && (

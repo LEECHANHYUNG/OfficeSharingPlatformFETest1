@@ -1,9 +1,11 @@
 import axios from 'axios';
+import { useSession } from 'next-auth/react';
 
 const handler = async (req, res) => {
+  const session = useSession();
   axios({
     url: req.body.url,
-    headers: { Authorization: req.body.accessToken },
+    headers: { Authorization: session.data.user.accessToken },
   }).then(async (response) => {
     if (response.status === 200) {
       res.status(200).send(response.data);

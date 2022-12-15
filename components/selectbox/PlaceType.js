@@ -31,9 +31,9 @@ const PlaceType = () => {
   return (
     <Select onChange={selectTypeHandler}>
       <option value="0">공간 타입</option>
-      <option value="데스크">데스크</option>
-      <option value="회의실">회의실</option>
-      <option value="사무실">사무실</option>
+      <option value="desk">데스크</option>
+      <option value="meetingRoom">회의실</option>
+      <option value="office">사무실</option>
     </Select>
   );
 };

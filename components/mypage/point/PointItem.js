@@ -26,14 +26,14 @@ const Wrapper = styled.section`
     width: 20%;
   }
 `;
-const PointItem = () => {
+const PointItem = ({ item }) => {
   return (
     <Wrapper>
-      <div className="state">적립</div>
-      <div className="amount">+600</div>
-      <div className="content">선결제 적립</div>
-      <div className="placeName">롯데월드점</div>
-      <div className="addTime">2022.11.30</div>
+      <div className="state">{item.status}</div>
+      <div className="amount">{item.changePoint}</div>
+      <div className="content">{item.info}</div>
+      <div className="placeName">{item.issuer}</div>
+      <div className="addTime">{item.updateDate}</div>
     </Wrapper>
   );
 };

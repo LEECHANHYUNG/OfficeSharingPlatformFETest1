@@ -15,13 +15,16 @@ const Wrapper = styled.section`
   }
 `;
 
-const Use = () => {
+const Use = ({ item }) => {
+  console.log(item);
   return (
     <Wrapper>
       <h1>마일리지</h1>
       <Banner />
       <div className="itemList">
-        <PointItem />
+        {item.map((elem) => (
+          <PointItem item={elem} />
+        ))}
       </div>
     </Wrapper>
   );

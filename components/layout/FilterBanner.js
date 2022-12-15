@@ -59,7 +59,7 @@ const FilterBanner = () => {
           day: inputDateRef.current.value,
           startTime: selectedStartTime,
           endTime: selectedEndTime,
-          city: '서울',
+          city: selectedCity,
           subCity: selectSubCity,
           type: selectedType,
         },
@@ -94,15 +94,11 @@ const FilterBanner = () => {
         >
           조건 검색
         </button>
-        {/*<div className="selectOption ">
-          <Date />
-          <Image src="/svg/down.svg" width="18" height="18" />
-        </div>*/}
+
         <div className="selectOption ">
           <StyledInput
             type="date"
             ref={inputDateRef}
-            value={String(new Date()).slice(0, 10)}
             onChange={selectDateHandler}
           />
         </div>

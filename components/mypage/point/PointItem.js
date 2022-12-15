@@ -11,19 +11,20 @@ const Wrapper = styled.section`
   align-items: center;
   border-bottom: 2px solid #111;
   overflow-y: hidden;
-  & .state,
-  & .amount {
-    width: 8%;
+  .state,
+  .amount {
+    width: 12%;
   }
-  & .content {
-    width: 51%;
+  .content {
+    width: 30%;
   }
 
-  & .placeName {
-    width: 13%;
-  }
-  & .addTime {
+  .placeName {
     width: 20%;
+  }
+  .addTime {
+    width: 26%;
+    text-align: center;
   }
 `;
 const PointItem = ({ item }) => {

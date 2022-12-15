@@ -32,7 +32,6 @@ const Wrapper = styled.div`
 
 const Mypage = (props) => {
   const router = useRouter();
-  console.log(props);
   return (
     <Wrapper>
       <Header userData={props.userData} />
@@ -82,7 +81,6 @@ const Mypage = (props) => {
 
 export async function getServerSideProps(context) {
   const params = context.params;
-  console.log(params);
   const session = await getSession({ req: context.req });
   let userData = {};
   if (!session) {

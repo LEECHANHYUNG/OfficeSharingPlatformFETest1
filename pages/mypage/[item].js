@@ -62,9 +62,9 @@ const Mypage = (props) => {
           />
         </div>
       )}
-      {router.query.item === 'point' && (
+      {router.query.item === 'mileage' && (
         <div className="item">
-          <Point />
+          <Point item={props.mileageData} />
         </div>
       )}
       {router.query.item === 'qna' && (
@@ -81,7 +81,6 @@ const Mypage = (props) => {
 
 export async function getServerSideProps(context) {
   const params = context.params;
-  console.log(params);
   const session = await getSession({ req: context.req });
   let userData = {};
   if (!session) {

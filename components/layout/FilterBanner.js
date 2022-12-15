@@ -1,12 +1,26 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import City from '../selectbox/city';
 import PlaceType from '../selectbox/PlaceType';
 import SubCity from '../selectbox/SubCity';
 import Time from '../selectbox/Time';
-import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
+import { officeSliceActions } from '../../store/officeList';
 
+const StyledInput = styled.input`
+  padding: 15px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  &::webkit-calendar-picker-indicator {
+    background: #6a9eff;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+`;
 const FilterBanner = () => {
   const buttonRef = useRef();
   const selectedStartTime = useSelector((state) => state.selected.startTime);
@@ -14,8 +28,7 @@ const FilterBanner = () => {
   const selectedCity = useSelector((state) => state.selected.selectedCity);
   const selectSubCity = useSelector((state) => state.selected.selectSubCity);
   const selectedType = useSelector((state) => state.selected.selectedType);
-
-  const sendSelectedFilter = () => {};
+  const dispatch = useDispatch();
   useEffect(() => {
     if (
       selectedStartTime === '24' &&
@@ -37,6 +50,40 @@ const FilterBanner = () => {
     selectSubCity,
     selectedType,
   ]);
+  const sendSelectedFilter = async () => {
+    try {
+      const response = await axios({
+        url: '/api/main/filter',
+        method: 'post',
+        data: {
+          day: inputDateRef.current.value,
+          startTime: selectedStartTime,
+          endTime: selectedEndTime,
+          city: selectedCity,
+          subCity: selectSubCity,
+          type: selectedType,
+        },
+      });
+      if (response.status === 200) {
+        let officeList = [];
+        for (const officeId in response.data) {
+          officeList.push({
+            key: response.data[officeId].placeId,
+            item: response.data[officeId],
+          });
+        }
+        dispatch(officeSliceActions.getFilteredPlaceList(officeList));
+      } else {
+        throw new Error(response.data);
+      }
+    } catch (error) {
+      console.error(error.response.data);
+    }
+  };
+  const inputDateRef = useRef();
+  const selectDateHandler = () => {
+    console.log(inputDateRef.current.value);
+  };
   return (
     <Wrapper>
       <main>
@@ -44,16 +91,16 @@ const FilterBanner = () => {
           onClick={sendSelectedFilter}
           ref={buttonRef}
           className="selectOption button"
-          disabled
         >
           조건 검색
         </button>
-        {/*<div className="selectOption ">
-          <Date />
-          <Image src="/svg/down.svg" width="18" height="18" />
-        </div>*/}
+
         <div className="selectOption ">
-          <DatePicker />
+          <StyledInput
+            type="date"
+            ref={inputDateRef}
+            onChange={selectDateHandler}
+          />
         </div>
         <div className="selectOption ">
           <Time time="start" />
@@ -86,6 +133,7 @@ const Wrapper = styled.div`
   width: 75%;
   z-index: 10;
   -ms-overflow-style: none;
+  overflow-y: hidden;
   & ::-webkit-scrollbar {
     display: none;
   }

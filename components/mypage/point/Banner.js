@@ -13,19 +13,20 @@ const Wrapper = styled.section`
   border-top: 2px solid #111;
   border-bottom: 2px solid #111;
 
-  & #state,
-  & #amount {
-    width: 8%;
+  #state,
+  #amount {
+    width: 12%;
   }
-  & #content {
-    width: 51%;
+  #content {
+    width: 30%;
   }
 
-  & #placeName {
-    width: 13%;
-  }
-  & #addTime {
+  #placeName {
     width: 20%;
+  }
+  #addTime {
+    width: 26%;
+    text-align: center;
   }
 `;
 

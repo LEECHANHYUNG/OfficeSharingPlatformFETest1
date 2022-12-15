@@ -136,7 +136,7 @@ const Comment = () => {
         previousLabel={'<'}
         nextLabel={'>'}
         pageRangeDisplayed={1}
-        pageCount={commentList.paginationData.maxPage}
+        pageCount={commentList.paginationData?.maxPage || 0}
         onPageChange={changePageHandler}
         containerClassName={'paginationBtns'}
         previousLinkClassName={'previousBtn'}

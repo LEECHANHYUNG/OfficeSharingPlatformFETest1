@@ -58,6 +58,7 @@ const OfficeSearch = () => {
       for (const key in data) {
         officeList.push({ key: data[key].placeId, item: data[key] });
       }
+      console.log(data);
       dispatch(officeSliceActions.getFilteredPlaceList(officeList));
       searchWordInput.current.value = '';
     } catch (err) {

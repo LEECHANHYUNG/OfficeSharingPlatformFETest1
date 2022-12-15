@@ -11,29 +11,30 @@ const Wrapper = styled.section`
   align-items: center;
   border-bottom: 2px solid #111;
   overflow-y: hidden;
-  & .state,
-  & .amount {
-    width: 8%;
+  .state,
+  .amount {
+    width: 12%;
   }
-  & .content {
-    width: 51%;
+  .content {
+    width: 30%;
   }
 
-  & .placeName {
-    width: 13%;
-  }
-  & .addTime {
+  .placeName {
     width: 20%;
   }
+  .addTime {
+    width: 26%;
+    text-align: center;
+  }
 `;
-const PointItem = () => {
+const PointItem = ({ item }) => {
   return (
     <Wrapper>
-      <div className="state">적립</div>
-      <div className="amount">+600</div>
-      <div className="content">선결제 적립</div>
-      <div className="placeName">롯데월드점</div>
-      <div className="addTime">2022.11.30</div>
+      <div className="state">{item.status}</div>
+      <div className="amount">{item.changePoint}</div>
+      <div className="content">{item.info}</div>
+      <div className="placeName">{item.issuer}</div>
+      <div className="addTime">{item.updateDate}</div>
     </Wrapper>
   );
 };

@@ -1,6 +1,28 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
+async function refreshAccessToken(tokenObject) {
+  try {
+    const response = await axios({
+      url: `${process.env.baseURL}auth/refresh`,
+      headers: {
+        Authorization: tokenObject.refreshToken,
+      },
+    });
+    if (response.status === 202) {
+      return {
+        accessToken: response.data.accessToken,
+        refreshToken: response.data.refreshToken,
+      };
+    }
+  } catch (error) {
+    return {
+      ...tokenObject,
+      error: 'refreshToken Expired',
+    };
+  }
+}
 export default NextAuth({
   session: {
     strategy: 'jwt',
@@ -12,7 +34,7 @@ export default NextAuth({
         const password = credentials.password;
         try {
           const response = await axios({
-            url: 'http://localhost:8080/auth/signin',
+            url: `${process.env.baseURL}auth/signin`,
             method: 'post',
             data: {
               email,
@@ -28,10 +50,10 @@ export default NextAuth({
             };
             return user;
           } else if (response.status === 401) {
-            throw new Error();
+            throw new Error(response.data);
           }
         } catch (error) {
-          return Promise.reject(new Error('아이디/비밀번호를 확인해주세요'));
+          return Promise.reject(new Error(error.response.data.message));
         }
       },
     }),
@@ -41,12 +63,6 @@ export default NextAuth({
     signIn: '/auth/signin',
   },
   callbacks: {
-    async session({ session, token }) {
-      session.user.accessToken = token.accessToken;
-      session.user.refreshToken = token.refreshToken;
-      session.user.email = token.email;
-      return session;
-    },
     async jwt({ token, user }) {
       if (user) {
         token.accessToken = user.accessToken;
@@ -54,7 +70,23 @@ export default NextAuth({
         token.email = user.email;
         return token;
       }
-      return token;
+      const decoded = jwtDecode(token.accessToken);
+      console.log(decoded);
+      console.log(decoded.iat);
+      console.log(Date.now());
+      const refreshTime = decoded.iat + 30 * 60 * 1000 - Date.now();
+      console.log(refreshTime);
+      if (refreshTime > 0) {
+        return Promise.resolve(token);
+      }
+      token = refreshAccessToken(token);
+      return Promise.resolve(token);
+    },
+    async session({ session, token }) {
+      session.user.accessToken = token.accessToken;
+      session.user.refreshToken = token.refreshToken;
+      session.user.email = token.email;
+      return session;
     },
   },
 });

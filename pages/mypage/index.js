@@ -30,6 +30,7 @@ export async function getServerSideProps(context) {
     };
   }
   let userData = {};
+  console.log(session);
   try {
     const response = await axios({
       method: 'post',

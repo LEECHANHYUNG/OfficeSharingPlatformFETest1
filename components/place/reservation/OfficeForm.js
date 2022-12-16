@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import Button from '../../ui/Button';
 
 const Wrapper = styled.section`
   @media screen and (max-width: 1170px) {
@@ -51,7 +52,7 @@ const OfficeForm = () => {
                 minDate={new Date()}
                 maxDate={
                   new Date(
-                    new Date().getFullYear() + 2,
+                    new Date().getFullYear() + 1,
                     new Date().getMonth(),
                     new Date().getDate() - 1
                   )
@@ -75,7 +76,7 @@ const OfficeForm = () => {
                   dateFormat="yyyy-MM-dd"
                   maxDate={
                     new Date(
-                      new Date().getFullYear() + 2,
+                      new Date().getFullYear() + 1,
                       new Date().getMonth(),
                       new Date().getDate() - 1
                     )
@@ -90,13 +91,7 @@ const OfficeForm = () => {
       ) : (
         ''
       )}
-      {isEndDateSelcted ? (
-        <div className="payment-btn">
-          <Link href="/">예약</Link>
-        </div>
-      ) : (
-        ''
-      )}
+      {isEndDateSelcted ? <Button>예약</Button> : ''}
     </div>
   );
 };

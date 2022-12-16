@@ -72,7 +72,6 @@ const ReservationForm = () => {
   const [isBrowser, setIsBrowser] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
   const [isBottom, setIsBottom] = useState(false);
-
   const placeId = router.query.id;
 
   const itemName = useSelector((state) => state.reservation.selectedType);

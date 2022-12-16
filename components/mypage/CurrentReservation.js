@@ -33,7 +33,12 @@ const Wrapper = styled.section`
     font-weight: 900;
     margin-left: 90px;
   }
-
+  .no-item {
+    margin-left: 20px;
+    margin-top: 20px;
+    color: #6a9eff;
+    font-weight: 700;
+  }
   @media screen and (max-width: 1170px) {
     margin-left: 0;
     width: 96vw;
@@ -51,42 +56,47 @@ const Wrapper = styled.section`
   }
 `;
 const CurrentReservation = ({ item }) => {
+  console.log(item);
   return (
     <Wrapper>
       <h1>현재 사용중인 상품</h1>
 
-      <Swiper
-        navigation={true}
-        modules={[Navigation]}
-        draggable={false}
-        slidesPerView={1}
-        breakpoints={{
-          858: {
-            slidesPerView: 2,
-          },
-        }}
-      >
-        {Object.keys(item).map((elem) => (
-          <SwiperSlide key={elem} className="item">
-            <Card className="current-reservation-data">
-              <h3>지점명</h3>
-              <div className="place-name">{item[elem].placeName}</div>
-              <h3>상품명</h3>
-              <div className="product-type">{item[elem].productType}</div>
-              <h3>예약 시간</h3>
-              <div className="reservation-time">
-                {`${item[elem].reservationStartDate}
+      {Object.keys(item).length !== 0 ? (
+        <Swiper
+          navigation={true}
+          modules={[Navigation]}
+          draggable={false}
+          slidesPerView={1}
+          breakpoints={{
+            858: {
+              slidesPerView: 2,
+            },
+          }}
+        >
+          {Object.keys(item).map((elem) => (
+            <SwiperSlide key={elem} className="item">
+              <Card className="current-reservation-data">
+                <h3>지점명</h3>
+                <div className="place-name">{item[elem].placeName}</div>
+                <h3>상품명</h3>
+                <div className="product-type">{item[elem].productType}</div>
+                <h3>예약 시간</h3>
+                <div className="reservation-time">
+                  {`${item[elem].reservationStartDate}
             ${item[elem].reservationStartTime}`}
-              </div>
-              <div className="break">{'~'}</div>
-              <div className="reservation-time">
-                {`${item[elem].reservationEndDate}
+                </div>
+                <div className="break">{'~'}</div>
+                <div className="reservation-time">
+                  {`${item[elem].reservationEndDate}
               ${item[elem].reservationEndTime}`}
-              </div>
-            </Card>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+                </div>
+              </Card>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      ) : (
+        <div className="no-item">현재 사용중인 상품이 없습니다. </div>
+      )}
     </Wrapper>
   );
 };

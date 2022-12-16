@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { reservationActions } from '../../../store/reservation';
 
-const SelectStartTime = () => {
+const SelectTime = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const placeId = router.query.id;
@@ -13,6 +14,9 @@ const SelectStartTime = () => {
     (state) => state.reservation.selectedTypeEng
   );
   const selectedTime = useSelector((state) => state.reservation.date);
+  const selectedEndTime = useSelector(
+    (state) => state.reservation.selectedEndTime
+  );
   const dateArr = selectedTime.toLocaleDateString().slice(0, -1).split('. ');
   const ableDateList = useSelector((state) => state.reservation.ableDateList);
   const dateString =
@@ -38,6 +42,11 @@ const SelectStartTime = () => {
 
   const selectTimeHandler = (e) => {
     const selectedTimeList = document.getElementsByClassName('start-time');
+    const selectedItem = document.getElementsByClassName('selected-time');
+    Array.from(selectedItem).map((elem) =>
+      elem.classList.remove('selected-time')
+    );
+    dispatch(reservationActions.getSelectedEndTime(24));
     if (selectedTimeList[0]) {
       selectedTimeList[0].classList.remove('start-time');
     }
@@ -129,4 +138,4 @@ const StyledSwiper = styled.div`
   }
 `;
 
-export default SelectStartTime;
+export default SelectTime;

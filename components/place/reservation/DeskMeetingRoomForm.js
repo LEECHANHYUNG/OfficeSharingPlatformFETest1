@@ -1,8 +1,10 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import DatePick from '../../ui/DatePick';
 import SelectEndTime from './SelectEndTime';
-import SelectStartTime from './SelectStartTime';
+import SelectTime from './SelectTime';
 
 const DeskMeetingRoomForm = () => {
   const isLoading = useSelector((state) => state.reservation.isLoading);
@@ -12,9 +14,13 @@ const DeskMeetingRoomForm = () => {
   const selectedStartTime = useSelector(
     (state) => state.reservation.selectedStartTime
   );
+  const [startTime, setStartTime] = useState(selectedStartTime);
   const selectedEndTime = useSelector(
     (state) => state.reservation.selectedEndTime
   );
+  useEffect(() => {
+    setStartTime(selectedStartTime);
+  }, [selectedStartTime]);
 
   return (
     <section>
@@ -26,20 +32,20 @@ const DeskMeetingRoomForm = () => {
       ) : (
         ''
       )}
-      {reservationItem && !isLoading ? <SelectStartTime /> : ''}
+      {reservationItem && !isLoading ? <SelectTime /> : ''}
       {selectedStartTime !== 24 ? <SelectEndTime /> : ''}
       {reservationItem ? (
         <div className="item">
           선택 시간
           {!isLoading ? (
-            <div className="time">{`시작 시간     : ${
+            <div className="time">{`시작 시간 : ${
               selectedStartTime !== 24 ? selectedStartTime + ':00' : ''
             }`}</div>
           ) : (
             ''
           )}
           {!isLoading && selectedStartTime !== 24 ? (
-            <div className="time">{`종료 시간     :${
+            <div className="time">{`종료 시간 :${
               selectedEndTime != 24 ? selectedEndTime + ':50' : ''
             }`}</div>
           ) : (

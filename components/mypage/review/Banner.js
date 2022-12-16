@@ -10,45 +10,25 @@ const Wrapper = styled.section`
   align-items: center;
   border-top: 2px solid #111;
   border-bottom: 2px solid #111;
+  text-align: left;
   #content {
     width: 70%;
   }
-
   #placeName,
   #writingTime {
-    width: 10%;
-    min-width: 80px;
-  }
-  #ratingScore {
-    width: 10%;
-    min-width: 80px;
+    width: 15%;
   }
   @media screen and (max-width: 1170px) {
     width: 94vw;
-    #content {
-      width: 84%;
-    }
-
-    #placeName,
-    #writingTime {
-      width: 13%;
-    }
   }
-
-  @media screen and (max-width: 620px) {
-    #content {
-      width: 50%;
-    }
-    #writingTime {
-      width: 18%;
-    }
+  @media screen and (max-width: 858px) {
+    display: none;
   }
 `;
 
 const Banner = () => {
   return (
     <Wrapper>
-      <div id="ratingScore">평점</div>
       <div id="content">내용</div>
       <div id="placeName">지점명</div>
       <div id="writingTime">작성일</div>

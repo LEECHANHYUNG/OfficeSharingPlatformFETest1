@@ -78,7 +78,7 @@ const Usage = (props) => {
       <Banner />
       <div className="itemList">
         {Object.keys(items).map((elem) => (
-          <UsedItem item={items[elem]} key={items[elem].reservationId} />
+          <UsedItem item={items[elem]} key={elem} />
         ))}
       </div>
       <ReactPaginate

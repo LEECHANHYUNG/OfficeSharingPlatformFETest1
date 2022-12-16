@@ -18,7 +18,7 @@ const Header = (props) => {
             <div>
               마일리지 <Image src="/svg/won.svg" width="18" height="18" />
             </div>
-            <div className="userData">{mileagePoint}</div>
+            <div className="userData">{mileagePoint.toLocaleString()}</div>
           </div>
           <div>
             <div>
@@ -45,19 +45,14 @@ const Wrapper = styled.section`
   flex-direction: column;
   border-bottom: 2px solid #111;
   h1 {
-    display: block;
     text-align: left;
     width: 100%;
-    height: 30px;
     font-size: 3rem;
-    line-height: 3rem;
     padding-top: 20px;
     padding-left: 150px;
   }
   .userInfo {
     width: 100%;
-    padding-top: 50px;
-    height: 160px;
     font-size: 20px;
     font-weight: 700;
   }
@@ -81,10 +76,13 @@ const Wrapper = styled.section`
     font-size: 2rem;
   }
   @media screen and (max-width: 1170px) {
-    height: 350px;
+    height: auto;
     h1 {
       text-align: center;
       padding-left: 0;
+    }
+    .userInfo {
+      font-size: 1rem;
     }
     .userInfo .left {
       width: 100%;
@@ -96,6 +94,12 @@ const Wrapper = styled.section`
       display: flex;
       justify-content: space-between;
       align-items: start;
+    }
+  }
+  @media screen and (max-width: 858px) {
+    justify-content: space-between;
+    .userInfo .right {
+      padding: 0 10px;
     }
   }
 `;

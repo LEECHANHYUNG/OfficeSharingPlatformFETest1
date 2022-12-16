@@ -13,24 +13,21 @@ const Wrapper = styled.section`
 
   #title,
   #state {
-   width: 12%;
-   line-height: 1rem;
- }  
-  #writingTime{
+    width: 12%;
+    line-height: 1rem;
+  }
+  #writingTime {
     width: 20%;
   }
-   #content {
+  #content {
     width: 46%;
   }
   @media screen and (max-width: 1170px) {
     width: 93vw;
     margin: 0 auto;
-    #placeName
   }
-  @media screen and (max-width: 620px) {
-  #writingTime{
-    display : none;
-  }
+  @media screen and (max-width: 858px) {
+    display: none;
   }
 `;
 

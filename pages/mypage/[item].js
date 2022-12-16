@@ -10,7 +10,8 @@ import Qna from '../../components/mypage/qna/Qna';
 import { getSession } from 'next-auth/react';
 import axios from 'axios';
 import Review from '../../components/mypage/review/Review';
-const Wrapper = styled.div`
+const Wrapper = styled.section`
+  width: 100%;
   .item {
     width: 70vw;
     display: inline-block;
@@ -19,12 +20,12 @@ const Wrapper = styled.div`
     padding-top: 60px;
   }
   @media screen and (max-width: 1170px) {
-    width: 100vw;
+    width: 100%;
     margin: 0;
   }
   @media screen and (max-width: 858px) {
     .item {
-      width: 96vw;
+      width: 100vw;
       padding-left: 10px;
     }
   }
@@ -38,42 +39,42 @@ const Mypage = (props) => {
       <Banner />
       {router.query.item === '' && <div className="item"></div>}
       {router.query.item === 'usage' && (
-        <div className="item">
+        <section className="item">
           <Usage
             item={props.reservationData}
             paginationData={props.paginationData.maxPage}
           />
-        </div>
+        </section>
       )}
       {router.query.item === 'review' && (
-        <div className="item">
+        <section className="item">
           <Review
             item={props.reviewData}
             paginationData={props.paginationData.maxPage}
           />
-        </div>
+        </section>
       )}
 
       {router.query.item === 'comment' && (
-        <div className="item">
+        <section className="item">
           <Comment
             item={props.commentData}
             paginationData={props.paginationData.maxPage}
           />
-        </div>
+        </section>
       )}
       {router.query.item === 'mileage' && (
-        <div className="item">
+        <section className="item">
           <Point item={props.mileageData} />
-        </div>
+        </section>
       )}
       {router.query.item === 'qna' && (
-        <div className="item">
+        <section className="item">
           <Qna
             item={props.qnaData}
             paginationData={props.paginationData.maxPage}
           />
-        </div>
+        </section>
       )}
     </Wrapper>
   );

@@ -15,6 +15,11 @@ const Wrapper = styled.div`
   @media screen and (max-width: 1170px) {
     width: 80%;
   }
+  @media screen and (max-width: 858px) {
+    &.current-reservation-data {
+      width: 70%;
+    }
+  }
 `;
 
 const Card = (props) => {

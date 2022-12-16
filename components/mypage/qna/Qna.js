@@ -113,7 +113,11 @@ const Qna = ({ item, paginationData }) => {
         </div>
       ) : (
         <div>
-          <NewQna />
+          <NewQna
+            addNewQna={(state) => {
+              setNewQna(state);
+            }}
+          />
         </div>
       )}
     </Wrapper>

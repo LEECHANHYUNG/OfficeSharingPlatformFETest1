@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const Wrapper = styled.section`
   width: 100%;
-  min-width: 1100px;
   height: 60px;
   line-height: 50px;
   display: flex;
@@ -16,15 +15,46 @@ const Wrapper = styled.section`
     width: 12%;
   }
   .content {
-    width: 30%;
+    width: 15%;
   }
 
   .placeName {
-    width: 20%;
+    width: 35%;
   }
   .addTime {
     width: 26%;
     text-align: center;
+  }
+  @media screen and (max-width: 858px) {
+    font-size: 13px;
+    position: relative;
+    .state {
+      display: none;
+    }
+    line-height: 1rem;
+    .placeName {
+      word-break: break-all;
+    }
+    .content {
+      position: absolute;
+      top: 5px;
+      left: 10px;
+      font-weight: 700;
+      width: 20%;
+    }
+    .amount {
+      position: absolute;
+      top: 5px;
+      right: 40px;
+    }
+    .addTime {
+      position: absolute;
+      bottom: 10px;
+      right: 0px;
+    }
+    .placeName {
+      width: 50%;
+    }
   }
 `;
 const PointItem = ({ item }) => {

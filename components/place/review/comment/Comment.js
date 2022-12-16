@@ -88,7 +88,7 @@ const Comment = () => {
       },
     });
     if (response.status === 200) {
-      alert(response.data);
+      alert('댓글 등록 완료');
     }
   };
   const changePageHandler = async ({ selected }) => {
@@ -118,6 +118,7 @@ const Comment = () => {
       <TextArea
         placeholder={'댓글 입력'}
         addCommentHandler={addCommentHandler}
+        placeComment={true}
       ></TextArea>
       {typeof commentList !== 'string' ? (
         Object.keys(commentList.commentData).map((elem) => (

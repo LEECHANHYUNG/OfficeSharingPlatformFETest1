@@ -1,6 +1,8 @@
 import { useSession } from 'next-auth/react';
 import React from 'react';
+import { useState } from 'react';
 import { Fragment } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Button from './Button';
 
@@ -19,35 +21,56 @@ const Content = styled.textarea`
   border: 1px solid #111;
   max-height: 330px;
 `;
-const TextArea = ({ placeholder, addCommentHandler }) => {
+const TextArea = ({
+  placeholder,
+  addCommentHandler,
+  maxLength = 40,
+  placeComment,
+}) => {
   const session = useSession();
-  console.log(session);
+  const [isEntered, setIsEntered] = useState(false);
+  const enteredQna = useSelector((state) => state.place.enteredQna);
   const changeHeightHandler = (e) => {
     if (!session.data) {
       alert('로그인이 필요한 서비스입니다.');
       e.target.value = '';
     }
+    setIsEntered(e.target.value.length);
+
     e.target.style.height = `63px`;
     let scHeight = e.target.scrollHeight;
     e.target.style.height = `${scHeight}px`;
-    if (e.target.value.length > 40) {
-      alert('최대 40자까지 입력 가능합니다.');
-      e.target.value = e.target.value.slice(0, 40);
-      console.log(e.target.value);
+    if (e.target.value.length > maxLength) {
+      alert(`최대 ${maxLength}자까지 입력 가능합니다.`);
+      e.target.value = e.target.value.slice(0, maxLength);
     }
   };
-
+  console.log(placeComment);
   return (
     <Fragment>
       <Content
         placeholder={
           !session.data ? '로그인이 필요한 서비스입니다.' : placeholder
         }
+        maxLength={maxLength || null}
         onKeyUp={changeHeightHandler}
+        required
       ></Content>
-      <Button onClick={addCommentHandler} disabled={!session.data}>
-        등록
-      </Button>
+      {placeComment ? (
+        <Button
+          onClick={addCommentHandler}
+          disabled={!isEntered || !session.data}
+        >
+          등록
+        </Button>
+      ) : (
+        <Button
+          onClick={addCommentHandler}
+          disabled={!isEntered || !session.data || !enteredQna}
+        >
+          등록
+        </Button>
+      )}
     </Fragment>
   );
 };

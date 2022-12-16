@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const Wrapper = styled.section`
   width: 100%;
-  min-width: 1100px;
   height: 50px;
   line-height: 50px;
   display: flex;
@@ -12,21 +11,25 @@ const Wrapper = styled.section`
   margin-top: 50px;
   border-top: 2px solid #111;
   border-bottom: 2px solid #111;
+  font-weight: 800;
 
   #state,
   #amount {
     width: 12%;
   }
   #content {
-    width: 30%;
+    width: 15%;
   }
 
   #placeName {
-    width: 20%;
+    width: 35%;
   }
   #addTime {
     width: 26%;
     text-align: center;
+  }
+  @media screen and (max-width: 858px) {
+    display: none;
   }
 `;
 
@@ -37,7 +40,7 @@ const Banner = () => {
       <div id="amount">적립금</div>
       <div id="content">내용</div>
       <div id="placeName">지점명</div>
-      <div id="addTime">적용 일시</div>
+      <div id="addTime">적용 일자</div>
     </Wrapper>
   );
 };

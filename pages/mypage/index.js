@@ -1,12 +1,10 @@
 import axios from 'axios';
-import { getSession, signOut } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import React, { Fragment } from 'react';
-import styled from 'styled-components';
 import Banner from '../../components/mypage/Banner';
 import CurrentReservation from '../../components/mypage/CurrentReservation';
 import Header from '../../components/mypage/Header';
 import RecentRerservation from '../../components/mypage/RecentRerservation';
-const Wrapper = styled.div``;
 
 const Mypage = (props) => {
   return (

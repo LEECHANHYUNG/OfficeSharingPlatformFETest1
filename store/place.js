@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialPlaceState = {
   selectedCommentId: '',
   commentData: {},
+  enteredQna: '',
 };
 const placeSlice = createSlice({
   name: 'place',
@@ -13,6 +14,9 @@ const placeSlice = createSlice({
     },
     getCommentData(state, action) {
       state.commentData = action.payload;
+    },
+    getEnteredQna(state, action) {
+      state.enteredQna = action.payload;
     },
   },
 });

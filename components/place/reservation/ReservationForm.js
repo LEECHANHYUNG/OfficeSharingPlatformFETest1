@@ -18,7 +18,7 @@ const Wrapper = styled(Card)`
   position: ${(props) =>
     props.isFixed ? (props.isBottom ? 'absolute' : 'fixed') : 'absolute'};
   top: ${(props) =>
-    props.isFixed ? (props.isBottom ? '1200px' : '120px') : '0px'};
+    props.isFixed ? (props.isBottom ? '1150px' : '310px') : '0px'};
   h1 {
     font-size: 1.5rem;
   }

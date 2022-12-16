@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
@@ -25,9 +26,9 @@ const Wrapper = styled.section`
     border-right: none;
     border-bottom: 2px solid #111;
     text-align: center;
-    height: 100%;
-    display: none;
-    height: 0;
+    height: 50px;
+    background: #999;
+    padding: 0;
   }
 `;
 

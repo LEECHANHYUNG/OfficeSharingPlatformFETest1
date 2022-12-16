@@ -8,6 +8,7 @@ import BookInfo from '../../components/book/BookInfo';
 import Mileage from '../../components/book/Mileage';
 import Payment from '../../components/book/Payment';
 import PaymentForm from '../../components/book/PaymentForm';
+import CreditCardForm from '../../components/book/PaymentForm/CreditCardForm';
 import PaymentMain from '../../components/book/PaymentMain';
 import PaymentType from '../../components/book/PaymentType';
 import { paymentSliceActions } from '../../store/payment';
@@ -146,6 +147,8 @@ const book = () => {
             ) : (
               ''
             )}
+
+            {showPaymentForm ? <CreditCardForm /> : ''}
           </aside>
         ) : (
           ''

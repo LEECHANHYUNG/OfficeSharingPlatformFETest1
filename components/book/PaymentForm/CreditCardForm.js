@@ -1,4 +1,9 @@
+import axios from 'axios';
+import { useSession } from 'next-auth/react';
+import { Router, useRouter } from 'next/router';
 import React from 'react';
+import { useRef } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Button from '../../ui/Button';
 import Card from '../../ui/Card';
@@ -47,17 +52,72 @@ const StyledCard = styled(Card)`
   }
   .card-number .input-field input {
     width: 70px;
+    font-size: 20px;
   }
   .card-number .dash {
     font-weight: 700;
   }
-  .pw .input-field,
+  .pw .input-field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pw-back {
+    font-size: 11px;
+    line-height: 30px;
+    height: 30px;
+  }
   .pw .input-field input {
-    width: 30px;
+    width: 25px;
+    font-size: 37px;
+    padding: 0;
   }
 `;
 const CreditCardForm = () => {
   const date = new Date();
+  const router = useRouter();
+  const cardFirstRef = useRef();
+  const cardSecondRef = useRef();
+  const cardThirdRef = useRef();
+  const cardFourthRef = useRef();
+  const birthRef = useRef();
+  const passwordRef = useRef();
+  const monthRef = useRef();
+  const yearRef = useRef();
+  const reservationInfo = useSelector(
+    (state) => state.reservation.reservationInfo
+  );
+  const company = useSelector((state) => state.payment.company);
+  const paymentType = useSelector((state) => state.payment.paymentType);
+  const useMileage = useSelector((state) => state.payment.useMileage);
+  const session = useSession();
+  const submitPaymentHandler = async () => {
+    console.log(company);
+    try {
+      const response = await axios({
+        url: '/api/reservation/payment',
+        method: 'post',
+        data: {
+          accessToken: session.data.user.accessToken,
+          company,
+          reservationId: reservationInfo.reservationId,
+          card_number: `${cardFirstRef.current.value}-${cardSecondRef.current.value}-${cardThirdRef.current.value}-${cardFourthRef.current.value}`,
+          expiry: `${yearRef.current.value}-${monthRef.current.value}`,
+          birth: `${birthRef.current.value}`,
+          pwd_2digit: `${passwordRef.current.value}`,
+          payType: paymentType,
+          payMileage: useMileage,
+        },
+      });
+      if (response.status === 200) {
+        router.replace('/mypage');
+      } else {
+        throw new Error(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <StyledCard>
       <h3>카드 정보 입력</h3>
@@ -65,19 +125,39 @@ const CreditCardForm = () => {
         <h5>카드 번호</h5>
         <div className="card-number">
           <div className="input-field">
-            <input type="text" placeholder="●●●●" maxLength={4} />
+            <input
+              type="text"
+              placeholder="●●●●"
+              maxLength={4}
+              ref={cardFirstRef}
+            />
           </div>
           <div className="dash">-</div>
           <div className="input-field">
-            <input type="text" placeholder="●●●●" maxLength={4} />
+            <input
+              type="password"
+              placeholder="●●●●"
+              maxLength={4}
+              ref={cardSecondRef}
+            />
           </div>
           <div className="dash">-</div>
           <div className="input-field">
-            <input type="text" placeholder="●●●●" maxLength={4} />
+            <input
+              type="password"
+              placeholder="●●●●"
+              maxLength={4}
+              ref={cardThirdRef}
+            />
           </div>
           <div className="dash">-</div>
           <div className="input-field">
-            <input type="text" placeholder="●●●●" maxLength={4} />
+            <input
+              type="text"
+              placeholder="●●●●"
+              maxLength={4}
+              ref={cardFourthRef}
+            />
           </div>
         </div>
       </div>
@@ -85,34 +165,35 @@ const CreditCardForm = () => {
         <div className="birth">
           <h5>생년월일</h5>
           <div className="input-field">
-            <input type="text" maxLength={6} />
+            <input type="text" maxLength={6} ref={birthRef} />
           </div>
         </div>
         <div className="pw">
-          <h5>비밀번호 앞 두자리</h5>
+          <h5>비밀번호</h5>
           <div className="input-field">
-            <input type="password" maxLength={2} />
+            <input type="password" maxLength={2} ref={passwordRef} />
+            <div className="pw-back">{'●●'}</div>
           </div>
         </div>
       </div>
       <div className="third-row">
         <h5>유효기간</h5>
         <div className="selection">
-          <select name="months" id="months">
+          <select name="months" id="months" ref={monthRef}>
             <option value="1">1</option>
-            <option value="1">2</option>
-            <option value="1">3</option>
-            <option value="1">4</option>
-            <option value="1">5</option>
-            <option value="1">6</option>
-            <option value="1">7</option>
-            <option value="1">8</option>
-            <option value="1">9</option>
-            <option value="1">10</option>
-            <option value="1">11</option>
-            <option value="1">12</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
           </select>
-          <select name="years" id="years">
+          <select name="years" id="years" ref={yearRef}>
             <option value={date.getFullYear()}>{date.getFullYear()}</option>
             <option value={date.getFullYear() + 1}>
               {date.getFullYear() + 1}
@@ -138,7 +219,7 @@ const CreditCardForm = () => {
           </select>
         </div>
       </div>
-      <Button>결제</Button>
+      <Button onClick={submitPaymentHandler}>결제</Button>
     </StyledCard>
   );
 };

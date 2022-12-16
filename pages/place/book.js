@@ -66,6 +66,7 @@ const book = () => {
   );
   const showPaymentForm = useSelector((state) => state.payment.showForm);
   const paymentType = useSelector((state) => state.payment.paymentType);
+  const company = useSelector((state) => state.payment.company);
   const prevPageHandler = () => {
     router.back();
   };
@@ -148,7 +149,7 @@ const book = () => {
               ''
             )}
 
-            {showPaymentForm ? <CreditCardForm /> : ''}
+            {showPaymentForm && company === 'nicepay' ? <CreditCardForm /> : ''}
           </aside>
         ) : (
           ''

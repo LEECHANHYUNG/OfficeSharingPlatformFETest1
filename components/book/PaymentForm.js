@@ -48,7 +48,11 @@ const PaymentForm = ({ reservationId }) => {
     <StyledCard>
       <h1>결제</h1>
       <PaymentCompany />
-      <Button onClick={submitPaymentHandler}>{amount}결제</Button>
+      {company === 'kakaopay' ? (
+        <Button onClick={submitPaymentHandler}>{amount}결제</Button>
+      ) : (
+        ''
+      )}
     </StyledCard>
   );
 };

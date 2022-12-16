@@ -23,6 +23,11 @@ const Wrapper = styled.section`
     display: inline-block;
     color: #6a9eff;
   }
+  @media screen and (max-width: 858px) {
+    h1 {
+      display: none;
+    }
+  }
 `;
 const PlaceItemCount = ({ placeName, itemCount }) => {
   return (

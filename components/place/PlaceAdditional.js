@@ -35,9 +35,6 @@ const Wrapper = styled.section`
     }
   }
   @media screen and (max-width: 768px) {
-    main {
-      padding: 0;
-    }
   }
 `;
 

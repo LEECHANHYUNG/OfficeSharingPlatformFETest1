@@ -129,7 +129,10 @@ const book = () => {
               ''
             )}
             {!showPaymentForm ? (
-              <Mileage totalMileage={reservationInfo.totalMileage} />
+              <Mileage
+                totalMileage={reservationInfo.totalMileage}
+                totalPrice={reservationInfo.totalPrice}
+              />
             ) : (
               ''
             )}

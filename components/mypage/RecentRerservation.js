@@ -41,6 +41,17 @@ const Wrapper = styled.section`
     margin-left: 0;
     width: 96vw;
   }
+  @media screen and (max-width: 858px) {
+    h1 {
+      font-size: 1.2rem;
+      margin-left: 20px;
+    }
+    .place-name,
+    .product-type,
+    .reservation-time {
+      font-size: 1rem;
+    }
+  }
 `;
 const RecentRerservation = ({ item }) => {
   return (

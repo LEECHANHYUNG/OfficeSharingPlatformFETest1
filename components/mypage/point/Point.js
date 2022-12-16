@@ -5,13 +5,22 @@ import PointItem from './PointItem';
 
 const Wrapper = styled.section`
   position: relative;
-  width: 70vw;
-  & h1 {
+  width: 100%;
+  h1 {
     font-size: 2rem;
     margin-top: 20px;
+    border-bottom: 3px solid #111;
   }
-  & .itemlist {
+  .itemlist {
     width: 100%;
+  }
+  @media screen and (max-width: 1170px) {
+    h1 {
+      padding-top: 20px;
+      font-size: 1.3rem;
+    }
+    width: 96vw;
+    margin: 0;
   }
 `;
 
@@ -21,11 +30,11 @@ const Use = ({ item }) => {
     <Wrapper>
       <h1>마일리지</h1>
       <Banner />
-      <div className="itemList">
+      <section className="itemList">
         {Object.keys(item).map((elem) => (
-          <PointItem item={item[elem]} />
+          <PointItem key={elem} item={item[elem]} />
         ))}
-      </div>
+      </section>
     </Wrapper>
   );
 };

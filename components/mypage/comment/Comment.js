@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
-import Image from 'next/image';
 import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import styled from 'styled-components';
@@ -9,11 +8,11 @@ import CommentItem from './CommentItem';
 
 const Wrapper = styled.section`
   width: 100%;
-  & h1 {
+  h1 {
     font-size: 2rem;
     margin-top: 20px;
   }
-  & .itemlist {
+  .itemlist {
     width: 100%;
   }
 
@@ -49,7 +48,6 @@ const Wrapper = styled.section`
 `;
 
 const Comment = ({ item, paginationData, reviewComment, ratingId }) => {
-  console.log(reviewComment);
   const [totalPage, setTotalPage] = useState(paginationData);
   const [items, setItems] = useState(item);
   const session = useSession();

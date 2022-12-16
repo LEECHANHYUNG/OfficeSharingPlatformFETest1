@@ -7,7 +7,7 @@ const Wrapper = styled.section`
   width: 100%;
   height: 50px;
   padding-top: 20px;
-  border-bottom: 2px solid #111;
+  border-top: 2px solid #111;
   overflow-y: hidden;
   &.show {
     height: auto;
@@ -19,6 +19,7 @@ const Wrapper = styled.section`
     justify-content: space-around;
     align-items: top;
     line-height: 25px;
+    margin-bottom : 20px;
   }
   &.show .container {
     min-height: 50px;
@@ -54,12 +55,35 @@ const Wrapper = styled.section`
       min-height: 50px;
     }
   }
-  @media screen and (max-width: 620px) {
+  @media screen and (max-width: 858px) {
+    height: 75px;
+    position : relative;
+    .title{
+      position : absolute;
+      top : 5px;
+      left: 5px;
+      width : auto;
+      font-weight: 800;
+    }
+    .answer{
+      margin-top : 40px;
+    }
+    .content{
+      width : 80%;
+      margin-top : 50px;
+
+    }
     .writingTime {
-      position: relative;
-      width: 50%;
-      display: flex;
-      justify-content: space-around;
+      position: absolute; 
+      width : auto;
+      top : 30px;
+      right: 10px;
+    }
+    .state{
+      position : absolute;
+      top : 50px;
+      right :10px;
+      width :auto;
     }
   }
 `;
@@ -77,7 +101,9 @@ const QnaItem = ({ item }) => {
   return (
     <Wrapper>
       <div className="container">
-        <div className="title">{item.questionData.inquiryTitle}</div>
+        <div className="title" onClick={showDetailHandler}>
+          {item.questionData.inquiryTitle}
+        </div>
         <div className="content" onClick={showDetailHandler}>
           {item.questionData.inquiryContext}
         </div>

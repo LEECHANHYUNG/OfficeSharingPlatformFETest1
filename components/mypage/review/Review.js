@@ -7,12 +7,13 @@ import Banner from './Banner';
 import ReviewItem from './ReviewItem';
 
 const Wrapper = styled.section`
-  width: 100%;
-  & h1 {
+  width: 70vw;
+
+  h1 {
     font-size: 2rem;
     margin-top: 20px;
   }
-  & .itemlist {
+  .itemlist {
     width: 100%;
   }
 
@@ -44,6 +45,12 @@ const Wrapper = styled.section`
   @media screen and (max-width: 1170px) {
     width: 94vw;
   }
+  @media screen and (max-width: 858px) {
+    h1 {
+      font-size: 1.3rem;
+      padding-bottom: 20px;
+    }
+  }
 `;
 
 const Review = ({ item, paginationData }) => {
@@ -74,7 +81,7 @@ const Review = ({ item, paginationData }) => {
 
   return (
     <Wrapper>
-      <h1>후기 관리</h1>
+      <h1>사용 후기</h1>
       <Banner />
       <div className="itemList">
         {Object.keys(items).map((elem) => (

@@ -30,7 +30,8 @@ const Wrapper = styled(Card)`
   }
 `;
 
-const Mileage = ({ totalMileage }) => {
+const Mileage = ({ totalMileage, totalPrice }) => {
+  console.log(totalPrice);
   const [enteredMileage, setEnteredMileage] = useState('');
   const dispatch = useDispatch();
   const inputMileageHandler = (e) => {
@@ -38,8 +39,8 @@ const Mileage = ({ totalMileage }) => {
     if (isNaN(e.target.value)) {
       alert('숫자만 입력 가능합니다.');
       setEnteredMileage('');
-    } else if (+e.target.value > 400) {
-      +alert('최대 사용 가능 마일리지를 초과했습니다.');
+    } else if (+e.target.value > +totalPrice) {
+      alert('최대 사용 가능 마일리지를 초과했습니다.');
       setEnteredMileage('');
     } else {
       setEnteredMileage(e.target.value);

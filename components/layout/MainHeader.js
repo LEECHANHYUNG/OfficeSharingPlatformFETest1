@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react';
 import { useDispatch } from 'react-redux';
 import { officeSliceActions } from '../../store/officeList';
 const Nav = styled.nav`
-  position: fixed;
+  position: fixed;  
   top: 0;
   left: 0;
   height: 100px;
@@ -15,7 +15,7 @@ const Nav = styled.nav`
   background-color: #252424;
   z-index: 1000;
 
-  & .logo {
+  .logo {
     float: left;
     width: 50%;
     height: 100%;
@@ -24,24 +24,24 @@ const Nav = styled.nav`
     align-items: center;
     margin-left: 50px;
   }
-  & .logo h1 {
+  .logo h1 {
     color: #fff;
     margin-left: 30px;
   }
-  & ul {
+  ul {
     line-height: 100px;
     float: right;
     margin-right: 50px;
     z-index: auto;
   }
-  & ul li {
+  ul li {
     color: #fff;
     display: inline-block;
     line-height: 80px;
     margin: 0 5px;
     cursor: pointer;
   }
-  & .checkbtn {
+  .checkbtn {
     font-size: 30px;
     float: right;
     line-height: 80px;
@@ -50,20 +50,20 @@ const Nav = styled.nav`
     display: none;
     line-height: 100px;
   }
-  & #check {
+  #check {
     display: none;
   }
   @media screen and (max-width: 1170px) {
-    & ul li a {f
+    ul li a {f
       font-size: 16px;
     }
   }
   @media screen and (max-width: 858px) {
-    & .checkbtn {
+    .checkbtn {
       display: block;
     }
 
-    & ul {
+    ul {
       position: fixed;
       width: 100vw;
       height: 100vh;
@@ -73,7 +73,7 @@ const Nav = styled.nav`
       text-align: center;
       transition: all 0.5s;
     }
-    & ul li {
+    ul li {
       display: block;
       margin: 50px 0;
       line-height : 19px;

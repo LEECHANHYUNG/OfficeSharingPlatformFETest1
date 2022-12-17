@@ -54,8 +54,6 @@ const Wrapper = styled.section`
 `;
 
 const Qna = ({ item, paginationData }) => {
-  console.log(item);
-  console.log(paginationData);
   const [totalPage, setTotalPage] = useState(paginationData);
   const [items, setItems] = useState(item);
   const [newQna, setNewQna] = useState(false);

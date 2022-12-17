@@ -3,7 +3,7 @@ import axios from 'axios';
 const handler = async (req, res) => {
   try {
     const response = await axios({
-      url: `http://localhost:8080/${req.body.url}${req.body.page}`,
+      url: `${process.env.baseURL}${req.body.url}${req.body.page}`,
       headers: {
         Authorization: req.body.accessToken,
       },

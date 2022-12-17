@@ -14,7 +14,7 @@ const Header = (props) => {
           <div>가입일 :{joinDate}</div>
         </div>
         <div className="right">
-          <div>
+          <div className="mileage">
             <div>
               마일리지 <Image src="/svg/won.svg" width="18" height="18" />
             </div>
@@ -78,15 +78,20 @@ const Wrapper = styled.section`
   @media screen and (max-width: 1170px) {
     height: auto;
     h1 {
-      text-align: center;
-      padding-left: 0;
+      padding: 0px;
+      text-align: left;
+      padding-left: 10px;
+      font-size: 30px;
     }
     .userInfo {
       font-size: 1rem;
     }
     .userInfo .left {
       width: 100%;
-      padding-left: 50px;
+      padding: 10px 0;
+      border-bottom: 1px solid #999;
+      padding-left: 30px;
+      line-height: 30px;
     }
     .userInfo .right {
       width: 100%;
@@ -99,7 +104,13 @@ const Wrapper = styled.section`
   @media screen and (max-width: 858px) {
     justify-content: space-between;
     .userInfo .right {
+      width: 100%;
       padding: 0 10px;
+    }
+
+    .userInfo .right .mileage {
+      width: 60%;
+      border-right: 2px solid #999;
     }
   }
 `;

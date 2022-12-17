@@ -16,17 +16,16 @@ const Wrapper = styled.section`
     width: 100%;
   }
 
-  .paginationBtns {
+  .pagination-btns {
     width: 80%;
-    padding-top: 60px;
-    padding-bottom: 60px;
-    margin: auto;
     height: 40px;
+    margin: auto;
+    padding: 50px 0;
     list-style: none;
     display: flex;
     justify-content: center;
   }
-  .paginationBtns a {
+  .pagination-btns a {
     padding: 10px;
     margin: 8px;
     border-radius: 5px;
@@ -34,7 +33,7 @@ const Wrapper = styled.section`
     color: #111;
     cursor: pointer;
   }
-  .paginationBtns a:hover {
+  .pagination-btns a:hover {
     color: #fff;
     background: #2b2eff;
   }
@@ -76,7 +75,7 @@ const Comment = ({ item, paginationData, reviewComment, ratingId }) => {
 
   return (
     <Wrapper>
-      <h1>{reviewComment ? '' : '댓글 관리'}</h1>
+      <h1>{reviewComment ? '' : '댓글 목록'}</h1>
       <Banner reviewComment={reviewComment} />
       <div className="itemList">
         {Object.keys(items).map((elem) => (
@@ -93,10 +92,7 @@ const Comment = ({ item, paginationData, reviewComment, ratingId }) => {
         pageRangeDisplayed={1}
         pageCount={totalPage}
         onPageChange={changePageHandler}
-        containerClassName={'paginationBtns'}
-        previousLinkClassName={'previousBtn'}
-        nextLinkClassName={'nextBtn'}
-        disabledClassName={'paginationDisabled'}
+        containerClassName={'pagination-btns'}
         activeClassName={'paginationActive'}
       />
     </Wrapper>

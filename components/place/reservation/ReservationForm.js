@@ -135,6 +135,7 @@ const ReservationForm = () => {
         url: '/api/reservation/book',
         method: 'post',
         data: {
+          accessToken: session.data.user.accessToken,
           id: placeId,
           selectedType: selectedTypeEng,
           startDate: dateString,

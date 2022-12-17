@@ -98,26 +98,27 @@ const ReviewItem = ({ item }) => {
   };
   const session = useSession();
   const showCommentHandler = async (e) => {
-    try {
-      const response = await axios({
-        url: '/api/mypage/mypage',
-        method: 'post',
-        data: {
-          url: `mypage/review/${e.target.id}?page=`,
-          accessToken: session.data.user.accessToken,
-          page: 1,
-        },
-      });
-      if (response.status === 200) {
-        setCommentData(response.data.commentData);
-        setPaginationData(response.data.paginationData.maxPage);
-
-        setHide(false);
-      } else {
-        throw new Error(response.data.message);
-      }
-    } catch (error) {
-      console.error(error.response);
+    if (!commentData) {
+      try {
+        const response = await axios({
+          url: '/api/mypage/mypage',
+          method: 'post',
+          data: {
+            url: `mypage/review/${e.target.id}?page=`,
+            accessToken: session.data.user.accessToken,
+            page: 1,
+          },
+        });
+        if (response.status === 200) {
+          setPaginationData(response.data.paginationData.maxPage);
+          setCommentData(response.data.commentData);
+          setHide(false);
+        } else {
+          throw new Error(response.data.message);
+        }
+      } catch (error) {}
+    } else {
+      setCommentData();
     }
   };
   return (
@@ -163,12 +164,14 @@ const ReviewItem = ({ item }) => {
       ) : (
         <h5>댓글 수 0개</h5>
       )}
-      {commentData && item.commentQuantity !== '0' && !hide && (
+      {commentData && +item.commentQuantity !== 0 ? (
         <CommentList
           item={commentData}
           paginationData={paginationData}
           ratingId={item.ratingId}
         />
+      ) : (
+        ''
       )}
     </Wrapper>
   );

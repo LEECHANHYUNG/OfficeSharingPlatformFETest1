@@ -2,14 +2,11 @@ import axios from 'axios';
 import { getSession } from 'next-auth/react';
 
 const handler = async (req, res) => {
-  const session = await getSession();
   if (req.method === 'POST') {
     try {
       const response = await axios({
         headers: {
-          Authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI5Iiwic3RhdHVzIjoiYWNjZXNzIiwiaWF0IjoxNjcwNjgzNjMyMDQ5fQ.IxyrkDVhSIotyR7pa8Vfx4r5sSJjeKkPU67rYD741To',
-          'Content-Type': 'application/json',
+          Authorization: req.body.accessToken,
         },
         url: `http://localhost:8080/places/${req.body.id}/book`,
         method: 'post',

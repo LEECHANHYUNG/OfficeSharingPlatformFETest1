@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import Comment from './Comment';
 
 const Wrapper = styled.section`
-  height: 600px;
-  display: block;
+  height: auto;
 `;
 
 const CommentList = ({ item, paginationData, ratingId }) => {
+  console.log(item, paginationData, ratingId);
   return (
     <Wrapper>
       <Comment

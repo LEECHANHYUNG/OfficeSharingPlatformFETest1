@@ -7,7 +7,7 @@ import Banner from './Banner';
 import ReviewItem from './ReviewItem';
 
 const Wrapper = styled.section`
-  width: 70vw;
+  width: 100%;
 
   h1 {
     font-size: 2rem;
@@ -65,12 +65,11 @@ const Review = ({ item, paginationData }) => {
         data: {
           url: 'mypage/review?page=',
           accessToken: session.data.user.accessToken,
-          page: selected,
+          page: selected + 1,
         },
       });
 
       if (response.status === 200) {
-        console.log(response.data);
         setItems(response.data.reviewData);
         setTotalPage(response.data.paginationData.maxPage);
       }
@@ -79,9 +78,10 @@ const Review = ({ item, paginationData }) => {
     }
   };
 
+  console.log(items);
   return (
     <Wrapper>
-      <h1>사용 후기</h1>
+      <h1>작성 후기</h1>
       <Banner />
       <div className="itemList">
         {Object.keys(items).map((elem) => (

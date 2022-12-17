@@ -10,7 +10,7 @@ import NewQna from './NewQna';
 import QnaItem from './QnaItem';
 
 const Wrapper = styled.section`
-  width: 70vw;
+  width: 100%;
   h1 {
     font-size: 2rem;
     margin-top: 20px;
@@ -54,8 +54,6 @@ const Wrapper = styled.section`
 `;
 
 const Qna = ({ item, paginationData }) => {
-  console.log(item);
-  console.log(paginationData);
   const [totalPage, setTotalPage] = useState(paginationData);
   const [items, setItems] = useState(item);
   const [newQna, setNewQna] = useState(false);

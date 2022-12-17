@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.section`
-  width: 70vw;
+  width: 100%;
   height: 50px;
   line-height: 50px;
   display: flex;

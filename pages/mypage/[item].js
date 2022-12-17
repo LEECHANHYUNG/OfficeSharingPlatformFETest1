@@ -13,7 +13,7 @@ import Review from '../../components/mypage/review/Review';
 const Wrapper = styled.section`
   width: 100%;
   .item {
-    width: 70vw;
+    width: 79vw;
     display: inline-block;
     float: left;
     padding-left: 20px;

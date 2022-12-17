@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Wrapper = styled.section`
   position: relative;
   width: 100%;
-  height: ${(props) => (props.reviewComment ? '36px' : '65px')};
+  height: ${(props) => (props.reviewComment ? '65px' : '65px')};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -85,7 +85,6 @@ const CommentItem = ({ item, reviewComment }) => {
   const showDetailHandler = (e) => {
     e.target.parentNode.classList.toggle('show');
   };
-  console.log(reviewComment);
   return (
     <Wrapper reviewComment={reviewComment || false}>
       <div className="content" onClick={showDetailHandler}>

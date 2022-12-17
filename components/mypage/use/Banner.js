@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.section`
-  width: 70vw;
+  width: 100%;
   height: 50px;
   line-height: 50px;
   display: flex;
@@ -12,17 +12,21 @@ const Wrapper = styled.section`
   border-top: 2px solid #111;
   border-bottom: 2px solid #111;
   #type {
-    width: 18%;
+    width: 15%;
   }
 
   #placeName,
-  #reservationDate,
   #paymentDate {
-    width: 23%;
-  }
-  #state,
-  #review {
     width: 11%;
+  }
+  #reservationDate {
+    width: 40%;
+  }
+  #state {
+    width: 11%;
+  }
+  #review {
+    width: 13%;
   }
   @media screen and (max-width: 1170px) {
     width: 96vw;

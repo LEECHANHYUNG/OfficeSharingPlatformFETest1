@@ -34,7 +34,7 @@ const Text = styled.div`
   }
 `;
 
-const ReviewContent = ({ content, commentQuantity, ratingId }) => {
+const ReviewContent = ({ content, ratingId }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const placeId = router.query.id;
@@ -59,7 +59,6 @@ const ReviewContent = ({ content, commentQuantity, ratingId }) => {
       });
       if (response.status === 200) {
         dispatch(placeSliceActions.getCommentData(response.data));
-        console.log(response.data);
       } else {
         throw new Error(response.data.message);
       }
@@ -79,7 +78,7 @@ const ReviewContent = ({ content, commentQuantity, ratingId }) => {
         {content}
       </div>
       <div className="count" onClick={showCommentHandler}>
-        댓글{commentQuantity}개
+        댓글 보기
       </div>
       <div className="detail" onClick={showDetailHandler}>
         ...더보기

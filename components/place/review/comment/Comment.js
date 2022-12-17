@@ -78,18 +78,27 @@ const Comment = () => {
   };
   const session = useSession();
   const addCommentHandler = async (e) => {
-    const response = await axios({
-      url: '/api/main/add-comment',
-      method: 'post',
-      data: {
-        commentId,
-        context: e.target.previousSibling.value,
-        accessToken: session.data.user.accessToken,
-      },
-    });
-    if (response.status === 200) {
-      alert('댓글 등록 완료');
+    try {
+      const response = await axios({
+        url: '/api/main/add-comment',
+        method: 'post',
+        data: {
+          commentId,
+          context: e.target.previousSibling.value,
+          accessToken: session.data.user.accessToken,
+        },
+      });
+      if (response.status === 200) {
+        console.log(response.data);
+        setCommentList(response.data);
+        alert('댓글 등록 완료');
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      alert('잠시후 다시 시도해주세요');
     }
+    e.target.previousSibling.value = '';
   };
   const changePageHandler = async ({ selected }) => {
     try {

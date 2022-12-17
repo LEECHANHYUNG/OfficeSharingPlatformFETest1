@@ -35,7 +35,7 @@ const TextArea = ({
       alert('로그인이 필요한 서비스입니다.');
       e.target.value = '';
     }
-    setIsEntered(e.target.value.length);
+    setIsEntered(e.target.value.length !== 0);
 
     e.target.style.height = `63px`;
     let scHeight = e.target.scrollHeight;
@@ -45,7 +45,10 @@ const TextArea = ({
       e.target.value = e.target.value.slice(0, maxLength);
     }
   };
-  console.log(placeComment);
+  const submitCommentHandler = (e) => {
+    setIsEntered(false);
+    addCommentHandler(e);
+  };
   return (
     <Fragment>
       <Content
@@ -58,7 +61,7 @@ const TextArea = ({
       ></Content>
       {placeComment ? (
         <Button
-          onClick={addCommentHandler}
+          onClick={submitCommentHandler}
           disabled={!isEntered || !session.data}
         >
           등록

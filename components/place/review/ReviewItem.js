@@ -18,15 +18,7 @@ const ReviewCard = styled(Card)`
   }
 `;
 
-const ReviewItem = ({
-  score,
-  writer,
-  date,
-  roomType,
-  content,
-  commentQuantity,
-  ratingId,
-}) => {
+const ReviewItem = ({ score, writer, date, roomType, content, ratingId }) => {
   const selectedCommentId = useSelector(
     (state) => state.place.selectedCommentId
   );
@@ -34,11 +26,7 @@ const ReviewItem = ({
     <ReviewCard>
       <ReviewRating score={score} />
       <Reviewer writer={writer} createDate={date} type={roomType} />
-      <ReviewContent
-        content={content}
-        commentQuantity={commentQuantity}
-        ratingId={ratingId}
-      />
+      <ReviewContent content={content} ratingId={ratingId} />
       {+selectedCommentId === ratingId ? <Comment /> : ''}
     </ReviewCard>
   );

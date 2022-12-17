@@ -90,7 +90,6 @@ const Wrapper = styled.section`
   }
 `;
 const ReviewItem = ({ item }) => {
-  console.log(item);
   const [commentData, setCommentData] = useState();
   const [paginationData, setPaginationData] = useState();
   const [hide, setHide] = useState(false);
@@ -106,7 +105,7 @@ const ReviewItem = ({ item }) => {
         data: {
           url: `mypage/review/${e.target.id}?page=`,
           accessToken: session.data.user.accessToken,
-          page: '1',
+          page: 1,
         },
       });
       if (response.status === 200) {
@@ -162,7 +161,7 @@ const ReviewItem = ({ item }) => {
           댓글 수{item.commentQuantity}개
         </h5>
       ) : (
-        '댓글 수 0개'
+        <h5>댓글 수 0개</h5>
       )}
       {commentData && item.commentQuantity !== '0' && !hide && (
         <CommentList

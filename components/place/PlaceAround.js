@@ -85,11 +85,9 @@ const PlaceAround = ({ placeSubInfo }) => {
   const [selectedItem, setSelectedItem] = useState(
     placeSubInfo.conveniencestoreData
   );
-  console.log(placeSubInfo);
   const selectedItemHandler = (e) => {
     const active = document.getElementsByClassName('active');
     Array.from(active).map((elem) => elem.classList.remove('active'));
-    console.log(e.target.classList.add('active'));
     setSelectedItem(placeSubInfo[e.target.childNodes[0].value]);
   };
   return (

@@ -4,7 +4,7 @@ const handler = async (req, res) => {
   if (req.method === 'POST') {
     try {
       const response = await axios({
-        url: `http://localhost:8080/places/${req.body.placeId}/review?page=${req.body.currentPage}`,
+        url: `${process.env.baseURL}places/${req.body.placeId}/review?page=${req.body.currentPage}`,
       });
       if (response.status === 200) {
         res.status(200).send(response.data);

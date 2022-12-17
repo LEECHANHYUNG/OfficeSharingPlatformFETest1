@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useEffect } from 'react';
@@ -124,8 +124,8 @@ const ReservationForm = () => {
     '-' +
     endDateArr[2].padStart(2, '0');
 
+  const session = useSession();
   const sendReservationInfoHandler = async () => {
-    const session = await getSession();
     if (!session) {
       alert('로그인이 필요한 서비스입니다. 로그인 페이지로 이동합니다.');
       router.push('/auth/signin');
@@ -152,7 +152,7 @@ const ReservationForm = () => {
         throw new Error(response.data.message);
       }
     } catch (error) {
-      console.error(error.response.data);
+      console.error(error.response);
       alert(error.response.data.message.split(' ').slice(1).join(' '));
     }
   };

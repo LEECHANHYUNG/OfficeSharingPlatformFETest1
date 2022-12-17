@@ -7,7 +7,7 @@ const Wrapper = styled.section`
   position: relative;
   top: 80px;
   float: left;
-  width: 300px;
+  width: 20vw;
   height: 80vh;
   border-right: 2px solid #111;
   padding-left: 20px;

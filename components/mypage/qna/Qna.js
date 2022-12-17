@@ -10,7 +10,7 @@ import NewQna from './NewQna';
 import QnaItem from './QnaItem';
 
 const Wrapper = styled.section`
-  width: 70vw;
+  width: 100%;
   h1 {
     font-size: 2rem;
     margin-top: 20px;

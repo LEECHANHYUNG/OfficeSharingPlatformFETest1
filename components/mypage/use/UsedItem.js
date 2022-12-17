@@ -1,10 +1,10 @@
-import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 import Button from '../../ui/Button';
 const Wrapper = styled.section`
-  width: 70vw;
-  height: 60px;
+  width: 100%;
+  height: 70px;
   line-height: 50px;
   display: flex;
   justify-content: center;
@@ -12,22 +12,28 @@ const Wrapper = styled.section`
   border-top: 2px solid #111;
 
   .type {
-    width: 18%;
-  }
-  .placeName {
-    line-height: 16px;
+    width: 15%;
   }
   .placeName,
-  .reservationDate,
   .paymentDate {
-    width: 23%;
+    line-height: 16px;
+    width: 11%;
   }
-  .state,
-  .review {
-    font-weight: 600;
+  .reservationDate {
+    width: 40%;
+  }
+  .reservationDate .time {
+    display: flex;
+    justify-content: space-around;
+  }
+  .state {
     width: 11%;
     line-height: 18px;
     font-size: 15px;
+  }
+  button {
+    width: 13%;
+    padding: 0;
   }
   .date,
   .time {
@@ -48,19 +54,13 @@ const Wrapper = styled.section`
   .detail {
     display: none;
   }
-  .rotate {
-    transform: rotateX(180deg);
-  }
-  .chevron {
-    z-index: -1;
-  }
   @media screen and (max-width: 1170px) {
     width: 96vw;
   }
   @media screen and (max-width: 858px) {
     overflow: hidden;
     display: inline-block;
-    height: 150px;
+    height: 330px;
     width: 100%;
     line-height: 1rem;
     padding: 10px 10px;
@@ -84,10 +84,8 @@ const Wrapper = styled.section`
     .reservationDate {
       padding-bottom: 20px;
     }
-    .date,
-    .time {
-      width: 40%;
-      display: inline-block;
+    .reservationDate .time {
+      width: 100%;
     }
 
     .state {
@@ -100,9 +98,6 @@ const Wrapper = styled.section`
       top: -180px;
       left: 80%;
     }
-    .review {
-      width: 100%;
-    }
 
     .hide {
       display: inline-block;
@@ -112,13 +107,10 @@ const Wrapper = styled.section`
       border-bottom: 2px solid #111;
       margin-bottom: 10px;
     }
-    .detail {
-      display: inline-block;
-      position: relative;
-      left: 81%;
-      top: -135px;
-      text-decoration: underline;
-      cursor: pointer;
+
+    button {
+      width: 100%;
+      padding: 0.25rem 1rem;
     }
     &.show {
       height: 300px;
@@ -127,21 +119,22 @@ const Wrapper = styled.section`
   }
 `;
 const UsedItem = (props) => {
-  const showDetailHandler = (e) => {
-    e.target.parentNode.parentNode.classList.toggle('show');
-    e.target.parentNode.childNodes[1]?.childNodes[1]?.classList.toggle(
-      'rotate'
-    );
-  };
   return (
     <Wrapper>
       <div className="type">{props.item.productType}</div>
       <div className="placeName">{props.item.placeName}</div>
       <div className="hide">예약 시간</div>
       <div className="reservationDate">
-        <div className="date">{props.item.reservationStartDate}</div>
         <div className="time">
-          {props.item.reservationStartTime} ~ {props.item.reservationEndTime}
+          <div className="start">
+            <div className="date">{props.item.reservationStartDate}</div>
+            <div className="time">{props.item.reservationStartTime}</div>
+          </div>
+          {'~'}
+          <div className="end">
+            <div className="date">{props.item.reservationEndDate}</div>
+            <div className="time">{props.item.reservationEndTime}</div>
+          </div>
         </div>
       </div>
       <div className="hide">결제 시각</div>
@@ -151,29 +144,18 @@ const UsedItem = (props) => {
       </div>
       <div className="state">
         {props.item.usageStatus === '이용 완료' ? (
-          <p className="after">이용 완료</p>
+          <p className="after">{props.item.usageStatus}</p>
         ) : props.item.usageStatus === '이용 중' ? (
-          <p className="before">이용 중</p>
+          <p className="before">{props.item.usageStatus}</p>
         ) : (
-          <p className="before">이용 전</p>
+          <p className="before">{props.item.usageStatus}</p>
         )}
       </div>
-      <div className="review">
-        {props.item.ratingStatus ? (
-          <Button>리뷰 작성</Button>
-        ) : (
-          <Button cancel={true}>예약 취소</Button>
-        )}
-        <div className="detail" onClick={showDetailHandler}>
-          상세정보
-          <Image
-            src="/svg/chevron-down-black.svg"
-            width="15"
-            height="15"
-            className="chevron"
-          ></Image>
-        </div>
-      </div>
+      <Button>
+        <Link href={`/mypage/reservation/${props.item.reservationId}`}>
+          예약 상세
+        </Link>
+      </Button>
     </Wrapper>
   );
 };

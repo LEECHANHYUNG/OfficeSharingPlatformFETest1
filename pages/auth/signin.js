@@ -96,7 +96,6 @@ const SignIn = () => {
     } else {
       alert(result.error);
     }
-    signIn();
   };
   return (
     <Wrapper>

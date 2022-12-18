@@ -27,35 +27,26 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  let userData = {};
   try {
     const response = await axios({
-      method: 'post',
-      url: '/api/auth/token',
-      data: {
-        url: `${process.env.baseURL}mypage`,
-        accessToken: session.user.accessToken,
-        refreshToken: session.user.refreshToken,
-      },
+      url: `${process.env.baseURL}mypage`,
+      headers: { Authorization: session.user.accessToken },
     });
     if (response.status === 200) {
-      userData = response.data;
-    } else if (response.status === 202) {
-      session.user.accessToken = response.data.accessToken;
       return {
-        redirect: {
-          destination: '/mypage',
-          permanent: false,
-        },
+        props: response.data,
       };
     } else {
-      throw new Error('authentication expired');
+      throw new Error();
     }
-  } catch (error) {}
-
-  return {
-    props: userData,
-  };
+  } catch (error) {
+    return {
+      redirect: {
+        destination: '/auth/signin',
+        permanent: false,
+      },
+    };
+  }
 }
 
 export default Mypage;

@@ -11,6 +11,7 @@ import PaymentForm from '../../components/book/PaymentForm';
 import CreditCardForm from '../../components/book/PaymentForm/CreditCardForm';
 import PaymentMain from '../../components/book/PaymentMain';
 import PaymentType from '../../components/book/PaymentType';
+import Button from '../../components/ui/Button';
 import { paymentSliceActions } from '../../store/payment';
 
 const Wrapper = styled.section`
@@ -40,7 +41,7 @@ const Wrapper = styled.section`
   .left {
     width: 64%;
     float: left;
-    height: 80vh;
+    height: 40vh;
   }
   .right {
     width: 35%;
@@ -73,6 +74,10 @@ const book = () => {
   const changePaymentHandler = () => {
     dispatch(paymentSliceActions.getPaymentForm(false));
   };
+  const sendReservationHandler = () => {
+    router.replace(`/reservation/${reservationInfo.reservationId}`);
+  };
+  const isOffice = reservationInfo.productType.includes('사무실');
   return (
     <Wrapper>
       <main>
@@ -100,11 +105,19 @@ const book = () => {
           />
           <div className="line"></div>
           {!showPaymentForm ? (
-            <PaymentType totalPrice={reservationInfo.totalPrice} />
+            <PaymentType
+              totalPrice={reservationInfo.totalPrice}
+              productType={reservationInfo.productType}
+            />
           ) : (
             ''
           )}
-          {!showPaymentForm ? <div className="line"></div> : ''}
+
+          {isOffice && paymentType ? (
+            <Button onClick={sendReservationHandler}>임대 신청</Button>
+          ) : (
+            ''
+          )}
         </div>
         {paymentType ? (
           <aside className="right">
@@ -121,7 +134,7 @@ const book = () => {
             ) : (
               ''
             )}
-            {!showPaymentForm ? (
+            {!showPaymentForm && !isOffice ? (
               <Payment
                 placeImgUrl={reservationInfo.placeImgUrl}
                 averageRate={reservationInfo.averageRate}
@@ -130,7 +143,7 @@ const book = () => {
             ) : (
               ''
             )}
-            {!showPaymentForm ? (
+            {!showPaymentForm && !isOffice ? (
               <Mileage
                 totalMileage={reservationInfo.totalMileage}
                 totalPrice={reservationInfo.totalPrice}
@@ -138,18 +151,22 @@ const book = () => {
             ) : (
               ''
             )}
-            {!showPaymentForm ? (
+            {!showPaymentForm && !isOffice ? (
               <PaymentMain totalPrice={reservationInfo.totalPrice} />
             ) : (
               ''
             )}
-            {showPaymentForm ? (
+            {showPaymentForm && !isOffice ? (
               <PaymentForm reservationId={reservationInfo.reservationId} />
             ) : (
               ''
             )}
 
-            {showPaymentForm && company === 'nicepay' ? <CreditCardForm /> : ''}
+            {showPaymentForm && !isOffice && company === 'nicepay' ? (
+              <CreditCardForm />
+            ) : (
+              ''
+            )}
           </aside>
         ) : (
           ''

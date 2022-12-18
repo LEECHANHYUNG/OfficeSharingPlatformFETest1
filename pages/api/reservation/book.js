@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getSession } from 'next-auth/react';
 
 const handler = async (req, res) => {
   if (req.method === 'POST') {
@@ -8,7 +7,7 @@ const handler = async (req, res) => {
         headers: {
           Authorization: req.body.accessToken,
         },
-        url: `http://localhost:8080/places/${req.body.id}/book`,
+        url: `${process.env.baseURL}places/${req.body.id}/book`,
         method: 'post',
         data: {
           selectedType: req.body.selectedType,

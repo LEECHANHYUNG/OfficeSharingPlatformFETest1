@@ -92,17 +92,13 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  const accessToken = session.user.accessToken;
-  const refreshToken = session.user.refreshToken;
   try {
     const response = await axios({
-      url: '/api/auth/token',
-      method: 'post',
-      data: {
-        url: `${process.env.baseURL}mypage/${params.item}?page=1`,
-        accessToken,
-        refreshToken,
+      url: `${process.env.baseURL}mypage/${params.item}?page=1`,
+      headers: {
+        Authorization: session.user.accessToken,
       },
+      rejectUnauthorized: false,
     });
     if (response.status === 200) {
       return {

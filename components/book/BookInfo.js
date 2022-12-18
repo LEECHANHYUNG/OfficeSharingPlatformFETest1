@@ -22,6 +22,7 @@ const StyledCard = styled(Card)`
 `;
 
 const BookInfo = (props) => {
+  const isOffice = props.productType.includes('사무실');
   return (
     <StyledCard>
       <h1>예약 정보</h1>
@@ -33,12 +34,16 @@ const BookInfo = (props) => {
       <div className="data date-info">
         <div>
           <div className="date">{props.reservationStartDate}</div>
-          <div className="time">{`${props.reservationStartTime}` || ''}</div>
+          {!isOffice && (
+            <div className="time">{`${props.reservationStartTime}` || ''}</div>
+          )}
         </div>
         <div className="break">~</div>
         <div>
           <div className="date">{props.reservationEndDate}</div>
-          <div className="time">{`${props.reservationEndTime}` || ''}</div>
+          {!isOffice && (
+            <div className="time">{`${props.reservationEndTime}` || ''}</div>
+          )}
         </div>
       </div>
     </StyledCard>

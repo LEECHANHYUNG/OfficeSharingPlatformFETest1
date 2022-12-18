@@ -63,12 +63,12 @@ const Wrapper = styled(Card)`
   .price {
     position: relative;
     top: -40px;
-    right: -42%;
+    right: -38%;
   }
   .notice {
     position: absolute;
     width: 100%;
-    top: 220px;
+    top: 90px;
     left: -20px;
   }
 `;
@@ -78,62 +78,90 @@ const PaymentType = (props) => {
   const getSelectedPaymentTypeHandler = (e) => {
     dispatch(paymentSliceActions.getSelectedPaymentType(e.target.value));
   };
+  const isOffice = props.productType.includes('사무실');
   return (
     <Wrapper>
       <h1>결제 방식 선택</h1>
       <div className="type-radio">
-        <label className="custom-radio">
-          <input
-            type="radio"
-            name="type"
-            value="FULL_PAYMENT"
-            onClick={getSelectedPaymentTypeHandler}
-          />
-          <span className="radio-btn">
-            <div>
-              <Image src="/svg/checked.svg" width="25" height="25" />
-            </div>
-            <h3>선결제</h3>
-            <i className="price">
-              <Image src="/svg/won.svg" width="10" height="10" />
-              {(+props.totalPrice).toLocaleString()}
-            </i>
+        {!isOffice && (
+          <label className="custom-radio">
+            <input
+              type="radio"
+              name="type"
+              value="FULL_PAYMENT"
+              onClick={getSelectedPaymentTypeHandler}
+            />
+            <span className="radio-btn">
+              <div>
+                <Image src="/svg/checked.svg" width="25" height="25" />
+              </div>
+              <h3>선결제</h3>
+              <i className="price">
+                <Image src="/svg/won.svg" width="10" height="10" />
+                {(+props.totalPrice).toLocaleString()}
+              </i>
 
-            <p>이용 금액을 예약 단계에서 결제.</p>
-            <p>
-              결제 금액의 5%인
-              <Image src="/svg/won.svg" width="10" height="10" />
-              {(+props.totalPrice * 0.05).toLocaleString()}이 마일리지로 적립.
-            </p>
-          </span>
-        </label>
-        <label className="custom-radio">
-          <input
-            type="radio"
-            name="type"
-            value="DEPOSIT"
-            onClick={getSelectedPaymentTypeHandler}
-          />
-          <span className="radio-btn">
-            <div>
-              <Image src="/svg/checked.svg" width="25" height="25" />
-            </div>
-            <h3>후결제</h3>
-            <i className="price">
-              <Image src="/svg/won.svg" width="10" height="10" />
-              {(+props.totalPrice * 0.2).toLocaleString()}
-            </i>
+              <p>이용 금액을 예약 단계에서 결제.</p>
+              <p>
+                결제 금액의 5%인
+                <Image src="/svg/won.svg" width="10" height="10" />
+                {(+props.totalPrice * 0.05).toLocaleString()}이 마일리지로 적립.
+              </p>
+            </span>
+          </label>
+        )}
+        {!isOffice && (
+          <label className="custom-radio">
+            <input
+              type="radio"
+              name="type"
+              value="DEPOSIT"
+              onClick={getSelectedPaymentTypeHandler}
+            />
+            <span className="radio-btn">
+              <div>
+                <Image src="/svg/checked.svg" width="25" height="25" />
+              </div>
+              <h3>후결제</h3>
+              <i className="price">
+                <Image src="/svg/won.svg" width="10" height="10" />
+                {(+props.totalPrice * 0.2).toLocaleString()}
+              </i>
 
-            <p>이용 금액을 이용 완료 후 결제.</p>
-            <b className="notice">※ 카카오페이는 후결제가 불가능합니다.</b>
-            <p>
-              이용 금액의 20%인
-              <Image src="/svg/won.svg" width="10" height="10" />
-              {(+props.totalPrice * 0.2).toLocaleString()}이 보증금으로 결제
-              필요.
-            </p>
-          </span>
-        </label>
+              <p>이용 금액을 이용 완료 후 결제.</p>
+              <b className="notice">※ 카카오페이는 후결제가 불가능합니다.</b>
+              <p>
+                이용 금액의 20%인
+                <Image src="/svg/won.svg" width="10" height="10" />
+                {(+props.totalPrice * 0.2).toLocaleString()}이 보증금으로 결제
+                필요.
+              </p>
+            </span>
+          </label>
+        )}
+        {isOffice && (
+          <label className="custom-radio">
+            <input
+              type="radio"
+              name="type"
+              value="DEPOSIT"
+              onClick={getSelectedPaymentTypeHandler}
+            />
+            <span className="radio-btn">
+              <div>
+                <Image src="/svg/checked.svg" width="25" height="25" />
+              </div>
+              <h3>후정산</h3>
+              <i className="price">
+                <Image src="/svg/won.svg" width="10" height="10" />
+                {(+props.totalPrice).toLocaleString()}
+              </i>
+
+              <p>이용 금액을 이용 완료 후 정산.</p>
+              <b className="notice">※ 선결제는 지원하지 않습니다.</b>
+            </span>
+          </label>
+        )}
       </div>
     </Wrapper>
   );

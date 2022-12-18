@@ -155,6 +155,7 @@ export async function getStaticPaths() {
       { params: { id: '3' } },
     ],
     fallback: 'blocking',
+    revalidate: '30',
   };
 }
 

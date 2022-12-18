@@ -41,6 +41,7 @@ const ChangePasswordForm = () => {
   const emailInputRef = useRef();
   const phoneInputRef = useRef();
   const submitFormHandler = async (e) => {
+    setIsPreChecked(false);
     const enteredEmail = emailInputRef.current.value;
     const enteredPhone = phoneInputRef.current.value;
     e.preventDefault();
@@ -50,7 +51,7 @@ const ChangePasswordForm = () => {
         url: '/api/auth/finduserinfo',
         method: 'post',
         data: {
-          url: 'main/pre-check',
+          url: 'main/precheck',
           email: enteredEmail,
           tel: enteredPhone,
         },
@@ -59,11 +60,11 @@ const ChangePasswordForm = () => {
         setIsPreChecked(true);
         alert(response.data);
       } else {
-        throw new Error(response.data.msg);
+        throw new Error(response.data);
       }
     } catch (error) {
-      console.log(error.response);
-      alert(error.response.data.msg);
+      console.log(error.response.data);
+      alert(error.response.data.message);
     }
   };
   const emailChangeHandler = () => {
@@ -99,7 +100,7 @@ const ChangePasswordForm = () => {
           className={`${emailIsValid === false ? ' invalid' : ''}`}
           ref={emailInputRef}
           required
-        />{' '}
+        />
         <div className="validity-comment">
           {!phoneIsValid && phoneBlur && '번호를 입력해주세요'}
         </div>
@@ -119,14 +120,7 @@ const ChangePasswordForm = () => {
           비밀번호 찾기
         </Button>
       </form>
-      {isPreCheck ? (
-        <NewPasswordInput
-          email={emailInputRef.current.value}
-          tel={phoneInputRef.current.value}
-        />
-      ) : (
-        ''
-      )}
+      {isPreCheck ? <NewPasswordInput /> : ''}
     </Wrapper>
   );
 };

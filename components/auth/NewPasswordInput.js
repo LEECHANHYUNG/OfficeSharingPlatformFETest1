@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -23,14 +24,17 @@ const Wrapper = styled.section`
     font-weight: 600;
   }
 `;
-const NewPasswordInput = ({ email, tel }) => {
+const NewPasswordInput = () => {
   const [passwordBlur, setPasswordBlur] = useState(false);
   const [passwordSecondBlur, setPasswordSecondBlur] = useState(false);
   const [formIsValid, setFormIsValid] = useState(false);
   const [password, setPassword] = useState();
   const [checkPassword, setCheckPassword] = useState();
   const passwordIsValid = useSelector((state) => state.auth.passwordIsValid);
+  const email = useSelector((state) => state.auth.enteredEmail);
+  const tel = useSelector((state) => state.auth.enteredPhone);
   const dispatch = useDispatch();
+  const router = useRouter();
   const passwordSecondIsValid = useSelector(
     (state) => state.auth.passwordSecondIsValid
   );
@@ -41,7 +45,7 @@ const NewPasswordInput = ({ email, tel }) => {
         url: '/api/auth/finduserinfo',
         method: 'post',
         data: {
-          url: 'main/findPw',
+          url: 'main/findpw',
           email,
           tel,
           password,
@@ -49,13 +53,14 @@ const NewPasswordInput = ({ email, tel }) => {
         },
       });
       if (response.status === 200) {
-        alert(response.data);
+        console.log(response.data.msg);
+        alert(response.data.msg);
+        router.replace('/auth/signin');
       } else {
-        throw new Error(response.data.msg);
+        throw new Error(response.data);
       }
     } catch (error) {
-      console.log(error);
-      alert(error.response);
+      alert(error.response.data.message);
     }
   };
   useEffect(() => {

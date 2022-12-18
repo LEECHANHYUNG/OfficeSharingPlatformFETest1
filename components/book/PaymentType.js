@@ -78,7 +78,7 @@ const PaymentType = (props) => {
   const getSelectedPaymentTypeHandler = (e) => {
     dispatch(paymentSliceActions.getSelectedPaymentType(e.target.value));
   };
-  const isOffice = props.productType.includes('사무실');
+  const isOffice = props.productType?.includes('사무실');
   return (
     <Wrapper>
       <h1>결제 방식 선택</h1>

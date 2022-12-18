@@ -6,6 +6,7 @@ const handler = async (req, res) => {
       const response = await axios({
         url: `${process.env.baseURL}${req.body.commentId}/comment/add`,
         method: 'post',
+        rejectUnauthorized: false,
         headers: {
           Authorization: req.body.accessToken,
         },

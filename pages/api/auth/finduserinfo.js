@@ -5,6 +5,7 @@ const handler = async (req, res) => {
     const response = await axios({
       url: `${process.env.baseURL}main/pre-check`,
       method: 'post',
+      rejectUnauthorized: false,
       data: {
         email: req.body.email,
         tel: req.body.tel,
@@ -19,6 +20,7 @@ const handler = async (req, res) => {
     const response = await axios({
       url: `${process.env.baseURL}main/findPw`,
       method: 'post',
+      rejectUnauthorized: false,
       data: {
         email: req.body.email,
         tel: req.body.tel,

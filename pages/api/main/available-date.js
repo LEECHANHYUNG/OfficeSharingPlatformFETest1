@@ -6,6 +6,7 @@ const handler = async (req, res) => {
   }
   axios({
     url: `${process.env.baseURL}}places/${req.body.placeId}/type/${req.body.type}/date/${req.body.date}`,
+    rejectUnauthorized: false,
     headers: { 'Content-Type': 'application/json' },
   })
     .then((response) => {

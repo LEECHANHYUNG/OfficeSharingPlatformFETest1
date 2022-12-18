@@ -5,6 +5,7 @@ const handler = async (req, res) => {
     try {
       const response = await axios({
         url: req.body.url,
+        rejectUnauthorized: false,
         headers: { Authorization: req.body.accessToken },
       });
       if (response.status === 200) {

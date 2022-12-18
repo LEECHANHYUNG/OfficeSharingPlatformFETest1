@@ -6,7 +6,7 @@ const handler = async (req, res) => {
       const response = await axios({
         url: `${process.env.baseURL}main/filter`,
         method: 'post',
-
+        rejectUnauthorized: false,
         data: req.body,
       });
       if (response.status === 200) {

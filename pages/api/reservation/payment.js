@@ -10,6 +10,7 @@ const handler = async (req, res) => {
           'Content-Type': 'application/json',
           Authorization: req.body.accessToken,
         },
+        rejectUnauthorized: false,
         data: {
           reservationId: req.body.reservationId,
           payWay: 'PREPAYMENT',
@@ -34,6 +35,7 @@ const handler = async (req, res) => {
           'Content-Type': 'application/json',
           Authorization: req.body.accessToken,
         },
+        rejectUnauthorized: false,
         data: {
           reservationId: +req.body.reservationId,
           card_number: req.body.card_number,

@@ -36,6 +36,7 @@ export default NextAuth({
           const response = await axios({
             url: `${process.env.baseURL}auth/signin`,
             method: 'post',
+            rejectUnauthorized: false,
             data: {
               email,
               password,

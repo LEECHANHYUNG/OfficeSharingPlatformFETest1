@@ -5,6 +5,7 @@ const handler = async (req, res) => {
     try {
       const response = await axios({
         url: `${process.env.baseURL}places/${req.body.placeId}/review?page=${req.body.currentPage}`,
+        rejectUnauthorized: false,
       });
       if (response.status === 200) {
         res.status(200).send(response.data);

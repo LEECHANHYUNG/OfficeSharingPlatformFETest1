@@ -12,6 +12,7 @@ async function handler(req, res) {
       method: 'post',
       url: `${process.env.baseURL}auth/signup`,
       headers: { 'Content-Type': 'application/json' },
+      rejectUnauthorized: false,
       data: {
         email: enteredEmail,
         password: enteredPassword,

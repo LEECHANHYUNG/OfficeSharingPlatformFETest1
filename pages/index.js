@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -41,13 +42,16 @@ const HomePage = (props) => {
 export async function getStaticProps() {
   let officeList = [];
   try {
-    const response = await fetch(process.env.main);
-    if (!response.ok) {
-      throw new Error('Someting went wrong');
-    }
-    const data = await response.json();
-    for (const key in data) {
-      officeList.push({ key: data[key].placeId, item: data[key] });
+    const response = await axios({
+      url: process.env.main,
+    });
+    if (response.status === 200) {
+      const data = response.data;
+      for (const key in data) {
+        officeList.push({ key: data[key].placeId, item: data[key] });
+      }
+    } else {
+      throw new Error();
     }
   } catch (err) {
     console.error(err);

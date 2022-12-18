@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { officeSliceActions } from '../../../store/officeList';
+import axios from 'axios';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -44,21 +45,19 @@ const OfficeSearch = () => {
     e.preventDefault();
     const enteredSearchWord = searchWordInput.current.value;
     try {
-      const res = await fetch('/api/main/search', {
-        method: 'POST',
-        body: JSON.stringify({ searchWord: enteredSearchWord }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      const response = await axios({
+        url: '/api/main/search',
+        method: 'post',
+        data: { searchWord: enteredSearchWord },
       });
-      if (!res.ok) {
-        throw new Error(res.statusText);
+      if (response.status === 200) {
+        const data = response.data;
+        for (const key in data) {
+          officeList.push({ key: data[key].placeId, item: data[key] });
+        }
+      } else {
+        throw new Error(response.data);
       }
-      const data = await res.json();
-      for (const key in data) {
-        officeList.push({ key: data[key].placeId, item: data[key] });
-      }
-      console.log(data);
       dispatch(officeSliceActions.getFilteredPlaceList(officeList));
       searchWordInput.current.value = '';
     } catch (err) {

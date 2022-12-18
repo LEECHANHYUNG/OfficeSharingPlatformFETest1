@@ -5,6 +5,7 @@ const handler = async (req, res) => {
     const response = await axios({
       url: `${process.env.baseURL}mypage/cancel`,
       method: 'post',
+      rejectUnauthorized: false,
       headers: {
         Authorization: req.body.accessToken,
       },

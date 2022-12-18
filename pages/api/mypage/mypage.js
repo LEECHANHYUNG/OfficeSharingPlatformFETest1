@@ -7,6 +7,7 @@ const handler = async (req, res) => {
       headers: {
         Authorization: req.body.accessToken,
       },
+      rejectUnauthorized: false,
     });
 
     if (response.status === 200) {

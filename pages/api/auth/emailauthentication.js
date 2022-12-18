@@ -6,6 +6,7 @@ const handler = async (req, res) => {
       const response = await axios({
         url: `${process.env.baseURL}auth/sendemail`,
         method: 'post',
+        rejectUnauthorized: false,
         data: {
           address: req.body.email,
         },
@@ -21,6 +22,7 @@ const handler = async (req, res) => {
       const response = await axios({
         url: `${process.env.baseURL}auth/verifying`,
         method: 'post',
+        rejectUnauthorized: false,
         data: {
           email: req.body.email,
           code: req.body.authNumber,

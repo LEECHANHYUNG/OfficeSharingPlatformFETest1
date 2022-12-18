@@ -1,20 +1,24 @@
+import axios from 'axios';
+
 const handler = async (req, res) => {
-  if (req.method !== 'POST') {
-    res.status(403).json({ message: 'Wrong Http Method' });
-  }
   if (req.method === 'POST') {
     try {
-      const response = await fetch(`${process.env.baseURL}main/search`, {
+      const response = await axios({
+        url: `${process.env.baseURL}main/search`,
         method: req.method,
-        body: JSON.stringify({
+        rejectUnauthorized: false,
+        data: {
           searchWord: req.body.searchWord,
-        }),
-        headers: req.headers,
+        },
+        rejectUnauthorized: false,
       });
-      const data = await response.json();
-      res.status(200).json(data);
+      if (response.status === 200) {
+        res.status(200).json(response.data);
+      } else {
+        throw new Error(response.data);
+      }
     } catch (error) {
-      res.status(500).json({ message: error });
+      res.status(500).json(error.response.data);
     }
   }
 };

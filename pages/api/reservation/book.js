@@ -9,6 +9,7 @@ const handler = async (req, res) => {
         },
         url: `${process.env.baseURL}places/${req.body.id}/book`,
         method: 'post',
+        rejectUnauthorized: false,
         data: {
           selectedType: req.body.selectedType,
           startDate: req.body.startDate,

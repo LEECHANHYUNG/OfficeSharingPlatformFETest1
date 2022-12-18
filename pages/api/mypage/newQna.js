@@ -9,6 +9,7 @@ const handler = async (req, res) => {
         headers: {
           Authorization: req.body.accessToken,
         },
+        rejectUnauthorized: false,
         data: {
           title: req.body.title,
           question: req.body.question,

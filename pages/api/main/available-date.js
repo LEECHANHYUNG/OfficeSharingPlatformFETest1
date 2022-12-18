@@ -5,7 +5,7 @@ const handler = async (req, res) => {
     res.status(400).json({ message: '올바르지 않은 요청입니다.' });
   }
   axios({
-    url: `${process.env.baseURL}}places/${req.body.placeId}/type/${req.body.type}/date/${req.body.date}`,
+    url: `${process.env.baseURL}places/${req.body.placeId}/type/${req.body.type}/date/${req.body.date}`,
     rejectUnauthorized: false,
     headers: { 'Content-Type': 'application/json' },
   })

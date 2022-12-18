@@ -4,7 +4,7 @@ const handler = async (req, res) => {
   if (req.body.url === 'auth/sendemail') {
     try {
       const response = await axios({
-        url: `http://localhost:8080/auth/sendemail`,
+        url: `${process.env.baseURL}auth/sendemail`,
         method: 'post',
         data: {
           address: req.body.email,
@@ -19,7 +19,7 @@ const handler = async (req, res) => {
   } else if (req.body.url === 'auth/verifying') {
     try {
       const response = await axios({
-        url: `http://localhost:8080/auth/verifying`,
+        url: `${process.env.baseURL}auth/verifying`,
         method: 'post',
         data: {
           email: req.body.email,

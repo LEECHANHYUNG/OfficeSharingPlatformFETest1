@@ -69,7 +69,6 @@ const Review = ({ rating, count }) => {
         });
         if (response.status === 200) {
           setRatingList(response.data.reviewData);
-          console.log(response.data.reviewData);
           setMaxPage(response.data.paginationData.maxPage);
         } else {
           throw new Error(response.data);
@@ -80,7 +79,6 @@ const Review = ({ rating, count }) => {
     };
     fetchReviewData();
   }, [currentPage]);
-  console.log(ratingList);
   return (
     <Wrapper id="review">
       <ReviewBanner rating={rating} count={count} />

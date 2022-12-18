@@ -124,7 +124,7 @@ export async function getStaticProps(context) {
 
   try {
     const response = await axios({
-      url: `http://localhost:8080/places/${placeId}`,
+      url: `${process.env.baseURL}places/${placeId}`,
     });
     if (response.status === 200) {
       return {

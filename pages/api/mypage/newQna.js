@@ -4,7 +4,7 @@ const handler = async (req, res) => {
   if (req.method === 'POST') {
     try {
       const response = await axios({
-        url: 'http://localhost:8080/mypage/qna',
+        url: `${process.env.baseURL}mypage/qna`,
         method: 'post',
         headers: {
           Authorization: req.body.accessToken,

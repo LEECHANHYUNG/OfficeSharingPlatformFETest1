@@ -81,9 +81,6 @@ const FilterBanner = () => {
     }
   };
   const inputDateRef = useRef();
-  const selectDateHandler = () => {
-    console.log(inputDateRef.current.value);
-  };
   return (
     <Wrapper>
       <main>

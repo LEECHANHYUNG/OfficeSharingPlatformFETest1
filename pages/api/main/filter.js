@@ -4,7 +4,7 @@ const handler = async (req, res) => {
   if (req.method === 'POST') {
     try {
       const response = await axios({
-        url: 'http://localhost:8080/main/filter',
+        url: `${process.env.baseURL}main/filter`,
         method: 'post',
 
         data: req.body,

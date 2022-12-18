@@ -96,10 +96,10 @@ export async function getServerSideProps(context) {
   const refreshToken = session.user.refreshToken;
   try {
     const response = await axios({
-      url: 'http://localhost:3000/api/auth/token',
+      url: '/api/auth/token',
       method: 'post',
       data: {
-        url: `http://localhost:8080/mypage/${params.item}?page=1`,
+        url: `${process.env.baseURL}mypage/${params.item}?page=1`,
         accessToken,
         refreshToken,
       },

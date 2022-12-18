@@ -31,7 +31,6 @@ const Header = styled.div`
   }
 `;
 const FindUserInfoNav = ({ getSelectedItem, selectedItem }) => {
-  console.log(selectedItem);
   return (
     <Header selectedItem={selectedItem}>
       <li

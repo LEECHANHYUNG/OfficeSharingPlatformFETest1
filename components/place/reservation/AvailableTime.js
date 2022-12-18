@@ -73,11 +73,6 @@ const AvailableTime = () => {
 
   const submitReservationHandler = async (e) => {
     e.preventDefault();
-
-    if (selectTimeList.length === 1) {
-      console.log(1);
-      console.log(selectTimeList[1] || selectTimeList[0]);
-    }
     try {
       await fetch(`/places/${params.officeId}/book`, {
         method: 'POST',

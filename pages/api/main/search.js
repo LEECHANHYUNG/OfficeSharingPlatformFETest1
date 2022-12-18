@@ -4,7 +4,7 @@ const handler = async (req, res) => {
   }
   if (req.method === 'POST') {
     try {
-      const response = await fetch('http://localhost:8080/main/search', {
+      const response = await fetch(`${process.env.baseURL}main/search`, {
         method: req.method,
         body: JSON.stringify({
           searchWord: req.body.searchWord,

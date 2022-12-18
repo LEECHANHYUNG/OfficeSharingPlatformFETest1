@@ -63,7 +63,6 @@ const SelectEndTime = () => {
   const selectTimeHandler = (e) => {
     if (+selectedStartTime > +e.target.id && +selectedEndTime === 24) {
       dispatch(reservationActions.getSelectedStartTime(e.target.id));
-      console.log(1);
     } else if (selectedTimeList.length === 1 && selectedEndTime === 24) {
       dispatch(reservationActions.getSelectedEndTime(e.target.id));
       e.target.classList.add('selected-time');
@@ -72,13 +71,11 @@ const SelectEndTime = () => {
           elem.classList.add('selected-time');
         }
       });
-      console.log(2);
     } else if (selectedTimeList.length === 1 && selectedEndTime !== 24) {
       selectedTimeList[0].classList.remove('selected-time');
       dispatch(reservationActions.getSelectedStartTime(e.target.id));
       dispatch(reservationActions.getSelectedEndTime(24));
       e.target.classList.add('selected-time');
-      console.log(3);
     } else if (selectedTimeList.length >= 2) {
       Array.from(selectedTimeList).map((elem) =>
         elem.classList.remove('selected-time')
@@ -86,9 +83,7 @@ const SelectEndTime = () => {
       e.target.classList.add('selected-time');
       dispatch(reservationActions.getSelectedStartTime(e.target.id));
       dispatch(reservationActions.getSelectedEndTime(24));
-      console.log(4);
     } else {
-      console.log(5);
     }
   };
 

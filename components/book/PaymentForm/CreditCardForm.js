@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
@@ -92,7 +92,6 @@ const CreditCardForm = () => {
   const useMileage = useSelector((state) => state.payment.useMileage);
   const session = useSession();
   const submitPaymentHandler = async () => {
-    console.log(company);
     try {
       const response = await axios({
         url: '/api/reservation/payment',

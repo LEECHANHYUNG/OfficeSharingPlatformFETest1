@@ -25,7 +25,6 @@ const Wrapper = styled.section`
 `;
 
 const Use = ({ item }) => {
-  console.log(item);
   return (
     <Wrapper>
       <h1>마일리지</h1>

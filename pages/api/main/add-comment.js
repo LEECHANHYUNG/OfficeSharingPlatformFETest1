@@ -4,7 +4,7 @@ const handler = async (req, res) => {
   if (req.method === 'POST') {
     try {
       const response = await axios({
-        url: `http://localhost:8080/${req.body.commentId}/comment/add`,
+        url: `${process.env.baseURL}${req.body.commentId}/comment/add`,
         method: 'post',
         headers: {
           Authorization: req.body.accessToken,

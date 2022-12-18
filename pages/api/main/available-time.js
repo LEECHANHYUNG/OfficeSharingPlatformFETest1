@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const handler = (req, res) => {
   axios({
-    url: `http://localhost:8080/places/${req.body.placeId}/type/${req.body.selectedTypeEng}/date/${req.body.date}/startTime/${req.body.startTime}`,
+    url: `${process.env.baseURL}places/${req.body.placeId}/type/${req.body.selectedTypeEng}/date/${req.body.date}/startTime/${req.body.startTime}`,
     data: req.data,
   })
     .then((response) => {

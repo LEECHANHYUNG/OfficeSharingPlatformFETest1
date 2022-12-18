@@ -36,7 +36,6 @@ const NewPasswordInput = ({ email, tel }) => {
   );
   const formSbumitHandler = async (e) => {
     e.preventDefault();
-    console.log(password, checkPassword);
     try {
       const response = await axios({
         url: '/api/auth/finduserinfo',

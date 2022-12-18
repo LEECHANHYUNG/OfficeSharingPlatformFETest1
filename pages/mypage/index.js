@@ -28,13 +28,12 @@ export async function getServerSideProps(context) {
     };
   }
   let userData = {};
-  console.log(session);
   try {
     const response = await axios({
       method: 'post',
-      url: 'http://localhost:3000/api/auth/token',
+      url: '/api/auth/token',
       data: {
-        url: 'http://localhost:8080/mypage',
+        url: `${process.env.baseURL}mypage`,
         accessToken: session.user.accessToken,
         refreshToken: session.user.refreshToken,
       },

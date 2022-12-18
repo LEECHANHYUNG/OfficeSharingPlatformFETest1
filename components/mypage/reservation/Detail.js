@@ -76,7 +76,6 @@ const Detail = (props) => {
   const router = useRouter();
   const session = useSession();
   const cancelReservationHandler = async () => {
-    console.log(router.query.id);
     try {
       const response = await axios({
         url: '/api/mypage/cancel',

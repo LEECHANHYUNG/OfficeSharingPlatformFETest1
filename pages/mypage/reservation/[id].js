@@ -48,11 +48,10 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  console.log(params.id);
   const accessToken = session.user.accessToken;
   try {
     const response = await axios({
-      url: `http://localhost:8080/mypage/${params.id}`,
+      url: `${process.env.baseURL}mypage/${params.id}`,
       headers: { Authorization: accessToken },
     });
     if (response.status === 200) {

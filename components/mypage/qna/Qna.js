@@ -28,7 +28,7 @@ const Wrapper = styled.section`
     justify-content: center;
   }
   .paginationBtns a {
-    padding: 10px;
+    padding: 10px;f
     margin: 8px;
     border-radius: 5px;
     border: 1px solid #111;
@@ -74,7 +74,6 @@ const Qna = ({ item, paginationData }) => {
       });
 
       if (response.status === 200) {
-        console.log(response.data.commentData);
         setItems(response.data.qnaData);
         setTotalPage(response.data.paginationData.maxPage);
       }

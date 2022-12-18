@@ -31,11 +31,9 @@ const Wrapper = styled(Card)`
 `;
 
 const Mileage = ({ totalMileage, totalPrice }) => {
-  console.log(totalPrice);
   const [enteredMileage, setEnteredMileage] = useState('');
   const dispatch = useDispatch();
   const inputMileageHandler = (e) => {
-    console.log(e.target.value);
     if (isNaN(e.target.value)) {
       alert('숫자만 입력 가능합니다.');
       setEnteredMileage('');

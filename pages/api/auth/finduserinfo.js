@@ -3,7 +3,7 @@ import axios from 'axios';
 const handler = async (req, res) => {
   if (req.body.url === 'main/pre-check') {
     const response = await axios({
-      url: `http://localhost:8080/main/pre-check`,
+      url: `${process.env.baseURL}main/pre-check`,
       method: 'post',
       data: {
         email: req.body.email,
@@ -17,7 +17,7 @@ const handler = async (req, res) => {
     }
   } else if (req.body.url === 'main/findPw') {
     const response = await axios({
-      url: `http://localhost:8080/main/findPw`,
+      url: `${process.env.baseURL}main/findPw`,
       method: 'post',
       data: {
         email: req.body.email,

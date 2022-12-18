@@ -89,7 +89,6 @@ const Comment = () => {
         },
       });
       if (response.status === 200) {
-        console.log(response.data);
         setCommentList(response.data);
         alert('댓글 등록 완료');
       } else {

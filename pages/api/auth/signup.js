@@ -10,7 +10,7 @@ async function handler(req, res) {
   try {
     const response = await axios({
       method: 'post',
-      url: 'http://localhost:8080/auth/signup',
+      url: `${process.env.baseURL}auth/signup`,
       headers: { 'Content-Type': 'application/json' },
       data: {
         email: enteredEmail,

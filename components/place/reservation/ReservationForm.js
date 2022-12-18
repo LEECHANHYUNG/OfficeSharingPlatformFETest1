@@ -114,15 +114,15 @@ const ReservationForm = () => {
   const dateString =
     dateArr[0] +
     '-' +
-    dateArr[1].padStart(2, '0') +
+    dateArr[1]?.padStart(2, '0') +
     '-' +
-    dateArr[2].padStart(2, '0');
+    dateArr[2]?.padStart(2, '0');
   const endDateString =
     endDateArr[0] +
     '-' +
-    endDateArr[1].padStart(2, '0') +
+    endDateArr[1]?.padStart(2, '0') +
     '-' +
-    endDateArr[2].padStart(2, '0');
+    endDateArr[2]?.padStart(2, '0');
 
   const session = useSession();
   const sendReservationInfoHandler = async () => {

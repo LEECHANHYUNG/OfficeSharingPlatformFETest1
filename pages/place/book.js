@@ -77,7 +77,7 @@ const book = () => {
   const sendReservationHandler = () => {
     router.replace(`/reservation/${reservationInfo.reservationId}`);
   };
-  const isOffice = reservationInfo.productType.includes('사무실');
+  const isOffice = reservationInfo.productType?.includes('사무실');
   return (
     <Wrapper>
       <main>

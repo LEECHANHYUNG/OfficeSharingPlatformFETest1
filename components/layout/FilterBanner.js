@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import City from '../selectbox/city';
+import City from '../selectbox/City';
 import PlaceType from '../selectbox/PlaceType';
 import SubCity from '../selectbox/SubCity';
 import Time from '../selectbox/Time';
@@ -93,11 +93,7 @@ const FilterBanner = () => {
         </button>
 
         <div className="selectOption ">
-          <StyledInput
-            type="date"
-            ref={inputDateRef}
-            onChange={selectDateHandler}
-          />
+          <StyledInput type="date" ref={inputDateRef} />
         </div>
         <div className="selectOption ">
           <Time time="start" />

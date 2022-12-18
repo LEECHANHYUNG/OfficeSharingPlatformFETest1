@@ -22,7 +22,7 @@ const StyledCard = styled(Card)`
 `;
 
 const BookInfo = (props) => {
-  const isOffice = props.productType.includes('사무실');
+  const isOffice = props.productType?.includes('사무실');
   return (
     <StyledCard>
       <h1>예약 정보</h1>

@@ -29,6 +29,9 @@ const Wrapper = styled(Card)`
   .count {
     color: #71716f;
   }
+  @media screen and (max-width: 1260px) {
+    width: 92%;
+  }
 `;
 
 const Payment = (props) => {

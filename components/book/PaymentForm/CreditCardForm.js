@@ -105,12 +105,13 @@ const CreditCardForm = () => {
           birth: `${birthRef.current.value}`,
           pwd_2digit: `${passwordRef.current.value}`,
           payType: paymentType,
-          payMileage: useMileage,
+          payMileage: +useMileage,
         },
       });
       if (response.status === 200) {
         router.replace(`/mypage/reservation/${reservationInfo.reservationId}`);
       } else {
+        alert('카드 정보를 확인해주세요');
         throw new Error(response.data.message);
       }
     } catch (error) {

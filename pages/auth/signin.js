@@ -91,7 +91,7 @@ const SignIn = () => {
     });
 
     if (!result.error) {
-      router.replace('/mypage');
+      router.back();
       return;
     } else {
       alert(result.error);

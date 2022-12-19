@@ -7,6 +7,7 @@ const StyledCard = styled(Card)`
   border: 1px solid #6a9eff;
   position: relative;
   width: 90%;
+  margin-left: 150px;
 
   .pay-type {
     position: absolute;
@@ -35,16 +36,28 @@ const StyledCard = styled(Card)`
     align-items: center;
     justify-content: space-around;
   }
+  .comment {
+    position: absolute;
+    top: 3px;
+    left: 127%;
+    width: 200px;
+    font-size: 13px;
+  }
   @media screen and (max-width: 1170px) {
     width: 90%;
+    margin-left: 50px;
+
     main {
       margin-left: 0px;
     }
   }
   @media screen and (max-width: 858px) {
     width: 100%;
+    margin-left: 0px;
+
     main {
       margin-left: 0px;
+      padding: 5px 0;
     }
     h3 {
       font-size: 15px;
@@ -60,14 +73,22 @@ const StyledCard = styled(Card)`
     .data {
       line-height: 0px;
     }
+    .pay-type {
+      top: 10px;
+      left: 5px;
+    }
   }
 `;
 const Payment = ({ payData }) => {
-  console.log(payData);
   return (
     <StyledCard>
       <div className="pay-type">
         <div className="data">{payData.payType}</div>
+        {payData.payType === '후결제' ? (
+          <div className="comment">(이용 완료후 결제 예정 금액)</div>
+        ) : (
+          ''
+        )}
       </div>
       <main>
         <div className="real-price">

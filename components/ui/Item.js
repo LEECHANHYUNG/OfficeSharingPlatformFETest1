@@ -49,7 +49,7 @@ const ItemCard = styled(Card)`
     font-weight: 600;
   }
   @media screen and (max-width: 1090px) {
-    width: 90%;
+    width: 89%;
   }
   @media screen and (min-width: 1090px) and (max-width: 1630px) {
     width: 90%;
@@ -66,8 +66,7 @@ const ItemCard = styled(Card)`
 const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
   const [disabledDateList, setDisabledDateList] = useState([]);
   const [ableDateList, setAbleDateList] = useState([]);
-
-  console.log(images);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const placeId = router.query.id;
   const dispatch = useDispatch();
@@ -89,6 +88,7 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
     dispatch(reservationActions.getLoadingState(true));
     setAbleDateList([]);
     setDisabledDateList([]);
+    setIsLoading(true);
     axios({
       url: '/api/main/available-date',
       method: 'post',
@@ -100,6 +100,7 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
     })
       .then((response) => {
         dispatch(reservationActions.getLoadingState(false));
+        setIsLoading(false);
         if (response.status === 200) {
           response.data.map((elem) => {
             if (!elem.state) {
@@ -140,9 +141,9 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
           {price}원/{timeUnit || '시간'}
         </div>
       </div>
-      <Button type="button" onClick={selectTypeHandler}>
+      <Button type="button" disabled={isLoading} onClick={selectTypeHandler}>
         <input type="hidden" value={type} />
-        예약
+        {isLoading ? 'loading...' : '예약'}
       </Button>
     </ItemCard>
   );

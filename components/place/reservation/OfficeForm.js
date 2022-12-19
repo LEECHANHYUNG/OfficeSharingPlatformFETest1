@@ -15,6 +15,7 @@ const Wrapper = styled.section`
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-direction: column;
   }
 `;
 const StyledDate = styled(DatePicker)`
@@ -23,6 +24,8 @@ const StyledDate = styled(DatePicker)`
   height: 40px;
   text-align: center;
   font-size: 1.4rem;
+  @media screen and (max-width: 1170px) {
+  }
 `;
 
 const OfficeForm = () => {

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import BookCheck from '../../components/book/BookCheck';
@@ -11,7 +12,6 @@ import PaymentForm from '../../components/book/PaymentForm';
 import CreditCardForm from '../../components/book/PaymentForm/CreditCardForm';
 import PaymentMain from '../../components/book/PaymentMain';
 import PaymentType from '../../components/book/PaymentType';
-import Button from '../../components/ui/Button';
 import { paymentSliceActions } from '../../store/payment';
 
 const Wrapper = styled.section`
@@ -57,6 +57,18 @@ const Wrapper = styled.section`
     border-bottom: 3px solid #71716f;
     margin: 0 40px;
   }
+  @media screen and (max-width: 1260px) {
+    .left,
+    .right {
+      float: none;
+      width: 95%;
+      display: block;
+      height: auto;
+    }
+    main {
+      width: 99vw;
+    }
+  }
 `;
 
 const book = () => {
@@ -71,14 +83,15 @@ const book = () => {
   const prevPageHandler = () => {
     router.back();
   };
-  const changePaymentHandler = () => {
-    dispatch(paymentSliceActions.getPaymentForm(false));
+  useEffect(() => {
     dispatch(paymentSliceActions.resetPaymentInfo());
+  }, []);
+  const changePaymentHandler = () => {
+    dispatch(paymentSliceActions.resetPaymentInfo());
+    dispatch(paymentSliceActions.getPaymentForm(false));
   };
-  const sendReservationHandler = () => {
-    router.replace(`/reservation/${reservationInfo.reservationId}`);
-  };
-  const isOffice = reservationInfo.productType?.includes('사무실');
+  console.log(reservationInfo);
+  const isOffice = reservationInfo.productType.includes('사무실');
   return (
     <Wrapper>
       <main>
@@ -113,12 +126,6 @@ const book = () => {
           ) : (
             ''
           )}
-
-          {isOffice && paymentType ? (
-            <Button onClick={sendReservationHandler}>임대 신청</Button>
-          ) : (
-            ''
-          )}
         </div>
         {paymentType ? (
           <aside className="right">
@@ -135,7 +142,7 @@ const book = () => {
             ) : (
               ''
             )}
-            {!showPaymentForm && !isOffice ? (
+            {!showPaymentForm ? (
               <Payment
                 placeImgUrl={reservationInfo.placeImgUrl}
                 averageRate={reservationInfo.averageRate}
@@ -152,22 +159,21 @@ const book = () => {
             ) : (
               ''
             )}
-            {!showPaymentForm && !isOffice ? (
-              <PaymentMain totalPrice={reservationInfo.totalPrice} />
+            {!showPaymentForm ? (
+              <PaymentMain
+                totalPrice={reservationInfo.totalPrice}
+                isOffice={isOffice}
+              />
             ) : (
               ''
             )}
-            {showPaymentForm && !isOffice ? (
+            {showPaymentForm ? (
               <PaymentForm reservationId={reservationInfo.reservationId} />
             ) : (
               ''
             )}
 
-            {showPaymentForm && !isOffice && company === 'nicepay' ? (
-              <CreditCardForm />
-            ) : (
-              ''
-            )}
+            {showPaymentForm && company === 'nicepay' ? <CreditCardForm /> : ''}
           </aside>
         ) : (
           ''

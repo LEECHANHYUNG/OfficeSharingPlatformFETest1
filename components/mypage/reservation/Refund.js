@@ -7,6 +7,7 @@ const StyledCard = styled(Card)`
   border: 1px solid #6a9eff;
   position: relative;
   width: 90%;
+  margin-left: 150px;
 
   h1 {
     width: 150px;
@@ -37,17 +38,21 @@ const StyledCard = styled(Card)`
   }
   @media screen and (max-width: 1170px) {
     width: 90%;
+    margin-left: 50px;
     main {
-      margin-left: 0px;
+      margin-left: 50px;
     }
   }
   @media screen and (max-width: 858px) {
     width: 100%;
+    margin-left: 5px;
+
     h3 {
       font-size: 15px;
     }
     main {
       margin-left: 0px;
+      padding: 5px 0;
     }
     .data {
       font-size: 14px;
@@ -65,7 +70,7 @@ const StyledCard = styled(Card)`
 const Payment = ({ refund }) => {
   return (
     <StyledCard>
-      <h1>환불 내역</h1>
+      <div className="data">환불 내역</div>
       <main>
         <div className="total-price">
           <h3>환불 일자</h3>

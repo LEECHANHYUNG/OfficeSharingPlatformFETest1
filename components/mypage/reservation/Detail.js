@@ -10,8 +10,9 @@ import Payment from './Payment';
 import Refund from './Refund';
 
 const PayMentCard = styled(Card)`
-  border: 1px solid #6a9eff;
+  position: relative;
   margin-left: 150px;
+
   @media screen and (max-width: 1170px) {
     margin-left: 50px;
     width: 90vw;
@@ -30,6 +31,7 @@ const Wrapper = styled.section`
 
   h1 {
     font-size: 32px;
+    margin-left: 150px;
   }
   .left {
     width: 60%;
@@ -55,6 +57,10 @@ const Wrapper = styled.section`
   .start {
     margin-right: 100px;
   }
+  .new-review {
+    text-decoration: underline;
+    cursor: pointer;
+  }
   @media screen and (max-width: 1170px) {
     width: 98vw;
     .data {
@@ -62,6 +68,7 @@ const Wrapper = styled.section`
       margin-left: 10px;
     }
   }
+
   @media screen and (max-width: 858px) {
     .data {
       font-size: 13px;
@@ -91,47 +98,47 @@ const StyledCard = styled(Card)`
   @media screen and (max-width: 858px) {
     width: 98vw;
     margin-left: 0;
+    position: relative;
 
     flex-direction: column;
-    .left,
-    .right {
+    .left {
       width: 100%;
     }
+    .right {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
 
-    .data {
+      text-align: left;
+      flex-wrap: nowrap;
+    }
+
+    .right .data {
       font-size: 15px;
       margin-left: 10px;
+      text-align: right;
     }
     .reservation-time {
       width: 100%;
+      justify-content: space-evenly;
     }
     button {
       width: 30%;
       font-size: 13px;
     }
+    .review {
+      position: absolute;
+      top: 10px;
+      right: 5px;
+      display: flex;
+      align-items: center;
+    }
   }
 `;
 const Detail = (props) => {
-  console.log(props);
-  const {
-    ratingStatusDescription,
-    placeName,
-    resCompletedDate,
-    resCompletedTime,
-    resEndDate,
-    resEndTime,
-    resStartDate,
-    resStartTime,
-    roomType,
-    usageState,
-    savedMileage,
-    totalPrice,
-    cancelStatus,
-    completeStatus,
-  } = props.resData;
   const router = useRouter();
   const session = useSession();
-
+  const [detailItems, setDetailItems] = useState(props);
   const cancelReservationHandler = async () => {
     try {
       const response = await axios({
@@ -144,6 +151,7 @@ const Detail = (props) => {
       });
       if (response.status === 200) {
         alert('예약 취소 완료');
+        setDetailItems(response.data);
       } else {
         throw new Error();
       }
@@ -152,7 +160,6 @@ const Detail = (props) => {
     }
   };
   const completeReservationHandler = async () => {
-    console.log(session.data.user.accessToken);
     try {
       const response = await axios({
         url: '/api/mypage/reservation-complete',
@@ -164,12 +171,11 @@ const Detail = (props) => {
       });
       if (response.status === 200) {
         alert('예약 확정 완료');
+        setDetailItems(response.data);
       } else {
         throw new Error(response.data);
       }
-    } catch (error) {
-      console.error(error.response.data);
-    }
+    } catch (error) {}
   };
   return (
     <Wrapper>
@@ -180,30 +186,38 @@ const Detail = (props) => {
         <div className="left">
           <div className="place-name">
             <h3>예약 지점</h3>
-            <div className="data">{placeName}</div>
+            <div className="data">{detailItems.resData.placeName}</div>
           </div>
           <div className="room-type">
             <h3>상품명</h3>
-            <div className="data">{roomType}</div>
+            <div className="data">{detailItems.resData.roomType}</div>
           </div>
           <div className="res-time">
             <h3>예약 시간</h3>
             <div className="data reservation-time">
               <div className="start">
-                {!roomType.includes('사무실') ? <p>시작시간</p> : <p>시작일</p>}
-                <div className="date">{resStartDate}</div>
-                {!roomType.includes('사무실') ? (
-                  <div className="time">{resStartTime}</div>
+                {!detailItems.resData.roomType.includes('사무실') ? (
+                  <p>시작시간</p>
+                ) : (
+                  <p>시작일</p>
+                )}
+                <div className="date">{detailItems.resData.resStartDate}</div>
+                {!detailItems.resData.roomType.includes('사무실') ? (
+                  <div className="time">{detailItems.resData.resStartTime}</div>
                 ) : (
                   ''
                 )}
               </div>
 
               <div className="end">
-                {!roomType.includes('사무실') ? <p>종료시간</p> : <p>종료일</p>}
-                <div className="date">{resEndDate}</div>
-                {!roomType.includes('사무실') ? (
-                  <div className="time">{resEndTime}</div>
+                {!detailItems.resData.roomType.includes('사무실') ? (
+                  <p>종료시간</p>
+                ) : (
+                  <p>종료일</p>
+                )}
+                <div className="date">{detailItems.resData.resEndDate}</div>
+                {!detailItems.resData.roomType.includes('사무실') ? (
+                  <div className="time">{detailItems.resData.resEndTime}</div>
                 ) : (
                   ''
                 )}
@@ -213,20 +227,20 @@ const Detail = (props) => {
         </div>
         <div className="right">
           <div className="pay-time">
-            <h3>결제 시간</h3>
+            <h3>결제 일시</h3>
             <div className="data">
-              <div className="date">{resCompletedDate}</div>
-              <div className="time">{resCompletedTime}</div>
+              <div className="date">{detailItems.resData.resCompletedDate}</div>
+              <div className="time">{detailItems.resData.resCompletedTime}</div>
             </div>
           </div>
           <div className="usage-state">
             <h3>상태</h3>
-            <div className="data">{usageState}</div>
+            <div className="data">{detailItems.resData.usageState}</div>
           </div>
           <div className="review">
             <h3>리뷰</h3>
             <div className="data">
-              {ratingStatusDescription === '작성 가능' ? (
+              {detailItems.resData.ratingStatusDescription === '작성 가능' ? (
                 <div
                   onClick={() => {
                     props.setNewComment(true);
@@ -234,25 +248,27 @@ const Detail = (props) => {
                   className="new-review"
                 >
                   <Image src="/svg/pencil.svg" width="16" height="16" />
-                  {ratingStatusDescription}
+                  {detailItems.resData.ratingStatusDescription}
                 </div>
               ) : (
-                <div>{ratingStatusDescription}</div>
+                <div>{detailItems.resData.ratingStatusDescription}</div>
               )}
             </div>
           </div>
           <div className="saved-mileage">
             <h3>적립 마일리지</h3>
-            <div className="data">{savedMileage.toLocaleString()}</div>
+            <div className="data">
+              {detailItems.resData.savedMileage.toLocaleString()}
+            </div>
           </div>
         </div>
         <div className="btn">
-          {cancelStatus ? (
+          {detailItems.resData.cancelStatus ? (
             <Button onClick={cancelReservationHandler}>예약 취소</Button>
           ) : (
             ''
           )}
-          {completeStatus ? (
+          {detailItems.resData.completeStatus ? (
             <Button onClick={completeReservationHandler}>예약 확정</Button>
           ) : (
             ''
@@ -260,27 +276,23 @@ const Detail = (props) => {
         </div>
       </StyledCard>
       <h1>결제 내역</h1>
-      <PayMentCard>
-        <h1>총 결제 금액</h1>
-        <div className="data">{totalPrice.toLocaleString()}</div>
-        {Object.keys(props.payData).map((elem) => (
-          <div key={elem}>
-            {props.payData[elem].refund ? (
-              <Refund
-                refund={props.payData[elem].refund}
-                key={`refund${elem}`}
-              />
-            ) : (
-              ''
-            )}
-            <Payment
-              totalPrice={totalPrice}
-              payData={props.payData[elem].payment}
-              key={`payment${elem}`}
+      {Object.keys(detailItems.payData).map((elem) => (
+        <div key={elem}>
+          {detailItems.payData[elem].refund ? (
+            <Refund
+              refund={detailItems.payData[elem].refund}
+              key={`refund${elem}`}
             />
-          </div>
-        ))}
-      </PayMentCard>
+          ) : (
+            ''
+          )}
+          <Payment
+            totalPrice={detailItems.totalPrice}
+            payData={detailItems.payData[elem].payment}
+            key={`payment${elem}`}
+          />
+        </div>
+      ))}
     </Wrapper>
   );
 };

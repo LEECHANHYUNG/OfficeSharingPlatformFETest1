@@ -28,6 +28,9 @@ const Wrapper = styled(Card)`
     margin-left: 5px;
     font-size: 1.5rem;
   }
+  @media screen and (max-width: 1260px) {
+    width: 92%;
+  }
 `;
 
 const Mileage = ({ totalMileage, totalPrice }) => {
@@ -37,7 +40,10 @@ const Mileage = ({ totalMileage, totalPrice }) => {
     if (isNaN(e.target.value)) {
       alert('숫자만 입력 가능합니다.');
       setEnteredMileage('');
-    } else if (+e.target.value > +totalPrice) {
+    } else if (
+      +e.target.value > +totalPrice &&
+      +e.target.value > +totalMileage
+    ) {
       alert('최대 사용 가능 마일리지를 초과했습니다.');
       setEnteredMileage('');
     } else {

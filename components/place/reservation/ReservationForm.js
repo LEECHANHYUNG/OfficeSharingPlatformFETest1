@@ -131,32 +131,33 @@ const ReservationForm = () => {
     if (session.status === 'unauthenticated') {
       alert('로그인이 필요한 서비스입니다. 로그인 페이지로 이동합니다.');
       router.push('/auth/signin');
-    }
-    try {
-      const response = await axios({
-        url: '/api/reservation/book',
-        method: 'post',
-        data: {
-          accessToken: session.data.user.accessToken,
-          id: placeId,
-          selectedType: selectedTypeEng,
-          startDate: dateString,
-          endDate: endDateString,
-          startTime: selectedStartTime,
-          endTime: +selectedEndTime + 1,
-        },
-      });
-      if (response.status === 200) {
-        dispatch(paymentSliceActions.getPaymentForm(false));
-        dispatch(reservationActions.getReservationInfo(response.data));
-        alert('예약 페이지로 이동합니다.');
-        router.push('/place/book');
-      } else {
-        throw new Error(response.data.message);
+    } else {
+      try {
+        const response = await axios({
+          url: '/api/reservation/book',
+          method: 'post',
+          data: {
+            accessToken: session.data.user.accessToken,
+            id: placeId,
+            selectedType: selectedTypeEng,
+            startDate: dateString,
+            endDate: endDateString,
+            startTime: selectedStartTime,
+            endTime: +selectedEndTime + 1,
+          },
+        });
+        if (response.status === 200) {
+          dispatch(paymentSliceActions.getPaymentForm(false));
+          dispatch(reservationActions.getReservationInfo(response.data));
+          alert('예약 페이지로 이동합니다.');
+          router.push('/place/book');
+        } else {
+          throw new Error(response.data.message);
+        }
+      } catch (error) {
+        console.error(error.response);
+        alert(error.response?.data.message.split(' ').slice(1).join(' '));
       }
-    } catch (error) {
-      console.error(error.response);
-      alert(error.response.data.message.split(' ').slice(1).join(' '));
     }
   };
   return (

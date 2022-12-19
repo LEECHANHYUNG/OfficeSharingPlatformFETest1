@@ -15,6 +15,49 @@ const Wrapper = styled.section`
   h1 {
     font-size: 25px;
   }
+  .stars {
+    height: 150px;
+    width: 500px;
+    text-align: center;
+  }
+  .start input {
+    display: none;
+  }
+  .stars label {
+    float : right;
+    font-size: 100px;
+    color: #bbb;
+    margin  0 5px;
+    text-shadow : 1px 1px #bbb;
+  }
+  .stars label::before {
+    content: '⭐';
+  }
+  .stars input:checked ~ label{
+    color : gold;
+    text-shadow : 1px 1px #c60;
+  }
+  .stars input:not(:checked)>label:hover,
+  .stars input:not(:checked)>label:hover~label{
+    color : gold;
+    text-shadow : 1px 1px goldenrod;
+  }
+
+  .stars .result:before{
+    position : absolute;
+    content :'';
+    left: 50%;
+    transform : translateX(-50%);
+    bottom : -30px;
+    font-size : 30px;
+    font-weight: 500;
+    color : gold;
+    font-family : 'Poppins', sans-serif;
+    display: none;
+  }
+  .stars input:checked > .result{
+    display : block;
+  }
 `;
 const NewReview = () => {
   const session = useSession();
@@ -46,6 +89,19 @@ const NewReview = () => {
   return (
     <Wrapper>
       <h1>리뷰 작성</h1>
+      <div className="stars">
+        <input type="radio" id="five" name="rate" value="5" />
+        <label htmlFor="five"></label>
+        <input type="radio" id="four" name="rate" value="4" />
+        <label htmlFor="five"></label>
+        <input type="radio" id="three" name="rate" value="3" />
+        <label htmlFor="five"></label>
+        <input type="radio" id="two" name="rate" value="2" />
+        <label htmlFor="five"></label>
+        <input type="radio" id="one" name="rate" value="1" />
+        <label htmlFor="five"></label>
+      </div>
+
       <TextArea
         placeholder={'최대 100자 입력 가능'}
         addCommentHandler={addCommentHandler}

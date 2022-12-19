@@ -19,9 +19,12 @@ const Wrapper = styled(Card)`
   .price p {
     font-size: 1.7rem;
   }
+  @media screen and (max-width: 1260px) {
+    width: 92%;
+  }
 `;
 
-const PaymentMain = ({ totalPrice }) => {
+const PaymentMain = ({ totalPrice, isOffice }) => {
   const mileageUse = useSelector((state) => state.payment.useMileage);
   const paymentType = useSelector((state) => state.payment.paymentType);
   const dispatch = useDispatch();
@@ -55,7 +58,7 @@ const PaymentMain = ({ totalPrice }) => {
         ) : (
           ''
         )}
-        {paymentType === 'DEPOSIT' ? (
+        {paymentType === 'DEPOSIT' && !isOffice ? (
           <div className="price">
             <h5>보증금</h5>
             <p>
@@ -66,7 +69,7 @@ const PaymentMain = ({ totalPrice }) => {
         ) : (
           ''
         )}
-        {paymentType === 'DEPOSIT' ? (
+        {paymentType === 'DEPOSIT' && !isOffice ? (
           <div className="price">
             <h5>후결제</h5>
             <p>
@@ -84,7 +87,7 @@ const PaymentMain = ({ totalPrice }) => {
             {Number(mileageUse).toLocaleString()}
           </p>
         </div>
-        {paymentType === 'FULL_PAYMENT' ? (
+        {paymentType === 'FULL_PAYMENT' && !isOffice ? (
           <div className="price">
             <h5>적립 예정 마일리지</h5>
             <p>
@@ -96,16 +99,27 @@ const PaymentMain = ({ totalPrice }) => {
           ''
         )}
       </div>
-      {paymentType === 'DEPOSIT' ? (
+      {paymentType === 'DEPOSIT' && !isOffice ? (
         <Button onClick={showPaymentTypeHandler}>
           <Image src="/svg/won.svg" width="10" height="10" />
           {(totalPrice * 0.2 - +mileageUse).toLocaleString()}결제
         </Button>
-      ) : (
+      ) : !isOffice ? (
         <Button onClick={showPaymentTypeHandler}>
           <Image src="/svg/won.svg" width="10" height="10" />
           {(totalPrice - +mileageUse).toLocaleString()}결제
         </Button>
+      ) : (
+        ''
+      )}
+
+      {isOffice ? (
+        <Button onClick={showPaymentTypeHandler}>
+          <Image src="/svg/won.svg" width="10" height="10" />
+          {0}결제
+        </Button>
+      ) : (
+        ''
       )}
     </Wrapper>
   );

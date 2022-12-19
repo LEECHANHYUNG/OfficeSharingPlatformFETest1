@@ -11,6 +11,7 @@ const Wrapper = styled(Card)`
     width: 100%;
     margin: 0 auto;
     text-align: center;
+    position: relative;
   }
   .custom-radio input {
     display: none;
@@ -68,9 +69,22 @@ const Wrapper = styled(Card)`
   .notice {
     position: absolute;
     width: 100%;
-    top: 90px;
+    top: 150px;
     left: -20px;
   }
+  @media screen and (max-width: 1260px) {
+    .radio-btn{
+      width : 112%;
+    }
+    .notice{
+      top : 170px;
+    }
+    .custom-radio p {
+      font-size : 11px;
+    }
+    b{
+      font-size : 11px;
+    }
 `;
 
 const PaymentType = (props) => {

@@ -29,8 +29,9 @@ const Wrapper = styled(Card)`
   .count {
     color: #71716f;
   }
-  @media screen and (max-width: 1260px) {
+  @media screen and (max-width: 1280px) {
     width: 92%;
+    margin-left: 22px;
   }
 `;
 

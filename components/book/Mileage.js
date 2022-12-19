@@ -28,8 +28,9 @@ const Wrapper = styled(Card)`
     margin-left: 5px;
     font-size: 1.5rem;
   }
-  @media screen and (max-width: 1260px) {
+  @media screen and (max-width: 1280px) {
     width: 92%;
+    margin-left: 22px;
   }
 `;
 

@@ -24,8 +24,6 @@ const StyledDate = styled(DatePicker)`
   height: 40px;
   text-align: center;
   font-size: 1.4rem;
-  @media screen and (max-width: 1170px) {
-  }
 `;
 
 const OfficeForm = () => {

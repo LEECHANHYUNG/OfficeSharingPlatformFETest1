@@ -20,6 +20,7 @@ const Wrapper = styled(Card)`
     font-size: 1.7rem;
   }
   @media screen and (max-width: 1260px) {
+    margin-left: 22px;
     width: 92%;
   }
 `;

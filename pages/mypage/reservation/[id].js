@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 import React, { Fragment } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -32,6 +32,12 @@ const Wrapper = styled.section`
 
 const ReservationDetail = (props) => {
   const [newComment, setNewComment] = useState(false);
+  const session = useSession();
+  useEffect(() => {
+    if (session.status === 'unauthenticated') {
+      signOut();
+    }
+  }, []);
   return (
     <Fragment>
       <Wrapper>

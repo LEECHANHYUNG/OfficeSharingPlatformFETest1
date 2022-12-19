@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { reservationActions } from '../../../store/reservation';
@@ -12,6 +11,7 @@ const StyledSwiper = styled.div`
   flex-wrap: wrap;
   width: 100%;
   font-weight: 900;
+  margin-top: 20px;
 
   .active-box {
     width: 16%;
@@ -22,6 +22,7 @@ const StyledSwiper = styled.div`
     color: #111;
     border: 1px solid #111;
     margin-bottom: 15px;
+    position: relative;
   }
   .non-active {
     width: 16%;
@@ -31,10 +32,12 @@ const StyledSwiper = styled.div`
     color: #111;
     border: 1px solid #111;
     margin-bottom: 15px;
+    position: relative;
   }
   .selected-time {
     background: rgb(106, 158, 255);
   }
+
   .unavailable {
     width: 16%;
     height: 40px;
@@ -43,6 +46,12 @@ const StyledSwiper = styled.div`
     color: #111;
     border: 1px solid #111;
     margin-bottom: 15px;
+  }
+  .time-box {
+    position: absolute;
+    font-size: 0.7rem;
+    top: -17px;
+    left: 0px;
   }
 `;
 
@@ -102,7 +111,7 @@ const SelectEndTime = () => {
                 id={idx}
                 onClick={selectTimeHandler}
               >
-                {idx}:00
+                <div className="time-box">{idx}:00</div>
               </div>
             ) : (
               <div
@@ -111,12 +120,12 @@ const SelectEndTime = () => {
                 id={idx}
                 onClick={selectTimeHandler}
               >
-                {idx}:00
+                <div className="time-box">{idx}:00</div>
               </div>
             )
           ) : (
             <div key={idx} className="non-active">
-              {idx}:00
+              <div className="time-box">{idx}:00</div>
             </div>
           )
         )}

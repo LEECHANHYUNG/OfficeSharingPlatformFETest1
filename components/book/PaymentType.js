@@ -72,9 +72,11 @@ const Wrapper = styled(Card)`
     top: 150px;
     left: -20px;
   }
-  @media screen and (max-width: 1260px) {
+  @media screen and (max-width: 1280px) {
+    margin-left: 0px;
+    margin-right: 0px;
     .radio-btn{
-      width : 112%;
+      width : 125%;
     }
     .notice{
       top : 170px;

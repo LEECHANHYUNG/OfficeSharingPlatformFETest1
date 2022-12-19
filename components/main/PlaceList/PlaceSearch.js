@@ -37,7 +37,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const OfficeSearch = () => {
+const PlaceSearch = () => {
   const dispatch = useDispatch();
   const searchWordInput = useRef();
   const keywordSubmitHandler = async (e) => {
@@ -88,4 +88,4 @@ const OfficeSearch = () => {
   );
 };
 
-export default OfficeSearch;
+export default PlaceSearch;

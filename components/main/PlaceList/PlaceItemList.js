@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import OfficeItem from './OfficeItem';
+import PlaceItem from './PlaceItem';
 
 const OfficeCount = styled.div`
   display: flex;
@@ -19,7 +19,7 @@ const OfficeCount = styled.div`
     height: 70px;
   }
 `;
-const OfficeItemList = (props) => {
+const PlaceItemList = (props) => {
   const officeList = useSelector((state) => state.officeList.filteredPlaceList);
 
   return (
@@ -28,10 +28,10 @@ const OfficeItemList = (props) => {
         <p className="count">{officeList?.length}</p>개의 place가 있습니다.
       </OfficeCount>
       {officeList?.map((elem) => {
-        return <OfficeItem key={elem.key} elem={elem} map={props.map} />;
+        return <PlaceItem key={elem.key} elem={elem} map={props.map} />;
       })}
     </Fragment>
   );
 };
 
-export default OfficeItemList;
+export default PlaceItemList;

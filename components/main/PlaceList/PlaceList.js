@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import OfficeItemList from './OfficeItemList';
-import OfficeSearch from './OfficeSearch';
+import PlaceItemList from './PlaceItemList';
+import PlaceSearch from './PlaceSearch';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -20,13 +20,13 @@ const Wrapper = styled.div`
   }
 `;
 
-const OfficeList = (props) => {
+const PlaceList = (props) => {
   return (
     <Wrapper>
-      <OfficeSearch className="search" />
-      <OfficeItemList map={props.map} />
+      <PlaceSearch className="search" />
+      <PlaceItemList map={props.map} />
     </Wrapper>
   );
 };
 
-export default OfficeList;
+export default PlaceList;

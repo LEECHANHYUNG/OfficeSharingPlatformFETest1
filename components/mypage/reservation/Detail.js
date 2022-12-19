@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../ui/Button';
 import Card from '../../ui/Card';
@@ -74,11 +74,14 @@ const StyledCard = styled(Card)`
   justify-content: space-between;
   align-items: center;
   position: relative;
-  button {
+  .btn {
     position: absolute;
-    width: 150px;
-    bottom: 20px;
-    right: 20px;
+    width: 315px;
+    top: -40px;
+    right: 0px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
   @media screen and (max-width: 1170px) {
     margin-left: 50px;
@@ -109,7 +112,7 @@ const StyledCard = styled(Card)`
 const Detail = (props) => {
   console.log(props);
   const {
-    isAvailableReview,
+    ratingStatusDescription,
     placeName,
     resCompletedDate,
     resCompletedTime,
@@ -121,9 +124,12 @@ const Detail = (props) => {
     usageState,
     savedMileage,
     totalPrice,
+    cancelStatus,
+    completeStatus,
   } = props.resData;
   const router = useRouter();
   const session = useSession();
+
   const cancelReservationHandler = async () => {
     try {
       const response = await axios({
@@ -136,12 +142,31 @@ const Detail = (props) => {
       });
       if (response.status === 200) {
         alert('예약 취소 완료');
-        router.replace('/mypage/usage');
       } else {
         throw new Error();
       }
     } catch (error) {
-      alert('잠시후 다시 시도해주세요');
+      alert(error.response.data.message);
+    }
+  };
+  const completeReservationHandler = async () => {
+    console.log(session.data.user.accessToken);
+    try {
+      const response = await axios({
+        url: '/api/mypage/reservation-complete',
+        method: 'post',
+        data: {
+          accessToken: session.data.user.accessToken,
+          reservationId: router.query.id,
+        },
+      });
+      if (response.status === 200) {
+        alert('예약 확정 완료');
+      } else {
+        throw new Error(response.data);
+      }
+    } catch (error) {
+      console.error(error.response.data);
     }
   };
   return (
@@ -163,15 +188,23 @@ const Detail = (props) => {
             <h3>예약 시간</h3>
             <div className="data reservation-time">
               <div className="start">
-                <p>시작</p>
+                {!roomType.includes('사무실') ? <p>시작시간</p> : <p>시작일</p>}
                 <div className="date">{resStartDate}</div>
-                <div className="time">{resStartTime}</div>
+                {!roomType.includes('사무실') ? (
+                  <div className="time">{resStartTime}</div>
+                ) : (
+                  ''
+                )}
               </div>
 
               <div className="end">
-                <p>종료</p>
+                {!roomType.includes('사무실') ? <p>종료시간</p> : <p>종료일</p>}
                 <div className="date">{resEndDate}</div>
-                <div className="time">{resEndTime}</div>
+                {!roomType.includes('사무실') ? (
+                  <div className="time">{resEndTime}</div>
+                ) : (
+                  ''
+                )}
               </div>
             </div>
           </div>
@@ -191,22 +224,37 @@ const Detail = (props) => {
           <div className="review">
             <h3>리뷰</h3>
             <div className="data">
-              {isAvailableReview ? '작성 가능' : '작성 불가'}
+              {ratingStatusDescription === '작성 가능' ? (
+                <Button>{ratingStatusDescription}</Button>
+              ) : (
+                <div>{ratingStatusDescription}</div>
+              )}
             </div>
           </div>
           <div className="saved-mileage">
             <h3>적립 마일리지</h3>
-            <div className="data">{savedMileage}</div>
+            <div className="data">{savedMileage.toLocaleString()}</div>
           </div>
         </div>
-        <Button onClick={cancelReservationHandler}>예약 취소</Button>
+        <div className="btn">
+          {cancelStatus ? (
+            <Button onClick={cancelReservationHandler}>예약 취소</Button>
+          ) : (
+            ''
+          )}
+          {completeStatus ? (
+            <Button onClick={completeReservationHandler}>예약 확정</Button>
+          ) : (
+            ''
+          )}
+        </div>
       </StyledCard>
       <h1>결제 내역</h1>
       <PayMentCard>
         <h1>총 결제 금액</h1>
         <div className="data">{totalPrice.toLocaleString()}</div>
         {Object.keys(props.payData).map((elem) => (
-          <div>
+          <div key={elem}>
             {props.payData[elem].refund ? (
               <Refund
                 refund={props.payData[elem].refund}

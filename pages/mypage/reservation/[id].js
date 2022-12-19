@@ -55,6 +55,7 @@ export async function getServerSideProps(context) {
     const response = await axios({
       url: `${process.env.baseURL}mypage/${params.id}`,
       headers: { Authorization: accessToken },
+      rejectUnauthorized: false,
     });
     if (response.status === 200) {
       return {

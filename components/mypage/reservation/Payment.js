@@ -21,7 +21,7 @@ const StyledCard = styled(Card)`
     margin-left: 50px;
   }
   main > div {
-    width: 60%;
+    width: 78%;
     display: flex;
     align-items: center;
     justify-content: space-between;

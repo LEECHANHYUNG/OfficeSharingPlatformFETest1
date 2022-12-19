@@ -4,7 +4,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { officeSliceActions } from '../../store/officeList';
-import OfficeSearch from '../main/officeList/OfficeSearch';
+import PlaceSearch from '../main/PlaceList/PlaceSearch';
 import PlaceAdditional from './PlaceAdditional';
 import PlaceAvailableItem from './PlaceAvailableItem';
 import PlaceImage from './PlaceImage';
@@ -78,7 +78,7 @@ const PlaceDetailMain = () => {
       <div className="prev-btn" onClick={prevBtnHandler}>
         <Image src="/svg/arrow-left.svg" width="36" height="36" />
       </div>
-      <OfficeSearch />
+      <PlaceSearch />
       <PlaceImage images={selectedPlace.item.placeImages} />
       <div className="line"></div>
       <PlaceInfo

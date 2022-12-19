@@ -47,7 +47,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const OfficeItem = (props) => {
+const PlaceItem = (props) => {
   const dispatch = useDispatch();
   const selectedOfficeRef = useRef();
   const officeList = useSelector((state) => state.officeList.officeList);
@@ -84,4 +84,4 @@ const OfficeItem = (props) => {
   );
 };
 
-export default OfficeItem;
+export default PlaceItem;

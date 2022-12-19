@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import KakaoMap from '../components/main/map/KakaoMap';
-import OfficeList from '../components/main/officeList/OfficeList';
+import PlaceList from '../components/main/PlaceList/PlaceList';
 import PlaceDetailMain from '../components/place/PlaceDetailMain';
 import { officeSliceActions } from '../store/officeList';
 
@@ -33,7 +33,7 @@ const HomePage = (props) => {
       {selectedPlaceId ? (
         <PlaceDetailMain />
       ) : (
-        <OfficeList officeList={props.officeList} map={map} />
+        <PlaceList officeList={props.officeList} map={map} />
       )}
     </Wrapper>
   );

@@ -7,6 +7,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 import { Navigation } from 'swiper';
+import Button from '../ui/Button';
+import { useRouter } from 'next/router';
 
 const Wrapper = styled.section`
   margin-top: 40px;
@@ -60,6 +62,7 @@ const Wrapper = styled.section`
   }
 `;
 const RecentRerservation = ({ item }) => {
+  const router = useRouter();
   return (
     <Wrapper>
       <h1>이용 예정 상품</h1>
@@ -92,6 +95,15 @@ const RecentRerservation = ({ item }) => {
                   {`${item[elem].reservationEndDate}
               ${item[elem].reservationEndTime}`}
                 </div>
+                <Button
+                  onClick={() => {
+                    router.push(
+                      `/mypage/reservation/${item[elem].reservationId}`
+                    );
+                  }}
+                >
+                  예약 상세
+                </Button>
               </Card>
             </SwiperSlide>
           ))}

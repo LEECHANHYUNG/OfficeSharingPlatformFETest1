@@ -7,6 +7,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 import { Navigation } from 'swiper';
+import { useRouter } from 'next/router';
+import Button from '../ui/Button';
 
 const Wrapper = styled.section`
   margin-top: 150px;
@@ -57,6 +59,9 @@ const Wrapper = styled.section`
   }
 `;
 const CurrentReservation = ({ item }) => {
+  const router = useRouter();
+
+  console.log(item);
   return (
     <Wrapper>
       <h1>현재 사용중인 상품</h1>
@@ -90,6 +95,15 @@ const CurrentReservation = ({ item }) => {
                   {`${item[elem].reservationEndDate}
               ${item[elem].reservationEndTime}`}
                 </div>
+                <Button
+                  onClick={() => {
+                    router.push(
+                      `/mypage/reservation/${item[elem].reservationId}`
+                    );
+                  }}
+                >
+                  예약 상세
+                </Button>
               </Card>
             </SwiperSlide>
           ))}

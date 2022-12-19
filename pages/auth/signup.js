@@ -137,7 +137,10 @@ const SignUp = () => {
             회원가입
           </Button>
           <p>
-            계정이 있으신가요?<Link href="/auth/signin">로그인</Link>
+            계정이 있으신가요?
+            <Link href="/auth/signin">
+              <div className="login-link">로그인</div>
+            </Link>
           </p>
         </form>
       </section>
@@ -156,7 +159,11 @@ const Wrapper = styled.div`
   width: 90%;
   max-width: 40rem;
   text-align: center;
-
+  .login-link {
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: underline;
+  }
   .signInForm form {
     width: 100%;
     display: flex;
@@ -181,7 +188,7 @@ const Wrapper = styled.div`
     height: 40px;
     margin: 10px auto;
   }
-  Button {
+  button {
     width: 80%;
     margin-top: 20px;
   }
@@ -215,5 +222,17 @@ const Wrapper = styled.div`
     width: 15px;
     height: 15px;
     margin: 0 5px;
+  }
+  @media screen and (max-width: 858px) {
+    .validity-comment {
+      margin-left: 24px;
+      font-size: 13px;
+    }
+    label {
+      font-size: 13px;
+    }
+    h1 {
+      font-size: 22px;
+    }
   }
 `;

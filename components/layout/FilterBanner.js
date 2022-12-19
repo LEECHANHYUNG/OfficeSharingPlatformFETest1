@@ -14,6 +14,7 @@ const StyledInput = styled.input`
   border: none;
   outline: none;
   border-radius: 5px;
+
   &::webkit-calendar-picker-indicator {
     background: #6a9eff;
     padding: 5px;
@@ -145,7 +146,6 @@ const Wrapper = styled.div`
     justify-content: flex-start;
     align-items: center;
     min-width: 860px;
-    overflow-x: scroll;
   }
 
   div {

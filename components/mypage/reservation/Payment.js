@@ -71,7 +71,7 @@ const Payment = ({ payData }) => {
       </div>
       <main>
         <div className="real-price">
-          <h3>실 결제 </h3>
+          <h3>실 결제 금액</h3>
           <div className="data">{payData.payPrice.toLocaleString()}</div>
         </div>
         <div className="mileage-price">

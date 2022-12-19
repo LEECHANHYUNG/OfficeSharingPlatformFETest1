@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import Banner from '../../../components/mypage/Banner';
 import Header from '../../../components/mypage/Header';
 import Detail from '../../../components/mypage/reservation/Detail';
+import NewReview from '../../../components/mypage/use/NewReview';
 const Wrapper = styled.section`
   width: 100%;
   .item {
@@ -32,16 +33,21 @@ const Wrapper = styled.section`
 const ReservationDetail = (props) => {
   const [newComment, setNewComment] = useState(false);
   return (
-    <Wrapper>
-      <Header userData={props.userData} />
-      <Banner />
-      <Detail
-        resData={props.resData}
-        payData={props.payData}
-        setNewComment={setNewComment}
-      />
-      <NewReview />
-    </Wrapper>
+    <Fragment>
+      <Wrapper>
+        <Header userData={props.userData} />
+        <Banner />
+        {!newComment ? (
+          <Detail
+            resData={props.resData}
+            payData={props.payData}
+            setNewComment={setNewComment}
+          />
+        ) : (
+          <NewReview />
+        )}
+      </Wrapper>
+    </Fragment>
   );
 };
 

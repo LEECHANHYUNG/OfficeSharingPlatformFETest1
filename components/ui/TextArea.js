@@ -26,6 +26,7 @@ const TextArea = ({
   addCommentHandler,
   maxLength = 40,
   placeComment,
+  newReview,
 }) => {
   const session = useSession();
   const [isEntered, setIsEntered] = useState(false);
@@ -66,10 +67,14 @@ const TextArea = ({
         >
           등록
         </Button>
+      ) : newReview ? (
+        <Button onClick={addCommentHandler} disabled={!isEntered}>
+          등록
+        </Button>
       ) : (
         <Button
           onClick={addCommentHandler}
-          disabled={!isEntered || !session.data || !enteredQna}
+          disabled={!isEntered || !session.data}
         >
           등록
         </Button>

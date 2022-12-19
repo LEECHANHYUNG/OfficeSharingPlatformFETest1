@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -226,13 +227,15 @@ const Detail = (props) => {
             <h3>리뷰</h3>
             <div className="data">
               {ratingStatusDescription === '작성 가능' ? (
-                <Button
+                <div
                   onClick={() => {
                     props.setNewComment(true);
                   }}
+                  className="new-review"
                 >
+                  <Image src="/svg/pencil.svg" width="16" height="16" />
                   {ratingStatusDescription}
-                </Button>
+                </div>
               ) : (
                 <div>{ratingStatusDescription}</div>
               )}

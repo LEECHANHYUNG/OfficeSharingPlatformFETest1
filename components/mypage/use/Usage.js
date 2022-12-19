@@ -58,7 +58,7 @@ const Usage = (props) => {
         data: {
           url: 'mypage/usage?page=',
           accessToken: session.data.user.accessToken,
-          page: selected,
+          page: selected + 1,
         },
       });
 

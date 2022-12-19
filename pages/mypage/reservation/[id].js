@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
 import React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import Banner from '../../../components/mypage/Banner';
 import Header from '../../../components/mypage/Header';
@@ -29,11 +30,17 @@ const Wrapper = styled.section`
 `;
 
 const ReservationDetail = (props) => {
+  const [newComment, setNewComment] = useState(false);
   return (
     <Wrapper>
       <Header userData={props.userData} />
       <Banner />
-      <Detail resData={props.resData} payData={props.payData} />
+      <Detail
+        resData={props.resData}
+        payData={props.payData}
+        setNewComment={setNewComment}
+      />
+      <NewReview />
     </Wrapper>
   );
 };

@@ -9,6 +9,7 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper';
 import Button from '../ui/Button';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 const Wrapper = styled.section`
   margin-top: 40px;
@@ -63,6 +64,7 @@ const Wrapper = styled.section`
 `;
 const RecentRerservation = ({ item }) => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <Wrapper>
       <h1>이용 예정 상품</h1>
@@ -97,10 +99,12 @@ const RecentRerservation = ({ item }) => {
                 </div>
                 <Button
                   onClick={() => {
+                    setIsLoading(true);
                     router.push(
                       `/mypage/reservation/${item[elem].reservationId}`
                     );
                   }}
+                  disabled={isLoading}
                 >
                   예약 상세
                 </Button>

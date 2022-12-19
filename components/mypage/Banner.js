@@ -12,6 +12,7 @@ const Wrapper = styled.section`
   border-right: 2px solid #111;
   padding-left: 20px;
   padding-top: 20px;
+
   .title {
     font-size: 0.8rem;
     color: #999;
@@ -64,7 +65,7 @@ const Wrapper = styled.section`
       top: 50px;
       width: 100%;
       height: 0px;
-      background: #111;
+      background: #fff;
       text-align: center;
       transition: all 0.5s;
       display: block;
@@ -75,7 +76,7 @@ const Wrapper = styled.section`
       display: block;
       line-height: 40px;
       text-align: center;
-      color: #fff;
+      color: #444;
     }
 
     #mypageCheck:checked + label ~ ul {

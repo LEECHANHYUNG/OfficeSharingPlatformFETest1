@@ -73,6 +73,7 @@ const book = () => {
   };
   const changePaymentHandler = () => {
     dispatch(paymentSliceActions.getPaymentForm(false));
+    dispatch(paymentSliceActions.resetPaymentInfo());
   };
   const sendReservationHandler = () => {
     router.replace(`/reservation/${reservationInfo.reservationId}`);

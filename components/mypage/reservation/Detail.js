@@ -96,6 +96,7 @@ const StyledCard = styled(Card)`
     .right {
       width: 100%;
     }
+
     .data {
       font-size: 15px;
       margin-left: 10px;
@@ -225,7 +226,13 @@ const Detail = (props) => {
             <h3>리뷰</h3>
             <div className="data">
               {ratingStatusDescription === '작성 가능' ? (
-                <Button>{ratingStatusDescription}</Button>
+                <Button
+                  onClick={() => {
+                    props.setNewComment(true);
+                  }}
+                >
+                  {ratingStatusDescription}
+                </Button>
               ) : (
                 <div>{ratingStatusDescription}</div>
               )}

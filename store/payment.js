@@ -15,6 +15,13 @@ const paymentSlice = createSlice({
     getSelectedPaymentType(state, action) {
       state.paymentType = action.payload;
     },
+    resetPaymentInfo(state) {
+      state.paymentType = '';
+      state.useMileage = 0;
+      state.amount = 0;
+      state.showForm = false;
+      state.company = '';
+    },
     getUseMileage(state, action) {
       state.useMileage = action.payload;
     },

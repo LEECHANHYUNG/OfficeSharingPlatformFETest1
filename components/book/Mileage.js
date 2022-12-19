@@ -63,8 +63,9 @@ const Mileage = ({ totalMileage, totalPrice }) => {
           <p>
             <Image src="/svg/won.svg" width="10" height="10" />
             <input
-              type="text"
+              type="number"
               min={0}
+              step={100}
               onChange={inputMileageHandler}
               value={enteredMileage}
             />

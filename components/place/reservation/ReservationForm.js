@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { paymentSliceActions } from '../../../store/payment';
 import { reservationActions } from '../../../store/reservation';
 import Button from '../../ui/Button';
 import Card from '../../ui/Card';
@@ -146,6 +147,7 @@ const ReservationForm = () => {
         },
       });
       if (response.status === 200) {
+        dispatch(paymentSliceActions.getPaymentForm(false));
         dispatch(reservationActions.getReservationInfo(response.data));
         alert('예약 페이지로 이동합니다.');
         router.push('/place/book');

@@ -8,7 +8,7 @@ const Wrapper = styled.section`
   top: 80px;
   float: left;
   width: 20vw;
-  height: 80vh;
+  height: 100vh;
   border-right: 2px solid #111;
   padding-left: 20px;
   padding-top: 20px;
@@ -28,53 +28,59 @@ const Wrapper = styled.section`
     margin-right: 40px;
     cursor: pointer;
     display: none;
+    height: 0px;
     line-height: 65px;
   }
   #mypageCheck {
     display: none;
   }
   ul {
-    line-height: 20px;
-    float: left;
+    line-height: 15px;
     z-index: auto;
   }
   ul li {
     color: #111;
+    font-weight: 800;
     display: block;
-    line-height: 80px;
+    line-height: 40px;
     margin: 0 5px;
     cursor: pointer;
   }
+  ul li:hover {
+    color: #6a9eff;
+  }
   @media screen and (max-width: 1170px) {
-    width: 98vw;
+    width: 100%;
     border-right: none;
     text-align: center;
     height: 50px;
     padding: 0;
-
     .mypage-checkbtn {
       display: block;
     }
 
     ul {
       position: absolute;
-      width: 30vw;
-      height: auto;
-      background: #2c3e50;
-      left: -100%;
+      top: 50px;
+      width: 100%;
+      height: 0px;
+      background: #111;
       text-align: center;
       transition: all 0.5s;
+      display: block;
       z-index: 1000;
+      overflow-x: hidden;
     }
     ul li {
       display: block;
       line-height: 40px;
       text-align: center;
-      color: #111;
+      color: #fff;
     }
 
     #mypageCheck:checked + label ~ ul {
-      left: 0;
+      height: auto;
+      transition: all 0.5s;
     }
   }
 `;

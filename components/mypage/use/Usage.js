@@ -8,7 +8,6 @@ import Banner from './Banner';
 import UsedItem from './UsedItem';
 
 const Wrapper = styled.section`
-  width: 100%;
   h1 {
     font-size: 2rem;
     margin-top: 20px;

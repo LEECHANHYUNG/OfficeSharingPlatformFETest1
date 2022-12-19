@@ -13,7 +13,7 @@ const Nav = styled.nav`
   height: 100px;
   width: 100%;
   background-color: #252424;
-  z-index: 1000;
+  z-index: 10000;
 
   .logo {
     float: left;

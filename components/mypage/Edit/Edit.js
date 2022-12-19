@@ -47,6 +47,13 @@ const Wrapper = styled.section`
     align-items: center;
     flex-direction: column;
   }
+  @media screen and (max-width: 858px) {
+    width: 100%;
+    .select {
+      width: 100%;
+      font-size: 12px;
+    }
+  }
 `;
 const Edit = ({ item }) => {
   const [phone, setPhone] = useState('');

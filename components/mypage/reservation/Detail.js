@@ -93,7 +93,7 @@ const StyledCard = styled(Card)`
     .right {
       width: 100%;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       text-align: left;
       flex-wrap: nowrap;
     }
@@ -125,6 +125,7 @@ const Detail = (props) => {
   const router = useRouter();
   const session = useSession();
   const [detailItems, setDetailItems] = useState(props);
+  console.log(props);
   const cancelReservationHandler = async () => {
     try {
       const response = await axios({
@@ -163,7 +164,7 @@ const Detail = (props) => {
       }
     } catch (error) {}
   };
-  console.log(detailItems.payData);
+  const isDesk = detailItems.resData.roomType.includes('데스크');
   return (
     <Wrapper>
       <header>
@@ -171,6 +172,10 @@ const Detail = (props) => {
       </header>
       <StyledCard>
         <div className="left">
+          <div className="place-name">
+            <h3>{isDesk ? '좌석 번호' : 'Room번호'}</h3>
+            <div className="data">{detailItems.resData.roomId}</div>
+          </div>
           <div className="place-name">
             <h3>예약 지점</h3>
             <div className="data">{detailItems.resData.placeName}</div>

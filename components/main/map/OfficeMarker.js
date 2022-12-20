@@ -20,12 +20,13 @@ const OfficeMarker = (props) => {
     geocoder.addressSearch(selectedPlaceAddress, (result, status) => {
       if (status === kakao.maps.services.Status.OK) {
         const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+        map.current.setLevel(9);
         map.current.panTo(coords);
       }
     });
   };
   const setBound = (bounds) => {
-    map.current.setBounds(bounds, 170, 50, 170, 50);
+    map.current.setBounds(bounds, 350, 0, 0, 0);
   };
   useEffect(() => {
     markers.map((elem) => elem.setMap(null));
@@ -52,12 +53,11 @@ const OfficeMarker = (props) => {
             content,
             map: map.current,
             position: coords,
-            level: 12,
           });
           bounds.extend(coords);
-
           dispatch(officeSliceActions.getOverlay(overlay));
           setBound(bounds);
+
           return overlay;
         }
       });

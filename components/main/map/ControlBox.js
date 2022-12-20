@@ -13,7 +13,7 @@ const ControlDiv = styled.div`
   z-index: 2;
   background-color: #f5f5f5;
 
-  & span {
+  span {
     display: block;
     width: 36px;
     height: 36px;
@@ -22,8 +22,8 @@ const ControlDiv = styled.div`
     padding-top: 8px;
   }
 
-  & span:first-child,
-  & span:nth-child(2) {
+  span:first-child,
+  span:nth-child(2) {
     border-bottom: 1px solid #111;
   }
   @media screen and (max-width: 1170px) {
@@ -46,6 +46,7 @@ const ControlBox = (props) => {
         const lat = position.coords.latitude,
           lng = position.coords.longitude;
         const currentLocation = new kakao.maps.LatLng(lat, lng);
+        props.map.current.setLevel(5);
         props.map.current.panTo(currentLocation);
       });
     }

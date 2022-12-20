@@ -18,6 +18,7 @@ const SignUp = () => {
   const passwordIsValid = useSelector((state) => state.auth.passwordIsValid);
   const nameIsValid = useSelector((state) => state.auth.nameIsValid);
   const phoneIsValid = useSelector((state) => state.auth.phoneIsValid);
+  const passwordIsEqual = useSelector((state) => state.auth.passwordIsEqual);
   const authNumberIsValid = useSelector(
     (state) => state.auth.authNumberIsValid
   );
@@ -45,7 +46,8 @@ const SignUp = () => {
           nameIsValid &&
           phoneIsValid &&
           authNumberIsValid &&
-          authNumberAuthenticated
+          authNumberAuthenticated &&
+          passwordIsEqual
       );
     }, 100);
     return () => {
@@ -58,6 +60,7 @@ const SignUp = () => {
     phoneIsValid,
     authNumberIsValid,
     authNumberAuthenticated,
+    passwordIsEqual,
   ]);
   const signupHandler = (e) => {
     e.preventDefault();

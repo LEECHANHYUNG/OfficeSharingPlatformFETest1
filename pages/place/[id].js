@@ -67,7 +67,6 @@ const PlaceMainPage = ({ place }) => {
       +place.placeMainInfo.placeCloseTime.slice(0, 2),
     ])
   );
-  console.log(place);
   return (
     <Wrapper>
       <PlaceInfo

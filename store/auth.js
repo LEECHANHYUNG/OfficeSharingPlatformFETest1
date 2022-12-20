@@ -20,6 +20,7 @@ const authInitialState = {
   phoneIsValid: null,
   authNumberIsValid: null,
   authNumberAuthenticated: false,
+  passwordIsEqual: false,
 };
 
 const emailRegExp =
@@ -73,6 +74,9 @@ const authSlice = createSlice({
     },
     getAuthNumberAuthenticated(state, action) {
       state.authNumberAuthenticated = action.payload;
+    },
+    getPasswordIsEqual(state, action) {
+      state.passwordIsEqual = action.payload;
     },
   },
 });

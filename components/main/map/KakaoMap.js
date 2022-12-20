@@ -33,7 +33,6 @@ const KakaoMap = (props) => {
           lng: 127.05462238047163,
         }}
         style={{ paddingTop: '150px' }}
-        level={11}
         ref={mapRef}
       >
         <OfficeMarker map={mapRef} />

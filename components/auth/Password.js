@@ -10,14 +10,40 @@ const Wrapper = styled.div`
 `;
 const Password = () => {
   const [passwordBlur, setPasswordBlur] = useState(false);
+  const [passwordSecondBlur, setPasswordSecondBlur] = useState(false);
+  const [password, setPassword] = useState();
+  const [checkPassword, setCheckPassword] = useState();
+
   const dispatch = useDispatch();
   const passwordIsValid = useSelector((state) => state.auth.passwordIsValid);
+  const passwordSecondIsValid = useSelector(
+    (state) => state.auth.passwordSecondIsValid
+  );
   const passwordChangeHandler = (e) => {
+    setPassword(e.target.value);
+    dispatch(
+      authSliceActions.getPasswordIsEqual(e.target.value === checkPassword)
+    );
     dispatch(authSliceActions.getPasswordValid(e.target.value));
   };
   const validatePasswordHandler = (e) => {
+    setPassword(e.target.value);
+    dispatch(
+      authSliceActions.getPasswordIsEqual(e.target.value === checkPassword)
+    );
     dispatch(authSliceActions.getPasswordValid(e.target.value));
     setPasswordBlur(true);
+  };
+  const passwordSecondChangeHandler = (e) => {
+    setCheckPassword(e.target.value);
+    dispatch(authSliceActions.getPasswordIsEqual(password === e.target.value));
+    dispatch(authSliceActions.getPasswordSecondValid(e.target.value));
+  };
+  const validatecheckedPasswordHandler = (e) => {
+    setCheckPassword(e.target.value);
+    setPasswordSecondBlur(true);
+    dispatch(authSliceActions.getPasswordIsEqual(password === e.target.value));
+    dispatch(authSliceActions.getPasswordSecondValid(e.target.value));
   };
   return (
     <Wrapper className="control">
@@ -34,6 +60,22 @@ const Password = () => {
           onChange={passwordChangeHandler}
           onBlur={validatePasswordHandler}
           className={`${passwordIsValid === false ? ' invalid' : ''}`}
+          minLength="8"
+          maxLength="15"
+          required
+        />
+        <div className="validity-comment">
+          {password !== checkPassword && passwordSecondBlur
+            ? '비밀번호가 다릅니다.'
+            : ''}
+        </div>
+        <Input
+          type="password"
+          name="password"
+          placeholder="패스워드 확인*"
+          onChange={passwordSecondChangeHandler}
+          onBlur={validatecheckedPasswordHandler}
+          className={`${passwordSecondIsValid === false ? ' invalid' : ''}`}
           minLength="8"
           maxLength="15"
           required

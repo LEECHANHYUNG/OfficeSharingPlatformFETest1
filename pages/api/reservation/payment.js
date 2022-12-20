@@ -42,7 +42,7 @@ const handler = async (req, res) => {
           expiry: req.body.expiry,
           birth: req.body.birth,
           pwd_2digit: req.body.pwd_2digit,
-          payWay: 'PREPAYMENT',
+          payWay: req.body.payWay,
           payType: req.body.payType,
           payMileage: +req.body.useMileage,
           card_quote: +req.body.card_quote,

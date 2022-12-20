@@ -48,7 +48,7 @@ const PaymentMain = ({ totalPrice, isOffice }) => {
             {totalPrice?.toLocaleString()}
           </p>
         </div>
-        {paymentType === 'FULL_PAYMENT' ? (
+        {paymentType === 'FULL_PAYMENT' && !isOffice ? (
           <div className="price">
             <h5>선결제</h5>
             <p>

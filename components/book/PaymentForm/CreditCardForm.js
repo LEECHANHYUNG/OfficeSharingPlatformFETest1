@@ -92,6 +92,7 @@ const CreditCardForm = () => {
   const paymentType = useSelector((state) => state.payment.paymentType);
   const useMileage = useSelector((state) => state.payment.useMileage);
   const session = useSession();
+  const isOffice = reservationInfo.productType.includes('사무실');
   const submitPaymentHandler = async () => {
     try {
       const response = await axios({
@@ -107,6 +108,7 @@ const CreditCardForm = () => {
           pwd_2digit: `${passwordRef.current.value}`,
           payType: paymentType,
           payMileage: +useMileage,
+          payWay: isOffice ? 'POSTPAYMENT' : 'PREPAYMENT',
           card_quote: quoteRef.current.value,
         },
       });

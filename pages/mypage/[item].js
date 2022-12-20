@@ -93,15 +93,15 @@ export async function getServerSideProps(context) {
   const params = context.params;
   const session = await getSession({ req: context.req });
 
-  if (!session.user.accessToken) {
-    signOut();
-    return {
-      redirect: {
-        destination: '/auth/signin',
-        permanent: false,
-      },
-    };
-  }
+  //if (!session.user.accessToken) {
+  //  signOut();
+  //  return {
+  //    redirect: {
+  //      destination: '/auth/signin',
+  //      permanent: false,
+  //    },
+  //  };
+  //}
   try {
     const response = await axios({
       url: `${process.env.baseURL}mypage/${params.item}?page=1`,

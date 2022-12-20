@@ -49,9 +49,9 @@ const StyledSwiper = styled.div`
   }
   .time-box {
     position: absolute;
-    font-size: 0.7rem;
+    font-size: 13px;
     top: -17px;
-    left: 0px;
+    left: -4px;
   }
 `;
 
@@ -70,7 +70,9 @@ const SelectEndTime = () => {
 
   const selectedTimeList = document.getElementsByClassName('selected-time');
   const selectTimeHandler = (e) => {
-    if (+selectedStartTime > +e.target.id && +selectedEndTime === 24) {
+    if (e.target.classList[0] === 'time-box') {
+      return;
+    } else if (+selectedStartTime > +e.target.id && +selectedEndTime === 24) {
       dispatch(reservationActions.getSelectedStartTime(e.target.id));
     } else if (selectedTimeList.length === 1 && selectedEndTime === 24) {
       dispatch(reservationActions.getSelectedEndTime(e.target.id));

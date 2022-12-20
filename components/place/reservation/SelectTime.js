@@ -41,41 +41,46 @@ const SelectTime = () => {
   });
 
   const selectTimeHandler = (e) => {
-    const selectedTimeList = document.getElementsByClassName('start-time');
-    const selectedItem = document.getElementsByClassName('selected-time');
-    Array.from(selectedItem).map((elem) =>
-      elem.classList.remove('selected-time')
-    );
-    dispatch(reservationActions.getSelectedEndTime(24));
-    if (selectedTimeList[0]) {
-      selectedTimeList[0].classList.remove('start-time');
-    }
-    e.target.classList.add('start-time');
-    dispatch(reservationActions.getSelectedStartTime(e.target.id));
-    axios({
-      url: '/api/main/available-time',
-      method: 'post',
-      data: {
-        placeId,
-        selectedTypeEng,
-        date: dateString,
-        startTime: e.target.id,
-      },
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          dispatch(reservationActions.getTimeList(response.data));
-        } else {
-          throw new Error();
-        }
+    console.log(e.target.classList);
+    if (e.target.classList[1] === 'start-time') {
+      return;
+    } else {
+      const selectedTimeList = document.getElementsByClassName('start-time');
+      const selectedItem = document.getElementsByClassName('selected-time');
+      Array.from(selectedItem).map((elem) =>
+        elem.classList.remove('selected-time')
+      );
+      dispatch(reservationActions.getSelectedEndTime(24));
+      if (selectedTimeList[0]) {
+        selectedTimeList[0].classList.remove('start-time');
+      }
+      e.target.classList.add('start-time');
+      dispatch(reservationActions.getSelectedStartTime(e.target.id));
+      axios({
+        url: '/api/main/available-time',
+        method: 'post',
+        data: {
+          placeId,
+          selectedTypeEng,
+          date: dateString,
+          startTime: e.target.id,
+        },
       })
-      .catch((error) => {
-        alert(
-          error.response.data.message?.split(' ').slice(1).join(' ')
-            ? error.response.data.message.split(' ').slice(1).join(' ')
-            : '일시 오류. 잠시후 다시 시도해주세요'
-        );
-      });
+        .then((response) => {
+          if (response.status === 200) {
+            dispatch(reservationActions.getTimeList(response.data));
+          } else {
+            throw new Error();
+          }
+        })
+        .catch((error) => {
+          alert(
+            error.response.data.message?.split(' ').slice(1).join(' ')
+              ? error.response.data.message.split(' ').slice(1).join(' ')
+              : '일시 오류. 잠시후 다시 시도해주세요'
+          );
+        });
+    }
   };
 
   return (

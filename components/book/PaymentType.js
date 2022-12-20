@@ -79,7 +79,7 @@ const Wrapper = styled(Card)`
       width : 125%;
     }
     .notice{
-      top : 170px;
+      top : 90px;
     }
     .custom-radio p {
       font-size : 11px;
@@ -160,7 +160,7 @@ const PaymentType = (props) => {
             <input
               type="radio"
               name="type"
-              value="DEPOSIT"
+              value="FULL_PAYMENT"
               onClick={getSelectedPaymentTypeHandler}
             />
             <span className="radio-btn">

@@ -2,6 +2,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
+import { signOut } from 'next-auth/react';
 async function refreshAccessToken(tokenObject) {
   try {
     const response = await axios({
@@ -15,6 +16,8 @@ async function refreshAccessToken(tokenObject) {
         accessToken: response.data.accessToken,
         refreshToken: response.data.refreshToken,
       };
+    } else {
+      signOut();
     }
   } catch (error) {
     return {

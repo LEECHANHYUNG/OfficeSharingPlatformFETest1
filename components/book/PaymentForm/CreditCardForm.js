@@ -84,6 +84,7 @@ const CreditCardForm = () => {
   const passwordRef = useRef();
   const monthRef = useRef();
   const yearRef = useRef();
+  const quoteRef = useRef();
   const reservationInfo = useSelector(
     (state) => state.reservation.reservationInfo
   );
@@ -106,16 +107,16 @@ const CreditCardForm = () => {
           pwd_2digit: `${passwordRef.current.value}`,
           payType: paymentType,
           payMileage: +useMileage,
+          card_quote: quoteRef.current.value,
         },
       });
       if (response.status === 200) {
         router.replace(`/mypage/reservation/${reservationInfo.reservationId}`);
       } else {
-        alert('카드 정보를 확인해주세요');
         throw new Error(response.data.message);
       }
     } catch (error) {
-      console.log(error);
+      alert('카드 정보를 확인해주세요');
     }
   };
   return (
@@ -162,6 +163,19 @@ const CreditCardForm = () => {
         </div>
       </div>
       <div className="second-row">
+        <div className="quote">
+          <h5>할부</h5>
+          <div className="selection">
+            <select name="quote" id="quote" ref={quoteRef}>
+              <option value="1">일시불</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+        </div>
         <div className="birth">
           <h5>생년월일</h5>
           <div className="input-field">

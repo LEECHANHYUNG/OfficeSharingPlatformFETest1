@@ -7,7 +7,7 @@ import Usage from '../../components/mypage/use/Usage';
 import Comment from '../../components/mypage/comment/Comment';
 import Point from '../../components/mypage/point/Point';
 import Qna from '../../components/mypage/qna/Qna';
-import { getSession, useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import axios from 'axios';
 import Review from '../../components/mypage/review/Review';
 import Edit from '../../components/mypage/Edit/Edit';
@@ -34,12 +34,7 @@ const Wrapper = styled.section`
 
 const Mypage = (props) => {
   const router = useRouter();
-  const session = useSession();
-  useEffect(() => {
-    if (session.status === 'unauthenticated') {
-      signOut();
-    }
-  }, []);
+
   return (
     <Wrapper>
       <Header userData={props.userData} />

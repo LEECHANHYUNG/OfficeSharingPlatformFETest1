@@ -45,6 +45,7 @@ const handler = async (req, res) => {
           payWay: 'PREPAYMENT',
           payType: req.body.payType,
           payMileage: +req.body.useMileage,
+          card_quote: +req.body.card_quote,
         },
       });
       if (response.status === 200) {

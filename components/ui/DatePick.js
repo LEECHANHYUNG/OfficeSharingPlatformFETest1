@@ -27,7 +27,6 @@ const DatePick = () => {
   const changeDateHandler = (date) => {
     setSelectDate(date);
     dispatch(reservationActions.selectDate(date));
-    dispatch(reservationActions.selectEndDate(date));
     dispatch(reservationActions.getSelectedEndTime(24));
     const selectedTimeList = document.getElementsByClassName('start-time');
     if (selectedTimeList[0]) {

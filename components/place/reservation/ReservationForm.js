@@ -106,27 +106,17 @@ const ReservationForm = () => {
   }
 
   const selectedDate = useSelector((state) => state.reservation.date);
-  const selectedEndDate = useSelector((state) => state.reservation.endDate);
+
   const dateArr = selectedDate.toLocaleDateString().slice(0, -1).split('. ');
-  const endDateArr = selectedEndDate
-    .toLocaleDateString()
-    .slice(0, -1)
-    .split('. ');
+
   const dateString =
     dateArr[0] +
     '-' +
     dateArr[1]?.padStart(2, '0') +
     '-' +
     dateArr[2]?.padStart(2, '0');
-  const endDateString =
-    endDateArr[0] +
-    '-' +
-    endDateArr[1]?.padStart(2, '0') +
-    '-' +
-    endDateArr[2]?.padStart(2, '0');
 
   const session = useSession();
-  console.log(session);
   const sendReservationInfoHandler = async () => {
     if (session.status === 'unauthenticated') {
       alert('로그인이 필요한 서비스입니다. 로그인 페이지로 이동합니다.');
@@ -141,7 +131,7 @@ const ReservationForm = () => {
             id: placeId,
             selectedType: selectedTypeEng,
             startDate: dateString,
-            endDate: endDateString,
+            endDate: dateString,
             startTime: selectedStartTime,
             endTime: +selectedEndTime + 1,
           },
@@ -152,11 +142,13 @@ const ReservationForm = () => {
           alert('예약 페이지로 이동합니다.');
           router.push('/place/book');
         } else {
-          throw new Error(response.data.message);
+          throw new Error(response.data);
         }
       } catch (error) {
-        console.error(error.response);
-        alert(error.response?.data.message.split(' ').slice(1).join(' '));
+        alert(
+          error.response.data.message?.split(' ').slice(1).join(' ') ||
+            '잠시후 다시 시도해주세요'
+        );
       }
     }
   };

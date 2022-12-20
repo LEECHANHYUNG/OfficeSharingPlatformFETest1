@@ -84,11 +84,11 @@ const StyledCard = styled(Card)`
   position: relative;
   .btn {
     position: absolute;
-    width: 315px;
-    top: -40px;
+    width: 230px;
+    bottom: 0px;
     right: 0px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
   }
   @media screen and (max-width: 1170px) {
@@ -122,10 +122,11 @@ const StyledCard = styled(Card)`
       width: 100%;
       justify-content: space-evenly;
     }
-    button {
-      width: 30%;
+    .btn button {
+      width: 40%;
       font-size: 13px;
     }
+
     .review {
       position: absolute;
       top: 10px;

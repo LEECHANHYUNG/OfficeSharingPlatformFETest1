@@ -93,7 +93,7 @@ const PaymentMain = ({ totalPrice, isOffice }) => {
             <h5>적립 예정 마일리지</h5>
             <p>
               <Image src="/svg/won.svg" width="10" height="10" />
-              {(+(totalPrice - mileageUse) * 0.05).toLocaleString()}
+              {Math.floor(+(totalPrice - mileageUse) * 0.05).toLocaleString()}
             </p>
           </div>
         ) : (

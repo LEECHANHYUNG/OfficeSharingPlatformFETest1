@@ -91,7 +91,7 @@ const book = () => {
     dispatch(paymentSliceActions.getPaymentForm(false));
   };
   console.log(reservationInfo);
-  const isOffice = reservationInfo.productType.includes('사무실');
+  const isOffice = reservationInfo.productType?.includes('사무실');
   return (
     <Wrapper>
       <main>

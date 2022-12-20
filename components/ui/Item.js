@@ -138,7 +138,7 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
     <ItemCard>
       <StyledSwiper navigation={true} modules={[Navigation]} draggable={false}>
         {images.map((image) => (
-          <SwiperSlide className="img">
+          <SwiperSlide className="img" key={image}>
             <Image
               src={image}
               layout="fill"

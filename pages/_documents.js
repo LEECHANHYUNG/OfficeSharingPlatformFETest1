@@ -18,11 +18,8 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head />
-        <link
-          rel="stylesheet"
-          href="//cdn.jsdelivr.net/npm/font-applesdgothicneo@1.0/all.min.css"
-        />
+        <Head></Head>
+
         <body>
           <Main />
           <NextScript />

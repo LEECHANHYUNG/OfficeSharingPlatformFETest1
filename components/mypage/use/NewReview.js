@@ -2,8 +2,10 @@ import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import TextArea from '../../ui/TextArea';
+
 const Wrapper = styled.section`
   position: relative;
   width: 60vw;
@@ -11,97 +13,108 @@ const Wrapper = styled.section`
   top: 80px;
   margin-left: 150px;
 
-  margin-top: 50px;
   h1 {
     font-size: 25px;
   }
-  .stars {
-    height: 150px;
-    width: 500px;
-    text-align: center;
+  .rating {
+    position: relative;
+    display: flex;
+    margin: 10px 0;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
   }
-  .start input {
-    display: none;
+  .rating-container {
+    position: absolute;
   }
-  .stars label {
-    float : right;
-    font-size: 100px;
-    color: #bbb;
-    margin  0 5px;
-    text-shadow : 1px 1px #bbb;
+  .rating input {
+    position: relative;
+    width: 20px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
   }
-  .stars label::before {
-    content: '⭐';
-  }
-  .stars input:checked ~ label{
-    color : gold;
-    text-shadow : 1px 1px #c60;
-  }
-  .stars input:not(:checked)>label:hover,
-  .stars input:not(:checked)>label:hover~label{
-    color : gold;
-    text-shadow : 1px 1px goldenrod;
+  .rating input::before {
+    content: '★';
+    position: absolute;
+    font-size: 24px;
+    postition: absolute;
+    left: 4px;
   }
 
-  .stars .result:before{
-    position : absolute;
-    content :'';
-    left: 50%;
-    transform : translateX(-50%);
-    bottom : -30px;
-    font-size : 30px;
-    font-weight: 500;
-    color : gold;
-    font-family : 'Poppins', sans-serif;
-    display: none;
+  .rating input:nth-child(2n + 1)::before {
+    right: 4px;
+    left: 4px;
   }
-  .stars input:checked > .result{
-    display : block;
+  .rating input:hover ~ input::before,
+  .rating input:hover::before,
+  .rating input:checked ~ input::before,
+  .rating input:checked::before {
+    color: #1f9cff;
+  }
+  @media screen and (max-width: 858px) {
+    width: 90vw;
+    margin-left: 10px;
   }
 `;
 const NewReview = () => {
+  const [ratingCount, setRatingCount] = useState(0);
   const session = useSession();
   const router = useRouter();
   const addCommentHandler = async (e) => {
-    const comment = e.target.parentNode.childNodes[1].value;
-    try {
-      const response = await axios({
-        url: '/api/mypage/review',
-        method: 'post',
-        data: {
-          accessToken: session.data.user.accessToken,
-          ratingScore: '1',
-          ratingReview: comment,
-          reservationId: router.query.id,
-        },
-      });
-      if (response.status === 200) {
-        alert('리뷰 등록 완료');
-        router.replace('/mypage/review');
-      } else {
-        throw new Error(response.data);
+    if (ratingCount === 0) {
+      alert('평점을 입력해주세요.');
+      return;
+    } else {
+      const comment = e.target.parentNode.childNodes[3].value;
+
+      try {
+        const response = await axios({
+          url: '/api/mypage/review',
+          method: 'post',
+          data: {
+            accessToken: session.data.user.accessToken,
+            ratingScore: '1',
+            ratingReview: comment,
+            reservationId: router.query.id,
+          },
+        });
+        if (response.status === 200) {
+          alert('리뷰 등록 완료');
+          router.replace('/mypage/review');
+        } else {
+          throw new Error(response.data);
+        }
+      } catch (error) {
+        console.error(error.response.data);
       }
-    } catch (error) {
-      console.error(error.response.data);
     }
   };
 
+  const getRatingCountHandler = () => {
+    const ratingList = document.getElementsByClassName('rating-input');
+    Array.from(ratingList).map((elem) => {
+      if (elem.checked === true) {
+        setRatingCount(elem.value);
+      }
+    });
+  };
   return (
     <Wrapper>
       <h1>리뷰 작성</h1>
-      <div className="stars">
-        <input type="radio" id="five" name="rate" value="5" />
-        <label htmlFor="five"></label>
-        <input type="radio" id="four" name="rate" value="4" />
-        <label htmlFor="five"></label>
-        <input type="radio" id="three" name="rate" value="3" />
-        <label htmlFor="five"></label>
-        <input type="radio" id="two" name="rate" value="2" />
-        <label htmlFor="five"></label>
-        <input type="radio" id="one" name="rate" value="1" />
-        <label htmlFor="five"></label>
+      <label htmlFor="rating" className="rating-container">
+        평점
+      </label>
+      <div className="rating" onChange={(e) => setRatingCount(e.target.value)}>
+        <input type="radio" name="rating" value={1} className="rating-input" />
+        <input type="radio" name="rating" value={2} className="rating-input" />
+        <input type="radio" name="rating" value={3} className="rating-input" />
+        <input type="radio" name="rating" value={4} className="rating-input" />
+        <input type="radio" name="rating" value={5} className="rating-input" />
       </div>
-
       <TextArea
         placeholder={'최대 100자 입력 가능'}
         addCommentHandler={addCommentHandler}

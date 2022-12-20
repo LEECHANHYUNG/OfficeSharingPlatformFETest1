@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useState } from 'react';
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -84,7 +85,7 @@ const CreditCardForm = () => {
   const passwordRef = useRef();
   const monthRef = useRef();
   const yearRef = useRef();
-  const quoteRef = useRef();
+  const [isLoading, setIsLoading] = useState(false);
   const reservationInfo = useSelector(
     (state) => state.reservation.reservationInfo
   );
@@ -94,6 +95,7 @@ const CreditCardForm = () => {
   const session = useSession();
   const isOffice = reservationInfo.productType.includes('사무실');
   const submitPaymentHandler = async () => {
+    setIsLoading(true);
     try {
       const response = await axios({
         url: '/api/reservation/payment',
@@ -109,16 +111,16 @@ const CreditCardForm = () => {
           payType: paymentType,
           payMileage: +useMileage,
           payWay: isOffice ? 'POSTPAYMENT' : 'PREPAYMENT',
-          card_quote: quoteRef.current.value,
         },
       });
       if (response.status === 200) {
         router.replace(`/mypage/reservation/${reservationInfo.reservationId}`);
       } else {
+        setIsLoading(false);
         throw new Error(response.data.message);
       }
     } catch (error) {
-      alert('카드 정보를 확인해주세요');
+      alert(error.response.data.message);
     }
   };
   const inputCardNumberHandler = (e) => {
@@ -228,7 +230,9 @@ const CreditCardForm = () => {
           </select>
         </div>
       </div>
-      <Button onClick={submitPaymentHandler}>결제</Button>
+      <Button onClick={submitPaymentHandler} disabled={isLoading}>
+        결제
+      </Button>
     </StyledCard>
   );
 };

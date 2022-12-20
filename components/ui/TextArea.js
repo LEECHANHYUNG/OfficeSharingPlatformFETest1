@@ -30,7 +30,6 @@ const TextArea = ({
 }) => {
   const session = useSession();
   const [isEntered, setIsEntered] = useState(false);
-  const enteredQna = useSelector((state) => state.place.enteredQna);
   const changeHeightHandler = (e) => {
     if (!session.data) {
       alert('로그인이 필요한 서비스입니다.');

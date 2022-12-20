@@ -16,7 +16,7 @@ const StyledHeader = styled.header`
 const AuthHeader = () => {
   return (
     <StyledHeader href="/">
-      <h1>Office Sharing Platform</h1>
+      <h1>Place Sharing Platform</h1>
     </StyledHeader>
   );
 };

@@ -18,8 +18,6 @@ async function refreshAccessToken(tokenObject) {
     }
   } catch (error) {
     return {
-      accessToken: '',
-      refreshToken: '',
       error: 'refreshToken Expired',
     };
   }
@@ -84,7 +82,7 @@ export default NextAuth({
       session.user.accessToken = token.accessToken;
       session.user.refreshToken = token.refreshToken;
       session.user.email = token.email;
-      console.log(token);
+
       return session;
     },
   },

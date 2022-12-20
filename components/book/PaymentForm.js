@@ -15,7 +15,7 @@ const StyledCard = styled(Card)`
   }
 
   @media screen and (max-width: 1270px) {
-    width: 92%;
+    width: 90%;
   }
 `;
 

@@ -19,27 +19,27 @@ const Wrapper = styled.div`
   color: #111;
   list-style: none;
 
-  & .name {
+  .name {
     font-weight: 900;
     font-size: 20px;
     line-height: 50px;
   }
-  & .address {
+  .address {
     font-size: 15px;
     line-height: 18px;
     font-weight: 400;
     margin-bottom: 10px;
   }
-  & .option {
+  .option {
     font-size: 14px;
     color: #999;
   }
-  & .distance {
+  .distance {
     padding-right: 10px;
     color: #6a9eff;
     font-weight: bold;
   }
-  & .line {
+  .line {
     position: absolute;
     width: 90%;
     border-bottom: 2px solid #6a9eff;
@@ -75,7 +75,9 @@ const PlaceItem = (props) => {
         <div id={props.elem.key} ref={selectedOfficeRef}>
           <div className="name">{props.elem.item.placeName}</div>
           <div className="address">{props.elem.item.address}</div>
-          <div className="option">{props.elem.item.placeDescription}</div>
+          <div className="option">
+            {props.elem.item.placeDescription.slice(0, 50)}
+          </div>
         </div>
         <div className="distance">{props.elem.item.distance}</div>
         <div className="line"></div>

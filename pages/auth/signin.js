@@ -94,6 +94,8 @@ const SignIn = () => {
       router.replace('/');
       return;
     } else {
+      setIsLoading(false);
+
       alert(result.error);
     }
   };

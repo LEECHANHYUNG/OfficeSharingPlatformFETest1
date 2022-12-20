@@ -44,8 +44,7 @@ const handler = async (req, res) => {
           pwd_2digit: req.body.pwd_2digit,
           payWay: req.body.payWay,
           payType: req.body.payType,
-          payMileage: +req.body.useMileage,
-          card_quote: +req.body.card_quote,
+          payMileage: +req.body.payMileage,
         },
       });
       if (response.status === 200) {

@@ -7,15 +7,14 @@ import styled from 'styled-components';
 import FilterResetBtn from './FilterResetBtn';
 const KaKaoMap = styled(Map)`
   position: absolute;
-  top: 0px;
   left: 0px;
   width: 75vw;
   height: 100vh;
 
   @media (max-width: 1170px) {
     width: 100%;
-    padding-top: 216px;
-    height: 57vh;
+    top: 154px;
+    height: 48vh;
   }
 `;
 const KakaoMap = (props) => {
@@ -32,7 +31,6 @@ const KakaoMap = (props) => {
           lat: 37.52341236919156,
           lng: 127.05462238047163,
         }}
-        style={{ paddingTop: '150px' }}
         ref={mapRef}
       >
         <OfficeMarker map={mapRef} />

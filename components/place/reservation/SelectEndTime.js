@@ -37,7 +37,9 @@ const StyledSwiper = styled.div`
   .selected-time {
     background: rgb(106, 158, 255);
   }
-
+  .selectDate {
+    color: #6a9eff;
+  }
   .unavailable {
     width: 16%;
     height: 40px;

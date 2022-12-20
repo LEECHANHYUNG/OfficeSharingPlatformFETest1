@@ -67,6 +67,7 @@ const SignIn = () => {
   const passwordIsValid = useSelector((state) => state.auth.passwordIsValid);
   const [formIsValid, setFormIsValid] = useState(false);
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     dispatch(authSliceActions.resetValidation());
   }, []);
@@ -80,6 +81,7 @@ const SignIn = () => {
   }, [emailIsValid, passwordIsValid]);
 
   const loginHanlder = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
 
     const result = await signIn('credentials', {
@@ -88,7 +90,6 @@ const SignIn = () => {
       password: enteredPassword,
       returnSecureToken: true,
     });
-
     if (!result.error) {
       router.replace('/');
       return;
@@ -105,8 +106,12 @@ const SignIn = () => {
         <form>
           <input name="csrfToken" type="hidden" />
           <Email />
-          <Password />
-          <Button type="submit" onClick={loginHanlder} disabled={!formIsValid}>
+          <Password signIn={true} />
+          <Button
+            type="submit"
+            onClick={loginHanlder}
+            disabled={isLoading || !formIsValid}
+          >
             로그인
           </Button>
           <p className="navLink">

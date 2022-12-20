@@ -13,9 +13,10 @@ import { useState } from 'react';
 
 const Wrapper = styled.section`
   margin-top: 40px;
-  margin-left: 350px;
+  margin-left: 360px;
   width: 70vw;
   h1 {
+    width: auto;
     font-size: 2rem;
     text-align: left;
   }

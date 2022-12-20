@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -18,13 +19,17 @@ const Header = (props) => {
             <div>
               마일리지 <Image src="/svg/won.svg" width="18" height="18" />
             </div>
-            <div className="userData">{mileagePoint.toLocaleString()}</div>
+            <Link href="/mypage/mileage">
+              <div className="userData">{mileagePoint.toLocaleString()}</div>
+            </Link>
           </div>
           <div>
             <div>
               작성 리뷰 <Image src="/svg/pencil.svg" width="18" height="18" />
             </div>
-            <div className="userData">{totalReviewNumber}</div>
+            <Link href="/mypage/review">
+              <div className="userData">{totalReviewNumber}</div>
+            </Link>
           </div>
         </div>
       </div>
@@ -74,6 +79,7 @@ const Wrapper = styled.section`
   }
   .userInfo .userData {
     font-size: 2rem;
+    cursor: pointer;
   }
   @media screen and (max-width: 1170px) {
     height: auto;

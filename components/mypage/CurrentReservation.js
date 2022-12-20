@@ -13,7 +13,7 @@ import Button from '../ui/Button';
 const Wrapper = styled.section`
   margin-top: 150px;
   margin-left: 360px;
-  width: 80vw;
+  width: 70vw;
   h1 {
     font-size: 2rem;
     text-align: left;

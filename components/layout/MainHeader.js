@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { useDispatch } from 'react-redux';
 import { officeSliceActions } from '../../store/officeList';
+import { useRouter } from 'next/router';
 const Nav = styled.nav`
   position: fixed;
   top: 0;
@@ -86,6 +87,7 @@ const Nav = styled.nav`
 `;
 
 const MainHeader = () => {
+  const router = useRouter();
   const [isAunthenticated, setIsAuthenticated] = useState(false);
   const dispatch = useDispatch();
   const { status } = useSession();
@@ -99,7 +101,8 @@ const MainHeader = () => {
   }, [status]);
 
   const signOutHandler = () => {
-    signOut();
+    signOut({ redirect: false });
+    router.replace('/auth/signin');
   };
   const removeMenuBar = () => {
     const checkbox = document.getElementById('check');

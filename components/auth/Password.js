@@ -8,7 +8,7 @@ const Wrapper = styled.div`
     width: 100%;
   }
 `;
-const Password = () => {
+const Password = ({ signIn }) => {
   const [passwordBlur, setPasswordBlur] = useState(false);
   const [passwordSecondBlur, setPasswordSecondBlur] = useState(false);
   const [password, setPassword] = useState();
@@ -64,22 +64,30 @@ const Password = () => {
           maxLength="15"
           required
         />
-        <div className="validity-comment">
-          {password !== checkPassword && passwordSecondBlur
-            ? '비밀번호가 다릅니다.'
-            : ''}
-        </div>
-        <Input
-          type="password"
-          name="password"
-          placeholder="패스워드 확인*"
-          onChange={passwordSecondChangeHandler}
-          onBlur={validatecheckedPasswordHandler}
-          className={`${passwordSecondIsValid === false ? ' invalid' : ''}`}
-          minLength="8"
-          maxLength="15"
-          required
-        />
+        {!signIn ? (
+          <div className="validity-comment">
+            {password !== checkPassword && passwordSecondBlur
+              ? '비밀번호가 다릅니다.'
+              : ''}
+          </div>
+        ) : (
+          ''
+        )}
+        {!signIn ? (
+          <Input
+            type="password"
+            name="password"
+            placeholder="패스워드 확인*"
+            onChange={passwordSecondChangeHandler}
+            onBlur={validatecheckedPasswordHandler}
+            className={`${passwordSecondIsValid === false ? ' invalid' : ''}`}
+            minLength="8"
+            maxLength="15"
+            required
+          />
+        ) : (
+          ''
+        )}
       </label>
     </Wrapper>
   );

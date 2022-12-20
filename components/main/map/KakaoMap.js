@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import FilterResetBtn from './FilterResetBtn';
 const KaKaoMap = styled(Map)`
   position: absolute;
-  top: 154px;
+  top: 0px;
   left: 0px;
   width: 75vw;
   height: 100vh;
@@ -15,7 +15,7 @@ const KaKaoMap = styled(Map)`
   @media (max-width: 1170px) {
     width: 100%;
     padding-top: 216px;
-    height: 41vh;
+    height: 57vh;
   }
 `;
 const KakaoMap = (props) => {

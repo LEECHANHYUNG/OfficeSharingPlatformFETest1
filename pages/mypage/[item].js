@@ -93,7 +93,7 @@ export async function getServerSideProps(context) {
   const params = context.params;
   const session = await getSession({ req: context.req });
 
-  if (!session.data.user.accessToken) {
+  if (!session.user.accessToken) {
     signOut();
     return {
       redirect: {

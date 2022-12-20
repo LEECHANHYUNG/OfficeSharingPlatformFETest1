@@ -82,10 +82,7 @@ const Time = (props) => {
         종료 시간
       </option>
       {[...new Array(24 - Number(startTime))].map((elem, idx) => (
-        <option
-          value={Number(startTime) + idx + 1}
-          key={Number(startTime) + idx + 1}
-        >
+        <option value={Number(startTime) + idx} key={Number(startTime) + idx}>
           {Number(startTime) + idx}:00
         </option>
       ))}

@@ -20,7 +20,7 @@ const Button = styled.button`
   @media screen and (max-width: 1170px) {
     left: 50%;
     transform: translateX(-50%);
-    top: 220px;
+    top: 180px;
   }
 `;
 

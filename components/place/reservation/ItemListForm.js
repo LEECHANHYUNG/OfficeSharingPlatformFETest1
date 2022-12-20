@@ -15,7 +15,9 @@ const Wrapper = styled.section`
   main {
     max-height: 500px;
   }
-  @media screen and (max-width: 758px) {
+  @media screen and (max-width: 858px) {
+    margin-bottom: 0px;
+
     button {
       font-size: 12px;
       padding: 2px 5px;

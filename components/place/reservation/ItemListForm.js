@@ -26,7 +26,6 @@ const Wrapper = styled.section`
 `;
 
 const ItemListForm = ({ items }) => {
-  console.log(items);
   const selectedType = useSelector((state) => state.reservation.selectedType);
   return (
     <Wrapper>
@@ -51,11 +50,7 @@ const ItemListForm = ({ items }) => {
           items.meetingRoom.map((elem) => (
             <Item
               key={elem.typeCode}
-              images={
-                items.meetingRoom.images
-                  ? items.meetingRoom?.images[0]
-                  : '/image/default-image.gif'
-              }
+              images={elem.images ? elem.images[0] : '/image/default-image.gif'}
               type={`${elem.typeCode}인 회의실`}
               typeEng={`meetingRoom${elem.typeCode}`}
               price={elem.price.toLocaleString('ko-KR')}
@@ -67,11 +62,7 @@ const ItemListForm = ({ items }) => {
           items.office.map((elem) => (
             <Item
               key={elem.typeCode}
-              images={
-                items.office.images
-                  ? items.office.images[0]
-                  : '/image/default-image.gif'
-              }
+              images={elem.images ? elem.images[0] : '/image/default-image.gif'}
               type={`${elem.typeCode}평 사무실`}
               typeEng={`office${elem.typeCode}`}
               price={elem.price.toLocaleString('ko-KR')}

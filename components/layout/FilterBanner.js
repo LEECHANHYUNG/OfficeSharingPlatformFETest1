@@ -125,7 +125,7 @@ const FilterBanner = () => {
   );
 };
 const Wrapper = styled.div`
-  position: absolute;
+  position: fixed;
   top: 100px;
   left: 0;
   background: #fff;
@@ -169,6 +169,7 @@ const Wrapper = styled.div`
 
   @media screen and (max-width: 1170px) {
     top: 100px;
+    position: fixed;
     overflow-x: scroll;
     &::-webkit-scrollbar {
       display: none;

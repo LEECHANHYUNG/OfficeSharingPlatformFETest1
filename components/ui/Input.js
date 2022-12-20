@@ -6,11 +6,11 @@ const StyledInput = styled.input`
   height: 40px;
   margin: 10px auto;
 
-  .invalid {
+  &.invalid {
     border-color: red;
     background: #fbdada;
   }
-  .invalid:focus {
+  &.invalid:focus {
     outline: none;
     border-color: #4f005f;
     background: #f6dbfc;
@@ -27,7 +27,7 @@ const Input = forwardRef((props, ref) => (
     required={props.required || null}
     minLength={props.minLength || null}
     maxLength={props.maxLength || null}
-    value={props.value}
+    value={props.value || null}
     ref={ref || null}
   />
 ));

@@ -13,7 +13,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.kakaokey}&libraries=services,clusterer&autoload=false`}
           strategy="beforeInteractive"
         />
-
         <MainHeader />
         <Component {...pageProps} />
         <RefreshTokenHandler />

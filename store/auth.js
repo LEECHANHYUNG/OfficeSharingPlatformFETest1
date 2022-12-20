@@ -7,6 +7,7 @@ const authInitialState = {
   enteredName: '',
   enteredPhone: '',
   enteredAuthNumber: '',
+  checkedPassword: '',
   emailBlur: false,
   passwordBlur: false,
   passwordSecondBlur: false,
@@ -41,6 +42,7 @@ const authSlice = createSlice({
       state.enteredName = '';
       state.enteredPhone = '';
       state.enteredAuthNumber = '';
+      state.checkedPassword = '';
       state.emailIsValid = null;
       state.passwordIsValid = null;
       state.nameIsValid = null;
@@ -77,6 +79,9 @@ const authSlice = createSlice({
     },
     getPasswordIsEqual(state, action) {
       state.passwordIsEqual = action.payload;
+    },
+    getCheckedPassword(state, action) {
+      state.checkedPassword = action.payload;
     },
   },
 });

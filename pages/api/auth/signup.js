@@ -6,6 +6,7 @@ async function handler(req, res) {
   const enteredPhone = req.body.phoneNumber;
   const enteredJob = req.body.job;
   const enteredPreferType = req.body.preferType;
+  const checkedPassword = req.body.checkedPassword;
 
   try {
     const response = await axios({
@@ -16,6 +17,7 @@ async function handler(req, res) {
       data: {
         email: enteredEmail,
         password: enteredPassword,
+        checkedPassword,
         name: enteredName,
         phoneNumber: enteredPhone,
         job: enteredJob,

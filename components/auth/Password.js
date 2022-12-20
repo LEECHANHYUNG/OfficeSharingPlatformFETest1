@@ -38,12 +38,22 @@ const Password = ({ signIn }) => {
     setCheckPassword(e.target.value);
     dispatch(authSliceActions.getPasswordIsEqual(password === e.target.value));
     dispatch(authSliceActions.getPasswordSecondValid(e.target.value));
+    {
+      !signIn
+        ? dispatch(authSliceActions.getCheckedPassword(e.target.value))
+        : '';
+    }
   };
   const validatecheckedPasswordHandler = (e) => {
     setCheckPassword(e.target.value);
     setPasswordSecondBlur(true);
     dispatch(authSliceActions.getPasswordIsEqual(password === e.target.value));
     dispatch(authSliceActions.getPasswordSecondValid(e.target.value));
+    {
+      !signIn
+        ? dispatch(authSliceActions.getCheckedPassword(e.target.value))
+        : '';
+    }
   };
   return (
     <Wrapper className="control">

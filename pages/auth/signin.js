@@ -49,6 +49,8 @@ const Wrapper = styled.div`
   }
   .navLink {
     margin-top: 20px;
+  }
+  .navLink a {
     text-decoration: underline;
   }
   .validity-comment {

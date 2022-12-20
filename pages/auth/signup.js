@@ -27,6 +27,7 @@ const SignUp = () => {
   );
   const enteredEmail = useSelector((state) => state.auth.enteredEmail);
   const enteredPassword = useSelector((state) => state.auth.enteredPassword);
+  const checkedPassword = useSelector((state) => state.auth.checkedPassword);
   const enteredName = useSelector((state) => state.auth.enteredName);
   const enteredPhone = useSelector((state) => state.auth.enteredPhone);
   const jobRef = useRef();
@@ -72,6 +73,7 @@ const SignUp = () => {
       data: {
         email: enteredEmail,
         password: enteredPassword,
+        checkedPassword,
         name: enteredName,
         phoneNumber: enteredPhone,
         job: jobRef.current.value,
@@ -104,13 +106,13 @@ const SignUp = () => {
       </header>
       <section className="signInForm">
         <form onSubmit={signupHandler}>
-          <Email signUp />
+          <Email signUp={true} />
           <Password />
           <Name />
           <Phone />
           <input type="text" name="job" placeholder="직업" ref={jobRef} />
           <div className="select">
-            <p>선호 공간 선택</p>
+            <div className="place-select">선호 공간 선택</div>
             <div className="selectBox">
               <label htmlFor="desk">
                 <input type="checkbox" name="desk" value="true" ref={deskRef} />
@@ -139,12 +141,12 @@ const SignUp = () => {
           <Button type="submit" disabled={!formIsValid}>
             회원가입
           </Button>
-          <p>
+          <div className="login-btn">
             계정이 있으신가요?
             <Link href="/auth/signin">
               <div className="login-link">로그인</div>
             </Link>
-          </p>
+          </div>
         </form>
       </section>
     </Wrapper>
@@ -212,7 +214,8 @@ const Wrapper = styled.div`
     justify-content: flex-start;
     flex-direction: column;
   }
-  .select p {
+  .select .login-btn,
+  .select .place-select {
     margin: 0;
   }
   .select .selectBox {

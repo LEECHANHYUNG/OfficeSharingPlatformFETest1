@@ -30,13 +30,10 @@ const Select = styled.select`
   }
 `;
 const Time = (props) => {
-  const [currentTime, setCurrentTime] = useState(null);
   const dispatch = useDispatch();
   const endTimeRef = useRef();
   const startTime = useSelector((state) => state.selected.startTime);
-  useEffect(() => {
-    setCurrentTime(new Date().getHours());
-  }, [new Date().getHours()]);
+
   const startTimeHandler = (e) => {
     dispatch(selectedSliceActions.getStartTime(e.target.value));
     if (e.target.value !== '24') {
@@ -63,7 +60,7 @@ const Time = (props) => {
     return (
       <Select onChange={startTimeHandler}>
         <option value="24">시작 시간</option>
-        {[...new Array(24)].map((elem, idx) => (
+        {[...new Array(23)].map((elem, idx) => (
           <option value={idx + 1} key={idx}>
             {idx + 1}:00
           </option>
@@ -89,7 +86,7 @@ const Time = (props) => {
           value={Number(startTime) + idx + 1}
           key={Number(startTime) + idx + 1}
         >
-          {Number(startTime) + 1 + idx}:00
+          {Number(startTime) + idx}:00
         </option>
       ))}
     </Select>

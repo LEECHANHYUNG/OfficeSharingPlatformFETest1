@@ -76,7 +76,7 @@ const Wrapper = styled(Card)`
     margin-left: 0px;
     margin-right: 0px;
     .radio-btn{
-      width : 125%;
+      width : 85vw;
     }
     .notice{
       top : 170px;

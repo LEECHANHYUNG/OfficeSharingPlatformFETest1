@@ -1,4 +1,4 @@
-import { signIn, useSession } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -67,12 +67,6 @@ const SignIn = () => {
   const passwordIsValid = useSelector((state) => state.auth.passwordIsValid);
   const [formIsValid, setFormIsValid] = useState(false);
   const dispatch = useDispatch();
-  const session = useSession();
-  useEffect(() => {
-    if (session.status === 'authenticated') {
-      router.back();
-    }
-  });
   useEffect(() => {
     dispatch(authSliceActions.resetValidation());
   }, []);
@@ -96,7 +90,7 @@ const SignIn = () => {
     });
 
     if (!result.error) {
-      router.back();
+      router.replace('/');
       return;
     } else {
       alert(result.error);

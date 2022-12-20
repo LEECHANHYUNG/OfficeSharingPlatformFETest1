@@ -1,12 +1,15 @@
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
 import { useEffect } from 'react';
 
 const refreshTokenHandler = (props) => {
-  const { data: session } = useSession();
-
+  const session = useSession();
   useEffect(() => {
     if (!!session) {
+      //if (!) {
+      //  signOut();
+      //}
+      console.log(session.data);
       const timeRemaining = Math.round(
         (session.accessTokenExpiry - 30 * 60 * 1000 - Date.now()) / 1000
       );

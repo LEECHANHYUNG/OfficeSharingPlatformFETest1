@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -39,7 +40,9 @@ const HomePage = (props) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
+  const session = await getSession({ req: context.req });
+  console.log('ok' + session);
   let officeList = [];
   try {
     const response = await axios({
@@ -60,6 +63,7 @@ export async function getStaticProps() {
     props: {
       officeList,
     },
+    revalidate: 20,
   };
 }
 

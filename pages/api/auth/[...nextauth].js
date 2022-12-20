@@ -2,7 +2,6 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import { signOut } from 'next-auth/react';
 async function refreshAccessToken(tokenObject) {
   try {
     const response = await axios({
@@ -16,12 +15,11 @@ async function refreshAccessToken(tokenObject) {
         accessToken: response.data.accessToken,
         refreshToken: response.data.refreshToken,
       };
-    } else {
-      signOut();
     }
   } catch (error) {
     return {
-      ...tokenObject,
+      accessToken: '',
+      refreshToken: '',
       error: 'refreshToken Expired',
     };
   }
@@ -75,7 +73,7 @@ export default NextAuth({
         return token;
       }
       const decoded = jwtDecode(token.accessToken);
-      const refreshTime = decoded.iat + 30 * 60 * 1000 - Date.now();
+      const refreshTime = decoded.iat + 5 * 1000 - Date.now();
       if (refreshTime > 0) {
         return Promise.resolve(token);
       }
@@ -86,6 +84,7 @@ export default NextAuth({
       session.user.accessToken = token.accessToken;
       session.user.refreshToken = token.refreshToken;
       session.user.email = token.email;
+      console.log(token);
       return session;
     },
   },

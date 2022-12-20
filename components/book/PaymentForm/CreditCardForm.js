@@ -72,9 +72,6 @@ const StyledCard = styled(Card)`
     font-size: 37px;
     padding: 0;
   }
-  .input-number-password {
-    -webkit-text-security: disc;
-  }
 `;
 const CreditCardForm = () => {
   const date = new Date();
@@ -183,13 +180,7 @@ const CreditCardForm = () => {
         <div className="pw">
           <h5>비밀번호</h5>
           <div className="input-field">
-            <input
-              type="number"
-              inputmode="numeric"
-              className="input-number-password"
-              maxLength={2}
-              ref={passwordRef}
-            />
+            <input type="password" maxLength={2} ref={passwordRef} />
             <div className="pw-back">{'●●'}</div>
           </div>
         </div>

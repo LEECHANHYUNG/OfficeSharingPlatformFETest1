@@ -7,7 +7,7 @@ import Usage from '../../components/mypage/use/Usage';
 import Comment from '../../components/mypage/comment/Comment';
 import Point from '../../components/mypage/point/Point';
 import Qna from '../../components/mypage/qna/Qna';
-import { getSession } from 'next-auth/react';
+import { getSession, signOut } from 'next-auth/react';
 import axios from 'axios';
 import Review from '../../components/mypage/review/Review';
 import Edit from '../../components/mypage/Edit/Edit';
@@ -34,7 +34,6 @@ const Wrapper = styled.section`
 
 const Mypage = (props) => {
   const router = useRouter();
-
   return (
     <Wrapper>
       <Header userData={props.userData} />
@@ -93,8 +92,9 @@ const Mypage = (props) => {
 export async function getServerSideProps(context) {
   const params = context.params;
   const session = await getSession({ req: context.req });
-  let userData = {};
-  if (!session) {
+
+  if (!session.data.user.accessToken) {
+    signOut();
     return {
       redirect: {
         destination: '/auth/signin',
@@ -118,11 +118,8 @@ export async function getServerSideProps(context) {
       throw new Error(response.data);
     }
   } catch (error) {
-    userData = { message: '로그인 정보 만료' };
+    return { message: '로그인 정보 만료' };
   }
-  return {
-    props: userData,
-  };
 }
 
 export default Mypage;

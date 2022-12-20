@@ -5,7 +5,7 @@ const ControlDiv = styled.div`
   border: 1px solid #111;
   border-radius: 5px;
   position: absolute;
-  top: 20vh;
+  top: 180px;
   left: 30px;
   width: 36px;
   height: 108px;
@@ -27,7 +27,7 @@ const ControlDiv = styled.div`
     border-bottom: 1px solid #111;
   }
   @media screen and (max-width: 1170px) {
-    top: 25vh;
+    top: 180px;
   }
 `;
 

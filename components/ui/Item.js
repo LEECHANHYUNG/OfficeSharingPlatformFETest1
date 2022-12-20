@@ -8,6 +8,18 @@ import styled from 'styled-components';
 import { reservationActions } from '../../store/reservation';
 import Button from './Button';
 import Card from './Card';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+
+import { Navigation } from 'swiper';
+
+const StyledSwiper = styled(Swiper)`
+  width: 100%;
+  .swiper-slide {
+    height: 360px;
+  }
+`;
 
 const ItemCard = styled(Card)`
   width: 30%;
@@ -124,15 +136,20 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
   dispatch(reservationActions.getUnableDayList(disabledDateList));
   return (
     <ItemCard>
-      <div className="img">
-        <Image
-          src={images ? images : '/image/default-image.gif'}
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
-          priority
-        />
-      </div>
+      <StyledSwiper navigation={true} modules={[Navigation]} draggable={false}>
+        {images.map((image) => (
+          <SwiperSlide className="img">
+            <Image
+              src={image}
+              layout="fill"
+              objectFit="cover"
+              objectPosition="center"
+              priority
+            />
+          </SwiperSlide>
+        ))}
+      </StyledSwiper>
+
       <div className="item-name">{type}</div>
       <div className="item-description">최대 {availablePerson}인 이용 가능</div>
       <div className="item-price">

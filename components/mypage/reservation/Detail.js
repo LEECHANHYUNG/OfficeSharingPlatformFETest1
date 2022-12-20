@@ -9,20 +9,6 @@ import Card from '../../ui/Card';
 import Payment from './Payment';
 import Refund from './Refund';
 
-const PayMentCard = styled(Card)`
-  position: relative;
-  margin-left: 150px;
-
-  @media screen and (max-width: 1170px) {
-    margin-left: 50px;
-    width: 90vw;
-  }
-  @media screen and (max-width: 858px) {
-    margin: 0px;
-    width: 98vw;
-  }
-`;
-
 const Wrapper = styled.section`
   position: relative;
   width: 70vw;
@@ -93,7 +79,7 @@ const StyledCard = styled(Card)`
   }
   @media screen and (max-width: 1170px) {
     margin-left: 50px;
-    width: 90vw;
+    width: 90%;
   }
   @media screen and (max-width: 858px) {
     width: 98vw;
@@ -108,7 +94,6 @@ const StyledCard = styled(Card)`
       width: 100%;
       display: flex;
       justify-content: space-around;
-
       text-align: left;
       flex-wrap: nowrap;
     }
@@ -116,11 +101,11 @@ const StyledCard = styled(Card)`
     .right .data {
       font-size: 15px;
       margin-left: 10px;
-      text-align: right;
+      text-align: left;
     }
     .reservation-time {
       width: 100%;
-      justify-content: space-evenly;
+      justify-content: flex-start;
     }
     .btn button {
       width: 40%;
@@ -178,6 +163,7 @@ const Detail = (props) => {
       }
     } catch (error) {}
   };
+  console.log(detailItems.payData);
   return (
     <Wrapper>
       <header>

@@ -79,7 +79,7 @@ const Wrapper = styled(Card)`
       width : 125%;
     }
     .notice{
-      top : 90px;
+      top : 170px;
     }
     .custom-radio p {
       font-size : 11px;

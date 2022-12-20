@@ -72,6 +72,9 @@ const StyledCard = styled(Card)`
     font-size: 37px;
     padding: 0;
   }
+  .input-number-password {
+    -webkit-text-security: disc;
+  }
 `;
 const CreditCardForm = () => {
   const date = new Date();
@@ -121,6 +124,12 @@ const CreditCardForm = () => {
       alert('카드 정보를 확인해주세요');
     }
   };
+  const inputCardNumberHandler = (e) => {
+    if (isNaN(e.target.value)) {
+      e.target.value = '';
+      return;
+    }
+  };
   return (
     <StyledCard>
       <h3>카드 정보 입력</h3>
@@ -130,8 +139,8 @@ const CreditCardForm = () => {
           <div className="input-field">
             <input
               type="text"
-              placeholder="●●●●"
               maxLength={4}
+              onKeyUp={inputCardNumberHandler}
               ref={cardFirstRef}
             />
           </div>
@@ -139,8 +148,8 @@ const CreditCardForm = () => {
           <div className="input-field">
             <input
               type="password"
-              placeholder="●●●●"
               maxLength={4}
+              onKeyUp={inputCardNumberHandler}
               ref={cardSecondRef}
             />
           </div>
@@ -148,8 +157,8 @@ const CreditCardForm = () => {
           <div className="input-field">
             <input
               type="password"
-              placeholder="●●●●"
               maxLength={4}
+              onKeyUp={inputCardNumberHandler}
               ref={cardThirdRef}
             />
           </div>
@@ -157,37 +166,30 @@ const CreditCardForm = () => {
           <div className="input-field">
             <input
               type="text"
-              placeholder="●●●●"
               maxLength={4}
+              onKeyUp={inputCardNumberHandler}
               ref={cardFourthRef}
             />
           </div>
         </div>
       </div>
       <div className="second-row">
-        <div className="quote">
-          <h5>할부</h5>
-          <div className="selection">
-            <select name="quote" id="quote" ref={quoteRef}>
-              <option value="1">일시불</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-            </select>
-          </div>
-        </div>
         <div className="birth">
           <h5>생년월일</h5>
           <div className="input-field">
-            <input type="text" maxLength={6} ref={birthRef} />
+            <input type="number" maxLength={6} ref={birthRef} />
           </div>
         </div>
         <div className="pw">
           <h5>비밀번호</h5>
           <div className="input-field">
-            <input type="password" maxLength={2} ref={passwordRef} />
+            <input
+              type="number"
+              inputmode="numeric"
+              className="input-number-password"
+              maxLength={2}
+              ref={passwordRef}
+            />
             <div className="pw-back">{'●●'}</div>
           </div>
         </div>

@@ -52,7 +52,14 @@ const Mileage = ({ totalMileage, totalPrice }) => {
     }
   };
   const useMileageHandler = () => {
-    dispatch(paymentSliceActions.getUseMileage(enteredMileage));
+    if (enteredMileage % 100 !== 0) {
+      alert('마일리지는 100원단위 사용가능합니다.');
+      setEnteredMileage(enteredMileage - (enteredMileage % 100));
+    }
+
+    dispatch(
+      paymentSliceActions.getUseMileage(enteredMileage - (enteredMileage % 100))
+    );
   };
   return (
     <Wrapper>

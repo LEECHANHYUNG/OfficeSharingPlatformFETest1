@@ -35,9 +35,7 @@ const ItemListForm = ({ items }) => {
         {selectedType === 'desk' && items.desk.exist && (
           <Item
             images={
-              items.desk.images
-                ? items.desk.images[0]
-                : '/image/default-image.gif'
+              items.desk.images ? items.desk.images : '/image/default-image.gif'
             }
             type="1인 DESK"
             typeEng={`desk`}
@@ -50,7 +48,7 @@ const ItemListForm = ({ items }) => {
           items.meetingRoom.map((elem) => (
             <Item
               key={elem.typeCode}
-              images={elem.images ? elem.images[0] : '/image/default-image.gif'}
+              images={elem.images ? elem.images : '/image/default-image.gif'}
               type={`${elem.typeCode}인 회의실`}
               typeEng={`meetingRoom${elem.typeCode}`}
               price={elem.price.toLocaleString('ko-KR')}
@@ -62,7 +60,7 @@ const ItemListForm = ({ items }) => {
           items.office.map((elem) => (
             <Item
               key={elem.typeCode}
-              images={elem.images ? elem.images[0] : '/image/default-image.gif'}
+              images={elem.images ? elem.images : '/image/default-image.gif'}
               type={`${elem.typeCode}평 사무실`}
               typeEng={`office${elem.typeCode}`}
               price={elem.price.toLocaleString('ko-KR')}

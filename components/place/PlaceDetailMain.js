@@ -49,7 +49,7 @@ const Wrapper = styled.section`
   @media screen and (max-width: 1170px) {
     top: 60vh;
     width: 100%;
-    height: 34vh;
+    height: 36vh;
     padding-top : 0;
     &::-webkit-scrollbar {
       display: none;

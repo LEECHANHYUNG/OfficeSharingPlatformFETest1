@@ -10,7 +10,7 @@ const handler = async (req, res) => {
         },
         method: 'post',
         data: {
-          ratingScore: +req.body.ratingScore,
+          ratingScore: req.body.ratingScore,
           ratingReview: req.body.ratingReview,
         },
       });

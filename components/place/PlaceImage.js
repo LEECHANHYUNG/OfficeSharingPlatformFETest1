@@ -9,6 +9,7 @@ import { Navigation } from 'swiper';
 
 const StyledSwiper = styled(Swiper)`
   width: 100%;
+  height: 100%;
   .swiper-slide {
     height: 360px;
   }
@@ -16,7 +17,7 @@ const StyledSwiper = styled(Swiper)`
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 400px;
+  height: 200px;
   margin: auto;
   position: relative;
   margin-top: 50px;
@@ -50,7 +51,7 @@ const PlaceImage = ({ images }) => {
             <Image
               src={image}
               layout="fill"
-              objectFit="cover"
+              objectFit="contain"
               objectPosition="center"
               className="img"
               priority

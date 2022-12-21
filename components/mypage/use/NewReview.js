@@ -103,7 +103,7 @@ const NewReview = () => {
       <label htmlFor="rating" className="rating-container">
         평점
       </label>
-      <div className="rating" onChange={(e) => setRatingCount(e.target.value)}>
+      <div className="rating" onChange={(e) => setRatingCount(+e.target.value)}>
         <input type="radio" name="rating" value={5} className="rating-input" />
         <input type="radio" name="rating" value={4} className="rating-input" />
         <input type="radio" name="rating" value={3} className="rating-input" />

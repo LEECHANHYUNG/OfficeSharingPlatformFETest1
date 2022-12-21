@@ -119,7 +119,6 @@ const Wrapper = styled.section`
   }
 `;
 const UsedItem = (props) => {
-  console.log(props);
   return (
     <Wrapper>
       <div className="type">{props.item.productType}</div>

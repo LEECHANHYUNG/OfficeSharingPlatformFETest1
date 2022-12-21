@@ -1,9 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { officeSliceActions } from '../../../store/officeList';
 import axios from 'axios';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -12,7 +13,6 @@ const Wrapper = styled.div`
   padding: 5px 20px;
   width: 100%;
   border: 2px solid #111;
-  z-index: 100;
 
   .search-glass {
     cursor: pointer;
@@ -39,6 +39,7 @@ const Wrapper = styled.div`
 `;
 
 const PlaceSearch = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const searchWordInput = useRef();
   const keywordSubmitHandler = async (e) => {
@@ -46,6 +47,7 @@ const PlaceSearch = () => {
     dispatch(officeSliceActions.selectPlace(null));
     e.preventDefault();
     const enteredSearchWord = searchWordInput.current.value;
+    setIsLoading(true);
     try {
       const response = await axios({
         url: '/api/main/search',
@@ -57,13 +59,14 @@ const PlaceSearch = () => {
         for (const key in data) {
           officeList.push({ key: data[key].placeId, item: data[key] });
         }
+        dispatch(officeSliceActions.getFilteredPlaceList(officeList));
+        setIsLoading(false);
       } else {
         throw new Error(response.data);
       }
-      dispatch(officeSliceActions.getFilteredPlaceList(officeList));
       searchWordInput.current.value = '';
     } catch (err) {
-      console.error(err);
+      setIsLoading(false);
     }
   };
   return (
@@ -85,6 +88,16 @@ const PlaceSearch = () => {
           ref={searchWordInput}
         />
       </form>
+      {isLoading ? (
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        ''
+      )}
     </Wrapper>
   );
 };

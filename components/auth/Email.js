@@ -1,3 +1,4 @@
+import { Backdrop, CircularProgress } from '@mui/material';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useRef } from 'react';
@@ -43,6 +44,7 @@ const Email = (props) => {
 
   const sendEmailHandler = async () => {
     const enteredEmail = emailInputRef.current.value;
+    setIsSended(true);
     try {
       const response = await axios({
         url: '/api/auth/emailauthentication',
@@ -53,13 +55,13 @@ const Email = (props) => {
         },
       });
       if (response.status === 200) {
-        setIsSended(true);
+        setIsSended(false);
         alert('메일을 보냈습니다. 인증 번호를 확인해주세요');
       } else {
-        setIsSended(false);
         return new Promise.reject(response.data);
       }
     } catch (error) {
+      setIsSended(false);
       alert(error.response.data.split(' ').slice(1).join(' '));
       emailInputRef.current.value = '';
       dispatch(authSliceActions.getEmailValid(''));
@@ -134,6 +136,16 @@ const Email = (props) => {
         <Button disabled={!authNumberIsValid} onClick={authNumberHandler}>
           인증 번호 확인
         </Button>
+      ) : (
+        ''
+      )}
+      {isSended ? (
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
       ) : (
         ''
       )}

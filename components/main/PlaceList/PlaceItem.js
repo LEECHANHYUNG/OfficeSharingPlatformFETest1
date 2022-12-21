@@ -18,7 +18,9 @@ const Wrapper = styled.div`
   text-decoration: none;
   color: #111;
   list-style: none;
-
+  .container {
+    width: 100%;
+  }
   .name {
     font-weight: 900;
     font-size: 20px;
@@ -71,7 +73,7 @@ const PlaceItem = (props) => {
   };
   return (
     <Wrapper>
-      <div onClick={selectPlace}>
+      <div onClick={selectPlace} className="container">
         <div id={props.elem.key} ref={selectedOfficeRef}>
           <div className="name">{props.elem.item.placeName}</div>
           <div className="address">{props.elem.item.address}</div>

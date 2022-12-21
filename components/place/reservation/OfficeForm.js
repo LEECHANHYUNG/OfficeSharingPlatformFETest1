@@ -1,3 +1,4 @@
+import { Backdrop, CircularProgress } from '@mui/material';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -36,6 +37,7 @@ const OfficeForm = () => {
   const reservationItem = useSelector(
     (state) => state.reservation.selectedTypeEng
   );
+  const [loading, setLoading] = useState(false);
   const isLoading = useSelector((state) => state.reservation.isLoading);
   useEffect(() => {
     setEndDateSelected(false);
@@ -53,6 +55,7 @@ const OfficeForm = () => {
   };
   const session = useSession();
   const submitOfficeReservationHandler = async () => {
+    setLoading(true);
     try {
       const response = await axios({
         url: '/api/reservation/book',
@@ -74,6 +77,7 @@ const OfficeForm = () => {
         },
       });
       if (response.status === 200) {
+        setLoading(false);
         dispatch(reservationActions.getReservationInfo(response.data));
         alert('예약 페이지로 이동합니다.');
         router.push('/place/book');
@@ -81,7 +85,7 @@ const OfficeForm = () => {
         throw new Error(response.data.message);
       }
     } catch (error) {
-      console.error(error.response);
+      setLoading(false);
       alert(error.response.data.message.split(' ').slice(1).join(' '));
     }
   };
@@ -137,6 +141,16 @@ const OfficeForm = () => {
             ''
           )}
         </Wrapper>
+      ) : (
+        ''
+      )}
+      {loading ? (
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
       ) : (
         ''
       )}

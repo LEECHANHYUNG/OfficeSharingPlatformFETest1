@@ -1,3 +1,4 @@
+import { Backdrop, CircularProgress } from '@mui/material';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
@@ -70,6 +71,7 @@ const Wrapper = styled(Card)`
 const ReservationForm = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const [isBrowser, setIsBrowser] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
   const [isBottom, setIsBottom] = useState(false);
@@ -123,6 +125,7 @@ const ReservationForm = () => {
       router.push('/auth/signin');
     } else {
       try {
+        setIsLoading(true);
         const response = await axios({
           url: '/api/reservation/book',
           method: 'post',
@@ -137,6 +140,8 @@ const ReservationForm = () => {
           },
         });
         if (response.status === 200) {
+          setIsLoading(false);
+
           dispatch(paymentSliceActions.getPaymentForm(false));
           dispatch(reservationActions.getReservationInfo(response.data));
           alert('예약 페이지로 이동합니다.');
@@ -145,6 +150,7 @@ const ReservationForm = () => {
           throw new Error(response.data);
         }
       } catch (error) {
+        setIsLoading(false);
         alert(
           error.response.data.message?.split(' ').slice(1).join(' ') ||
             '잠시후 다시 시도해주세요'
@@ -189,6 +195,16 @@ const ReservationForm = () => {
           ''
         )}
       </div>
+      {isLoading ? (
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        ''
+      )}
     </Wrapper>
   );
 };

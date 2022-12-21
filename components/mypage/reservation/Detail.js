@@ -1,3 +1,4 @@
+import { Backdrop, CircularProgress } from '@mui/material';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -127,8 +128,10 @@ const Detail = (props) => {
   const router = useRouter();
   const session = useSession();
   const [detailItems, setDetailItems] = useState(props);
+  const [isLoading, setIsLoading] = useState(false);
   console.log(props);
   const cancelReservationHandler = async () => {
+    setIsLoading(true);
     try {
       const response = await axios({
         url: '/api/mypage/cancel',
@@ -139,16 +142,20 @@ const Detail = (props) => {
         },
       });
       if (response.status === 200) {
+        setIsLoading(false);
         alert('예약 취소 완료');
         setDetailItems(response.data);
       } else {
         throw new Error();
       }
     } catch (error) {
+      setIsLoading(false);
       alert(error.response.data.message);
     }
   };
   const completeReservationHandler = async () => {
+    setIsLoading(true);
+
     try {
       const response = await axios({
         url: '/api/mypage/reservation-complete',
@@ -159,12 +166,16 @@ const Detail = (props) => {
         },
       });
       if (response.status === 200) {
+        setIsLoading(false);
+
         alert('예약 확정 완료');
         setDetailItems(response.data);
       } else {
         throw new Error(response.data);
       }
-    } catch (error) {}
+    } catch (error) {
+      setIsLoading(false);
+    }
   };
   const isDesk = detailItems.resData.roomType.includes('데스크');
   return (
@@ -287,6 +298,16 @@ const Detail = (props) => {
           />
         </div>
       ))}
+      {isLoading ? (
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        ''
+      )}
     </Wrapper>
   );
 };

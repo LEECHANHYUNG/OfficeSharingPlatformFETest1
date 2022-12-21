@@ -41,9 +41,6 @@ const Wrapper = styled.div`
     left: 10px;
     color: #111;
   }
-  @media screen and (max-width: 858px) {
-    height: 200px;
-  }
 `;
 const PlaceImage = ({ images }) => {
   return (

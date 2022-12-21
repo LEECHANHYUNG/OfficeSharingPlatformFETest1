@@ -19,13 +19,13 @@ const Wrapper = styled.section`
     padding: 0 30px;
   }
   .time p {
-    font-size: 1rem;
+    font-size: 13px;
     color: #6a9eff;
     font-weight: 900;
   }
   .open div,
   .close div {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 900;
   }
   .line {
@@ -41,17 +41,18 @@ const Wrapper = styled.section`
     margin-top: 10px;
     color: #6a9eff;
   }
-  .closed-days{
+  @media screen and (max-width: 1170px){
+   
   }
-  
-  @media screen and (max-width: 768px){
+  @media screen and (max-width: 858px){
     .time{
       padding: 0px;
     }
     .time p{
-      font-size : 13px;
+      font-size : 12px;
       width: 100%;
     }
+   
     .info {
       margin-left: 20px;
       font-size: 11px;

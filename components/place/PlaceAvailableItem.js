@@ -6,7 +6,8 @@ import Office from './item/Office';
 const Wrapper = styled.section`
   width: 100%;
   margin-top: 20px;
-  & h1 {
+  margin-bottom: 50px;
+  h1 {
     padding: 0 30px;
     font-size: 1rem;
     font-weight: 900;

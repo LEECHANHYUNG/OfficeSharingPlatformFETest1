@@ -17,7 +17,7 @@ const StyledSwiper = styled(Swiper)`
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 200px;
+  height: 360px;
   margin: auto;
   position: relative;
   margin-top: 50px;
@@ -40,6 +40,9 @@ const Wrapper = styled.div`
   .left {
     left: 10px;
     color: #111;
+  }
+  @media screen and (max-width: 858px) {
+    height: 200px;
   }
 `;
 const PlaceImage = ({ images }) => {

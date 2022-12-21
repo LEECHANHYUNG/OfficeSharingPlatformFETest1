@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { officeSliceActions } from '../../../store/officeList';
 import axios from 'axios';
-import { Backdrop, CircularProgress } from '@mui/material';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -38,8 +37,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const PlaceSearch = () => {
-  const [isLoading, setIsLoading] = useState(false);
+const PlaceSearch = ({ setIsLoading }) => {
   const dispatch = useDispatch();
   const searchWordInput = useRef();
   const keywordSubmitHandler = async (e) => {
@@ -88,16 +86,6 @@ const PlaceSearch = () => {
           ref={searchWordInput}
         />
       </form>
-      {isLoading ? (
-        <Backdrop
-          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={open}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-      ) : (
-        ''
-      )}
     </Wrapper>
   );
 };

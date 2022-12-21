@@ -1,13 +1,11 @@
-import { Backdrop, CircularProgress } from '@mui/material';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { reservationActions } from '../../../store/reservation';
 
-const SelectTime = () => {
-  const [isLoading, setIsLoading] = useState(false);
+const SelectTime = ({ setLoading }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const placeId = router.query.id;
@@ -54,7 +52,7 @@ const SelectTime = () => {
       }
       e.target.classList.add('start-time');
       dispatch(reservationActions.getSelectedStartTime(e.target.id));
-      setIsLoading(true);
+      setLoading(true);
       axios({
         url: '/api/main/available-time',
         method: 'post',
@@ -67,14 +65,14 @@ const SelectTime = () => {
       })
         .then((response) => {
           if (response.status === 200) {
-            setIsLoading(false);
+            setLoading(false);
             dispatch(reservationActions.getTimeList(response.data));
           } else {
             throw new Error();
           }
         })
         .catch((error) => {
-          setIsLoading(false);
+          setLoading(false);
           alert(
             error.response.data.message?.split(' ').slice(1).join(' ')
               ? error.response.data.message.split(' ').slice(1).join(' ')
@@ -106,16 +104,6 @@ const SelectTime = () => {
           )
         )}
       </StyledSwiper>
-      {isLoading ? (
-        <Backdrop
-          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={open}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-      ) : (
-        ''
-      )}
     </Fragment>
   );
 };

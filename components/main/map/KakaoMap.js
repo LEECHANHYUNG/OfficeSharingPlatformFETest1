@@ -1,10 +1,11 @@
-import React, { Fragment, useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
 import ControlBox from './ControlBox';
 import OfficeMarker from './OfficeMarker';
 import FilterBanner from '../../layout/FilterBanner';
 import styled from 'styled-components';
 import FilterResetBtn from './FilterResetBtn';
+import { Backdrop, CircularProgress } from '@mui/material';
 const KaKaoMap = styled(Map)`
   position: absolute;
   padding-top: 154px;
@@ -21,13 +22,15 @@ const KaKaoMap = styled(Map)`
   }
 `;
 const KakaoMap = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const mapRef = useRef();
   useEffect(() => {
     props.setMapHandler(mapRef);
   }, []);
   return (
     <Fragment>
-      <FilterBanner />
+      <FilterBanner setIsLoading={(state) => setIsLoading(state)} />
       <KaKaoMap
         id="map"
         center={{
@@ -40,6 +43,19 @@ const KakaoMap = (props) => {
         <ControlBox map={mapRef} />
       </KaKaoMap>
       <FilterResetBtn />
+      {isLoading ? (
+        <Backdrop
+          sx={{
+            color: '#fff',
+            zIndex: (theme) => theme.zIndex.drawer + 1,
+          }}
+          open={open}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        ''
+      )}
     </Fragment>
   );
 };

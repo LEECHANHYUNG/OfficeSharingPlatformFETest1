@@ -1,4 +1,5 @@
 import { signIn, signOut, useSession } from 'next-auth/react';
+import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -103,6 +104,10 @@ const SignIn = () => {
   };
   return (
     <Wrapper>
+      <Head>
+        <title>Place Sharing - 로그인</title>
+        <meta name="description" content={`공간 대여 플랫폼, 로그인`} />
+      </Head>
       <header>
         <AuthHeader />
       </header>

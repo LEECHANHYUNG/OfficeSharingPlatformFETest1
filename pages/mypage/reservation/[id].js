@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
+import Head from 'next/head';
 import React, { Fragment } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -35,6 +36,10 @@ const ReservationDetail = (props) => {
 
   return (
     <Fragment>
+      <Head>
+        <title>Place Sharing - 예약 정보</title>
+        <meta name="description" content={`공간 대여 플랫폼, 예약 정보`} />
+      </Head>
       <Wrapper>
         <Header userData={props.userData} />
         <Banner />

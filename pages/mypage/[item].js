@@ -11,6 +11,7 @@ import { getSession, signOut } from 'next-auth/react';
 import axios from 'axios';
 import Review from '../../components/mypage/review/Review';
 import Edit from '../../components/mypage/Edit/Edit';
+import Head from 'next/head';
 const Wrapper = styled.section`
   width: 100%;
   .item {
@@ -36,6 +37,13 @@ const Mypage = (props) => {
   const router = useRouter();
   return (
     <Wrapper>
+      <Head>
+        <title>Place Sharing - {router.query.item}</title>
+        <meta
+          name="description"
+          content={`공간 대여 플랫폼,${router.query.item}`}
+        />
+      </Head>
       <Header userData={props.userData} />
       <Banner />
       {router.query.item === '' && <div className="item"></div>}

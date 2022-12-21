@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -94,6 +95,9 @@ const book = () => {
   const isOffice = reservationInfo.productType?.includes('사무실');
   return (
     <Wrapper>
+      <Head>
+        <title>Place-sharing 예약</title>
+      </Head>
       <main>
         <h1>
           <div className="prev-btn">

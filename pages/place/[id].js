@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Head from 'next/head';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -69,6 +70,13 @@ const PlaceMainPage = ({ place }) => {
   );
   return (
     <Wrapper>
+      <Head>
+        <title>Place Sharing - {place.placeMainInfo.placeName}</title>
+        <meta
+          name="description"
+          content={`공간 대여 플랫폼,${place.placeMainInfo.placeName}`}
+        />
+      </Head>
       <PlaceInfo
         placeName={place.placeMainInfo.placeName}
         address={place.placeMainInfo.address}

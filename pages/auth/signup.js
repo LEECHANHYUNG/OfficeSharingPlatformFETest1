@@ -11,6 +11,7 @@ import Button from '../../components/ui/Button';
 import { authSliceActions } from '../../store/auth';
 import axios from 'axios';
 import AuthHeader from '../../components/ui/AuthHeader';
+import Head from 'next/head';
 
 const SignUp = () => {
   const router = useRouter();
@@ -101,6 +102,10 @@ const SignUp = () => {
   };
   return (
     <Wrapper>
+      <Head>
+        <title>Place Sharing - 회원가입</title>
+        <meta name="description" content={`공간 대여 플랫폼, 회원가입`} />
+      </Head>
       <header>
         <AuthHeader />
       </header>

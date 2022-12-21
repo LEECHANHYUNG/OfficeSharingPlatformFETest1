@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getSession, signOut, useSession } from 'next-auth/react';
+import Head from 'next/head';
 import React, { Fragment } from 'react';
 import { useEffect } from 'react';
 import Banner from '../../components/mypage/Banner';
@@ -16,6 +17,10 @@ const Mypage = (props) => {
   }, []);
   return (
     <Fragment>
+      <Head>
+        <title>Place Sharing - 마이페이지</title>
+        <meta name="description" content={`공간 대여 플랫폼, 마이페이지`} />
+      </Head>
       <Header userData={props.userData} />
       <Banner />
       <CurrentReservation item={props.currentResData} />

@@ -70,7 +70,7 @@ const Wrapper = styled(Card)`
     position: absolute;
     width: 100%;
     top: 150px;
-    left: -20px;
+    left: 0px;
   }
   @media screen and (max-width: 1280px) {
     margin-left: 0px;

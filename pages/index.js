@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -29,6 +30,13 @@ const HomePage = (props) => {
 
   return (
     <Wrapper>
+      <Head>
+        <title>Place Sharing</title>
+        <meta
+          name="description"
+          content="공간 대여 플랫폼, 데스크, 미팅룸, 오피스"
+        />
+      </Head>
       <KakaoMap setMapHandler={setMap} />
       {selectedPlaceId ? (
         <PlaceDetailMain />
@@ -39,7 +47,7 @@ const HomePage = (props) => {
   );
 };
 
-export async function getStaticProps(context) {
+export async function getStaticProps() {
   let officeList = [];
   try {
     const response = await axios({

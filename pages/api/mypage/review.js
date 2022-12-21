@@ -10,8 +10,8 @@ const handler = async (req, res) => {
         },
         method: 'post',
         data: {
-          ratingScore: req.body.ratingScore,
-          ratingReview: +req.body.ratingReview,
+          ratingScore: +req.body.ratingScore,
+          ratingReview: req.body.ratingReview,
         },
       });
       if (response.status === 200) {

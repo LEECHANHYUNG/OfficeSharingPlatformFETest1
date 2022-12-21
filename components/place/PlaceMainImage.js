@@ -52,11 +52,6 @@ const Wrapper = styled.section`
 
   @media screen and (max-width: 1170px) {
     width: 90vw;
-    .left,
-    .right {
-      margin-top: 25%;
-      height: 50%;
-    }
   }
 `;
 

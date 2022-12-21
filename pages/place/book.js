@@ -81,6 +81,7 @@ const book = () => {
   const showPaymentForm = useSelector((state) => state.payment.showForm);
   const paymentType = useSelector((state) => state.payment.paymentType);
   const company = useSelector((state) => state.payment.company);
+
   const prevPageHandler = () => {
     router.back();
   };
@@ -91,7 +92,6 @@ const book = () => {
     dispatch(paymentSliceActions.resetPaymentInfo());
     dispatch(paymentSliceActions.getPaymentForm(false));
   };
-  console.log(reservationInfo);
   const isOffice = reservationInfo.productType?.includes('사무실');
   return (
     <Wrapper>
@@ -155,7 +155,7 @@ const book = () => {
             ) : (
               ''
             )}
-            {!showPaymentForm && !isOffice ? (
+            {!showPaymentForm && !isOffice && paymentType !== 'DEPOSIT' ? (
               <Mileage
                 totalMileage={reservationInfo.totalMileage}
                 totalPrice={reservationInfo.totalPrice}

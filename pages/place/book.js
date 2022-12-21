@@ -62,7 +62,7 @@ const Wrapper = styled.section`
     .left,
     .right {
       float: none;
-      width: 94%;
+      width: 99%;
       display: block;
       height: auto;
     }

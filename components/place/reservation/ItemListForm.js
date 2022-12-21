@@ -41,6 +41,7 @@ const ItemListForm = ({ items }) => {
             typeEng={`desk`}
             price={items.desk.price.toLocaleString('ko-KR')}
             availablePerson={'1'}
+            desk={true}
           />
         )}
         {selectedType === 'meetingRoom' &&

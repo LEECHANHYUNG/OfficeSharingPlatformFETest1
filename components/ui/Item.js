@@ -67,15 +67,23 @@ const ItemCard = styled(Card)`
     width: 90%;
   }
   @media screen and (min-width: 1631px) and (max-width: 2499px) {
-    width: 10%;
+    width: ${(props) => (props.desk ? '90%' : '10%')};
   }
 
   @media screen and (min-width: 2500px) {
-    width: 30%;
+    width: ${(props) => (props.desk ? '90%' : '30%')};
   }
 `;
 
-const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
+const Item = ({
+  images,
+  type,
+  typeEng,
+  price,
+  timeUnit,
+  availablePerson,
+  desk,
+}) => {
   const [disabledDateList, setDisabledDateList] = useState([]);
   const [ableDateList, setAbleDateList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -135,7 +143,7 @@ const Item = ({ images, type, typeEng, price, timeUnit, availablePerson }) => {
   dispatch(reservationActions.getAbleDayList(ableDateList));
   dispatch(reservationActions.getUnableDayList(disabledDateList));
   return (
-    <ItemCard>
+    <ItemCard desk={desk}>
       <StyledSwiper navigation={true} modules={[Navigation]} draggable={false}>
         {images.map((image) => (
           <SwiperSlide className="img" key={image}>

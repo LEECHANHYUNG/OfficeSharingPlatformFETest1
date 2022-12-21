@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -59,6 +60,8 @@ const Wrapper = styled.section`
 `;
 
 const PlaceMainPage = ({ place }) => {
+  const router = useRouter();
+
   const dispatch = useDispatch();
   dispatch(reservationActions.getSelectedType(null));
   dispatch(reservationActions.getReservationItem(null));
@@ -139,19 +142,17 @@ export async function getStaticProps(context) {
         props: {
           place: response.data,
         },
-        revalidate: 30,
+        revalidate: 20,
       };
     } else {
       throw new Error(response.data);
     }
   } catch (error) {
     return {
-      props: {
-        place: {
-          error: error.response.data,
-        },
+      redirect: {
+        destination: '/',
+        permanent: false,
       },
-      revalidate: 30,
     };
   }
 }

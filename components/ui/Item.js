@@ -23,7 +23,6 @@ const StyledSwiper = styled(Swiper)`
 
 const ItemCard = styled(Card)`
   width: 30%;
-  min-width: 300px;
   margin: 30px 20px;
   border: 2px solid #999;
   display: inline-block;
@@ -61,13 +60,13 @@ const ItemCard = styled(Card)`
     font-weight: 600;
   }
   @media screen and (max-width: 1090px) {
-    width: 89%;
+    width: 86%;
   }
   @media screen and (min-width: 1090px) and (max-width: 1630px) {
     width: 90%;
   }
   @media screen and (min-width: 1631px) and (max-width: 2499px) {
-    width: ${(props) => (props.desk ? '90%' : '10%')};
+    width: ${(props) => (props.desk ? '90%' : '40%')};
   }
 
   @media screen and (min-width: 2500px) {

@@ -71,7 +71,7 @@ export default NextAuth({
         return token;
       }
       const decoded = jwtDecode(token.accessToken);
-      const refreshTime = decoded.iat + 5 * 1000 - Date.now();
+      const refreshTime = decoded.iat + 30 * 60 * 1000 - Date.now();
       if (refreshTime > 0) {
         return Promise.resolve(token);
       }

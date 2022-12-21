@@ -61,6 +61,13 @@ const Wrapper = styled.div`
     top: 0px;
     left: 0px;
   }
+
+  @media screen and (max-width: 858px) {
+    .validity-comment {
+      margin-left: 24px;
+      font-size: 13px;
+    }
+  }
 `;
 const SignIn = () => {
   const router = useRouter();

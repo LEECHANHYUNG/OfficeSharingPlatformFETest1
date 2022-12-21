@@ -27,13 +27,13 @@ const TextArea = ({
   maxLength = 40,
   placeComment,
   newReview,
+  isLoading,
 }) => {
   const session = useSession();
   const [isEntered, setIsEntered] = useState(false);
   const changeHeightHandler = (e) => {
     if (!session.data) {
       alert('로그인이 필요한 서비스입니다.');
-      e.target.value = '';
     }
     setIsEntered(e.target.value.length !== 0);
 
@@ -73,7 +73,7 @@ const TextArea = ({
       ) : (
         <Button
           onClick={addCommentHandler}
-          disabled={!isEntered || !session.data}
+          disabled={!isEntered || !session.data || isLoading}
         >
           등록
         </Button>

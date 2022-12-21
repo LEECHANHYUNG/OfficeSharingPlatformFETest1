@@ -37,7 +37,9 @@ const OfficeForm = () => {
     (state) => state.reservation.selectedTypeEng
   );
   const isLoading = useSelector((state) => state.reservation.isLoading);
-
+  useEffect(() => {
+    setEndDateSelected(false);
+  }, [reservationItem]);
   useEffect(() => {
     setStartDate(new Date());
     setEndDate(new Date());

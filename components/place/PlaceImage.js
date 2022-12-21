@@ -50,7 +50,7 @@ const PlaceImage = ({ images }) => {
             <Image
               src={image}
               layout="fill"
-              objectFit="scale-down"
+              objectFit="cover"
               objectPosition="center"
               className="img"
               priority

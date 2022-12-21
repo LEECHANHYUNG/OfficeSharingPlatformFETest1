@@ -62,6 +62,7 @@ const Wrapper = styled.section`
 `;
 const NewReview = () => {
   const [ratingCount, setRatingCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const session = useSession();
   const router = useRouter();
   const addCommentHandler = async (e) => {
@@ -69,39 +70,33 @@ const NewReview = () => {
       alert('평점을 입력해주세요.');
       return;
     } else {
+      setIsLoading(true);
       const comment = e.target.parentNode.childNodes[3].value;
-
       try {
         const response = await axios({
           url: '/api/mypage/review',
           method: 'post',
           data: {
             accessToken: session.data.user.accessToken,
-            ratingScore: '1',
+            ratingScore: ratingCount,
             ratingReview: comment,
             reservationId: router.query.id,
           },
         });
         if (response.status === 200) {
+          setIsLoading(false);
           alert('리뷰 등록 완료');
           router.replace('/mypage/review');
         } else {
           throw new Error(response.data);
         }
       } catch (error) {
+        setIsLoading(false);
         console.error(error.response.data);
       }
     }
   };
 
-  const getRatingCountHandler = () => {
-    const ratingList = document.getElementsByClassName('rating-input');
-    Array.from(ratingList).map((elem) => {
-      if (elem.checked === true) {
-        setRatingCount(elem.value);
-      }
-    });
-  };
   return (
     <Wrapper>
       <h1>리뷰 작성</h1>
@@ -109,17 +104,18 @@ const NewReview = () => {
         평점
       </label>
       <div className="rating" onChange={(e) => setRatingCount(e.target.value)}>
-        <input type="radio" name="rating" value={1} className="rating-input" />
-        <input type="radio" name="rating" value={2} className="rating-input" />
-        <input type="radio" name="rating" value={3} className="rating-input" />
-        <input type="radio" name="rating" value={4} className="rating-input" />
         <input type="radio" name="rating" value={5} className="rating-input" />
+        <input type="radio" name="rating" value={4} className="rating-input" />
+        <input type="radio" name="rating" value={3} className="rating-input" />
+        <input type="radio" name="rating" value={2} className="rating-input" />
+        <input type="radio" name="rating" value={1} className="rating-input" />
       </div>
       <TextArea
         placeholder={'최대 100자 입력 가능'}
         addCommentHandler={addCommentHandler}
         maxLength={100}
         newReview={true}
+        isLoading={isLoading}
       />
     </Wrapper>
   );

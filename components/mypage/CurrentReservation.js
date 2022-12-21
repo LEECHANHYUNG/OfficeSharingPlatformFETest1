@@ -47,6 +47,7 @@ const Wrapper = styled.section`
     width: 96vw;
   }
   @media screen and (max-width: 858px) {
+    padding-left: 0px;
     h1 {
       font-size: 1.5rem;
       margin-left: 20px;

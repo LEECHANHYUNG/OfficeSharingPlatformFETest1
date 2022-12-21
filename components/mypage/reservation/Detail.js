@@ -85,7 +85,7 @@ const StyledCard = styled(Card)`
     width: 98vw;
     margin-left: 0;
     position: relative;
-    h1 {
+    & h1 {
       margin-left: 20px;
     }
     flex-direction: column;

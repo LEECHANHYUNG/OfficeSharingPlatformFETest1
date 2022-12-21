@@ -27,7 +27,7 @@ const Wrapper = styled.section`
   }
   @media screen and (max-width: 858px) {
     .item {
-      width: 100vw;
+      width: 98%;
       padding-left: 10px;
     }
   }

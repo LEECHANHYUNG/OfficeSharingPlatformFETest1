@@ -12,20 +12,23 @@ const Wrapper = styled.section`
     display: inline-block;
     color: #6a9eff;
   }
-  & .item {
+  .item {
     margin-top: 20px;
     display: inline-block;
     margin-right: 20px;
     font-size: 1.2rem;
     font-weight: 600;
   }
-  & .item > div {
+  .item > div {
     display: inline-block;
     color: #6a9eff;
   }
   @media screen and (max-width: 858px) {
     h1 {
       display: none;
+    }
+    .item {
+      font-size: 16px;
     }
   }
 `;

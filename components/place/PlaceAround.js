@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 const Wrapper = styled.section`
-  min-height: 200px;
+  min-height: 600px;
   width: 100%;
   margin-top: 30px;
   border-bottom: 3px solid #999;
@@ -44,7 +44,7 @@ const Wrapper = styled.section`
     width: 100%;
     display: flex;
     justify-content: space-between;
-    height: 70px;
+    height: 80px;
   }
   .data > div {
     text-align: left;

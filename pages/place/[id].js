@@ -19,7 +19,6 @@ const Wrapper = styled.section`
   width: 70vw;
   margin: auto;
   padding-top: 100px;
-  height: 100%;
   position: relative;
 
   .line {
@@ -32,6 +31,7 @@ const Wrapper = styled.section`
   .info-left {
     width: 60%;
     float: left;
+    transition: all 0.5s;
   }
 
   .info-right {
@@ -42,6 +42,7 @@ const Wrapper = styled.section`
 
   @media screen and (max-width: 1170px) {
     width: 90vw;
+    height: auto;
     .line {
       width: 90vw;
     }
@@ -60,8 +61,6 @@ const Wrapper = styled.section`
 `;
 
 const PlaceMainPage = ({ place }) => {
-  const router = useRouter();
-
   const dispatch = useDispatch();
   dispatch(reservationActions.getSelectedType(null));
   dispatch(reservationActions.getReservationItem(null));

@@ -19,7 +19,7 @@ const Wrapper = styled(Card)`
   position: ${(props) =>
     props.isFixed ? (props.isBottom ? 'absolute' : 'fixed') : 'absolute'};
   top: ${(props) =>
-    props.isFixed ? (props.isBottom ? '1150px' : '310px') : '0px'};
+    props.isFixed ? (props.isBottom ? '1400px' : '310px') : '0px'};
   h1 {
     font-size: 1.5rem;
   }
@@ -93,7 +93,7 @@ const ReservationForm = () => {
   });
   if (isBrowser) {
     window.addEventListener('scroll', () => {
-      if (window.scrollY >= 600 && window.scrollY <= 1750) {
+      if (window.scrollY >= 290 && window.scrollY <= 1750) {
         setIsFixed(true);
         setIsBottom(false);
       } else if (window.scrollY > 1750) {

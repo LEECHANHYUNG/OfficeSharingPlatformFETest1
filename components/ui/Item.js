@@ -17,7 +17,7 @@ import { Navigation } from 'swiper';
 const StyledSwiper = styled(Swiper)`
   width: 100%;
   .swiper-slide {
-    height: 360px;
+    height: 500px;
   }
 `;
 
@@ -29,7 +29,7 @@ const ItemCard = styled(Card)`
   .img {
     position: relative;
     width: 100%;
-    height: 250px;
+    height: 500px;
   }
   .img :first-child {
     border-radius: 0.3rem;
@@ -61,16 +61,19 @@ const ItemCard = styled(Card)`
   }
   @media screen and (max-width: 1090px) {
     width: 86%;
+    .img {
+      height: 250px;
+    }
   }
-  @media screen and (min-width: 1090px) and (max-width: 1630px) {
+  @media screen and (min-width: 1090px) and (max-width: 1919px) {
     width: 90%;
   }
-  @media screen and (min-width: 1631px) and (max-width: 2499px) {
-    width: ${(props) => (props.desk ? '90%' : '40%')};
+  @media screen and (min-width: 1920px) and (max-width: 2499px) {
+    width: ${(props) => (props.desk ? '90%' : '45%')};
   }
 
   @media screen and (min-width: 2500px) {
-    width: ${(props) => (props.desk ? '90%' : '30%')};
+    width: ${(props) => (props.desk ? '90%' : '40%')};
   }
 `;
 
@@ -98,6 +101,10 @@ const Item = ({
     '-' +
     dateArr[2].padStart(2, '0');
   const selectTypeHandler = (e) => {
+    const left = document.querySelector('.info-left');
+    if (window.screenX > 1170) {
+      left.style.height = '2400px';
+    }
     const selectedItem = e.target.childNodes[0].value;
     dispatch(reservationActions.getReservationItem(selectedItem));
     dispatch(reservationActions.getSelectedTypeEng(typeEng));
@@ -143,7 +150,7 @@ const Item = ({
   dispatch(reservationActions.getUnableDayList(disabledDateList));
   return (
     <ItemCard desk={desk}>
-      {!images.length === 0 ? (
+      {images.length !== 0 ? (
         <StyledSwiper
           navigation={true}
           modules={[Navigation]}

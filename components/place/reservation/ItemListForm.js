@@ -13,11 +13,13 @@ const Wrapper = styled.section`
     font-size: 1.5rem;
   }
   main {
-    max-height: 500px;
+    max-height: 750px;
   }
   @media screen and (max-width: 858px) {
     margin-bottom: 0px;
-
+    main {
+      max-height: 470px;
+    }
     button {
       font-size: 12px;
       padding: 2px 5px;

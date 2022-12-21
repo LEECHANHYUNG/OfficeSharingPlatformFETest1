@@ -51,6 +51,7 @@ const Wrapper = styled.section`
   }
 
   @media screen and (max-width: 1170px) {
+    height: 300px;
     width: 90vw;
   }
 `;
@@ -60,8 +61,10 @@ const StyledSwiper = styled(Swiper)`
   .swiper-slide {
     height: 360px;
   }
-  @media screen and(max-width : 858px) {
-    height: 250px;
+  @media screen and (max-width: 858px) {
+    .swiper-slide {
+      height: 250px;
+    }
   }
 `;
 const PlaceMainImage = ({ images }) => {

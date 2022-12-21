@@ -144,19 +144,41 @@ const Item = ({
   dispatch(reservationActions.getUnableDayList(disabledDateList));
   return (
     <ItemCard desk={desk}>
-      <StyledSwiper navigation={true} modules={[Navigation]} draggable={false}>
-        {images.map((image) => (
-          <SwiperSlide className="img" key={image}>
+      {!images.length === 0 ? (
+        <StyledSwiper
+          navigation={true}
+          modules={[Navigation]}
+          draggable={false}
+        >
+          {images.map((image) => (
+            <SwiperSlide className="img" key={image}>
+              <Image
+                src={image}
+                layout="fill"
+                objectFit="cover"
+                objectPosition="center"
+                priority
+              />
+            </SwiperSlide>
+          ))}
+        </StyledSwiper>
+      ) : (
+        <StyledSwiper
+          navigation={true}
+          modules={[Navigation]}
+          draggable={false}
+        >
+          <SwiperSlide className="img">
             <Image
-              src={image}
+              src={'/image/default-image.gif'}
               layout="fill"
               objectFit="cover"
               objectPosition="center"
               priority
             />
           </SwiperSlide>
-        ))}
-      </StyledSwiper>
+        </StyledSwiper>
+      )}
 
       <div className="item-name">{type}</div>
       <div className="item-description">최대 {availablePerson}인 이용 가능</div>

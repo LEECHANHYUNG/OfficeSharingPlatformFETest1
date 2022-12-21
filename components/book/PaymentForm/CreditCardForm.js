@@ -120,6 +120,7 @@ const CreditCardForm = () => {
         throw new Error(response.data.message);
       }
     } catch (error) {
+      setIsLoading(false);
       alert(error.response.data.message);
     }
   };

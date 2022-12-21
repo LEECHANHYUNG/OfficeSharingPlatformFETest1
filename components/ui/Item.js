@@ -13,6 +13,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 import { Navigation } from 'swiper';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 const StyledSwiper = styled(Swiper)`
   width: 100%;
@@ -185,7 +186,6 @@ const Item = ({
           </SwiperSlide>
         </StyledSwiper>
       )}
-
       <div className="item-name">{type}</div>
       <div className="item-description">최대 {availablePerson}인 이용 가능</div>
       <div className="item-price">
@@ -197,7 +197,17 @@ const Item = ({
       <Button type="button" disabled={isLoading} onClick={selectTypeHandler}>
         <input type="hidden" value={type} />
         {isLoading ? 'loading...' : '예약'}
-      </Button>
+      </Button>{' '}
+      {isLoading ? (
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        ''
+      )}
     </ItemCard>
   );
 };

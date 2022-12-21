@@ -9,24 +9,28 @@ const OfficeMarker = (props) => {
   const { map } = props;
 
   const setMapCenterPosition = (e) => {
-    const selectedPlaceId = e.target.id;
-    dispatch(officeSliceActions.selectPlace(selectedPlaceId));
-    const selectedPlace = officeList.filter(
-      (elem) => elem.key === selectedPlaceId
-    );
-    const selectedPlaceAddress = selectedPlace[0].item.address;
-    const geocoder = new kakao.maps.services.Geocoder();
+    if (e.target.classList[0] === 'customOverlay') {
+      const selectedPlaceId = e.target.id;
+      dispatch(officeSliceActions.selectPlace(selectedPlaceId));
+      const selectedPlace = officeList.filter(
+        (elem) => elem.key === selectedPlaceId
+      );
+      const selectedPlaceAddress = selectedPlace[0].item.address;
+      const geocoder = new kakao.maps.services.Geocoder();
 
-    geocoder.addressSearch(selectedPlaceAddress, (result, status) => {
-      if (status === kakao.maps.services.Status.OK) {
-        const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-        map.current.setLevel(6);
-        map.current.panTo(coords);
-      }
-    });
+      geocoder.addressSearch(selectedPlaceAddress, (result, status) => {
+        if (status === kakao.maps.services.Status.OK) {
+          const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+          map.current.setLevel(6);
+          map.current.panTo(coords);
+        }
+      });
+    } else {
+      return;
+    }
   };
   const setBound = (bounds) => {
-    map.current.setBounds(bounds, 0, 0, 0, 0);
+    map.current.setBounds(bounds);
   };
   useEffect(() => {
     markers.map((elem) => elem.setMap(null));

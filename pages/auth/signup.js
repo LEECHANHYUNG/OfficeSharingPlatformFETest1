@@ -12,8 +12,11 @@ import { authSliceActions } from '../../store/auth';
 import axios from 'axios';
 import AuthHeader from '../../components/ui/AuthHeader';
 import Head from 'next/head';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 const SignUp = () => {
+  const [formIsValid, setFormIsValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const emailIsValid = useSelector((state) => state.auth.emailIsValid);
   const passwordIsValid = useSelector((state) => state.auth.passwordIsValid);
@@ -35,7 +38,6 @@ const SignUp = () => {
   const deskRef = useRef();
   const meetingRoomRef = useRef();
   const officeRef = useRef();
-  const [formIsValid, setFormIsValid] = useState(false);
   const disatch = useDispatch();
   useEffect(() => {
     disatch(authSliceActions.resetValidation());
@@ -66,7 +68,7 @@ const SignUp = () => {
   ]);
   const signupHandler = (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     axios({
       method: 'post',
       url: '/api/auth/signup',
@@ -89,6 +91,8 @@ const SignUp = () => {
     })
       .then((response) => {
         if (response.status === 200) {
+          setIsLoading(false);
+
           alert(response.data.message);
           router.replace('/auth/signin');
         } else if (response.status === 400) {
@@ -96,7 +100,7 @@ const SignUp = () => {
         }
       })
       .catch((err) => {
-        console.error(err.response.data);
+        setIsLoading(false);
         alert(err.response.data.split(' ').slice(1).join(' '));
       });
   };
@@ -154,6 +158,16 @@ const SignUp = () => {
           </div>
         </form>
       </section>
+      {isLoading ? (
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        ''
+      )}
     </Wrapper>
   );
 };

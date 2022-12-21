@@ -20,13 +20,13 @@ const OfficeMarker = (props) => {
     geocoder.addressSearch(selectedPlaceAddress, (result, status) => {
       if (status === kakao.maps.services.Status.OK) {
         const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-        map.current.setLevel(9);
+        map.current.setLevel(6);
         map.current.panTo(coords);
       }
     });
   };
   const setBound = (bounds) => {
-    map.current.setBounds(bounds, 90, 0, 0, 0);
+    map.current.setBounds(bounds, 0, 0, 0, 0);
   };
   useEffect(() => {
     markers.map((elem) => elem.setMap(null));

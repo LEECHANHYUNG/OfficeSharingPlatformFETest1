@@ -47,9 +47,9 @@ const Wrapper = styled.section`
   }
 
   @media screen and (max-width: 1170px) {
-    top: 65vh;
+    top: 60vh;
     width: 100%;
-    height: 31vh;
+    height: 34vh;
     padding-top : 0;
     &::-webkit-scrollbar {
       display: none;

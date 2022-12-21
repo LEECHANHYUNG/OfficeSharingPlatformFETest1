@@ -8,16 +8,16 @@ import FilterResetBtn from './FilterResetBtn';
 const KaKaoMap = styled(Map)`
   position: absolute;
   padding-top: 154px;
+  top: 0px;
   bottom: 0px;
   left: 0px;
   width: 75vw;
   height: 100vh;
 
   @media (max-width: 1170px) {
-    padding-top: 0;
     width: 100%;
-    top: 154px;
-    height: 49vh;
+    top: 0px;
+    height: 60vh;
   }
 `;
 const KakaoMap = (props) => {

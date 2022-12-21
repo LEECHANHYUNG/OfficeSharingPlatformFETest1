@@ -7,16 +7,17 @@ import axios from 'axios';
 
 const Wrapper = styled.div`
   position: fixed;
+  top: 100px;
   background: #fff;
   padding: 5px 20px;
   width: 100%;
   border: 2px solid #111;
   z-index: 100;
 
-  & .search-glass {
+  .search-glass {
     cursor: pointer;
   }
-  & .searchInput {
+  .searchInput {
     width: 90%;
     height: 40px;
     border: none;
@@ -24,10 +25,10 @@ const Wrapper = styled.div`
     padding-left: 10px;
   }
 
-  & .searchInput:focus {
+  .searchInput:focus {
     outline: none;
   }
-  & .searchInput .icon {
+  .searchInput .icon {
     padding-right: 20px;
   }
   @media screen and (max-width: 1170px) {

@@ -13,16 +13,12 @@ import PlaceOpeningHours from './PlaceOpeningHours';
 
 const Wrapper = styled.section`
   position: absolute;
-  top: 0px;
+  padding-top: 100px;
   right: 0px;
-  padding-top : 100px;
-  padding-bottom : 80px;
   height: 100vh;
   width: 25vw;
   overflow-y: scroll;
-  
- 
-  & .prev-btn {
+  .prev-btn {
     z-index: 10;
     position: absolute;
     width: 36px;
@@ -30,8 +26,9 @@ const Wrapper = styled.section`
     top: 154px;
     left: 5px;
     cursor: pointer;
+    
   }
-  & .detail-btn {
+  .detail-btn {
     position: fixed;
     bottom: 0px;
     width: 25%;
@@ -44,24 +41,24 @@ const Wrapper = styled.section`
     z-index : 1000;
   }
  
-  & .line {
+  .line {
     height: 6px;
     background #999;
   }
 
   @media screen and (max-width: 1170px) {
-    top: 57vh;
+    top: 65vh;
     width: 100%;
-    height: 43vh;
+    height: 31vh;
     padding-top : 0;
     &::-webkit-scrollbar {
       display: none;
     }
-    & .prev-btn {
+     .prev-btn {
       top : 56px;
     }
 
-    & .detail-btn {
+     .detail-btn {
       width: 100%;
     }
   }
@@ -75,25 +72,27 @@ const PlaceDetailMain = () => {
 
   return (
     <Wrapper>
-      <div className="prev-btn" onClick={prevBtnHandler}>
-        <Image src="/svg/arrow-left.svg" width="36" height="36" />
+      <div className="container">
+        <div className="prev-btn" onClick={prevBtnHandler}>
+          <Image src="/svg/arrow-left.svg" width="36" height="36" />
+        </div>
+        <PlaceSearch />
+        <PlaceImage images={selectedPlace.item.placeImages} />
+        <div className="line"></div>
+        <PlaceInfo
+          placeName={selectedPlace.item.placeName}
+          description={selectedPlace.item.placeDescription}
+          address={selectedPlace.item.address}
+          rating={selectedPlace.item.ratingPoint}
+        />
+        <PlaceAdditional additionalItem={selectedPlace.item.placeInfo} />
+        <PlaceOpeningHours
+          closedDays={selectedPlace.item.closeDays}
+          openTime={selectedPlace.item.openTime}
+          closeTime={selectedPlace.item.closeTime}
+        />
+        <PlaceAvailableItem items={selectedPlace.item.roomInfo} />
       </div>
-      <PlaceSearch />
-      <PlaceImage images={selectedPlace.item.placeImages} />
-      <div className="line"></div>
-      <PlaceInfo
-        placeName={selectedPlace.item.placeName}
-        description={selectedPlace.item.placeDescription}
-        address={selectedPlace.item.address}
-        rating={selectedPlace.item.ratingPoint}
-      />
-      <PlaceAdditional additionalItem={selectedPlace.item.placeInfo} />
-      <PlaceOpeningHours
-        closedDays={selectedPlace.item.closeDays}
-        openTime={selectedPlace.item.openTime}
-        closeTime={selectedPlace.item.closeTime}
-      />
-      <PlaceAvailableItem items={selectedPlace.item.roomInfo} />
       <Link href={`/place/${selectedPlace.item.placeId}`}>
         <div className="detail-btn">자세히 보기</div>
       </Link>

@@ -22,7 +22,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     }).concat(logger),
-  devTools: process.env.NODE_ENV !== 'production',
+  devTools: process.env.NODE_ENV !== 'PHASE_PRODUCTION_BUILD',
 });
 
 export default store;

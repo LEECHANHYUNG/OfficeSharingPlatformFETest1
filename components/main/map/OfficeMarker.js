@@ -26,7 +26,7 @@ const OfficeMarker = (props) => {
     });
   };
   const setBound = (bounds) => {
-    map.current.setBounds(bounds, 50, 0, 0, 0);
+    map.current.setBounds(bounds, 90, 0, 0, 0);
   };
   useEffect(() => {
     markers.map((elem) => elem.setMap(null));

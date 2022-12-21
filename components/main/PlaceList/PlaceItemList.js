@@ -9,14 +9,14 @@ const OfficeCount = styled.div`
   align-items: center;
   background: #fff;
   padding-top: 58px;
-  & .count {
+  .count {
     display: inline-block;
     color: #6a9eff;
     font-weight: 700;
   }
   @media screen and (max-width: 1170px) {
-    padding-top: 0px;
-    height: 70px;
+    padding-top: 62px;
+    height: 85px;
   }
 `;
 const PlaceItemList = (props) => {

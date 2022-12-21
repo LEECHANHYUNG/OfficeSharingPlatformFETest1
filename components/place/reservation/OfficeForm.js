@@ -56,37 +56,42 @@ const OfficeForm = () => {
   const session = useSession();
   const submitOfficeReservationHandler = async () => {
     setLoading(true);
-    try {
-      const response = await axios({
-        url: '/api/reservation/book',
-        method: 'post',
-        data: {
-          accessToken: session.data.user.accessToken,
-          selectedType: reservationItem.toUpperCase(),
-          startDate: startDate
-            .toLocaleDateString()
-            .replace(/. /g, '-')
-            .slice(0, -1),
-          endDate: endDate
-            .toLocaleDateString()
-            .replace(/. /g, '-')
-            .slice(0, -1),
-          startTime: 9,
-          endTime: 8,
-          id: router.query.id,
-        },
-      });
-      if (response.status === 200) {
+    if (session.status === 'unauthenticated') {
+      alert('로그인이 필요한 서비스입니다. 로그인 페이지로 이동합니다.');
+      router.push('/auth/signin');
+    } else {
+      try {
+        const response = await axios({
+          url: '/api/reservation/book',
+          method: 'post',
+          data: {
+            accessToken: session.data.user.accessToken,
+            selectedType: reservationItem.toUpperCase(),
+            startDate: startDate
+              .toLocaleDateString()
+              .replace(/. /g, '-')
+              .slice(0, -1),
+            endDate: endDate
+              .toLocaleDateString()
+              .replace(/. /g, '-')
+              .slice(0, -1),
+            startTime: 9,
+            endTime: 8,
+            id: router.query.id,
+          },
+        });
+        if (response.status === 200) {
+          setLoading(false);
+          dispatch(reservationActions.getReservationInfo(response.data));
+          alert('예약 페이지로 이동합니다.');
+          router.push('/place/book');
+        } else {
+          throw new Error(response.data.message);
+        }
+      } catch (error) {
         setLoading(false);
-        dispatch(reservationActions.getReservationInfo(response.data));
-        alert('예약 페이지로 이동합니다.');
-        router.push('/place/book');
-      } else {
-        throw new Error(response.data.message);
+        alert(error.response.data.message.split(' ').slice(1).join(' '));
       }
-    } catch (error) {
-      setLoading(false);
-      alert(error.response.data.message.split(' ').slice(1).join(' '));
     }
   };
   return (

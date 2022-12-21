@@ -197,7 +197,7 @@ const Item = ({
       <Button type="button" disabled={isLoading} onClick={selectTypeHandler}>
         <input type="hidden" value={type} />
         {isLoading ? 'loading...' : '예약'}
-      </Button>{' '}
+      </Button>
       {isLoading ? (
         <Backdrop
           sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

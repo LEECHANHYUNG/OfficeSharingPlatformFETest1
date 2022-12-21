@@ -8,7 +8,6 @@ import Time from '../selectbox/Time';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
 import { officeSliceActions } from '../../store/officeList';
-import { Backdrop, CircularProgress } from '@mui/material';
 
 const StyledInput = styled.input`
   padding: 15px;
@@ -23,8 +22,7 @@ const StyledInput = styled.input`
     border-radius: 5px;
   }
 `;
-const FilterBanner = () => {
-  const [isLoading, setIsLoading] = useState(false);
+const FilterBanner = ({ setIsLoading }) => {
   const buttonRef = useRef();
   const selectedStartTime = useSelector((state) => state.selected.startTime);
   const selectedEndTime = useSelector((state) => state.selected.endTime);
@@ -125,19 +123,6 @@ const FilterBanner = () => {
           <PlaceType />
         </div>
       </main>
-      {isLoading ? (
-        <Backdrop
-          sx={{
-            color: '#fff',
-            zIndex: (theme) => theme.zIndex.drawer + 1,
-          }}
-          open={open}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-      ) : (
-        ''
-      )}
     </Wrapper>
   );
 };

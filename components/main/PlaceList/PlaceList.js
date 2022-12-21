@@ -1,3 +1,5 @@
+import { Backdrop, CircularProgress } from '@mui/material';
+import { useState } from 'react';
 import styled from 'styled-components';
 import PlaceItemList from './PlaceItemList';
 import PlaceSearch from './PlaceSearch';
@@ -21,10 +23,25 @@ const Wrapper = styled.div`
 `;
 
 const PlaceList = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <Wrapper>
-      <PlaceSearch className="search" />
+      <PlaceSearch
+        className="search"
+        setIsLoading={(state) => setIsLoading(state)}
+      />
       <PlaceItemList map={props.map} />
+      {isLoading ? (
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        ''
+      )}
     </Wrapper>
   );
 };

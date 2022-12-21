@@ -78,7 +78,9 @@ const SignIn = () => {
   const [formIsValid, setFormIsValid] = useState(false);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
+    signOut({ redirect: false });
     dispatch(authSliceActions.resetValidation());
   }, []);
   useEffect(() => {

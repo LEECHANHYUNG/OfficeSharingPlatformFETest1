@@ -26,10 +26,14 @@ a {
   box-sizing: border-box;
 }
 
+.wrap {
+  height: 100px;
+  width: 120px;
+}
 .customOverlay {
   background: #111;
   color: #fff;
-  height: 35px;
+  height: 35%;
   border-radius: 30px;
   padding: 5px 20px;
   text-align: center;

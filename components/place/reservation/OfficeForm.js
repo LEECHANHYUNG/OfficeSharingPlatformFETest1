@@ -41,11 +41,11 @@ const OfficeForm = () => {
   );
   const style = {
     position: 'absolute',
-    top: '50%',
-    left: '50%',
+    top: '55%',
+    left: '0%',
     height: '75%',
     transform: 'translate(-50%, -50%)',
-    width: '350px',
+    width: '390px',
     bgcolor: '#fff',
     border: '2px solid #000',
     padding: '0',

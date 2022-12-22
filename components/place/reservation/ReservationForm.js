@@ -1,4 +1,5 @@
-import { Backdrop, CircularProgress } from '@mui/material';
+import { Backdrop, CircularProgress, Modal } from '@mui/material';
+import { Box } from '@mui/system';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
@@ -7,6 +8,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import SignIn from '../../../pages/auth/signin';
 import { paymentSliceActions } from '../../../store/payment';
 import { reservationActions } from '../../../store/reservation';
 import Button from '../../ui/Button';
@@ -71,12 +73,24 @@ const Wrapper = styled(Card)`
 const ReservationForm = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isBrowser, setIsBrowser] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
   const [isBottom, setIsBottom] = useState(false);
   const placeId = router.query.id;
-
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    height: '75%',
+    transform: 'translate(-50%, -50%)',
+    width: '350px',
+    bgcolor: '#fff',
+    border: '2px solid #000',
+    p: 4,
+    padding: '0',
+  };
   const itemName = useSelector((state) => state.reservation.selectedType);
   const reservationItem = useSelector(
     (state) => state.reservation.reservationItem
@@ -117,12 +131,13 @@ const ReservationForm = () => {
     dateArr[1]?.padStart(2, '0') +
     '-' +
     dateArr[2]?.padStart(2, '0');
-
+  const handleClose = () => {
+    setShowModal(false);
+  };
   const session = useSession();
   const sendReservationInfoHandler = async () => {
     if (session.status === 'unauthenticated') {
-      alert('로그인이 필요한 서비스입니다. 로그인 페이지로 이동합니다.');
-      router.push('/auth/signin');
+      setShowModal(true);
     } else {
       try {
         setIsLoading(true);
@@ -205,6 +220,20 @@ const ReservationForm = () => {
       ) : (
         ''
       )}
+      <Modal
+        open={showModal}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <SignIn
+            setShowModal={(state) => {
+              setShowModal(state);
+            }}
+          />
+        </Box>
+      </Modal>
     </Wrapper>
   );
 };

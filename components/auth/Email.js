@@ -1,3 +1,4 @@
+import { Backdrop, CircularProgress } from '@mui/material';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useRef } from 'react';
@@ -13,6 +14,7 @@ const Email = (props) => {
   const dispatch = useDispatch();
   const [emailBlur, setEmailBlur] = useState(false);
   const [authNumberBlur, setAuthNumberBlur] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isSended, setIsSended] = useState(false);
   const [isMatched, setIsMatched] = useState(false);
   const emailInputRef = useRef();
@@ -44,6 +46,8 @@ const Email = (props) => {
   const sendEmailHandler = async () => {
     const enteredEmail = emailInputRef.current.value;
     try {
+      setIsSended(true);
+      setIsLoading(true);
       const response = await axios({
         url: '/api/auth/emailauthentication',
         method: 'post',
@@ -54,12 +58,14 @@ const Email = (props) => {
       });
       if (response.status === 200) {
         setIsSended(true);
+        setIsLoading(false);
         alert('메일을 보냈습니다. 인증 번호를 확인해주세요');
       } else {
-        setIsSended(false);
-        return new Promise.reject(response.data);
+        throw new Error(response.data);
       }
     } catch (error) {
+      setIsSended(false);
+      setIsLoading(false);
       alert(error.response.data.split(' ').slice(1).join(' '));
       emailInputRef.current.value = '';
       dispatch(authSliceActions.getEmailValid(''));
@@ -68,6 +74,7 @@ const Email = (props) => {
   const authNumberHandler = async () => {
     const enteredAuthNumber = authNumberInputRef.current.value;
     try {
+      setIsLoading(true);
       const response = await axios({
         url: '/api/auth/emailauthentication',
         method: 'post',
@@ -78,10 +85,12 @@ const Email = (props) => {
         },
       });
       if (response.status === 200) {
+        setIsLoading(false);
         setIsMatched(true);
         dispatch(authSliceActions.getAuthNumberAuthenticated(true));
         alert('인증 완료');
       } else {
+        setIsLoading(false);
         setIsSended(false);
         return new Promise.reject(response.data);
       }
@@ -134,6 +143,16 @@ const Email = (props) => {
         <Button disabled={!authNumberIsValid} onClick={authNumberHandler}>
           인증 번호 확인
         </Button>
+      ) : (
+        ''
+      )}
+      {isLoading ? (
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
       ) : (
         ''
       )}

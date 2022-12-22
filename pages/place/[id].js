@@ -73,7 +73,7 @@ const PlaceMainPage = ({ place }) => {
   return (
     <Wrapper>
       <Head>
-        <title>Place Sharing - {place.placeMainInfo.placeName}</title>
+        <title>Place Sharing-{place.placeMainInfo.placeName}</title>
         <meta
           name="description"
           content={`공간 대여 플랫폼,${place.placeMainInfo.placeName}`}

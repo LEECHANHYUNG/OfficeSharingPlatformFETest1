@@ -12,6 +12,7 @@ const Wrapper = styled.div`
   padding: 5px 20px;
   width: 100%;
   border: 2px solid #111;
+  z-index: 100;
 
   .search-glass {
     cursor: pointer;

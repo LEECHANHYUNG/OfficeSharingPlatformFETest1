@@ -19,12 +19,12 @@ const Wrapper = styled.section`
     justify-content: space-around;
     align-items: top;
     line-height: 25px;
-    margin-bottom : 20px;
+    margin-bottom: 20px;
   }
   &.show .container {
     min-height: 50px;
     height: auto;
-    transition : all 0.5s;
+    transition: all 0.5s;
   }
 
   .writingTime {
@@ -44,7 +44,7 @@ const Wrapper = styled.section`
   }
   .answer {
     width: 100%;
-    padding -top: 10px;
+    padding-top: 10px;
     border-top: 3px solid #111;
     transition: all 0.5s ease-out;
   }
@@ -57,33 +57,33 @@ const Wrapper = styled.section`
   }
   @media screen and (max-width: 858px) {
     height: 75px;
-    position : relative;
-    .title{
-      position : absolute;
-      top : 5px;
+    position: relative;
+    .title {
+      position: absolute;
+      top: 5px;
       left: 5px;
-      width : auto;
+      width: auto;
       font-weight: 800;
     }
-    .answer{
-      margin-top : 40px;
+    .answer {
+      margin-top: 40px;
     }
-    .content{
-      width : 80%;
-      margin-top : 50px;
-
+    .content {
+      width: 80%;
+      margin-top: 50px;
+      word-break: break-all;
     }
     .writingTime {
-      position: absolute; 
-      width : auto;
-      top : 30px;
+      position: absolute;
+      width: auto;
+      top: 30px;
       right: 10px;
     }
-    .state{
-      position : absolute;
-      top : 50px;
-      right :10px;
-      width :auto;
+    .state {
+      position: absolute;
+      top: 50px;
+      right: 10px;
+      width: auto;
     }
   }
 `;

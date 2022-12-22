@@ -12,6 +12,7 @@ const Content = styled.textarea`
   }
   width: 100%;
   height: 60px;
+
   padding: 15px;
   border-radius: 5px;
   outline: none;
@@ -20,6 +21,9 @@ const Content = styled.textarea`
   font-size: 1rem;
   border: 1px solid #111;
   max-height: 330px;
+  @media screen and (max-width: 858px) {
+    max-height: 84px;
+  }
 `;
 const TextArea = ({
   placeholder,
@@ -34,6 +38,7 @@ const TextArea = ({
   const changeHeightHandler = (e) => {
     if (!session.data) {
       alert('로그인이 필요한 서비스입니다.');
+      setIsEntered((e.target.value = ''));
     }
     setIsEntered(e.target.value.length !== 0);
 

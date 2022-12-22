@@ -53,7 +53,6 @@ const NewPasswordInput = () => {
         },
       });
       if (response.status === 200) {
-        console.log(response.data.msg);
         alert(response.data.msg);
         router.replace('/auth/signin');
       } else {

@@ -69,7 +69,6 @@ const Comment = ({ item, paginationData, reviewComment, ratingId }) => {
         setTotalPage(response.data.paginationData.maxPage);
       }
     } catch (error) {
-      console.error(error);
     }
   };
 

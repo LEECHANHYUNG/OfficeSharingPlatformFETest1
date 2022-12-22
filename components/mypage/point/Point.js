@@ -73,7 +73,6 @@ const Point = ({ item, paginationData }) => {
         setTotalPage(response.data.paginationData.maxPage);
       }
     } catch (error) {
-      console.error(error);
     }
   };
   return (

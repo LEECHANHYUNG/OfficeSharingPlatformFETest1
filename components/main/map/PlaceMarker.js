@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { officeSliceActions } from '../../../store/officeList';
 
-const OfficeMarker = (props) => {
+const PlaceMarker = (props) => {
   const dispatch = useDispatch();
   const officeList = useSelector((state) => state.officeList.filteredPlaceList);
   const markers = useSelector((state) => state.officeList.marker);
@@ -69,4 +69,4 @@ const OfficeMarker = (props) => {
   }, [officeList]);
 };
 
-export default OfficeMarker;
+export default PlaceMarker;

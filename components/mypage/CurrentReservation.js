@@ -62,7 +62,6 @@ const Wrapper = styled.section`
 const CurrentReservation = ({ item }) => {
   const router = useRouter();
 
-  console.log(item);
   return (
     <Wrapper>
       <h1>현재 사용중인 상품</h1>

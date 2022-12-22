@@ -63,7 +63,6 @@ const ChangePasswordForm = () => {
         throw new Error(response.data);
       }
     } catch (error) {
-      console.log(error.response.data);
       alert(error.response.data.message);
     }
   };

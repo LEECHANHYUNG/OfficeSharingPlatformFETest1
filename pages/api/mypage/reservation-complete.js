@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const handler = async (req, res) => {
   if (req.method === 'POST') {
-    console.log(req.body.accessToken);
     try {
       const response = await axios({
         url: `${process.env.baseURL}mypage/reservation/fix`,

@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
 import ControlBox from './ControlBox';
-import OfficeMarker from './OfficeMarker';
+import PlaceMarker from './PlaceMarker';
 import FilterBanner from '../../layout/FilterBanner';
 import styled from 'styled-components';
 import FilterResetBtn from './FilterResetBtn';
@@ -39,7 +39,7 @@ const KakaoMap = (props) => {
         }}
         ref={mapRef}
       >
-        <OfficeMarker map={mapRef} />
+        <PlaceMarker map={mapRef} />
         <ControlBox map={mapRef} />
       </KaKaoMap>
       <FilterResetBtn />

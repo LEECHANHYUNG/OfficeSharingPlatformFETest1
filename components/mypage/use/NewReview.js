@@ -93,7 +93,6 @@ const NewReview = () => {
         }
       } catch (error) {
         setIsLoading(false);
-        console.error(error.response.data);
       }
     }
   };

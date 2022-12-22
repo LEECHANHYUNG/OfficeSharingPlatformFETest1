@@ -67,7 +67,6 @@ const Usage = (props) => {
         setTotalPage(response.data.paginationData.maxPage);
       }
     } catch (error) {
-      console.error(error);
     }
   };
 

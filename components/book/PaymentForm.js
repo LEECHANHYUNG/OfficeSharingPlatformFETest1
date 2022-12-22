@@ -45,7 +45,6 @@ const PaymentForm = ({ reservationId }) => {
         throw new Error(response.data.message);
       }
     } catch (error) {
-      console.error(error.response);
     }
   };
   return (

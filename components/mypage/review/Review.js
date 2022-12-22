@@ -74,11 +74,9 @@ const Review = ({ item, paginationData }) => {
         setTotalPage(response.data.paginationData.maxPage);
       }
     } catch (error) {
-      console.error(error);
-    }
+  }
   };
 
-  console.log(items);
   return (
     <Wrapper>
       <h1>작성 후기</h1>

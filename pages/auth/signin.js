@@ -92,7 +92,6 @@ const SignIn = () => {
       clearTimeout(validityChecker);
     };
   }, [emailIsValid, passwordIsValid]);
-  console.log(router);
   const loginHanlder = async (e) => {
     setIsLoading(true);
     e.preventDefault();

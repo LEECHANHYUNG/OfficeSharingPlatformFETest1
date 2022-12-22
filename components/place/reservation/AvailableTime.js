@@ -145,7 +145,6 @@ const AvailableTime = () => {
         'rgb(106, 158, 255)';
     });
   }, [availableFullTimeList]);
-  console.log(avaialbleTimeList);
   return (
     <Wrapper>
       <h1>이용 가능 시간</h1>

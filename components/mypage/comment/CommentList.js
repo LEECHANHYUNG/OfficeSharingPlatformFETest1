@@ -7,7 +7,6 @@ const Wrapper = styled.section`
 `;
 
 const CommentList = ({ item, paginationData, ratingId }) => {
-  console.log(item, paginationData, ratingId);
   return (
     <Wrapper>
       <Comment

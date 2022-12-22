@@ -129,7 +129,7 @@ const Detail = (props) => {
   const session = useSession();
   const [detailItems, setDetailItems] = useState(props);
   const [isLoading, setIsLoading] = useState(false);
-  console.log(props);
+
   const cancelReservationHandler = async () => {
     setIsLoading(true);
     try {

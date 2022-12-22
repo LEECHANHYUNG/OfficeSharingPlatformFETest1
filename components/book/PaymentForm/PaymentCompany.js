@@ -37,9 +37,6 @@ const PaymentCompany = () => {
     <Wrapper>
       <h4>결제 수단 선택</h4>
       <div className="btn">
-        <Button onClick={selectPaymentCompanyHandler} value="kakaopay">
-          카카오페이
-        </Button>
         <Button onClick={selectPaymentCompanyHandler} value="nicepay">
           신용카드
         </Button>

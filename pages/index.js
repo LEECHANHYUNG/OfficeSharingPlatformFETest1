@@ -62,7 +62,6 @@ export async function getStaticProps() {
       throw new Error();
     }
   } catch (err) {
-    console.error(err);
   }
   return {
     props: {

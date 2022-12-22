@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
@@ -12,7 +12,6 @@ const Wrapper = styled.div`
   padding: 5px 20px;
   width: 100%;
   border: 2px solid #111;
-  z-index: 100;
 
   .search-glass {
     cursor: pointer;
@@ -38,7 +37,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const PlaceSearch = () => {
+const PlaceSearch = ({ setIsLoading }) => {
   const dispatch = useDispatch();
   const searchWordInput = useRef();
   const keywordSubmitHandler = async (e) => {
@@ -46,6 +45,7 @@ const PlaceSearch = () => {
     dispatch(officeSliceActions.selectPlace(null));
     e.preventDefault();
     const enteredSearchWord = searchWordInput.current.value;
+    setIsLoading(true);
     try {
       const response = await axios({
         url: '/api/main/search',
@@ -57,13 +57,14 @@ const PlaceSearch = () => {
         for (const key in data) {
           officeList.push({ key: data[key].placeId, item: data[key] });
         }
+        dispatch(officeSliceActions.getFilteredPlaceList(officeList));
+        setIsLoading(false);
       } else {
         throw new Error(response.data);
       }
-      dispatch(officeSliceActions.getFilteredPlaceList(officeList));
       searchWordInput.current.value = '';
     } catch (err) {
-      console.error(err);
+      setIsLoading(false);
     }
   };
   return (

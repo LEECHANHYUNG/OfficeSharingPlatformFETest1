@@ -1,3 +1,4 @@
+import { Backdrop, CircularProgress } from '@mui/material';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
@@ -132,6 +133,16 @@ const CreditCardForm = () => {
   };
   return (
     <StyledCard>
+      {isLoading ? (
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        ''
+      )}
       <h3>카드 정보 입력</h3>
       <div className="first-row">
         <h5>카드 번호</h5>

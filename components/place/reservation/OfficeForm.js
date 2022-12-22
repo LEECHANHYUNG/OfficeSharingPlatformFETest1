@@ -1,3 +1,4 @@
+import { Backdrop, CircularProgress } from '@mui/material';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -36,6 +37,7 @@ const OfficeForm = () => {
   const reservationItem = useSelector(
     (state) => state.reservation.selectedTypeEng
   );
+  const [loading, setLoading] = useState(false);
   const isLoading = useSelector((state) => state.reservation.isLoading);
   useEffect(() => {
     setEndDateSelected(false);
@@ -53,36 +55,43 @@ const OfficeForm = () => {
   };
   const session = useSession();
   const submitOfficeReservationHandler = async () => {
-    try {
-      const response = await axios({
-        url: '/api/reservation/book',
-        method: 'post',
-        data: {
-          accessToken: session.data.user.accessToken,
-          selectedType: reservationItem.toUpperCase(),
-          startDate: startDate
-            .toLocaleDateString()
-            .replace(/. /g, '-')
-            .slice(0, -1),
-          endDate: endDate
-            .toLocaleDateString()
-            .replace(/. /g, '-')
-            .slice(0, -1),
-          startTime: 9,
-          endTime: 8,
-          id: router.query.id,
-        },
-      });
-      if (response.status === 200) {
-        dispatch(reservationActions.getReservationInfo(response.data));
-        alert('예약 페이지로 이동합니다.');
-        router.push('/place/book');
-      } else {
-        throw new Error(response.data.message);
+    setLoading(true);
+    if (session.status === 'unauthenticated') {
+      alert('로그인이 필요한 서비스입니다. 로그인 페이지로 이동합니다.');
+      router.push('/auth/signin');
+    } else {
+      try {
+        const response = await axios({
+          url: '/api/reservation/book',
+          method: 'post',
+          data: {
+            accessToken: session.data.user.accessToken,
+            selectedType: reservationItem.toUpperCase(),
+            startDate: startDate
+              .toLocaleDateString()
+              .replace(/. /g, '-')
+              .slice(0, -1),
+            endDate: endDate
+              .toLocaleDateString()
+              .replace(/. /g, '-')
+              .slice(0, -1),
+            startTime: 9,
+            endTime: 8,
+            id: router.query.id,
+          },
+        });
+        if (response.status === 200) {
+          setLoading(false);
+          dispatch(reservationActions.getReservationInfo(response.data));
+          alert('예약 페이지로 이동합니다.');
+          router.push('/place/book');
+        } else {
+          throw new Error(response.data.message);
+        }
+      } catch (error) {
+        setLoading(false);
+        alert(error.response.data.message.split(' ').slice(1).join(' '));
       }
-    } catch (error) {
-      console.error(error.response);
-      alert(error.response.data.message.split(' ').slice(1).join(' '));
     }
   };
   return (
@@ -137,6 +146,16 @@ const OfficeForm = () => {
             ''
           )}
         </Wrapper>
+      ) : (
+        ''
+      )}
+      {loading ? (
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
       ) : (
         ''
       )}

@@ -1,5 +1,7 @@
+import { Backdrop, CircularProgress } from '@mui/material';
 import Link from 'next/link';
 import React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../ui/Button';
 const Wrapper = styled.section`
@@ -119,6 +121,10 @@ const Wrapper = styled.section`
   }
 `;
 const UsedItem = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const setLoadingHandler = () => {
+    setIsLoading(true);
+  };
   return (
     <Wrapper>
       <div className="type">{props.item.productType}</div>
@@ -151,11 +157,21 @@ const UsedItem = (props) => {
           <p className="before">{props.item.usageStatus}</p>
         )}
       </div>
-      <Button>
+      <Button onClick={setLoadingHandler}>
         <Link href={`/mypage/reservation/${props.item.reservationId}`}>
           예약 상세
         </Link>
       </Button>
+      {isLoading ? (
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        ''
+      )}
     </Wrapper>
   );
 };

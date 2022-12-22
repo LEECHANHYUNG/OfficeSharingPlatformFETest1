@@ -45,6 +45,7 @@ const Email = (props) => {
 
   const sendEmailHandler = async () => {
     const enteredEmail = emailInputRef.current.value;
+    setIsSended(true);
     try {
       setIsSended(true);
       setIsLoading(true);

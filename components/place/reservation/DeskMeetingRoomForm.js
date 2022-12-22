@@ -1,3 +1,4 @@
+import { Backdrop, CircularProgress } from '@mui/material';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -7,6 +8,8 @@ import SelectEndTime from './SelectEndTime';
 import SelectTime from './SelectTime';
 
 const DeskMeetingRoomForm = () => {
+  const [loading, setLoading] = useState(false);
+
   const isLoading = useSelector((state) => state.reservation.isLoading);
   const reservationItem = useSelector(
     (state) => state.reservation.reservationItem
@@ -32,7 +35,11 @@ const DeskMeetingRoomForm = () => {
       ) : (
         ''
       )}
-      {reservationItem && !isLoading ? <SelectTime /> : ''}
+      {reservationItem && !isLoading ? (
+        <SelectTime setLoading={(state) => setLoading(state)} />
+      ) : (
+        ''
+      )}
       {selectedStartTime !== 24 ? <SelectEndTime /> : ''}
       {reservationItem ? (
         <div className="item">
@@ -52,6 +59,16 @@ const DeskMeetingRoomForm = () => {
             ''
           )}
         </div>
+      ) : (
+        ''
+      )}
+      {loading ? (
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
       ) : (
         ''
       )}

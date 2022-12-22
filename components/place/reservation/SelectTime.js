@@ -1,12 +1,11 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import React from 'react';
-import { useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { reservationActions } from '../../../store/reservation';
 
-const SelectTime = () => {
+const SelectTime = ({ setLoading }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const placeId = router.query.id;
@@ -14,9 +13,7 @@ const SelectTime = () => {
     (state) => state.reservation.selectedTypeEng
   );
   const selectedTime = useSelector((state) => state.reservation.date);
-  const selectedEndTime = useSelector(
-    (state) => state.reservation.selectedEndTime
-  );
+
   const dateArr = selectedTime.toLocaleDateString().slice(0, -1).split('. ');
   const ableDateList = useSelector((state) => state.reservation.ableDateList);
   const dateString =
@@ -41,7 +38,6 @@ const SelectTime = () => {
   });
 
   const selectTimeHandler = (e) => {
-    console.log(e.target.classList);
     if (e.target.classList[1] === 'start-time') {
       return;
     } else {
@@ -56,6 +52,7 @@ const SelectTime = () => {
       }
       e.target.classList.add('start-time');
       dispatch(reservationActions.getSelectedStartTime(e.target.id));
+      setLoading(true);
       axios({
         url: '/api/main/available-time',
         method: 'post',
@@ -68,12 +65,14 @@ const SelectTime = () => {
       })
         .then((response) => {
           if (response.status === 200) {
+            setLoading(false);
             dispatch(reservationActions.getTimeList(response.data));
           } else {
             throw new Error();
           }
         })
         .catch((error) => {
+          setLoading(false);
           alert(
             error.response.data.message?.split(' ').slice(1).join(' ')
               ? error.response.data.message.split(' ').slice(1).join(' ')
@@ -84,29 +83,28 @@ const SelectTime = () => {
   };
 
   return (
-    <div className="item">
+    <Fragment>
       <div>시간 선택</div>
-      <div>
-        <StyledSwiper>
-          {timeArr.map((elem, idx) =>
-            elem ? (
-              <div
-                key={idx}
-                className="active"
-                id={idx}
-                onClick={selectTimeHandler}
-              >
-                {idx}:00
-              </div>
-            ) : (
-              <div key={idx} className="non-active">
-                {idx}:00
-              </div>
-            )
-          )}
-        </StyledSwiper>
-      </div>
-    </div>
+
+      <StyledSwiper>
+        {timeArr.map((elem, idx) =>
+          elem ? (
+            <div
+              key={idx}
+              className="active"
+              id={idx}
+              onClick={selectTimeHandler}
+            >
+              {idx}:00
+            </div>
+          ) : (
+            <div key={idx} className="non-active">
+              {idx}:00
+            </div>
+          )
+        )}
+      </StyledSwiper>
+    </Fragment>
   );
 };
 const StyledSwiper = styled.div`

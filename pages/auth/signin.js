@@ -1,3 +1,4 @@
+import { Backdrop, CircularProgress } from '@mui/material';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -140,6 +141,16 @@ const SignIn = () => {
           </p>
         </form>
       </section>
+      {isLoading ? (
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        ''
+      )}
     </Wrapper>
   );
 };

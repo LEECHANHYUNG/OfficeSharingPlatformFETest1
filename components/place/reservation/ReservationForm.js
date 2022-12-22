@@ -81,11 +81,11 @@ const ReservationForm = () => {
   const placeId = router.query.id;
   const style = {
     position: 'absolute',
-    top: '50%',
+    top: '55%',
     left: '50%',
     height: '75%',
     transform: 'translate(-50%, -50%)',
-    width: '350px',
+    width: '390px',
     bgcolor: '#fff',
     border: '2px solid #000',
     p: 4,

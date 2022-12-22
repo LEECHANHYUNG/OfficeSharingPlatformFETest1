@@ -92,7 +92,7 @@ const SignIn = () => {
       clearTimeout(validityChecker);
     };
   }, [emailIsValid, passwordIsValid]);
-
+  console.log(router);
   const loginHanlder = async (e) => {
     setIsLoading(true);
     e.preventDefault();
@@ -104,11 +104,11 @@ const SignIn = () => {
       returnSecureToken: true,
     });
     if (!result.error) {
-      router.replace('/');
+      router.asPath === '/auth/signin' ? router.replace('/') : '';
+
       return;
     } else {
       setIsLoading(false);
-
       alert(result.error);
     }
   };

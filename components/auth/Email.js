@@ -91,11 +91,11 @@ const Email = (props) => {
         dispatch(authSliceActions.getAuthNumberAuthenticated(true));
         alert('인증 완료');
       } else {
-        setIsLoading(false);
         setIsSended(false);
         return new Promise.reject(response.data);
       }
     } catch (error) {
+      setIsLoading(false);
       alert(error.response.data);
     }
   };
@@ -150,7 +150,7 @@ const Email = (props) => {
       {isLoading ? (
         <Backdrop
           sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={open}
+          open={isLoading}
         >
           <CircularProgress color="inherit" />
         </Backdrop>

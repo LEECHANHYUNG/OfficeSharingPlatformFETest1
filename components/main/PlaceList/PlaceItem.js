@@ -36,11 +36,7 @@ const Wrapper = styled.div`
     font-size: 14px;
     color: #999;
   }
-  .distance {
-    padding-right: 10px;
-    color: #6a9eff;
-    font-weight: bold;
-  }
+
   .line {
     position: absolute;
     width: 90%;
@@ -66,8 +62,8 @@ const PlaceItem = (props) => {
     geocoder.addressSearch(selectedPlaceAddress, (result, status) => {
       if (status === kakao.maps.services.Status.OK) {
         const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-        props.map.current.setLevel(3);
-        props.map.current.panTo(coords);
+        props.map.current?.setLevel(3);
+        props.map.current?.panTo(coords);
       }
     });
   };
@@ -81,7 +77,6 @@ const PlaceItem = (props) => {
             {props.elem.item.placeDescription.slice(0, 50)}
           </div>
         </div>
-        <div className="distance">{props.elem.item.distance}</div>
         <div className="line"></div>
       </div>
     </Wrapper>

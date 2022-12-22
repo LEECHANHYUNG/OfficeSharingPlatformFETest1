@@ -54,12 +54,12 @@ const PlaceSearch = ({ setIsLoading }) => {
         data: { searchWord: enteredSearchWord },
       });
       if (response.status === 200) {
+        setIsLoading(false);
         const data = response.data;
         for (const key in data) {
           officeList.push({ key: data[key].placeId, item: data[key] });
         }
         dispatch(officeSliceActions.getFilteredPlaceList(officeList));
-        setIsLoading(false);
       } else {
         throw new Error(response.data);
       }

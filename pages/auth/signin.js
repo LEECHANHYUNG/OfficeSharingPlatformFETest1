@@ -70,7 +70,7 @@ const Wrapper = styled.div`
     }
   }
 `;
-const SignIn = () => {
+const SignIn = ({ setShowModal }) => {
   const router = useRouter();
   const enteredEmail = useSelector((state) => state.auth.enteredEmail);
   const enteredPassword = useSelector((state) => state.auth.enteredPassword);
@@ -103,7 +103,13 @@ const SignIn = () => {
       returnSecureToken: true,
     });
     if (!result.error) {
-      router.asPath === '/auth/signin' ? router.replace('/') : '';
+      if (router.asPath === '/auth/signin') {
+        router.replace('/');
+      } else {
+        {
+          setShowModal(false);
+        }
+      }
 
       return;
     } else {

@@ -1,13 +1,14 @@
-import { Backdrop, CircularProgress } from '@mui/material';
+import { Backdrop, Box, CircularProgress, Modal } from '@mui/material';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import SignIn from '../../../pages/auth/signin';
 import { reservationActions } from '../../../store/reservation';
 import Button from '../../ui/Button';
 
@@ -30,6 +31,7 @@ const StyledDate = styled(DatePicker)`
 const OfficeForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [isStartDateSelcted, setStartDateSelected] = useState(false);
@@ -37,6 +39,18 @@ const OfficeForm = () => {
   const reservationItem = useSelector(
     (state) => state.reservation.selectedTypeEng
   );
+  const style = {
+    position: 'absolute',
+    top: '55%',
+    left: '0%',
+    height: '75%',
+    transform: 'translate(-50%, -50%)',
+    width: '390px',
+    bgcolor: '#fff',
+    border: '2px solid #000',
+    padding: '0',
+    p: 4,
+  };
   const [loading, setLoading] = useState(false);
   const isLoading = useSelector((state) => state.reservation.isLoading);
   useEffect(() => {
@@ -53,13 +67,15 @@ const OfficeForm = () => {
     setStartDate(date);
     setStartDateSelected(true);
   };
+  const handleClose = () => {
+    setShowModal(false);
+  };
   const session = useSession();
   const submitOfficeReservationHandler = async () => {
-    setLoading(true);
     if (session.status === 'unauthenticated') {
-      alert('로그인이 필요한 서비스입니다. 로그인 페이지로 이동합니다.');
-      router.push('/auth/signin');
+      setShowModal(true);
     } else {
+      setLoading(true);
       try {
         const response = await axios({
           url: '/api/reservation/book',
@@ -95,7 +111,7 @@ const OfficeForm = () => {
     }
   };
   return (
-    <div>
+    <Fragment>
       {reservationItem && !isLoading ? (
         <Wrapper>
           <div className="item">
@@ -164,7 +180,21 @@ const OfficeForm = () => {
       ) : (
         ''
       )}
-    </div>
+      <Modal
+        open={showModal}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <SignIn
+            setShowModal={(state) => {
+              setShowModal(state);
+            }}
+          />
+        </Box>
+      </Modal>
+    </Fragment>
   );
 };
 
